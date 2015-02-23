@@ -1,0 +1,7 @@
+char[c_] := Module[{strs},
+  strs = pad[TextString[BaseForm[#, 16]]] & /@ ToCharacterCode[c];
+  
+  strs = Map[StringJoin["\\u", #] &, strs];
+  If[Length[strs] == 1, strs[[1]], strs]
+  
+  ]
