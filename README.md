@@ -17,8 +17,11 @@ What FoxySheep doesn't do:
 
 But nothing is stopping *you* from using FoxySheep in your own project to do the above!
 
+#Project Status
+FoxySheep is probably not yet ready to be used in your project. It needs a lot of testing and lacks some language features (see "How complete is FoxySheep?"). It also lacks a FullForm emitter which is a planned major feature. It's a work in progress.
+
 #How complete is FoxySheep?
-FoxySheep is a work in progress. It has reasonable coverage of the most common language constructs. Some common and uncommon language constructs are still missing. Most typographic/display-related features are not implemented. Also, while it is a goal of the project, FoxySheep does not always have identical behavior to Mathematica for the language constructs that it implements. There are programs that Mathematica parses that FoxySheep doesn't and vice versa.
+FoxySheep is a work in progress. It has reasonable coverage of the most common language constructs. Some common and uncommon language constructs are still missing. Many typographic/display-related features are not implemented. Also, while it is a goal of the project, FoxySheep does not always have identical behavior to Mathematica for the language constructs that it implements. There are programs that Mathematica parses that FoxySheep doesn't and vice versa.
 
 #Contributing
 If you want to contribute to the project, read CONTRIBUTING.md.

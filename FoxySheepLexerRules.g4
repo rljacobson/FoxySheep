@@ -24,7 +24,7 @@ NumberLiteral
            |	(DIGITS DOT? DIGIT*  |  DIGIT* DOT? DIGITS)
         )
         (DOUBLEBACKQUOTE? (PLUS|MINUS)? (DIGIT+ DOT? DIGIT* | DIGIT* DOT? DIGIT+)|BACKQUOTE)? // Precision / Accuracy
-        (STARCARET (PLUS|MINUS)? DIGIT+)? // Exponent
+        (ASTERISKCARET (PLUS|MINUS)? DIGIT+)? // Exponent
 	;
 	
 DIGITS : DIGIT+;
@@ -57,13 +57,13 @@ StringCharacter
 // Escape Sequences for Character and String Literals
 fragment
 EscapeSequence
-    :   BACKSLASH [btnfr"'\\]
+    :   RAWBACKSLASH [btnfr"'\\]
     |   UnicodeEscape
     ;
 
 fragment
 UnicodeEscape
-    :   BACKSLASH COLON HexDigit HexDigit HexDigit HexDigit
+    :   RAWBACKSLASH RAWCOLON HexDigit HexDigit HexDigit HexDigit
     ;
     
 fragment
@@ -103,21 +103,10 @@ BACKQUOTE	: '`';
 SINGLEQUOTE	: '\'';
 QUOTE		: '"';
 
-//Division symbols
-DivisionSymbol
-	:	DIVIDE
-	|	SLASH
-	;
-SLASH	: '/';
-DIVIDE	: '\u00f7'; //Division symbol (obelus)
-
-//Multiplication symbols
-MultiplicationSymbol
-	:	STAR
-	|	TIMES
-	;
-STAR		: '*';
-TIMES	: '\u00d7';
+// File I/O operators.
+DOUBLELESS		: '<<';
+TRIPPLEGREATER	: '>>>';
+DOUBLEGREATER	: '>>';
 
 //Comparison symbols
 
@@ -155,10 +144,35 @@ LESS			: '<';
 LESSEQUALSYMBOL	: '\u2264';
 LESSSLANTEQUALSYMBOL	: '\u2a7d';
 
+VerticalBarSymbol
+	:	VERTICALBAR
+	|	NOTVERTICALBAR
+	|	DOUBLEVERTICALBAR
+	|	NOTDOUBLEVERTICALBAR
+	;
+VERTICALBAR	: '\uf3d0';
+NOTVERTICALBAR	: '\uf3d1';
+DOUBLEVERTICALBAR	: '\u2225';
+NOTDOUBLEVERTICALBAR	: '\u2226';
+
+//Symbols related to set theory
+SetContainmentSymbol
+	:	ELEMENT
+	|	NOTELEMENT
+	|	SUBSET
+	|	SUPERSET
+	;
+ELEMENT		: '\u2208'; // \in
+NOTELEMENT	: '\u2209'; // \not\in
+SUBSET		: '\u2282';
+SUPERSET		: '\u2283';
+
 //Symbols related to predicate calculus
+/* ForAll and friends require subscripts, i.e., are not text-based commands.
 FORALL		: '\u2200'; //Universal quantifier A
 EXISTS		: '\u2203'; //Existential quantifier E
 NOTEXISTS	: '\u2204'; //Existential quantifier with a slash
+*/
 NOT	: '\u00ac'; //Logical not, \neg
 
 LogicalAndSymbol
@@ -193,9 +207,33 @@ LogicalImpliesSymbol
 RDOUBLEARROW		: '\uf523';
 LCONTAINS		: '\u2970';
 
+RightTeeSymbol
+	:	RIGHTTEE
+	|	DOUBLERIGHTTEE
+	;
+RIGHTTEE			: '\u22a2';
+DOUBLERIGHTTEE	: '\u22a8';
+
+TeeSymbol
+	:	LEFTTEE
+	|	DOUBLELEFTTEE
+	|	UPTEE
+	|	DOWNTEE
+	;
+LEFTTEE	: '\u22a3';
+DOUBLELEFTTEE	: '\u2ae4';
+UPTEE	: '\u22a5';
+DOWNTEE	: '\u22a4';
+
+SUCHTHAT		: '\u220d';
+THEREFORE	: '\u2234';
+BECAUSE		: '\u2235';
+
 // Pattern related symbols
 TRIPPLEDOT	: '...';
 DOUBLEDOT	: '..';
+
+QUESTIONMARK	: '?';
 
 TRIPPLEBLANK	: '___';
 DOUBLEBLANK	: '__';
@@ -207,7 +245,8 @@ HASH : '#';
 
 PERCENT	: '%';
 
-COLON	: ':';
+DOUBLECOLON	: '::';
+RAWCOLON	: ':';
 DOUBLETILDE	: '~~';
 SLASHSEMI	: '/;';
 
@@ -222,7 +261,7 @@ DOUBLESLASHDOT	: '//.';
 // Symbols related to setting/assignment
 PLUSEQUAL	: '+=';
 MINUSEQUAL	: '-=';
-STAREQUAL	: '*=';
+ASTERISKEQUAL	: '*=';
 SLASHEQUAL	: '/=';
 
 AMP	: '&';
@@ -233,21 +272,21 @@ CARETCOLONEQUAL	: '^=';
 SLASHCOLON	: '^=';
 FUNCTIONARROW	: '\uf4a1';
 
-// TODO: Add file I/O operators.
-
 // Other Operators and Characters 
 DOT         : '.';
 DOUBLECARET	: '^^';
 CARET		: '^';
-STARCARET	: '*^';
+ASTERISKCARET	: '*^';
 DOUBLEPLUS	: '++';
 PLUS			: '+';
 DOUBLEMINUS	: '--';
 MINUS		: '-';
 TRIPPLEAT	: '@@@';
 DOUBLEAT		: '@@';
+ATASTERISK	: '@*';
 AT	: '@';
 MAP	: '/@';
+SLASHASTERISK	: '/*';
 MAPALL	: '//@';
 DOUBLEBANG	: '!!';
 BANG		: '!';
@@ -255,13 +294,67 @@ LESSGREATER	: '<>';
 INTEGRAL		: '\u222b';
 DIFFERENTIALD	: '\uf74C'; //Blackboard bold d
 CROSS	: '\uf4a0'; //Cross product x.
-BACKSLASH		: '\\';
-INTERSECTION		: '\u22c2'; //  \cup
-UNION			: '\u22c3'; //  \cap
+RAWBACKSLASH		: '\\';
+INTERSECTION		: '\u22c2'; //  $\cup$
+UNION			: '\u22c3'; //  $\cap$
 DOUBLESEMICOLON	: ';;';
 SEMICOLON        : ';';
-ELEMENT		: '\u2208'; // \in
-NOTELEMENT	: '\u2209'; // \not\in
+TRANSPOSE	: '\uf3c7'; //T
+CONJUGATETRANSPOSE	: '\uf3c9'; //cross
+HERMITIANCONJUGATE	: '\uf3ce'; //H
+CONJUGATE	: '\uf3c8'; //Star
+TILDE	: '~';
+DEL		: '\u2207'; //Nabla
+SQUARE	: '\uf520';
+SMALLCIRCLE	: '\u2218';
+CIRCLEDOT	: '\u2299';
+DOUBLEASTERISK	: '**';
+PLUSMINUS	: '\u00b1';
+MINUSPLUS	: '\u2213';
+BACKSLASH	: '\u2216'; //That's right: the name backslash does not refer to the ascii character.
+DIAMOND		: '\u22c4';
+WEDGE		: '\u22c0';
+VEE			: '\u22c1';
+CIRCLETIMES	: '\u2297';
+CENTERDOT	: '\u00b7';
+STAR		: '\u22c6'; //That's right: the name star does not refer to the identical glyph asterisk.
+VERTICALTILDE	: '\u2240';
+COPRODUCT	: '\u2210';
+CAP			: '\u2322';
+CUP			: '\u2323';
+CIRCLEPLUS	: '\u2295';
+CIRCLEMINUS	: '\u2296';
+COLON		: '\u2236'; //That's right: the name colon does not refer to the identical ascii character.
+DOUBLESLASH	: '//';
+VERTICALSEPARATOR	: '\uf432';
+
+//Box related tokens.
+//These are special because they can only occur in a box.
+FormBox	: '\\`';
+InterpretedBox	: '\\!';
+BoxFraction	: '\\/';
+BoxLeftBoxParenthesis	:	'\\(';
+BoxOtherscript	: '\\%';
+BoxOverscript	: '\\&';
+BoxRightBoxParenthesis	:  '\\)';
+BoxSqrt	: '\\@';
+BoxSubscript	: '\\_';
+BoxSuperscript	: '\\^';
+BoxUnderscript	: '\\+';
+BoxConstructor	: '\\*';
+
+//Division symbols
+SLASH	: '/';
+DIVIDE	: '\u00f7'; //Division symbol (obelus)
+
+//Multiplication symbols
+MultiplicationSymbol
+	:	ASTERISK
+	|	TIMES
+	;
+ASTERISK		: '*';
+TIMES	: '\u00d7';
+
 
 //Whitespace
 WHITESPACE  :   [ \t\r\n]+ -> skip ;
