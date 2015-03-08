@@ -2,7 +2,6 @@
 Here are some ideas:
 
 * Find an input for which FoxySheep and Mathematica give differing `FullForm`'s and document it in a new ticket.
-* Choose an unimplemented language feature and implement it. To find an unimplemented language feature, go through the alternatives in the `expr` definition and compare them to the [Operator Input Forms](http://reference.wolfram.com/language/tutorial/OperatorInputForms.html) documentation at Wolfram Research. Some purely typographical or display-related parts of the language are unimplemented, for example.
 * Align lexical names to Mathematica. 
 * Implement a FullFormEmitter in a new target language. ANTLR4 can currently target Java, C#, Python 2&3, and JavaScript.
 * Implement a translator to your favorite CAS's input language.
@@ -13,6 +12,10 @@ Here are some ideas:
 Or fix some current known bugs:
 
 * Fix the string literal parsing rules so they parse Wolfram Language string literals. (Currently string literals are implemented incorrectly with lexer rules.)
+* Implement flat operators so that "1+2+3" parses as Plus[1,2,3] instead of Plus[Plus[1,2],3].
+* Newlines are not treated the same way as they are in Mathematica.
+* There is a weird bug affecting parsing number literals that needs squashing. 
+* Implicit multiplication is fragile and occassionally breaks when changes are made to the grammar. Test implicit multiplication, and if it doesn't work correctly, fix it.
 
 # Finding your way through the source grammar
 The lexer rules are implemented in `FoxySheepLexerRules.g4`, while the parser rules are in `FoxySheep.g4`. Most of the action in the FoxySheep grammar happens in the `expr` production rule. For the most part the grammar relies on ANTLR to implement correct operator precedence according to the order of the alternatives.
