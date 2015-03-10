@@ -1,5 +1,89 @@
 lexer grammar FoxySheepLexerRules;
 
+tokens {BINARYPLUS, BINARYMINUS, BINARYMINUSPLUS, BINARYPLUSMINUS}
+
+@lexer::header{
+	import java.util.Arrays;
+	import java.util.List;
+}
+
+@lexer::members{
+	/*
+	 * TARGET LANGUAGE DEPENDENT CODE.
+	 */
+	 
+	/*
+	* Binary plus follows a complete expression. Complete
+	* expressions always end with one of the following
+	* tokens. On the other hand, unary plus never follows
+	* these tokens. Distinguishing unary plus from binary
+	* plus disambiguates the grammar and allows us to use
+	* implicit multiplication.  
+	*/
+	List<Integer> closeExprTokens = Arrays.asList(
+		FoxySheepParser.NumberLiteral,
+		FoxySheepParser.Name,
+		FoxySheepParser.StringLiteral,
+		FoxySheepParser.RPAREN,
+		FoxySheepParser.RBRACE,
+		FoxySheepParser.HASH,
+		FoxySheepParser.PERCENT,
+		FoxySheepParser.TRIPPLEBLANK,
+		FoxySheepParser.DOUBLEBLANK,
+		FoxySheepParser.BLANK,
+		FoxySheepParser.HASH,
+		FoxySheepParser.DOUBLEHASH,
+		FoxySheepParser.DIGITS,
+		FoxySheepParser.RBRACKET,
+		FoxySheepParser.RBARBRACKET,
+		FoxySheepParser.BoxRightBoxParenthesis,
+		FoxySheepParser.DOUBLEPLUS,
+		FoxySheepParser.DOUBLEMINUS,
+		FoxySheepParser.BANG,
+		FoxySheepParser.DOUBLEBANG,
+		FoxySheepParser.CONJUGATE,
+		FoxySheepParser.TRANSPOSE,
+		FoxySheepParser.CONJUGATETRANSPOSE,
+		FoxySheepParser.HERMITIANCONJUGATE,
+		FoxySheepParser.SINGLEQUOTE,
+		FoxySheepParser.DOUBLESEMICOLON,
+		FoxySheepParser.DOUBLEDOT,
+		FoxySheepParser.TRIPPLEDOT,
+		FoxySheepParser.AMP,
+		FoxySheepParser.DOT,
+		FoxySheepParser.SEMICOLON
+		);
+	 
+	/* 
+	 * Curiously, the lexer does not allow us to inspect previous
+	 * tokens. Thus we need to keep track of the previous token
+	 * so that we can use it to disambiguate unary/binary plus.
+	 * 
+	 */ 
+	Token lastToken = null;
+	public Token getToken(){
+		lastToken = super.getToken();
+		return lastToken;
+	}
+	public Token nextToken(){
+		lastToken = super.nextToken();
+		return lastToken;
+	}
+	
+	/*
+	 * The following checks to see if the previous token likely 
+	 * ended an expr. If so, it returns true. We use this method 
+	 * in an action on plus to disambiguate between unary plus
+	 * and binary plus.
+	 */
+	boolean precededByExpr(){
+		//Returns true if the previous token ended a complete expr.
+		if(lastToken == null) return false;
+		int tokenType = lastToken.getType();
+		return closeExprTokens.contains(tokenType); 
+	}
+}
+
 // LEXER RULES
 
 // Identifiers/Names
@@ -269,10 +353,10 @@ DOUBLESLASH	: '//';
 VERTICALSEPARATOR	: '\uf432';
 
 //Additive arithmetic
-PLUS			: '+';
-MINUS		: '-';
-PLUSMINUS	: '\u00b1';
-MINUSPLUS	: '\u2213';
+PLUS			: '+' { if(precededByExpr()) setType(FoxySheepParser.BINARYPLUS); } ;
+MINUS		: '-' { if(precededByExpr()) setType(FoxySheepParser.BINARYMINUS); } ;
+PLUSMINUS	: '\u00b1' { if(precededByExpr()) setType(FoxySheepParser.BINARYPLUSMINUS); } ;
+MINUSPLUS	: '\u2213' { if(precededByExpr()) setType(FoxySheepParser.BINARYMINUSPLUS); } ;
 
 //Box related tokens.
 //These are special because they can only occur in a box.

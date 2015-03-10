@@ -1,15 +1,6 @@
 grammar FoxySheep;
 import FoxySheepLexerRules;
 
-@parser::members{
-	/* TARGET LANGUAGE DEPENDENT CODE. */
-	private boolean precededByPlusMinus(){
-		int type = _input.LT(1).getType();
-		return type != PLUS && type != MINUS;
-	}
-}
-
-
 // PARSER RULES
 
 //expressions : expr ('\n' expr)*;
@@ -61,7 +52,10 @@ expr
 	|	expr VEE expr				#Vee
 	|	expr CIRCLETIMES expr		#CircleTimes
 	|	expr CENTERDOT expr			#CenterDot
-//	|	expr { precededByPlusMinus() }? expr	#MultiplyImplicit
+
+	//Implicit Multiplication	
+	|	expr expr	#MultiplyImplicit
+
 	|	expr MultiplicationSymbol expr	#Times
 	|	expr STAR expr			#Star
 	|	expr VERTICALTILDE expr 	#VerticalTilde
@@ -71,7 +65,7 @@ expr
 	|	expr CIRCLEPLUS expr		#CirclePlus
 	|	expr CIRCLEMINUS expr 	#CircleMinus
 	
-	|	expr (PLUS | MINUS | PLUSMINUS | MINUSPLUS) expr	#PlusOp
+	|	expr (BINARYPLUS | BINARYMINUS | BINARYPLUSMINUS | BINARYMINUSPLUS) expr	#PlusOp
 	
 	|	expr INTERSECTION expr		#Intersection
 	|	expr UNION expr				#Union

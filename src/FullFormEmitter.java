@@ -458,10 +458,10 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitPlusOp(FoxySheepParser.PlusOpContext ctx) {
-		if(ctx.PLUS() != null){
+		if(ctx.BINARYPLUS() != null){
 			return makeHead("Plus", ctx.expr(0), ctx.expr(1));
 		}
-		if(ctx.MINUS() != null){
+		if(ctx.BINARYMINUS() != null){
 			//Mathematica interprets x-y as Plus[x,Times[-1,y]].
 			StringBuilder val = new StringBuilder("Plus[");
 			val.append( getFullForm(ctx.expr(0)) );
@@ -470,10 +470,10 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 			val.append("]]");
 			return val.toString();
 		}
-		if(ctx.PLUSMINUS() != null){
+		if(ctx.BINARYPLUSMINUS() != null){
 			
 		}
-		if(ctx.MINUSPLUS() != null){
+		if(ctx.BINARYMINUSPLUS() != null){
 			
 		}
 		return ctx.getText();
@@ -1064,6 +1064,16 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 		//Two string literals.
 		return makeHead("MessageName", ctx.expr(), ctx.StringLiteral(0), ctx.StringLiteral(1));
 	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public String visitMultiplyImplicit(FoxySheepParser.MultiplyImplicitContext ctx) {
+		return makeHead("Times", ctx.expr(0), ctx.expr(1));
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 *
