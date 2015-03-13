@@ -21,7 +21,7 @@ But nothing is stopping *you* from using FoxySheep in your own project to do the
 FoxySheep is probably not yet ready to be used in your project. It needs a lot of testing and lacks some language features (see "How complete is FoxySheep?").
 
 #How complete is FoxySheep?
-FoxySheep has complete coverage of non-box-related language features, and sketchy untested coverage of box-related features. However, FoxySheep currently doesn't handle flat operators yet. (They are treated as left associative.) Also, while it is a goal of the project, FoxySheep does not always have identical behavior to Mathematica for the language constructs that it implements. There are programs that Mathematica parses that FoxySheep doesn't and vice versa.
+FoxySheep has complete coverage of non-box-related language features, and sketchy untested coverage of box-related features. While it is a goal of the project, FoxySheep does not always have identical behavior to Mathematica for the language constructs that it implements.
 
 #Contributing
 If you want to contribute to the project, read CONTRIBUTING.md.

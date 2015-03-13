@@ -12,7 +12,6 @@ Here are some ideas:
 Or fix some current known bugs:
 
 * Fix the string literal parsing rules so they parse Wolfram Language string literals. (Currently string literals are implemented incorrectly with lexer rules.)
-* Implement flat operators so that "1+2+3" parses as Plus[1,2,3] instead of Plus[Plus[1,2],3].
 * Newlines are not treated the same way as they are in Mathematica.
 * There is a weird bug affecting parsing number literals that needs squashing. 
 * Implicit multiplication is fragile and occassionally breaks when changes are made to the grammar. Test implicit multiplication, and if it doesn't work correctly, fix it.
@@ -20,10 +19,14 @@ Or fix some current known bugs:
 # Finding your way through the source grammar
 The lexer rules are implemented in `FoxySheepLexerRules.g4`, while the parser rules are in `FoxySheep.g4`. Most of the action in the FoxySheep grammar happens in the `expr` production rule. The grammar relies on ANTLR to implement correct operator precedence according to the order of the alternatives.
 
+ANTLR generates a parse tree, but the tree needs to be walked using the PostParser listener (implemented in `src/PostParser.java`) which restructures the parse tree to flatten some of the operators.
+
+The FullForm emitter is a visitor class. It is implemented in `src/PostParser.java`.
+
 #Target language dependent code
 The project attempts to keep target language dependent code to a minimum. However, there is minimal target language dependent code embedded in `FoxySheepLexerRules.g4` to disambiguate unary plus/minus from binary plus/minus which in turn makes implicit multiplication possible. This code is written in Java, but it should be trivial to port it to another target language.
 
-The FullForm emitter is written in Java. FullForm emitters for other target languages are planned—in fact, that would be a great way for you to contribute! 
+The FullForm emitter and PostParser are written in Java. FullForm emitters for other target languages are planned—in fact, that would be a great way for you to contribute! 
 
 #Where is Wolfram Language documented?
 There is no official grammar available. However, the language is described in detail in a few documents published on Wolfram Research's website.
@@ -88,3 +91,5 @@ Tokens that are string literals or character classes are in all caps. Tokens tha
 
 #Mathematica oddities
 Command line Mathematica and Notebook Mathematica produce different output for `FullForm[Hold[3x^2-+2x + - -1]]`. Looks like the notebook doesn't properly flatten `Times[]`. Why the notebook has a different parser than the command line is a mystery.
+
+The Mathematica parser does not correctly hold the multiplication by -1 with number literals: `FullForm[Hold[1-2]]` gives `Plus[1, -2]`, whereas `FullForm[Hold[a-b]]` gives `Plus[a, Times[-1,b]]`.
