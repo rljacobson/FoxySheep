@@ -98,6 +98,37 @@ public class PostParser extends FoxySheepBaseListener {
 		ctx.children.add(rhs);
 	}
 
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>Composition[expr1,expr2]	e@*e@*e.</p>
+	 */
+	@Override public void exitComparison(FoxySheepParser.ComparisonContext ctx) {
+		/* This function flattens keeps the operators intact. It differs from 
+		 * flatten() in that we flatten if the class is the same but don't check
+		 * if the operator is the same. 
+		 */
+		
+		//If the child isn't the same construct, nothing to do.
+		if(!(ctx.getChild(0).getClass() == ctx.getClass())) return;
+		
+		ParserRuleContext lhs = (ParserRuleContext)ctx.getChild(0);
+		ParseTree rhs = ctx.getChild(2);
+		TerminalNode op = (TerminalNode)ctx.getChild(1);
+		
+		/*
+		 * This is where we differ from flatten(). We don't do the following
+		 * check.
+		*/
+		//if(  !op.getText().equals(lhs.getChild(1).getText()) ) return;
+		
+		ctx.children.clear();
+		ctx.children.addAll(  lhs.children  );
+		ctx.children.add(op); //We keep all operators intact.
+		ctx.children.add(rhs);
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 *

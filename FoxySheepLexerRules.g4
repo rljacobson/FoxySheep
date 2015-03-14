@@ -197,18 +197,29 @@ DOUBLEGREATER	: '>>';
 TRIPPLEEQUAL		: '===';
 EQUALBANGEQUAL	: '=!=';
 
-LONGEQUAL	: '\uf7d9';
-DOUBLEEQUAL	: '==';
+EqualSymbol : LONGEQUAL | DOUBLEEQUAL;
+fragment LONGEQUAL	: '\uf7d9';
+fragment DOUBLEEQUAL	: '==';
+
 EQUAL		: '=';
-BANGEQUAL	: '!=';
-GREATEREQUAL	: '>=';
-GREATER		: '>';
-GREATEREQUALSYMBOL	: '\u2265';
-GREATERSLANTEQUALSYMBOL	: '\u2a7e';
-LESSEQUAL	: '<=';
+
+NotEqualSymbol : BANGEQUAL | NOTEQUAL;
+fragment BANGEQUAL	: '!=';
+fragment NOTEQUAL		: '\u2260';
+
+
+GreaterEqualSymbol : RAWGREATEREQUAL | GREATEREQUAL | GREATERSLANTEQUAL;
+fragment RAWGREATEREQUAL	: '>=';
+fragment GREATEREQUAL : '\u2265';
+fragment GREATERSLANTEQUAL : '\u2a7e';
+
+LessEqualSymbol : RAWLESSEQUAL | LESSEQUAL | LESSSLANTEQUAL;
+fragment RAWLESSEQUAL : '<=';
+fragment LESSEQUAL : '\u2264';
+fragment LESSSLANTEQUAL : '\u2a7d';
+
 LESS			: '<';
-LESSEQUALSYMBOL	: '\u2264';
-LESSSLANTEQUALSYMBOL	: '\u2a7d';
+GREATER		: '>';
 
 VERTICALBAR	: '\uf3d0';
 NOTVERTICALBAR	: '\uf3d1';

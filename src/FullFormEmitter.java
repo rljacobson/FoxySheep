@@ -16,6 +16,9 @@ import org.antlr.v4.runtime.tree.*;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 
@@ -205,29 +208,40 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 		 * We solve this problem by postprocessing the syntax tree
 		 * to flatten the tree where appropriate.  
 		 */
-		if(ctx.DOUBLEEQUAL() != null || ctx.LONGEQUAL() != null){
-			return makeHead("Equal", ctx.expr(0), ctx.expr(1));
-		}
-		if(ctx.BANGEQUAL() != null){
-			return makeHead("Unequal", ctx.expr(0), ctx.expr(1));
-		}
-		if(ctx.GREATER() != null){
-			return makeHead("Greater", ctx.expr(0), ctx.expr(1));
-		}
-		if(ctx.GREATEREQUAL() != null 
-				|| ctx.GREATEREQUALSYMBOL() != null
-				|| ctx.GREATERSLANTEQUALSYMBOL() != null){
-			return makeHead("GreaterEqual", ctx.expr(0), ctx.expr(1));
-		}
-		if(ctx.LESS() != null){
-			return makeHead("Less", ctx.expr(0), ctx.expr(1));
-		}
-		//Must be lessequal.
-		//if(ctx.LESSEQUAL() != null 
-		//		|| ctx.LESSEQUALSYMBOL() != null
-		//		|| ctx.LESSSLANTEQUALSYMBOL() != null){
 		
-		return makeHead("LessEqual", ctx.expr(0), ctx.expr(1));
+		HashMap<Integer, String> opText = new HashMap<Integer, String>(6);
+		opText.put(FoxySheepParser.EqualSymbol, "Equal");
+		opText.put(FoxySheepParser.NotEqualSymbol, "Unequal");
+		opText.put(FoxySheepParser.GREATER, "Greater");
+		opText.put(FoxySheepParser.GreaterEqualSymbol, "GreaterEqual");
+		opText.put(FoxySheepParser.LESS, "Less");
+		opText.put(FoxySheepParser.LessEqualSymbol, "LessEqual");
+		
+		
+		boolean allSame = true;
+		int opType = ((TerminalNode)ctx.getChild(1)).getSymbol().getType();
+		for(int i = 3; i < ctx.getChildCount(); i+=2){
+			allSame = allSame && (opType == ((TerminalNode)ctx.getChild(i)).getSymbol().getType());
+		}
+		
+		//If all operators are the same, make a "head" with that operator. 
+		if(allSame){
+			return makeHeadList((String)opText.get(opType), ctx.expr());
+		}
+		
+		//All operators are not the same. We need to create an Inequality[].
+		TerminalNode op;
+		StringBuilder val = new StringBuilder("Inequality[");
+		val.append( getFullForm(ctx.expr(0)) );
+		for(int i = 1; i < ctx.getChildCount(); i+=2){
+			val.append(",");
+			op = (TerminalNode)ctx.getChild(i);
+			val.append( (String)opText.get( op.getSymbol().getType() ) );
+			val.append(",");
+			val.append( getFullForm(ctx.getChild(i+1)) );
+		}
+		val.append("]");
+		return val.toString();
 	}
 	/**
 	 * {@inheritDoc}

@@ -80,18 +80,9 @@ expr
 	|	DOUBLESEMICOLON expr		#SpanG
 	|	DOUBLESEMICOLON			#SpanH
 
-	|	expr (LONGEQUAL
-				|	DOUBLEEQUAL
-				|	EQUAL
-				|	BANGEQUAL
-				|	GREATEREQUAL
-				|	GREATER
-				|	GREATEREQUALSYMBOL
-				|	GREATERSLANTEQUALSYMBOL
-				|	LESSEQUAL
-				|	LESS
-				|	LESSEQUALSYMBOL
-				|	LESSSLANTEQUALSYMBOL) expr	#Comparison
+	//Comparison
+	|	expr (EqualSymbol | NotEqualSymbol | GreaterEqualSymbol | LessEqualSymbol | GREATER | LESS) expr	#Comparison
+
 	|	expr (VERTICALBAR | NOTVERTICALBAR | DOUBLEVERTICALBAR | NOTDOUBLEVERTICALBAR) expr		#VerticalBar
 	|	expr (TRIPPLEEQUAL | EQUALBANGEQUAL) expr	#Same //SameQ, UnsameQ
 	|	expr (ELEMENT | NOTELEMENT | SUBSET | SUPERSET) expr 	#SetContainment //Set membership and containment
