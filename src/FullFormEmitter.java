@@ -126,13 +126,22 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitCompoundExpression(FoxySheepParser.CompoundExpressionContext ctx) {
-		if(ctx.expr().size() == 1){
-			StringBuilder val = new StringBuilder("CompoundExpression[");
-			val.append( getFullForm(ctx.expr(0)));
-			val.append( ",Null]" );
-			return val.toString();
+		/* Since we need to check for ending in "Null" anyway, we might as
+		 * well not bother with makeHeadList(). 
+		 */
+		StringBuilder val = new StringBuilder("CompoundExpression[");
+		val.append( getFullForm(ctx.getChild(0) ));
+		for(int i = 2; i<ctx.getChildCount(); i +=2){
+			val.append(",");
+			val.append( getFullForm(ctx.getChild(i) ));
 		}
-		return makeHead("CompoundExpression", ctx.expr(0), ctx.expr(1));
+		if(ctx.getChildCount() % 2 == 0){
+			//An even number of children means we ended in a semicolon.
+			val.append( ",Null]" );
+		}else{
+			val.append( "]" );
+		}
+		return val.toString();
 	}
 	/**
 	 * {@inheritDoc}

@@ -102,7 +102,7 @@ public class PostParser extends FoxySheepBaseListener {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * <p>Composition[expr1,expr2]	e@*e@*e.</p>
+	 * <p>Inequality[]</p>
 	 */
 	@Override public void exitComparison(FoxySheepParser.ComparisonContext ctx) {
 		/* This function flattens keeps the operators intact. It differs from 
@@ -128,7 +128,29 @@ public class PostParser extends FoxySheepBaseListener {
 		ctx.children.add(op); //We keep all operators intact.
 		ctx.children.add(rhs);
 	}
-	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>Composition[expr1,expr2]	e@*e@*e.</p>
+	 */
+	@Override public void exitCompoundExpression(FoxySheepParser.CompoundExpressionContext ctx) {
+		/* ANTLR4 parses this rule as right associative for some reason, so
+		 * we cannot use flatten(). The code is actually much simpler than
+		 * flatten because of the right associativity. 
+		 */
+		int childCount = ctx.getChildCount();
+		
+		//If there is no RHS, nothing to do.
+		if(childCount < 3) return;
+		//If the RHS child isn't the same construct, nothing to do.
+		if( !(ctx.getChild(childCount-1).getClass() == ctx.getClass()) ) return;
+		
+		ParserRuleContext rhs = (ParserRuleContext)ctx.getChild(childCount-1);
+		//Remove RHS child.
+		ctx.removeLastChild();
+		//Add all children of rhs. (Also adds the operator of the rhs.)
+		ctx.children.addAll(  rhs.children  );
+	}
 	/**
 	 * {@inheritDoc}
 	 *
