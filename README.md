@@ -22,6 +22,68 @@ FoxySheep is in heavy development. It is probably not yet ready to be used in yo
 
 FoxySheep has complete coverage of non-box-related language features, and sketchy untested coverage of box-related features. While it is a goal of the project, FoxySheep does not always have identical behavior to Mathematica for the language constructs that it implements.
 
+The table below summarizes the status of planned features.
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;margin:0px auto;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg .tg-7a16{background-color:#fffc9e;text-align:center}
+.tg .tg-xds3{background-color:#34ff34;text-align:center}
+.tg .tg-8o5d{background-color:#34ff34}
+.tg .tg-ipa1{font-weight:bold;background-color:#c0c0c0;text-align:center}
+.tg .tg-8xqh{font-weight:bold;background-color:#c0c0c0}
+.tg .tg-rpj7{background-color:#fd6864}
+.tg .tg-ti69{background-color:#fd6864;text-align:center}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-8xqh">Feature</th>
+    <th class="tg-ipa1">Status</th>
+    <th class="tg-8xqh">Comments</th>
+  </tr>
+  <tr>
+    <td class="tg-031e">Parses major language constructs.</td>
+    <td class="tg-xds3">complete</td>
+    <td class="tg-031e"></td>
+  </tr>
+  <tr>
+    <td class="tg-031e">Parses box-related constructs.</td>
+    <td class="tg-7a16">partial</td>
+    <td class="tg-031e">Low priority.</td>
+  </tr>
+  <tr>
+    <td class="tg-031e">Java target.</td>
+    <td class="tg-8o5d">complete</td>
+    <td class="tg-031e">Target language dependent components of the parser written in java.</td>
+  </tr>
+  <tr>
+    <td class="tg-031e">Python target.</td>
+    <td class="tg-rpj7">not started</td>
+    <td class="tg-031e">Target language dependent components of the parser written in python.</td>
+  </tr>
+  <tr>
+    <td class="tg-031e">FullForm emitter (java).</td>
+    <td class="tg-xds3">complete</td>
+    <td class="tg-031e"></td>
+  </tr>
+  <tr>
+    <td class="tg-031e">FullForm emitter (python).</td>
+    <td class="tg-ti69">not started</td>
+    <td class="tg-031e"></td>
+  </tr>
+  <tr>
+    <td class="tg-031e">Develop test suite.</td>
+    <td class="tg-ti69">not started</td>
+    <td class="tg-031e"></td>
+  </tr>
+  <tr>
+    <td class="tg-031e">Translator to another HIL.</td>
+    <td class="tg-rpj7">not started</td>
+    <td class="tg-031e">Nontrivial impedance mismatch.</td>
+  </tr>
+</table>
+
 #Newlines
 FoxySheep does not treat newlines the same way Mathematica does. FoxySheep assumes that the input is one single expression. On the other hand, Wolfram Language "treats the input that you give on successive lines as belonging to the same expression whenever no complete expression would be formed without doing this."
 
