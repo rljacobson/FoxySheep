@@ -24,66 +24,56 @@ FoxySheep has complete coverage of non-box-related language features, and sketch
 
 The table below summarizes the status of planned features.
 
-<style type="text/css">
-.tg  {border-collapse:collapse;border-spacing:0;margin:0px auto;}
-.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
-.tg .tg-7a16{background-color:#fffc9e;text-align:center}
-.tg .tg-xds3{background-color:#34ff34;text-align:center}
-.tg .tg-ipa1{font-weight:bold;background-color:#c0c0c0;text-align:center}
-.tg .tg-8xqh{font-weight:bold;background-color:#c0c0c0}
-.tg .tg-ti69{background-color:#fd6864;text-align:center}
-</style>
-<table class="tg" style="undefined;table-layout: fixed; width: 777px">
+<table style="undefined;table-layout: fixed; width: 777px">
 <colgroup>
 <col style="width: 227px">
 <col style="width: 96px">
 <col style="width: 454px">
 </colgroup>
   <tr>
-    <th class="tg-8xqh">Feature</th>
-    <th class="tg-ipa1">Status</th>
-    <th class="tg-8xqh">Comments</th>
+    <th>Feature</th>
+    <th>Status</th>
+    <th>Comments</th>
   </tr>
   <tr>
-    <td class="tg-031e">Parses major language constructs.</td>
-    <td class="tg-xds3">complete</td>
-    <td class="tg-031e"></td>
+    <td>Parses major language constructs.</td>
+    <td>complete</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-031e">Parses box-related constructs.</td>
-    <td class="tg-7a16">partial</td>
-    <td class="tg-031e">Low priority.</td>
+    <td>Parses box-related constructs.</td>
+    <td>partial</td>
+    <td>Low priority.</td>
   </tr>
   <tr>
-    <td class="tg-031e">Java target.</td>
-    <td class="tg-xds3">complete</td>
-    <td class="tg-031e">Target language dependent components of the parser written in java.</td>
+    <td>Java target.</td>
+    <td>complete</td>
+    <td>Target language dependent components of the parser written in java.</td>
   </tr>
   <tr>
-    <td class="tg-031e">Python target.</td>
-    <td class="tg-ti69">not started</td>
-    <td class="tg-031e">Target language dependent components of the parser written in python.</td>
+    <td>Python target.</td>
+    <td>not started</td>
+    <td>Target language dependent components of the parser written in python.</td>
   </tr>
   <tr>
-    <td class="tg-031e">FullForm emitter (java).</td>
-    <td class="tg-xds3">complete</td>
-    <td class="tg-031e"></td>
+    <td>FullForm emitter (java).</td>
+    <td>complete</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-031e">FullForm emitter (python).</td>
-    <td class="tg-ti69">not started</td>
-    <td class="tg-031e"></td>
+    <td>FullForm emitter (python).</td>
+    <td>not started</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-031e">Develop test suite.</td>
-    <td class="tg-ti69">not started</td>
-    <td class="tg-031e"></td>
+    <td>Develop test suite.</td>
+    <td>not started</td>
+    <td></td>
   </tr>
   <tr>
-    <td class="tg-031e">Translator to another HIL.</td>
-    <td class="tg-ti69">not started</td>
-    <td class="tg-031e">Nontrivial impedance mismatch.</td>
+    <td>Translator to another HIL.</td>
+    <td>not started</td>
+    <td>Nontrivial impedance mismatch.</td>
   </tr>
 </table>
 
