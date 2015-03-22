@@ -1042,25 +1042,7 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 		//Two string literals.
 		return makeHead("MessageName", ctx.expr(), ctx.StringLiteral(0), ctx.StringLiteral(1));
 	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public String visitMultiplyImplicit(FoxySheepParser.MultiplyImplicitContext ctx) {
-		return makeHead("Times", ctx.expr(0), ctx.expr(1));
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-//	@Override public String visitMultiplyImplicit(FoxySheepParser.MultiplyImplicitContext ctx) {
-//		return makeHead("Times", ctx.expr(0), ctx.expr(1));
-//	}
+
 	/**
 	 * {@inheritDoc}
 	 *

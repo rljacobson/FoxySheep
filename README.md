@@ -18,10 +18,12 @@ What FoxySheep doesn't do:
 But nothing is stopping *you* from using FoxySheep in your own project to do the above!
 
 #Project Status
-FoxySheep is probably not yet ready to be used in your project. It needs a lot of testing and lacks some language features (see "How complete is FoxySheep?").
+FoxySheep is in heavy development. It is probably not yet ready to be used in your project. It needs a lot of testing and lacks some language features.
 
-#How complete is FoxySheep?
 FoxySheep has complete coverage of non-box-related language features, and sketchy untested coverage of box-related features. While it is a goal of the project, FoxySheep does not always have identical behavior to Mathematica for the language constructs that it implements.
+
+#Newlines
+FoxySheep does not treat newlines the same way Mathematica does. FoxySheep assumes that the input is one single expression. On the other hand, Wolfram Language "treats the input that you give on successive lines as belonging to the same expression whenever no complete expression would be formed without doing this."
 
 #Contributing
 If you want to contribute to the project, read CONTRIBUTING.md.

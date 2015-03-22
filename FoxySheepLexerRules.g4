@@ -193,6 +193,8 @@ TRIPPLEGREATER	: '>>>';
 DOUBLEGREATER	: '>>';
 
 //Comparison symbols
+//Changing some comparison symbols requires changing visitComparison() in
+//FullFormEmitter.java.
 
 TRIPPLEEQUAL		: '===';
 EQUALBANGEQUAL	: '=!=';
@@ -398,4 +400,22 @@ TIMES	: '\u00d7';
 
 
 //Whitespace
-WHITESPACE  :   [ \t\r\n]+ -> skip ;
+/*
+ * Note that FoxySheep does not treat newlines the same way Mathematica does. 
+ * FoxySheep assumes that the input is one single expression. On the other
+ * hand, Wolfram Language "treats the input that you give on successive 
+ * lines as belonging to the same expression whenever no complete expression 
+ * would be formed without doing this."
+ */
+CONTINUATION	:	'\uf3b1' -> skip ;
+WHITESPACE  :   ([\t\r\n] | SpaceCharacter)+ -> skip ;
+fragment SpaceCharacter
+	:	' '
+	|	'\u2009' //ThinSpace
+	|	'\u200a' //VeryThinSpace
+	|	'\u205f' //MediumSpace
+	|	'\u2005' //ThickSpace
+	|	'\uf380' //NegativeVeryThinSpace
+	|	[\uf382-\uf384] //NegativeThinSpace, NegativeMediumSpace, NegativeThickSpace
+	|	'\u2423' //SpaceIndicator
+	;

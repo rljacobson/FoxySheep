@@ -3,8 +3,6 @@ import FoxySheepLexerRules;
 
 // PARSER RULES
 
-//expressions : expr ('\n' expr)*;
-
 expr
     :	NumberLiteral	#NumberLiteral
     |	symbol			#SymbolLiteral
@@ -54,9 +52,9 @@ expr
 	|	expr CENTERDOT expr			#CenterDot
 
 	//Implicit Multiplication	
-	|	expr expr	#MultiplyImplicit
+//	|	expr expr	#MultiplyImplicit
 
-	|	expr MultiplicationSymbol expr	#Times
+	|	expr MultiplicationSymbol? expr	#Times
 	|	expr STAR expr			#Star
 	|	expr VERTICALTILDE expr 	#VerticalTilde
 	|	expr COPRODUCT expr		#Coproduct

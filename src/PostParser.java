@@ -55,8 +55,7 @@ public class PostParser extends FoxySheepBaseListener {
 		
 		//Emit FullForm again.
 		System.out.println( emitter.visit(tree));
-		
-//		System.out.println( "Done." );
+
 
 	}
 	
@@ -262,9 +261,26 @@ public class PostParser extends FoxySheepBaseListener {
 	 * <p>Times[expr1,expr2]</p>
 	 */
 	@Override public void exitTimes(FoxySheepParser.TimesContext ctx) {
-		flatten(ctx);
-	}
+		//We need to flatten over both Times and implicit Times. So
+		//flatten() isn't going to cut it because sometimes there is 
+		//no operator.
+		
+		//If the child isn't the same construct, nothing to do.
+		if(	!(ctx.getChild(0) instanceof FoxySheepParser.TimesContext) )	return;
+		
+		ParserRuleContext lhs = (ParserRuleContext)ctx.expr(0);
+		ParseTree rhs = ctx.expr(1);
+		
+		//Clear all children.
+		ctx.children.clear();
 
+		//Add all children of lhs. (Also adds the operator of the lhs.)
+		ctx.children.addAll(  lhs.children  );
+
+		//Finally, add the rhs back in.
+		ctx.children.add(rhs);
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 *
