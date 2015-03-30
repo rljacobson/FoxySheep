@@ -59,11 +59,11 @@ Special symbols are just unicode characters. No non-ascii characters should appe
 
 ```
 In[1]:=  FullForm[Hold[Plus@Integrate[#, x] & /@ {x^2, x - 1/x}]]
-Out[1]= FullForm[Hold[Map[Function[Plus[Integrate[Slot[1], x]]], {Power[x, \
-2], Plus[x, Times[-1, Times[1, Power[x, -1]]]]}]]]
+Out[1]= Hold[Map[Function[Plus[Integrate[Slot[1],x]]],
+List[Power[x,2],Plus[x,Times[-1,Times[1,Power[x,-1]]]]]]]
 ```
 
-You will notice, however, that `FullForm` retains the list syntax `{...}`. The `Hold` is necessary. It's helpful to pass the output of `FullForm` to `TextString` so that you can copy+paste the output: `TextString[FullForm[Hold[ expression ]]]`.
+The `Hold` is necessary. It's helpful to pass the output of `FullForm` to `TextString` so that you can copy+paste the output: `TextString[FullForm[Hold[ expression ]]]`.
 
 #Code conventions
 
