@@ -12,16 +12,13 @@
  * 
  */
 
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.antlr.v4.runtime.ANTLRInputStream;
-import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.tree.ErrorNode;
+//import org.antlr.v4.runtime.misc.NotNull;
+//import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
@@ -32,31 +29,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 public class PostParser extends FoxySheepBaseListener {
 	
 	public static void main(String[] args) throws Exception{
-		String inputFile = "/Users/rljacobson/Google Drive/Development/FoxySheep/Expression.txt";
-		InputStream istream = new FileInputStream(inputFile);
-		
-		ANTLRInputStream input = new ANTLRInputStream(istream);
-		FoxySheepLexer lexer = new FoxySheepLexer(input);
-		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		FoxySheepParser parser = new FoxySheepParser(tokens);
-		
-		//Parse the input.
-		ParseTree tree = parser.expr();
-		
-		//Emit FullForm.
-		FullFormEmitter emitter = new FullFormEmitter();
-		System.out.println( emitter.visit(tree));
-				
-		
-		//Post process the parse tree (flatten flat operators).
-		ParseTreeWalker walker = new ParseTreeWalker();
-		PostParser postParser = new PostParser();
-		walker.walk(postParser, tree);
-		
-		//Emit FullForm again.
-		System.out.println( emitter.visit(tree));
-
-
+		FoxySheep.main(args);
 	}
 	
 	/**
@@ -180,7 +153,153 @@ public class PostParser extends FoxySheepBaseListener {
 	 * <p>SmallCircle[expr1,expr2]	eoeoe</p>
 	 */
 	@Override public void exitSmallCircle(FoxySheepParser.SmallCircleContext ctx) {
+		
 		flatten(ctx);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>Parsing Span nodes is a complete mess. This method essentially reparses
+	 * node sequences of the form expr? (;; expr?)+.</p>
+	 */
+	public void rewriteSpan(ParserRuleContext ctx){
+		ArrayList<Integer> opIndex = new ArrayList<Integer>();
+		ArrayList<Integer> spanExpressions = new ArrayList<Integer>();
+		
+		FoxySheepParser.SpanAContext span;
+		
+		int i, j, nextOp;
+		
+		//Identify locations of ";;".
+		for(i = 0; i < ctx.children.size(); i++){
+			if(ctx.children.get(i).getText().equals(";;")){
+				opIndex.add(i);
+			}
+		}
+		
+		
+		for(i = 0, nextOp = 0; i < ctx.children.size() && nextOp < opIndex.size(); i++, nextOp++){
+			//The index i always points to the first child in a Span expression,
+			//and index j always points to the current child of the current span
+			//expression.
+			j=i; //We are at the beginning of a span expression.
+			//We move j to the end of this span expression by looking for a second ";;".
+			
+			if( nextOp + 1 < opIndex.size() //There is a next ";;"
+					&& opIndex.get(nextOp+1) + 1 < ctx.children.size() //There is a node after the next ";;"
+					&& ctx.children.get(opIndex.get(nextOp+1) + 1) instanceof FoxySheepParser.ExprContext ) {
+				//There is a second ";;" followed by an expr. 
+				i = opIndex.get(nextOp+1) + 1;
+				spanExpressions.add(i);
+				nextOp++; //We want nextOp to end at the last ";;" of the current expression.
+			} else{
+				//There is no second ";;" belonging to this expression.
+				if( opIndex.get(nextOp) + 1 < ctx.children.size() //There is a node after ";;"
+						&& ctx.children.get(opIndex.get(nextOp) + 1) instanceof FoxySheepParser.ExprContext ) {
+					//This span expression ends in an expr.
+					i = opIndex.get(nextOp) + 1;
+					spanExpressions.add(i);
+				} else{
+					//This span expression ends in the current ";;".
+					i = opIndex.get(nextOp);
+					spanExpressions.add(i);
+				}
+			}
+		}//end for
+		
+		//At this point spanExpressions holds the index of the last child of each span expression. It might be
+		//that after all of this there is nothing to do.
+		if(spanExpressions.size() == 1) return;
+		//Otherwise there is more than one span expression, and we need to rewrite the tree replacing the 
+		//Span?Context this method was invoked on with a TimesContext.
+		FoxySheepParser.TimesContext timesctx = new FoxySheepParser.TimesContext((FoxySheepParser.ExprContext)ctx);
+		//How much of the following is necessary?
+		timesctx.children = new ArrayList<ParseTree>();
+		timesctx.parent = ctx.parent;
+		
+		//Add each span expression as a child to timesctx.
+		for(i = 0, j = 0; i < spanExpressions.size(); i++ ){
+			//i is the index of the current span expression in spanExpressions, 
+			//and j is the index to the beginning of the new span expressions children in ctx.children.
+			//We make new SpanAContext objects for each span expression.
+			span = new FoxySheepParser.SpanAContext((FoxySheepParser.ExprContext)ctx);
+			//How much of this is necessary?
+			span.children = new ArrayList<ParseTree>();
+			span.parent = timesctx;
+			for(int n = j; n<=spanExpressions.get(i); n++){
+				span.children.add(ctx.children.get(n));
+			}
+			timesctx.children.add(span);
+			//update j to be the beginning of the next expression.
+			j = spanExpressions.get(i) + 1;
+		}
+		
+		//Finally, detach the span this method was invoked on from its parent and replace with the TimesContext.
+		if(ctx.getParent() != null){
+			List<ParseTree> parentsChildren = ctx.getParent().children; 
+			parentsChildren.add( parentsChildren.indexOf(ctx) , timesctx);
+			parentsChildren.remove(ctx);
+		}
+		ctx.parent = timesctx;
+		//...I think that's it.
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>Parsing Span nodes is a complete mess.</p>
+	 * <p>Span[expr1,expr2,expr3] e;;e;;e</p>
+	 */
+	@Override public void exitSpanA(FoxySheepParser.SpanAContext ctx) {
+		//Flatten
+		//If there is no RHS expr, nothing to do.
+		if(ctx.expr().size()==1) return;
+		//Get the RHS expr.
+		ParseTree rhs = ctx.expr(1);
+				
+		//If the RHS child isn't a SpanA, nothing to do.
+		if(!(rhs instanceof FoxySheepParser.SpanAContext)) return;
+
+		//Remove the last expr.
+		ctx.removeLastChild();
+		//Replace it with its children.
+		ctx.children.addAll(  ((ParserRuleContext)rhs).children  );
+		
+		//If this is the topmost Span context, rewrite the tree.
+		if(! (ctx.parent instanceof FoxySheepParser.SpanAContext 
+				|| ctx.parent instanceof FoxySheepParser.SpanBContext) )
+		{
+			rewriteSpan(ctx);
+		}
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>Parsing Span nodes is a complete mess.</p>
+	 * <p>Span[expr1,expr2,expr3] e;;e;;e</p>
+	 */
+	@Override public void exitSpanB(FoxySheepParser.SpanBContext ctx) {
+		//Flatten
+		//If there is no RHS expr, nothing to do.
+		if(ctx.expr().size()==0) return;
+		//Get the RHS expr.
+		ParseTree rhs = ctx.expr(0);
+				
+		//If the RHS child isn't a SpanA, nothing to do.
+		if(!(rhs instanceof FoxySheepParser.SpanAContext)) return;
+
+		//Remove the last expr.
+		ctx.removeLastChild();
+		//Replace it with its children.
+		ctx.children.addAll(  ((ParserRuleContext)rhs).children  );
+		
+		//If this is the topmost Span context, rewrite the tree.
+		if(! (ctx.parent instanceof FoxySheepParser.SpanAContext 
+				|| ctx.parent instanceof FoxySheepParser.SpanBContext) )
+		{
+			rewriteSpan(ctx);
+		}
 	}
 	/**
 	 * {@inheritDoc}

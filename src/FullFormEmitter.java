@@ -13,11 +13,9 @@
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.List;
 import java.util.HashMap;
-import java.util.Map;
+//import java.util.Map;
 
 
 public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
@@ -78,18 +76,7 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	}
 	
 	public static void main(String[] args) throws Exception{
-		String inputFile = "/Users/rljacobson/Google Drive/Development/FoxySheep/Expression.txt";
-		InputStream istream = new FileInputStream(inputFile);
-		
-		ANTLRInputStream input = new ANTLRInputStream(istream);
-		FoxySheepLexer lexer = new FoxySheepLexer(input);
-		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		FoxySheepParser parser = new FoxySheepParser(tokens);
-		ParseTree tree = parser.expr();
-		FullFormEmitter emitter = new FullFormEmitter();
-		
-//		System.out.println( tree.toString() );
-		System.out.println( emitter.visit(tree));
+		FoxySheep.main(args);
 	}
 	
 	/**
@@ -669,6 +656,49 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	@Override public String visitNonCommutativeMultiply(FoxySheepParser.NonCommutativeMultiplyContext ctx) {
 		return makeHeadList("NonCommutativeMultiply", ctx.expr());
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>This is code factored out of both visitSpanA and visitSpanB.</p>
+	 */
+	public String visitSpan(ParserRuleContext ctx){
+		StringBuilder val = new StringBuilder("Span[");
+		int curChild = 0;
+		
+		//Because this SpanA might have been created by a subtree rewrite, we
+		//cannot guarantee it begins with an expr.
+		if( ctx.getChild(curChild).getText().equals(";;") ){
+			//Begins with ";;", implicit start of 1.
+			val.append( "1" );
+			curChild++;
+		}else{
+			//Begins with expr
+			val.append( getFullForm(ctx.getChild(curChild)  ) );
+			curChild += 2;
+		}
+		//Cursor now points to one past the first ";;"
+		if( curChild < ctx.children.size() && !ctx.getChild(curChild).getText().equals(";;") ){
+			//The middle expr has not been omitted
+			val.append( "," );
+			val.append( getFullForm(ctx.getChild(curChild)) );
+			curChild++;
+		}else{
+			//The middle expr has been omitted.
+			val.append(",All");
+		}
+		
+		//Cursor now points to either the second ";;" or past the end of the expr.
+		if( curChild < ctx.children.size() && ctx.getChild(curChild).getText().equals(";;") ){
+			//There is a skip amount.
+			val.append( "," );
+			val.append( getFullForm( ctx.getChild(curChild + 1)   ) );
+		}
+
+		val.append("]");
+		return val.toString();
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 *
@@ -676,7 +706,16 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitSpanA(FoxySheepParser.SpanAContext ctx) {
-		return ctx.getText();
+		return visitSpan(ctx);
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public String visitSpanB(FoxySheepParser.SpanBContext ctx) { 
+		return visitSpan(ctx);
 	}
 	/**
 	 * {@inheritDoc}
@@ -723,33 +762,6 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public String visitSpanE(FoxySheepParser.SpanEContext ctx) {
-		return ctx.getText();
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public String visitSpanD(FoxySheepParser.SpanDContext ctx) {
-		return ctx.getText();
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public String visitSpanC(FoxySheepParser.SpanCContext ctx) {
-		return ctx.getText();
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public String visitNumberLiteral(FoxySheepParser.NumberLiteralContext ctx) {
 		return ctx.getText();
 	}
@@ -778,44 +790,8 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public String visitSpanB(FoxySheepParser.SpanBContext ctx) {
-		return ctx.getText();
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public String visitSpanH(FoxySheepParser.SpanHContext ctx) {
-		return ctx.getText();
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public String visitCircleDot(FoxySheepParser.CircleDotContext ctx) {
 		return makeHeadList("CircleDot", ctx.expr());
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public String visitSpanG(FoxySheepParser.SpanGContext ctx) {
-		return ctx.getText();
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public String visitSpanF(FoxySheepParser.SpanFContext ctx) {
-		return ctx.getText();
 	}
 	/**
 	 * {@inheritDoc}

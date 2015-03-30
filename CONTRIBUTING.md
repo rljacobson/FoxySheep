@@ -24,7 +24,11 @@ ANTLR generates a parse tree, but the tree needs to be walked using the PostPars
 The FullForm emitter is a visitor class. It is implemented in `src/PostParser.java`.
 
 #Target language dependent code
-The project attempts to keep target language dependent code to a minimum. However, there is minimal target language dependent code embedded in `FoxySheepLexerRules.g4` to disambiguate unary plus/minus from binary plus/minus which in turn makes implicit multiplication possible. This code is written in Java, but it should be trivial to port it to another target language.
+The project attempts to keep target language dependent code to a minimum. However, there is minimal target language dependent code embedded in `FoxySheepLexerRules.g4` to make implicit multiplication possible. This code is written in Java, but it should be trivial to port it to another target language.
+
+ * In the `@lexer::header` and `@lexer::members` sections of the lexer grammar.
+ * In the actions on the PLUS, MINUS, PLUSMINUS, and MINUSPLUS lexer rules.
+ * In the action on DOUBLESEMICOLON ";;".
 
 The FullForm emitter and PostParser are written in Java. FullForm emitters for other target languages are planned—in fact, that would be a great way for you to contribute! 
 

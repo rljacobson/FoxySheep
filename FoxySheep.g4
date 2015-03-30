@@ -1,6 +1,7 @@
 grammar FoxySheep;
 import FoxySheepLexerRules;
 
+
 // PARSER RULES
 
 expr
@@ -68,15 +69,26 @@ expr
 	|	expr INTERSECTION expr		#Intersection
 	|	expr UNION expr				#Union
 
-	//Span expressions. (Simplify?)
-	|	expr DOUBLESEMICOLON expr DOUBLESEMICOLON expr	#SpanA
-	|	expr DOUBLESEMICOLON DOUBLESEMICOLON expr	#SpanB
-	|	DOUBLESEMICOLON expr DOUBLESEMICOLON expr	#SpanC
-	|	DOUBLESEMICOLON DOUBLESEMICOLON expr	#SpanD
-	|	expr DOUBLESEMICOLON expr	#SpanE
-	|	expr DOUBLESEMICOLON		#SpanF
-	|	DOUBLESEMICOLON expr		#SpanG
-	|	DOUBLESEMICOLON			#SpanH
+	//Span expressions.
+	/*
+	 * There is a tricky context sensitivity with the following two rules. Consider the 
+	 * expression "2 ;; 10 ;; 3". Since implicit multiplication has higher precedence 
+	 * than span, this expression wants to parse as Times[2, Span[All, 10, 3]]. We 
+	 * solve this problem in the lexer by detecting when the ";;" follows a complete
+	 * expression (or another ";;"), and if it doesn't, sending a different token to
+	 * the parser. Hence the two tokens SPANSEMICOLONS and DOUBLESEMICOLON both 
+	 * representing ";;".
+	 * 
+	 * Note that the following rules do not accurately represent permissible Span
+	 * expressions in Wolfram Language (though they accept and reject the right stuff). 
+	 * The parse tree is rewritten post-parse to obtain the correct tree for Wolfram 
+	 * Language Span expressions, because the correct parse trees are difficult to get 
+	 * using automated parser generators.
+	 * 
+	 */ 
+	|	expr DOUBLESEMICOLON expr?  #SpanA
+	|	SPANSEMICOLONS expr? (DOUBLESEMICOLON expr?)* #SpanB
+
 
 	//Comparison
 	|	expr (EqualSymbol | NotEqualSymbol | GreaterEqualSymbol | LessEqualSymbol | GREATER | LESS) expr	#Comparison

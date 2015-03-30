@@ -1,6 +1,6 @@
 lexer grammar FoxySheepLexerRules;
 
-tokens {BINARYPLUS, BINARYMINUS, BINARYMINUSPLUS, BINARYPLUSMINUS}
+tokens {BINARYPLUS, BINARYMINUS, BINARYMINUSPLUS, BINARYPLUSMINUS, SPANSEMICOLONS}
 
 @lexer::header{
 	import java.util.Arrays;
@@ -336,7 +336,12 @@ CROSS	: '\uf4a0'; //Cross product x.
 RAWBACKSLASH		: '\\';
 INTERSECTION		: '\u22c2'; //  $\cup$
 UNION			: '\u22c3'; //  $\cap$
-DOUBLESEMICOLON	: ';;';
+/*
+ * We need to differentiate between ";;" when it follows a complete expression or not
+ * in order to solve a context sensitivity problem in the parser. See the Span parser
+ * rules for details.
+ */
+DOUBLESEMICOLON	: ';;' { if(!precededByExpr()) setType(FoxySheepParser.SPANSEMICOLONS); } ;
 SEMICOLON        : ';';
 TRANSPOSE	: '\uf3c7'; //T
 CONJUGATETRANSPOSE	: '\uf3c9'; //cross
