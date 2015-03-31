@@ -8,8 +8,15 @@ expr
     :	NumberLiteral	#NumberLiteral
     |	symbol			#SymbolLiteral
     |	StringLiteral	#StringLiteral
+    
     |	LPAREN expr RPAREN	#Parentheses //Grouping with parentheses
     |	LBRACE expressionList RBRACE 	#List //List expression
+    |	LANGLE expressionList RANGLE		#AngleBracket
+    |	LFLOOR expr RFLOOR				#Floor
+    |	LCEILING expr RCEILING			#Ceiling
+    |	LBRACKETINGBAR expressionList RBRACKETINGBAR	#BracketingBar
+    |	LDOUBLEBRACKETINGBAR expressionList RDOUBLEBRACKETINGBAR #DoubleBracketingBar
+    
     |	expr DOUBLECOLON StringLiteral (DOUBLECOLON StringLiteral)?	#Message // MessageName[]
     |	slotExpression	#Slot //"forms containing #"
     |	outExpression 	#Out //"forms containing %"

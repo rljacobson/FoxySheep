@@ -370,6 +370,15 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public String visitAngleBracket(FoxySheepParser.AngleBracketContext ctx) {
+		return makeHead("AngleBracket", ctx.expressionList() );
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public String visitAccessor(FoxySheepParser.AccessorContext ctx) {
 		return makeHead("Part", ctx.expr(), ctx.accessExpression());
 	}
@@ -540,6 +549,24 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 */
 	@Override public String visitBecause(FoxySheepParser.BecauseContext ctx) {
 		return makeHead("Because", ctx.expr(0), ctx.expr(1));
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public String visitBracketingBar(FoxySheepParser.BracketingBarContext ctx) {
+		return makeHead("BracketingBar", ctx.expressionList());
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public String visitDoubleBracketingBar(FoxySheepParser.DoubleBracketingBarContext ctx) {
+		return makeHead("DoubleBracketingBar", ctx.expressionList());
 	}
 	/**
 	 * {@inheritDoc}
@@ -753,6 +780,15 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public String visitFloor(FoxySheepParser.FloorContext ctx) {
+		return makeHead("Floor", ctx.expr() );
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public String visitSuchThat(FoxySheepParser.SuchThatContext ctx) {
 		return makeHead("SuchThat", ctx.expr(0), ctx.expr(1));
 	}
@@ -950,6 +986,16 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	@Override public String visitCenterDot(FoxySheepParser.CenterDotContext ctx) {
 		return makeHeadList("CenterDot", ctx.expr());
 	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public String visitCeiling(FoxySheepParser.CeilingContext ctx) {
+		return makeHead("Ceiling", ctx.expr());
+	}
+
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1331,7 +1377,7 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitAccessExpressionA(FoxySheepParser.AccessExpressionAContext ctx) {
-		return ctx.expressionList().accept(this);
+		return getFullForm(ctx.expressionList()); //ctx.expressionList().accept(this);
 	}
 	/**
 	 * {@inheritDoc}
@@ -1340,7 +1386,7 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitAccessExpressionB(FoxySheepParser.AccessExpressionBContext ctx) {
-		return ctx.expressionList().accept(this);
+		return getFullForm(ctx.expressionList()); //ctx.expressionList().accept(this);
 	}
 	/**
 	 * {@inheritDoc}

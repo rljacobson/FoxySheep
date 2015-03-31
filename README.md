@@ -38,7 +38,7 @@ The table below summarizes the status of planned features.
   <tr>
     <td>Parses major language constructs.</td>
     <td>complete</td>
-    <td></td>
+    <td>The definition of "complete" and "major language constructs" is subjective. To be honest this needs auditing and testing.</td>
   </tr>
   <tr>
     <td>Parses box-related constructs.</td>

@@ -174,12 +174,19 @@ RCOMMENT		: '*)';
 LANGLE		: '\u2329'; //Angled brackets <
 RANGLE		: '\u232a'; //Angled brackets >
 LFLOOR		: '\u230a';
-RFLOOR		: '\u230a';
+RFLOOR		: '\u230b';
+LCEILING		: '\u2308';
+RCEILING		: '\u2309';
 DOUBLEBAR	: '||';
 BAR			: '|';
 //BARBAR	: '\uf607'; //Single character version of ||
 LBARBRACKET		: '\u301a'; //Single character version of [[
 RBARBRACKET		: '\u301b'; //Single character version of ]]
+LBRACKETINGBAR	: '\uf603'; //Glorified | symbol.
+RBRACKETINGBAR	: '\uf604'; //Glorified | symbol.
+LDOUBLEBRACKETINGBAR 	: '\uf605'; //Single character || symbol.
+RDOUBLEBRACKETINGBAR 	: '\uf606'; //Single character || symbol.
+
 
 //Quote Characters
 DOUBLEBACKQUOTE	: '``';
