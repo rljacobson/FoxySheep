@@ -54,6 +54,14 @@ tokens {BINARYPLUS, BINARYMINUS, BINARYMINUSPLUS, BINARYPLUSMINUS, SPANSEMICOLON
 		FoxySheepParser.SEMICOLON
 		);
 	 
+	/*
+	 * To determine if a newline separates expressions, we keep 
+	 * track of the bracketing level. Note that we treat all 
+	 * bracket-like characters as the same.
+	 */
+	
+	long bracketLevel = 0;
+	
 	/* 
 	 * Curiously, the lexer does not allow us to inspect previous
 	 * tokens. Thus we need to keep track of the previous token
@@ -62,12 +70,14 @@ tokens {BINARYPLUS, BINARYMINUS, BINARYMINUSPLUS, BINARYPLUSMINUS, SPANSEMICOLON
 	 */ 
 	Token lastToken = null;
 	public Token getToken(){
-		lastToken = super.getToken();
-		return lastToken;
+		Token lt = super.getToken();
+		if(lt.getChannel() != HIDDEN) lastToken = lt;
+		return lt;
 	}
 	public Token nextToken(){
-		lastToken = super.nextToken();
-		return lastToken;
+		Token lt = super.nextToken();
+		if(lt.getChannel() != HIDDEN) lastToken = lt;
+		return lt;
 	}
 	
 	/*
@@ -82,6 +92,22 @@ tokens {BINARYPLUS, BINARYMINUS, BINARYMINUSPLUS, BINARYPLUSMINUS, SPANSEMICOLON
 		int tokenType = lastToken.getType();
 		return closeExprTokens.contains(tokenType); 
 	}
+	
+	
+	/*
+	 * The following checks to see if the current token (a newline)
+	 * separates two expressions using the following heuristic:
+	 * If the token follows a complete expression and all bracket-
+	 * like characters have been matched, then the token is an
+	 * expression separator, and we return true.
+	 */
+	boolean expressionSeparator(){
+//		System.out.println("bracketLevel: " + bracketLevel);
+//		System.out.println("precededByExpr: " + precededByExpr());
+		
+		return precededByExpr() && bracketLevel == 0;
+	}
+
 }
 
 // LEXER RULES
@@ -162,30 +188,30 @@ COMMENT
 
 // Separators and brackets
 
-LPAREN      : '(';
-RPAREN      : ')';
-LBRACE      : '{';
-RBRACE      : '}';
-LBRACKET      : '[';
-RBRACKET      : ']';
+LPAREN      : '(' { bracketLevel++; } ;
+RPAREN      : ')' { bracketLevel--; } ;
+LBRACE      : '{' { bracketLevel++; } ;
+RBRACE      : '}' { bracketLevel--; } ;
+LBRACKET      : '[' { bracketLevel++; } ;
+RBRACKET      : ']' { bracketLevel--; } ;
 COMMA       : ',';
 LCOMMENT		: '(*';
 RCOMMENT		: '*)';
-LANGLE		: '\u2329'; //Angled brackets <
-RANGLE		: '\u232a'; //Angled brackets >
-LFLOOR		: '\u230a';
-RFLOOR		: '\u230b';
-LCEILING		: '\u2308';
-RCEILING		: '\u2309';
+LANGLE		: '\u2329' { bracketLevel++; } ; //Angled brackets <
+RANGLE		: '\u232a' { bracketLevel--; } ; //Angled brackets >
+LFLOOR		: '\u230a' { bracketLevel++; } ;
+RFLOOR		: '\u230b' { bracketLevel--; } ;
+LCEILING		: '\u2308' { bracketLevel++; } ;
+RCEILING		: '\u2309' { bracketLevel--; } ;
 DOUBLEBAR	: '||';
 BAR			: '|';
 //BARBAR	: '\uf607'; //Single character version of ||
-LBARBRACKET		: '\u301a'; //Single character version of [[
-RBARBRACKET		: '\u301b'; //Single character version of ]]
-LBRACKETINGBAR	: '\uf603'; //Glorified | symbol.
-RBRACKETINGBAR	: '\uf604'; //Glorified | symbol.
-LDOUBLEBRACKETINGBAR 	: '\uf605'; //Single character || symbol.
-RDOUBLEBRACKETINGBAR 	: '\uf606'; //Single character || symbol.
+LBARBRACKET		: '\u301a' { bracketLevel++; } ; //Single character version of [[
+RBARBRACKET		: '\u301b' { bracketLevel--; } ; //Single character version of ]]
+LBRACKETINGBAR	: '\uf603' { bracketLevel++; } ; //Glorified | symbol.
+RBRACKETINGBAR	: '\uf604' { bracketLevel--; } ; //Glorified | symbol.
+LDOUBLEBRACKETINGBAR 	: '\uf605' { bracketLevel++; } ; //Single character || symbol.
+RDOUBLEBRACKETINGBAR 	: '\uf606' { bracketLevel--; } ; //Single character || symbol.
 
 
 //Quote Characters
@@ -419,8 +445,11 @@ TIMES	: '\u00d7';
  * lines as belonging to the same expression whenever no complete expression 
  * would be formed without doing this."
  */
+
+NEWLINE	: '\n' { if( !expressionSeparator() ) setChannel(HIDDEN);} ;
+
 CONTINUATION	:	'\uf3b1' -> skip ;
-WHITESPACE  :   ([\t\r\n] | SpaceCharacter)+ -> skip ;
+WHITESPACE  :   ([\t\r] | SpaceCharacter)+ -> skip ;
 fragment SpaceCharacter
 	:	' '
 	|	'\u2009' //ThinSpace

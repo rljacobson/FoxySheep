@@ -11,21 +11,22 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 public class FoxySheep {
 
 	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
 		String inputFile = "/Users/rljacobson/Google Drive/Development/FoxySheep/Expression.txt";
 		InputStream istream = new FileInputStream(inputFile);
 		
 		ANTLRInputStream input = new ANTLRInputStream(istream);
+		//Don't use a class generated from FoxySheepLexerRules.g4.
+		//Use the lexer generated from FoxySheep.g4 instead.
 		FoxySheepLexer lexer = new FoxySheepLexer(input);
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 		FoxySheepParser parser = new FoxySheepParser(tokens);
 		
 		//Parse the input.
-		ParseTree tree = parser.expr();
+		ParseTree tree = parser.prog();
 		
 		//Emit FullForm.
 		FullFormEmitter emitter = new FullFormEmitter();
-		System.out.println( emitter.visit(tree));
+		//System.out.println( emitter.visit(tree));
 				
 		
 		//Post process the parse tree (flatten flat operators).

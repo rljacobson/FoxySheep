@@ -77,9 +77,6 @@ The table below summarizes the status of planned features.
   </tr>
 </table>
 
-#Newlines
-FoxySheep does not treat newlines the same way Mathematica does. FoxySheep assumes that the input is one single expression. On the other hand, Wolfram Language "treats the input that you give on successive lines as belonging to the same expression whenever no complete expression would be formed without doing this."
-
 #Contributing
 If you want to contribute to the project, read CONTRIBUTING.md.
 

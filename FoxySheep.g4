@@ -3,6 +3,9 @@ import FoxySheepLexerRules;
 
 
 // PARSER RULES
+prog
+	: expr (NEWLINE expr)*
+	;
 
 expr
     :	NumberLiteral	#NumberLiteral

@@ -12,7 +12,6 @@ Here are some ideas:
 Or fix some current known bugs:
 
 * Fix the string literal parsing rules so they parse Wolfram Language string literals. (Currently string literals are implemented incorrectly with lexer rules.)
-* Newlines are not treated the same way as they are in Mathematica.
 * There is a weird bug affecting parsing number literals that needs squashing. 
 * Implicit multiplication is fragile and occassionally breaks when changes are made to the grammar. Test implicit multiplication, and if it doesn't work correctly, fix it.
 
@@ -29,6 +28,7 @@ The project attempts to keep target language dependent code to a minimum. Howeve
  * In the `@lexer::header` and `@lexer::members` sections of the lexer grammar.
  * In the actions on the PLUS, MINUS, PLUSMINUS, and MINUSPLUS lexer rules.
  * In the action on DOUBLESEMICOLON ";;".
+ * In the NEWLINE action.
 
 The FullForm emitter and PostParser are written in Java. FullForm emitters for other target languages are planned—in fact, that would be a great way for you to contribute! 
 

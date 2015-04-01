@@ -528,6 +528,22 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public String visitProg(FoxySheepParser.ProgContext ctx) {
+		StringBuilder val = new StringBuilder( getFullForm(ctx.expr(0)) );
+		
+		for(int i = 1; i < ctx.expr().size(); i++){
+			val.append("\n\n");
+			val.append(  getFullForm(ctx.expr(i))  );
+		}
+		
+		return val.toString();
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public String visitPatternExp(FoxySheepParser.PatternExpContext ctx) {
 		//symb:expr
 		return makeHead("Patter", ctx.symbol(), ctx.expr());
@@ -1344,7 +1360,7 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 */
 	@Override public String visitExpressionListed(FoxySheepParser.ExpressionListedContext ctx) {
 		//expressionList can be empty. 
-		if(ctx.children.size()==0) return "";
+		if(ctx.children == null || ctx.children.size()==0) return "";
 		
 		StringBuilder val = new StringBuilder();
 		ParseTree child;
