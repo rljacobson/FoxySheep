@@ -186,7 +186,7 @@ class FullFormEmitter(FoxySheepVisitor):
 
     # Visit a parse tree produced by FoxySheepParser#Slot.
     def visitSlot(self, ctx):
-        return ctx.getText()
+        return self.getFullForm(ctx.slotExpression())
 
 
     # Visit a parse tree produced by FoxySheepParser#Set.
@@ -223,7 +223,7 @@ class FullFormEmitter(FoxySheepVisitor):
 
     # Visit a parse tree produced by FoxySheepParser#Out.
     def visitOut(self, ctx):
-        return ctx.getText()
+        return self.getFullForm(ctx.outExpression())
 
 
     # Visit a parse tree produced by FoxySheepParser#Integrate.
@@ -790,37 +790,52 @@ class FullFormEmitter(FoxySheepVisitor):
 
     # Visit a parse tree produced by FoxySheepParser#OutNumbered.
     def visitOutNumbered(self, ctx):
-        return ctx.getText()
+        val = "Out["
+        val += ctx.getText()[1:]
+        val += "]"
+        return val
 
 
     # Visit a parse tree produced by FoxySheepParser#OutUnnumbered.
     def visitOutUnnumbered(self, ctx):
-        return ctx.getText()
+        textLen = len(ctx.getText())
+        if textLen == 1:
+            return "Out[]"
+        return "Out[-" + str(textLen) + "]"
 
 
     # Visit a parse tree produced by FoxySheepParser#SlotDigits.
     def visitSlotDigits(self, ctx):
-        return ctx.getText()
+        val = "Slot["
+        val += ctx.getText()[1:]
+        val += "]"
+        return val
 
 
     # Visit a parse tree produced by FoxySheepParser#SlotNamed.
     def visitSlotNamed(self, ctx):
-        return ctx.getText()
+        val = "Slot["
+        val += ctx.getText()[1:]
+        val += "]"
+        return val
 
 
     # Visit a parse tree produced by FoxySheepParser#SlotSequenceDigits.
     def visitSlotSequenceDigits(self, ctx):
-        return ctx.getText()
+        val = "SlotSequence["
+        val += ctx.getText()[2:]
+        val += "]"
+        return val
 
 
     # Visit a parse tree produced by FoxySheepParser#SlotSequence.
     def visitSlotSequence(self, ctx):
-        return ctx.getText()
+        return "SlotSequence[1]"
 
 
     # Visit a parse tree produced by FoxySheepParser#SlotUnnamed.
     def visitSlotUnnamed(self, ctx):
-        return ctx.getText()
+        return "Slot[1]"
 
 
     # Visit a parse tree produced by FoxySheepParser#ExpressionListed.

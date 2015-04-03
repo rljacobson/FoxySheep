@@ -27,10 +27,14 @@ tokens {BINARYPLUS, BINARYMINUS, BINARYMINUSPLUS, BINARYPLUSMINUS, SPANSEMICOLON
 		FoxySheepParser.RPAREN,
 		FoxySheepParser.RBRACE,
 		FoxySheepParser.HASH,
-		FoxySheepParser.PERCENT,
+		FoxySheepParser.PERCENTDIGITS,
+		FoxySheepParser.PERCENTS,
 		FoxySheepParser.TRIPPLEBLANK,
 		FoxySheepParser.DOUBLEBLANK,
 		FoxySheepParser.BLANK,
+		FoxySheepParser.HASHDIGITS,
+		FoxySheepParser.HASHStringLiteral,
+		FoxySheepParser.DOUBLEHASHDIGITS,
 		FoxySheepParser.HASH,
 		FoxySheepParser.DOUBLEHASH,
 		FoxySheepParser.DIGITS,
@@ -314,10 +318,9 @@ DOUBLEBLANK	: '__';
 BLANKDOT		: '_.';
 BLANK		: '_';
 
-DOUBLEHASH	: '##';
-HASH : '#';
-
-PERCENT	: '%';
+PERCENTDIGITS	: PERCENT DIGITS;
+PERCENTS			: PERCENT+;
+fragment PERCENT	: '%';
 
 DOUBLECOLON	: '::';
 RAWCOLON	: ':';
@@ -331,6 +334,13 @@ COLONARROW		: '\uf51f';
 
 SLASHDOT			: '/.';
 DOUBLESLASHDOT	: '//.';
+
+// Slot related symbols
+HASHDIGITS			: HASH DIGITS;
+HASHStringLiteral 	: HASH StringLiteral;
+DOUBLEHASHDIGITS		: DOUBLEHASH DIGITS; 
+DOUBLEHASH			: '##';
+HASH 				: '#';
 
 // Symbols related to setting/assignment
 PLUSEQUAL	: '+=';

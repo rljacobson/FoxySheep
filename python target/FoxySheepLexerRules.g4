@@ -29,37 +29,41 @@ self.lastToken = None
 # implicit multiplication.
 
 closeExprTokens = [
-    FoxySheepParser.NumberLiteral,
-    FoxySheepParser.Name,
-    FoxySheepParser.StringLiteral,
-    FoxySheepParser.RPAREN,
-    FoxySheepParser.RBRACE,
-    FoxySheepParser.HASH,
-    FoxySheepParser.PERCENT,
-    FoxySheepParser.TRIPPLEBLANK,
-    FoxySheepParser.DOUBLEBLANK,
-    FoxySheepParser.BLANK,
-    FoxySheepParser.HASH,
-    FoxySheepParser.DOUBLEHASH,
-    FoxySheepParser.DIGITS,
-    FoxySheepParser.RBRACKET,
-    FoxySheepParser.RBARBRACKET,
-    FoxySheepParser.BoxRightBoxParenthesis,
-    FoxySheepParser.DOUBLEPLUS,
-    FoxySheepParser.DOUBLEMINUS,
-    FoxySheepParser.BANG,
-    FoxySheepParser.DOUBLEBANG,
-    FoxySheepParser.CONJUGATE,
-    FoxySheepParser.TRANSPOSE,
-    FoxySheepParser.CONJUGATETRANSPOSE,
-    FoxySheepParser.HERMITIANCONJUGATE,
-    FoxySheepParser.SINGLEQUOTE,
-    FoxySheepParser.DOUBLESEMICOLON,
-    FoxySheepParser.DOUBLEDOT,
-    FoxySheepParser.TRIPPLEDOT,
-    FoxySheepParser.AMP,
-    FoxySheepParser.DOT,
-    FoxySheepParser.SEMICOLON
+	FoxySheepParser.NumberLiteral,
+	FoxySheepParser.Name,
+	FoxySheepParser.StringLiteral,
+	FoxySheepParser.RPAREN,
+	FoxySheepParser.RBRACE,
+	FoxySheepParser.HASH,
+	FoxySheepParser.PERCENTDIGITS,
+	FoxySheepParser.PERCENTS,
+	FoxySheepParser.TRIPPLEBLANK,
+	FoxySheepParser.DOUBLEBLANK,
+	FoxySheepParser.BLANK,
+	FoxySheepParser.HASHDIGITS,
+	FoxySheepParser.HASHStringLiteral,
+	FoxySheepParser.DOUBLEHASHDIGITS,
+	FoxySheepParser.HASH,
+	FoxySheepParser.DOUBLEHASH,
+	FoxySheepParser.DIGITS,
+	FoxySheepParser.RBRACKET,
+	FoxySheepParser.RBARBRACKET,
+	FoxySheepParser.BoxRightBoxParenthesis,
+	FoxySheepParser.DOUBLEPLUS,
+	FoxySheepParser.DOUBLEMINUS,
+	FoxySheepParser.BANG,
+	FoxySheepParser.DOUBLEBANG,
+	FoxySheepParser.CONJUGATE,
+	FoxySheepParser.TRANSPOSE,
+	FoxySheepParser.CONJUGATETRANSPOSE,
+	FoxySheepParser.HERMITIANCONJUGATE,
+	FoxySheepParser.SINGLEQUOTE,
+	FoxySheepParser.DOUBLESEMICOLON,
+	FoxySheepParser.DOUBLEDOT,
+	FoxySheepParser.TRIPPLEDOT,
+	FoxySheepParser.AMP,
+	FoxySheepParser.DOT,
+	FoxySheepParser.SEMICOLON
     ]
 
 # Curiously, the lexer does not allow us to inspect previous
@@ -307,10 +311,9 @@ DOUBLEBLANK	: '__';
 BLANKDOT		: '_.';
 BLANK		: '_';
 
-DOUBLEHASH	: '##';
-HASH : '#';
-
-PERCENT	: '%';
+PERCENTDIGITS	: PERCENT DIGITS;
+PERCENTS			: PERCENT+;
+fragment PERCENT	: '%';
 
 DOUBLECOLON	: '::';
 RAWCOLON	: ':';
@@ -324,6 +327,13 @@ COLONARROW		: '\uf51f';
 
 SLASHDOT			: '/.';
 DOUBLESLASHDOT	: '//.';
+
+// Slot related symbols
+HASHDIGITS			: HASH DIGITS;
+HASHStringLiteral 	: HASH StringLiteral;
+DOUBLEHASHDIGITS		: DOUBLEHASH DIGITS;
+DOUBLEHASH			: '##';
+HASH 				: '#';
 
 // Symbols related to setting/assignment
 PLUSEQUAL	: '+=';

@@ -156,14 +156,14 @@ pattern
 	;
 
 outExpression
-	:	PERCENT DIGITS	#OutNumbered
-	|	PERCENT+			#OutUnnumbered
+	:	PERCENTDIGITS	#OutNumbered
+	|	PERCENTS			#OutUnnumbered
 	;
 
 slotExpression
-	:	HASH DIGITS			#SlotDigits
-	|	HASH StringLiteral	#SlotNamed
-	|	DOUBLEHASH DIGITS	#SlotSequenceDigits
+	:	HASHDIGITS			#SlotDigits
+	|	HASHStringLiteral	#SlotNamed
+	|	DOUBLEHASHDIGITS	#SlotSequenceDigits
 	|	DOUBLEHASH			#SlotSequence
 	|	HASH					#SlotUnnamed
 	;

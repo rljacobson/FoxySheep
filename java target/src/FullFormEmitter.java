@@ -294,7 +294,7 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitSlot(FoxySheepParser.SlotContext ctx) {
-		return ctx.getText();
+		return getFullForm(ctx.slotExpression());
 	}
 	/**
 	 * {@inheritDoc}
@@ -353,7 +353,7 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitOut(FoxySheepParser.OutContext ctx) {
-		return ctx.getText();
+		return getFullForm(ctx.outExpression());
 	}
 	/**
 	 * {@inheritDoc}
@@ -1294,7 +1294,10 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitOutNumbered(FoxySheepParser.OutNumberedContext ctx) {
-		return ctx.getText();
+		StringBuilder val = new StringBuilder("Out[");
+		val.append( ctx.getText().substring(1) );
+		val.append("]");
+		return val.toString();
 	}
 	/**
 	 * {@inheritDoc}
@@ -1303,7 +1306,14 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitOutUnnumbered(FoxySheepParser.OutUnnumberedContext ctx) {
-		return ctx.getText();
+		int textLen = ctx.getText().length();
+		if(textLen == 1){
+			return "Out[]";
+		}
+		StringBuilder val = new StringBuilder("Out[-");
+		val.append(textLen);
+		val.append("]");
+		return val.toString();
 	}
 	/**
 	 * {@inheritDoc}
@@ -1312,7 +1322,10 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitSlotDigits(FoxySheepParser.SlotDigitsContext ctx) {
-		return ctx.getText();
+		StringBuilder val = new StringBuilder("Slot[");
+		val.append( ctx.getText().substring(1) );
+		val.append("]");
+		return val.toString();
 	}
 	/**
 	 * {@inheritDoc}
@@ -1321,7 +1334,10 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitSlotNamed(FoxySheepParser.SlotNamedContext ctx) {
-		return ctx.getText();
+		StringBuilder val = new StringBuilder("Slot[");
+		val.append( ctx.getText().substring(1) );
+		val.append("]");
+		return val.toString();
 	}
 	/**
 	 * {@inheritDoc}
@@ -1330,7 +1346,10 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitSlotSequenceDigits(FoxySheepParser.SlotSequenceDigitsContext ctx) {
-		return ctx.getText();
+		StringBuilder val = new StringBuilder("SlotSequence[");
+		val.append( ctx.getText().substring(2) );
+		val.append("]");
+		return val.toString();
 	}
 	/**
 	 * {@inheritDoc}
@@ -1339,7 +1358,7 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitSlotSequence(FoxySheepParser.SlotSequenceContext ctx) {
-		return ctx.getText();
+		return "SlotSequence[1]";
 	}
 	/**
 	 * {@inheritDoc}
@@ -1348,7 +1367,7 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitSlotUnnamed(FoxySheepParser.SlotUnnamedContext ctx) {
-		return ctx.getText();
+		return "Slot[1]";
 	}
 	/**
 	 * {@inheritDoc}
