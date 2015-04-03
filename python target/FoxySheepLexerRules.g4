@@ -3,110 +3,103 @@ lexer grammar FoxySheepLexerRules;
 tokens {BINARYPLUS, BINARYMINUS, BINARYMINUSPLUS, BINARYPLUSMINUS, SPANSEMICOLONS}
 
 @lexer::header{
-	import java.util.Arrays;
-	import java.util.List;
+from FoxySheepParser import FoxySheepParser
+}
+
+@lexer::init{
+# To determine if a newline separates expressions, we keep
+# track of the bracketing level. Note that we treat all
+# bracket-like characters as the same.
+self.bracketLevel = 0
+
+# Curiously, the lexer does not allow us to inspect previous
+# tokens. Thus we need to keep track of the previous token
+# so that we can use it to disambiguate unary/binary plus.
+self.lastToken = None
 }
 
 @lexer::members{
-	/*
-	 * TARGET LANGUAGE DEPENDENT CODE.
-	 */
-	 
-	/*
-	* Binary plus follows a complete expression. Complete
-	* expressions always end with one of the following
-	* tokens. On the other hand, unary plus never follows
-	* these tokens. Distinguishing unary plus from binary
-	* plus disambiguates the grammar and allows us to use
-	* implicit multiplication.  
-	*/
-	List<Integer> closeExprTokens = Arrays.asList(
-		FoxySheepParser.NumberLiteral,
-		FoxySheepParser.Name,
-		FoxySheepParser.StringLiteral,
-		FoxySheepParser.RPAREN,
-		FoxySheepParser.RBRACE,
-		FoxySheepParser.HASH,
-		FoxySheepParser.PERCENT,
-		FoxySheepParser.TRIPPLEBLANK,
-		FoxySheepParser.DOUBLEBLANK,
-		FoxySheepParser.BLANK,
-		FoxySheepParser.HASH,
-		FoxySheepParser.DOUBLEHASH,
-		FoxySheepParser.DIGITS,
-		FoxySheepParser.RBRACKET,
-		FoxySheepParser.RBARBRACKET,
-		FoxySheepParser.BoxRightBoxParenthesis,
-		FoxySheepParser.DOUBLEPLUS,
-		FoxySheepParser.DOUBLEMINUS,
-		FoxySheepParser.BANG,
-		FoxySheepParser.DOUBLEBANG,
-		FoxySheepParser.CONJUGATE,
-		FoxySheepParser.TRANSPOSE,
-		FoxySheepParser.CONJUGATETRANSPOSE,
-		FoxySheepParser.HERMITIANCONJUGATE,
-		FoxySheepParser.SINGLEQUOTE,
-		FoxySheepParser.DOUBLESEMICOLON,
-		FoxySheepParser.DOUBLEDOT,
-		FoxySheepParser.TRIPPLEDOT,
-		FoxySheepParser.AMP,
-		FoxySheepParser.DOT,
-		FoxySheepParser.SEMICOLON
-		);
-	 
-	/*
-	 * To determine if a newline separates expressions, we keep 
-	 * track of the bracketing level. Note that we treat all 
-	 * bracket-like characters as the same.
-	 */
-	
-	long bracketLevel = 0;
-	
-	/* 
-	 * Curiously, the lexer does not allow us to inspect previous
-	 * tokens. Thus we need to keep track of the previous token
-	 * so that we can use it to disambiguate unary/binary plus.
-	 * 
-	 */ 
-	Token lastToken = null;
-	public Token getToken(){
-		Token lt = super.getToken();
-		if(lt.getChannel() != HIDDEN) lastToken = lt;
-		return lt;
-	}
-	public Token nextToken(){
-		Token lt = super.nextToken();
-		if(lt.getChannel() != HIDDEN) lastToken = lt;
-		return lt;
-	}
-	
-	/*
-	 * The following checks to see if the previous token likely 
-	 * ended an expr. If so, it returns true. We use this method 
-	 * in an action on plus to disambiguate between unary plus
-	 * and binary plus.
-	 */
-	boolean precededByExpr(){
-		//Returns true if the previous token ended a complete expr.
-		if(lastToken == null) return false;
-		int tokenType = lastToken.getType();
-		return closeExprTokens.contains(tokenType); 
-	}
-	
-	
-	/*
-	 * The following checks to see if the current token (a newline)
-	 * separates two expressions using the following heuristic:
-	 * If the token follows a complete expression and all bracket-
-	 * like characters have been matched, then the token is an
-	 * expression separator, and we return true.
-	 */
-	boolean expressionSeparator(){
-//		System.out.println("bracketLevel: " + bracketLevel);
-//		System.out.println("precededByExpr: " + precededByExpr());
-		
-		return precededByExpr() && bracketLevel == 0;
-	}
+# TARGET LANGUAGE DEPENDENT CODE.
+
+# Binary plus follows a complete expression. Complete
+# expressions always end with one of the following
+# tokens. On the other hand, unary plus never follows
+# these tokens. Distinguishing unary plus from binary
+# plus disambiguates the grammar and allows us to use
+# implicit multiplication.
+
+closeExprTokens = [
+    FoxySheepParser.NumberLiteral,
+    FoxySheepParser.Name,
+    FoxySheepParser.StringLiteral,
+    FoxySheepParser.RPAREN,
+    FoxySheepParser.RBRACE,
+    FoxySheepParser.HASH,
+    FoxySheepParser.PERCENT,
+    FoxySheepParser.TRIPPLEBLANK,
+    FoxySheepParser.DOUBLEBLANK,
+    FoxySheepParser.BLANK,
+    FoxySheepParser.HASH,
+    FoxySheepParser.DOUBLEHASH,
+    FoxySheepParser.DIGITS,
+    FoxySheepParser.RBRACKET,
+    FoxySheepParser.RBARBRACKET,
+    FoxySheepParser.BoxRightBoxParenthesis,
+    FoxySheepParser.DOUBLEPLUS,
+    FoxySheepParser.DOUBLEMINUS,
+    FoxySheepParser.BANG,
+    FoxySheepParser.DOUBLEBANG,
+    FoxySheepParser.CONJUGATE,
+    FoxySheepParser.TRANSPOSE,
+    FoxySheepParser.CONJUGATETRANSPOSE,
+    FoxySheepParser.HERMITIANCONJUGATE,
+    FoxySheepParser.SINGLEQUOTE,
+    FoxySheepParser.DOUBLESEMICOLON,
+    FoxySheepParser.DOUBLEDOT,
+    FoxySheepParser.TRIPPLEDOT,
+    FoxySheepParser.AMP,
+    FoxySheepParser.DOT,
+    FoxySheepParser.SEMICOLON
+    ]
+
+# Curiously, the lexer does not allow us to inspect previous
+# tokens. Thus we need to keep track of the previous token
+# so that we can use it to disambiguate unary/binary plus.
+bracketLevel = 0
+lastToken = None
+
+def getToken(self):
+    lt = super(FoxySheepLexer, self).getToken()
+
+    if lt.channel != self.HIDDEN:
+        self.lastToken = lt
+    return lt
+
+def nextToken(self):
+    lt = super(FoxySheepLexer, self).nextToken()
+    if lt.channel != self.HIDDEN:
+        self.lastToken = lt
+    return lt
+
+# The following checks to see if the previous token likely
+# ended an expr. If so, it returns true. We use this method
+# in an action on plus to disambiguate between unary plus
+# and binary plus.
+def precededByExpr(self):
+    #Returns true if the previous token ended a complete expr.
+    if self.lastToken is None:
+        return False
+    tokenType = self.lastToken.type
+
+    return tokenType in self.closeExprTokens
+
+# The following checks to see if the current token (a newline)
+# separates two expressions using the following heuristic:
+# If the token follows a complete expression and all bracket-
+# like characters have been matched, then the token is an
+# expression separator, and we return true.
+def expressionSeparator(self):
+    return self.precededByExpr() and self.bracketLevel == 0
 
 }
 
@@ -188,30 +181,30 @@ COMMENT
 
 // Separators and brackets
 
-LPAREN      : '(' { bracketLevel++; } ;
-RPAREN      : ')' { bracketLevel--; } ;
-LBRACE      : '{' { bracketLevel++; } ;
-RBRACE      : '}' { bracketLevel--; } ;
-LBRACKET      : '[' { bracketLevel++; } ;
-RBRACKET      : ']' { bracketLevel--; } ;
+LPAREN      : '(' { self.bracketLevel += 1 } ;
+RPAREN      : ')' { self.bracketLevel -= 1 } ;
+LBRACE      : '{' { self.bracketLevel += 1 } ;
+RBRACE      : '}' { self.bracketLevel -= 1 } ;
+LBRACKET      : '[' { self.bracketLevel += 1 } ;
+RBRACKET      : ']' { self.bracketLevel -= 1 } ;
 COMMA       : ',';
 LCOMMENT		: '(*';
 RCOMMENT		: '*)';
-LANGLE		: '\u2329' { bracketLevel++; } ; //Angled brackets <
-RANGLE		: '\u232a' { bracketLevel--; } ; //Angled brackets >
-LFLOOR		: '\u230a' { bracketLevel++; } ;
-RFLOOR		: '\u230b' { bracketLevel--; } ;
-LCEILING		: '\u2308' { bracketLevel++; } ;
-RCEILING		: '\u2309' { bracketLevel--; } ;
+LANGLE		: '\u2329' { self.bracketLevel += 1 } ; //Angled brackets <
+RANGLE		: '\u232a' { self.bracketLevel -= 1 } ; //Angled brackets >
+LFLOOR		: '\u230a' { self.bracketLevel += 1 } ;
+RFLOOR		: '\u230b' { self.bracketLevel -= 1 } ;
+LCEILING		: '\u2308' { self.bracketLevel += 1 } ;
+RCEILING		: '\u2309' { self.bracketLevel -= 1 } ;
 DOUBLEBAR	: '||';
 BAR			: '|';
 //BARBAR	: '\uf607'; //Single character version of ||
-LBARBRACKET		: '\u301a' { bracketLevel++; } ; //Single character version of [[
-RBARBRACKET		: '\u301b' { bracketLevel--; } ; //Single character version of ]]
-LBRACKETINGBAR	: '\uf603' { bracketLevel++; } ; //Glorified | symbol.
-RBRACKETINGBAR	: '\uf604' { bracketLevel--; } ; //Glorified | symbol.
-LDOUBLEBRACKETINGBAR 	: '\uf605' { bracketLevel++; } ; //Single character || symbol.
-RDOUBLEBRACKETINGBAR 	: '\uf606' { bracketLevel--; } ; //Single character || symbol.
+LBARBRACKET		: '\u301a' { self.bracketLevel += 1 } ; //Single character version of [[
+RBARBRACKET		: '\u301b' { self.bracketLevel -= 1 } ; //Single character version of ]]
+LBRACKETINGBAR	: '\uf603' { self.bracketLevel += 1 } ; //Glorified | symbol.
+RBRACKETINGBAR	: '\uf604' { self.bracketLevel -= 1 } ; //Glorified | symbol.
+LDOUBLEBRACKETINGBAR 	: '\uf605' { self.bracketLevel += 1 } ; //Single character || symbol.
+RDOUBLEBRACKETINGBAR 	: '\uf606' { self.bracketLevel -= 1 } ; //Single character || symbol.
 
 
 //Quote Characters
@@ -374,7 +367,10 @@ UNION			: '\u22c3'; //  $\cap$
  * in order to solve a context sensitivity problem in the parser. See the Span parser
  * rules for details.
  */
-DOUBLESEMICOLON	: ';;' { if(!precededByExpr()) setType(FoxySheepParser.SPANSEMICOLONS); } ;
+DOUBLESEMICOLON	: ';;' {
+if not self.precededByExpr():
+	self.type = FoxySheepParser.SPANSEMICOLONS
+} ;
 SEMICOLON        : ';';
 TRANSPOSE	: '\uf3c7'; //T
 CONJUGATETRANSPOSE	: '\uf3c9'; //cross
@@ -404,10 +400,22 @@ DOUBLESLASH	: '//';
 VERTICALSEPARATOR	: '\uf432';
 
 //Additive arithmetic
-PLUS			: '+' { if(precededByExpr()) setType(FoxySheepParser.BINARYPLUS); } ;
-MINUS		: '-' { if(precededByExpr()) setType(FoxySheepParser.BINARYMINUS); } ;
-PLUSMINUS	: '\u00b1' { if(precededByExpr()) setType(FoxySheepParser.BINARYPLUSMINUS); } ;
-MINUSPLUS	: '\u2213' { if(precededByExpr()) setType(FoxySheepParser.BINARYMINUSPLUS); } ;
+PLUS			: '+' {
+if self.precededByExpr():
+    self.type = FoxySheepParser.BINARYPLUS
+};
+MINUS		: '-' {
+if self.precededByExpr():
+    self.type = FoxySheepParser.BINARYMINUS
+};
+PLUSMINUS	: '\u00b1' {
+if self.precededByExpr():
+    self.type = FoxySheepParser.BINARYPLUSMINUS
+};
+MINUSPLUS	: '\u2213' {
+if self.precededByExpr():
+    self.type = FoxySheepParser.BINARYMINUSPLUS
+};
 
 //Box related tokens.
 //These are special because they can only occur in a box.
@@ -446,7 +454,10 @@ TIMES	: '\u00d7';
  * would be formed without doing this."
  */
 
-NEWLINE	: '\n' { if( !expressionSeparator() ) setChannel(HIDDEN);} ;
+NEWLINE	: '\n' {
+if not self.expressionSeparator():
+    self.channel = self.HIDDEN
+};
 
 CONTINUATION	:	'\uf3b1' -> skip ;
 WHITESPACE  :   ([\t\r] | SpaceCharacter)+ -> skip ;

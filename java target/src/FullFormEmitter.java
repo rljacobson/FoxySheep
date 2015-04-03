@@ -104,7 +104,7 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitImplies(FoxySheepParser.ImpliesContext ctx) {
-		return makeHead("Implies", ctx.expr(0), ctx.expr(1));
+		return makeHeadList("Implies", ctx.expr());
 	}
 	/**
 	 * {@inheritDoc}
@@ -256,15 +256,15 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 */
 	@Override public String visitTee(FoxySheepParser.TeeContext ctx) {
 		if(ctx.LEFTTEE() !=null){
-			return makeHead("LeftTee", ctx.expr(0), ctx.expr(1));
+			return makeHeadList("LeftTee", ctx.expr());
 		}
 		if(ctx.DOUBLELEFTTEE() !=null){
-			return makeHead("DoubleLeftTee", ctx.expr(0), ctx.expr(1));
+			return makeHeadList("DoubleLeftTee", ctx.expr());
 		}
 		if(ctx.UPTEE() !=null){
-			return makeHead("UpTee", ctx.expr(0), ctx.expr(1));
+			return makeHeadList("UpTee", ctx.expr());
 		}
-		return makeHead("DownTee", ctx.expr(0), ctx.expr(1));
+		return makeHeadList("DownTee", ctx.expr());
 	}
 	/**
 	 * {@inheritDoc}
@@ -304,16 +304,16 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 */
 	@Override public String visitSet(FoxySheepParser.SetContext ctx) {
 		if(ctx.EQUAL() != null){
-			return makeHead("Set", ctx.expr(0), ctx.expr(1));
+			return makeHeadList("Set", ctx.expr());
 		}
 		if(ctx.COLONEQUAL() != null){
-			return makeHead("SetDelayed", ctx.expr(0), ctx.expr(1));
+			return makeHeadList("SetDelayed", ctx.expr());
 		}
 		if(ctx.CARETEQUAL() != null){
-			return makeHead("UpSet", ctx.expr(0), ctx.expr(1));
+			return makeHeadList("UpSet", ctx.expr());
 		}
 		if(ctx.CARETCOLONEQUAL() != null){
-			return makeHead("UpSetDelayed", ctx.expr(0), ctx.expr(1));
+			return makeHeadList("UpSetDelayed", ctx.expr());
 		}
 		//if(ctx.FUNCTIONARROW() != null)
 		StringBuilder val = new StringBuilder("Function[{");
@@ -362,7 +362,7 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitIntegrate(FoxySheepParser.IntegrateContext ctx) {
-		return makeHead("Integrate", ctx.expr(0), ctx.expr(1));
+		return makeHeadList("Integrate", ctx.expr());
 	}
 	/**
 	 * {@inheritDoc}
@@ -389,7 +389,7 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitHeadExpression(FoxySheepParser.HeadExpressionContext ctx) {
-		return makeHead(visit(ctx.expr()), ctx.expressionList());
+		return makeHead(getFullForm(ctx.expr()), ctx.expressionList());
 	}
 	/**
 	 * {@inheritDoc}
@@ -407,7 +407,7 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitTherefore(FoxySheepParser.ThereforeContext ctx) {
-		return makeHead("Therefore", ctx.expr(0), ctx.expr(1));
+		return makeHeadList("Therefore", ctx.expr());
 	}
 	/**
 	 * {@inheritDoc}
@@ -447,10 +447,8 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 		if(ctx.BINARYPLUSMINUS() != null){
 			return makeHeadList("PlusMinus", ctx.expr());
 		}
-		if(ctx.BINARYMINUSPLUS() != null){
-			return makeHeadList("MinusPlus", ctx.expr());
-		}
-		return ctx.getText();
+		//if(ctx.BINARYMINUSPLUS() != null){
+		return makeHeadList("MinusPlus", ctx.expr());
 	}
 	/**
 	 * {@inheritDoc}
@@ -459,7 +457,7 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitPower(FoxySheepParser.PowerContext ctx) {
-		return makeHead("Power", ctx.expr(0), ctx.expr(1));
+		return makeHeadList("Power", ctx.expr());
 	}
 	/**
 	 * {@inheritDoc}
@@ -546,7 +544,7 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 */
 	@Override public String visitPatternExp(FoxySheepParser.PatternExpContext ctx) {
 		//symb:expr
-		return makeHead("Patter", ctx.symbol(), ctx.expr());
+		return makeHead("Pattern", ctx.symbol(), ctx.expr());
 	}
 	/**
 	 * {@inheritDoc}
@@ -604,9 +602,9 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 */
 	@Override public String visitRightTee(FoxySheepParser.RightTeeContext ctx) {
 		if(ctx.RIGHTTEE() != null){
-			return makeHead("RightTee", ctx.expr(0), ctx.expr(1));
+			return makeHeadList("RightTee", ctx.expr());
 		}
-		return makeHead("DoubleRightTee", ctx.expr(0), ctx.expr(1));
+		return makeHeadList("DoubleRightTee", ctx.expr());
 	}
 	/**
 	 * {@inheritDoc}
@@ -670,7 +668,7 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitOptional(FoxySheepParser.OptionalContext ctx) {
-		return makeHead("Optional", ctx.expr(0), ctx.expr(1));
+		return makeHeadList("Optional", ctx.expr());
 	}
 	/**
 	 * {@inheritDoc}
@@ -688,7 +686,7 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitPatternTest(FoxySheepParser.PatternTestContext ctx) {
-		return makeHead("PatternTest", ctx.expr(0), ctx.expr(1));
+		return makeHeadList("PatternTest", ctx.expr());
 	}
 	/**
 	 * {@inheritDoc}
@@ -776,7 +774,7 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitParentheses(FoxySheepParser.ParenthesesContext ctx) { 
-		return visit(ctx.expr()); 
+		return getFullForm(ctx.expr()); 
 	}
 	/**
 	 * {@inheritDoc}
@@ -806,7 +804,7 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitSuchThat(FoxySheepParser.SuchThatContext ctx) {
-		return makeHead("SuchThat", ctx.expr(0), ctx.expr(1));
+		return makeHeadList("SuchThat", ctx.expr());
 	}
 	/**
 	 * {@inheritDoc}
@@ -926,9 +924,9 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 */
 	@Override public String visitReplaceAll(FoxySheepParser.ReplaceAllContext ctx) {
 		if(ctx.SLASHDOT() != null){
-			return makeHead("ReplaceAll", ctx.expr(0), ctx.expr(1));
+			return makeHeadList("ReplaceAll", ctx.expr());
 		}
-		return makeHead("ReplaceRepeated", ctx.expr(0), ctx.expr(1));
+		return makeHeadList("ReplaceRepeated", ctx.expr());
 	}
 	/**
 	 * {@inheritDoc}
@@ -1139,9 +1137,9 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 */
 	@Override public String visitRule(FoxySheepParser.RuleContext ctx) {
 		if(ctx.MINUSGREATER() != null || ctx.RARROW() != null){
-			return makeHead("Rule", ctx.expr(0), ctx.expr(1));
+			return makeHeadList("Rule", ctx.expr());
 		}
-		return makeHead("RuleDelayed", ctx.expr(0), ctx.expr(1));
+		return makeHeadList("RuleDelayed", ctx.expr());
 	}
 	/**
 	 * {@inheritDoc}
@@ -1198,7 +1196,7 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitStar(FoxySheepParser.StarContext ctx) {
-		return makeHeadList("Star", ctx.children );
+		return makeHeadList("Star", ctx.expr() );
 	}
 	/**
 	 * {@inheritDoc}
@@ -1372,18 +1370,20 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 			
 			child = ctx.children.get(childCounter);
 			if(exprCounter < ctx.expr().size() && child == ctx.expr(exprCounter)){
-				val.append( visit(child) );
+				val.append( getFullForm(child) );
 				exprCounter++;
 				childCounter++; //The next child is a comma (or end of list) which we skip.
 			}else{
 				//Must have been a comma indicating Null.
 				val.append("Null");
-				//If the comma is the last child, it needs to be followed by a Null, too.
-				if(childCounter == ctx.children.size()-1){
-					val.append(",Null");
-				}
 			}
 		}
+		
+		//If the last child is a comma, it needs to be followed by a Null, too.
+		if( !(ctx.getChild(ctx.children.size()-1) instanceof FoxySheepParser.ExprContext) ){
+			val.append(",Null");
+		}
+		
 		return val.toString();
 	}
 	/**

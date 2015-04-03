@@ -36,42 +36,42 @@ The table below summarizes the status of planned features.
     <th>Comments</th>
   </tr>
   <tr>
-    <td>Parses major language constructs.</td>
+    <td>Parses major language constructs</td>
     <td>complete</td>
     <td>The definition of "complete" and "major language constructs" is subjective. To be honest this needs auditing and testing.</td>
   </tr>
   <tr>
-    <td>Parses box-related constructs.</td>
+    <td>Parses box-related constructs</td>
     <td>partial</td>
     <td>Low priority.</td>
   </tr>
   <tr>
-    <td>Java target.</td>
+    <td>Java target</td>
     <td>complete</td>
     <td>Target language dependent components of the parser written in java.</td>
   </tr>
   <tr>
-    <td>Python target.</td>
+    <td>Python target</td>
     <td>not started</td>
     <td>Target language dependent components of the parser written in python.</td>
   </tr>
   <tr>
-    <td>FullForm emitter (java).</td>
-    <td>complete</td>
+    <td>FullForm emitter (java)</td>
+    <td>almost complete</td>
     <td></td>
   </tr>
   <tr>
-    <td>FullForm emitter (python).</td>
+    <td>FullForm emitter (python)</td>
+    <td>almost complete</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Develop test suite</td>
     <td>not started</td>
     <td></td>
   </tr>
   <tr>
-    <td>Develop test suite.</td>
-    <td>not started</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Translator to another HIL.</td>
+    <td>Translator to another HIL</td>
     <td>not started</td>
     <td>Nontrivial impedance mismatch.</td>
   </tr>
