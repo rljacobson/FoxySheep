@@ -1,111 +1,11 @@
 lexer grammar FoxySheepLexerRules;
 
+//options{
+//	//We put target-language dependent code in a base class.
+//	superClass=FoxySheepBaseLexer;
+//}
+
 tokens {BINARYPLUS, BINARYMINUS, BINARYMINUSPLUS, BINARYPLUSMINUS, SPANSEMICOLONS}
-
-@lexer::header{
-from FoxySheepParser import FoxySheepParser
-}
-
-@lexer::init{
-# To determine if a newline separates expressions, we keep
-# track of the bracketing level. Note that we treat all
-# bracket-like characters as the same.
-self.bracketLevel = 0
-
-# Curiously, the lexer does not allow us to inspect previous
-# tokens. Thus we need to keep track of the previous token
-# so that we can use it to disambiguate unary/binary plus.
-self.lastToken = None
-}
-
-@lexer::members{
-# TARGET LANGUAGE DEPENDENT CODE.
-
-# Binary plus follows a complete expression. Complete
-# expressions always end with one of the following
-# tokens. On the other hand, unary plus never follows
-# these tokens. Distinguishing unary plus from binary
-# plus disambiguates the grammar and allows us to use
-# implicit multiplication.
-
-closeExprTokens = [
-	FoxySheepParser.NumberLiteral,
-	FoxySheepParser.Name,
-	FoxySheepParser.StringLiteral,
-	FoxySheepParser.RPAREN,
-	FoxySheepParser.RBRACE,
-	FoxySheepParser.HASH,
-	FoxySheepParser.PERCENTDIGITS,
-	FoxySheepParser.PERCENTS,
-	FoxySheepParser.TRIPPLEBLANK,
-	FoxySheepParser.DOUBLEBLANK,
-	FoxySheepParser.BLANK,
-	FoxySheepParser.HASHDIGITS,
-	FoxySheepParser.HASHStringLiteral,
-	FoxySheepParser.DOUBLEHASHDIGITS,
-	FoxySheepParser.HASH,
-	FoxySheepParser.DOUBLEHASH,
-	FoxySheepParser.DIGITS,
-	FoxySheepParser.RBRACKET,
-	FoxySheepParser.RBARBRACKET,
-	FoxySheepParser.BoxRightBoxParenthesis,
-	FoxySheepParser.DOUBLEPLUS,
-	FoxySheepParser.DOUBLEMINUS,
-	FoxySheepParser.BANG,
-	FoxySheepParser.DOUBLEBANG,
-	FoxySheepParser.CONJUGATE,
-	FoxySheepParser.TRANSPOSE,
-	FoxySheepParser.CONJUGATETRANSPOSE,
-	FoxySheepParser.HERMITIANCONJUGATE,
-	FoxySheepParser.SINGLEQUOTE,
-	FoxySheepParser.DOUBLESEMICOLON,
-	FoxySheepParser.DOUBLEDOT,
-	FoxySheepParser.TRIPPLEDOT,
-	FoxySheepParser.AMP,
-	FoxySheepParser.DOT,
-	FoxySheepParser.SEMICOLON
-    ]
-
-# Curiously, the lexer does not allow us to inspect previous
-# tokens. Thus we need to keep track of the previous token
-# so that we can use it to disambiguate unary/binary plus.
-bracketLevel = 0
-lastToken = None
-
-def getToken(self):
-    lt = super(FoxySheepLexer, self).getToken()
-
-    if lt.channel != self.HIDDEN:
-        self.lastToken = lt
-    return lt
-
-def nextToken(self):
-    lt = super(FoxySheepLexer, self).nextToken()
-    if lt.channel != self.HIDDEN:
-        self.lastToken = lt
-    return lt
-
-# The following checks to see if the previous token likely
-# ended an expr. If so, it returns true. We use this method
-# in an action on plus to disambiguate between unary plus
-# and binary plus.
-def precededByExpr(self):
-    #Returns true if the previous token ended a complete expr.
-    if self.lastToken is None:
-        return False
-    tokenType = self.lastToken.type
-
-    return tokenType in self.closeExprTokens
-
-# The following checks to see if the current token (a newline)
-# separates two expressions using the following heuristic:
-# If the token follows a complete expression and all bracket-
-# like characters have been matched, then the token is an
-# expression separator, and we return true.
-def expressionSeparator(self):
-    return self.precededByExpr() and self.bracketLevel == 0
-
-}
 
 // LEXER RULES
 
@@ -185,30 +85,30 @@ COMMENT
 
 // Separators and brackets
 
-LPAREN      : '(' { self.bracketLevel += 1 } ;
-RPAREN      : ')' { self.bracketLevel -= 1 } ;
-LBRACE      : '{' { self.bracketLevel += 1 } ;
-RBRACE      : '}' { self.bracketLevel -= 1 } ;
-LBRACKET      : '[' { self.bracketLevel += 1 } ;
-RBRACKET      : ']' { self.bracketLevel -= 1 } ;
+LPAREN      : '(' {self.incrementBracketLevel(1);} ;
+RPAREN      : ')' {self.incrementBracketLevel(-1);} ;
+LBRACE      : '{' {self.incrementBracketLevel(1);} ;
+RBRACE      : '}' {self.incrementBracketLevel(-1);} ;
+LBRACKET      : '[' {self.incrementBracketLevel(1);} ;
+RBRACKET      : ']' {self.incrementBracketLevel(-1);} ;
 COMMA       : ',';
 LCOMMENT		: '(*';
 RCOMMENT		: '*)';
-LANGLE		: '\u2329' { self.bracketLevel += 1 } ; //Angled brackets <
-RANGLE		: '\u232a' { self.bracketLevel -= 1 } ; //Angled brackets >
-LFLOOR		: '\u230a' { self.bracketLevel += 1 } ;
-RFLOOR		: '\u230b' { self.bracketLevel -= 1 } ;
-LCEILING		: '\u2308' { self.bracketLevel += 1 } ;
-RCEILING		: '\u2309' { self.bracketLevel -= 1 } ;
+LANGLE		: '\u2329' {self.incrementBracketLevel(1);} ; //Angled brackets <
+RANGLE		: '\u232a' {self.incrementBracketLevel(-1);} ; //Angled brackets >
+LFLOOR		: '\u230a' {self.incrementBracketLevel(1);} ;
+RFLOOR		: '\u230b' {self.incrementBracketLevel(-1);} ;
+LCEILING		: '\u2308' {self.incrementBracketLevel(1);} ;
+RCEILING		: '\u2309' {self.incrementBracketLevel(-1);} ;
 DOUBLEBAR	: '||';
 BAR			: '|';
 //BARBAR	: '\uf607'; //Single character version of ||
-LBARBRACKET		: '\u301a' { self.bracketLevel += 1 } ; //Single character version of [[
-RBARBRACKET		: '\u301b' { self.bracketLevel -= 1 } ; //Single character version of ]]
-LBRACKETINGBAR	: '\uf603' { self.bracketLevel += 1 } ; //Glorified | symbol.
-RBRACKETINGBAR	: '\uf604' { self.bracketLevel -= 1 } ; //Glorified | symbol.
-LDOUBLEBRACKETINGBAR 	: '\uf605' { self.bracketLevel += 1 } ; //Single character || symbol.
-RDOUBLEBRACKETINGBAR 	: '\uf606' { self.bracketLevel -= 1 } ; //Single character || symbol.
+LBARBRACKET		: '\u301a' {self.incrementBracketLevel(1);} ; //Single character version of [[
+RBARBRACKET		: '\u301b' {self.incrementBracketLevel(-1);} ; //Single character version of ]]
+LBRACKETINGBAR	: '\uf603' {self.incrementBracketLevel(1);} ; //Glorified | symbol.
+RBRACKETINGBAR	: '\uf604' {self.incrementBracketLevel(-1);} ; //Glorified | symbol.
+LDOUBLEBRACKETINGBAR 	: '\uf605' {self.incrementBracketLevel(1);} ; //Single character || symbol.
+RDOUBLEBRACKETINGBAR 	: '\uf606' {self.incrementBracketLevel(-1);} ; //Single character || symbol.
 
 
 //Quote Characters
@@ -331,7 +231,7 @@ DOUBLESLASHDOT	: '//.';
 // Slot related symbols
 HASHDIGITS			: HASH DIGITS;
 HASHStringLiteral 	: HASH StringLiteral;
-DOUBLEHASHDIGITS		: DOUBLEHASH DIGITS;
+DOUBLEHASHDIGITS		: DOUBLEHASH DIGITS; 
 DOUBLEHASH			: '##';
 HASH 				: '#';
 
@@ -377,10 +277,7 @@ UNION			: '\u22c3'; //  $\cap$
  * in order to solve a context sensitivity problem in the parser. See the Span parser
  * rules for details.
  */
-DOUBLESEMICOLON	: ';;' {
-if not self.precededByExpr():
-	self.type = FoxySheepParser.SPANSEMICOLONS
-} ;
+DOUBLESEMICOLON	: ';;' {self.checkDoubleSemicolon();} ;
 SEMICOLON        : ';';
 TRANSPOSE	: '\uf3c7'; //T
 CONJUGATETRANSPOSE	: '\uf3c9'; //cross
@@ -410,22 +307,10 @@ DOUBLESLASH	: '//';
 VERTICALSEPARATOR	: '\uf432';
 
 //Additive arithmetic
-PLUS			: '+' {
-if self.precededByExpr():
-    self.type = FoxySheepParser.BINARYPLUS
-};
-MINUS		: '-' {
-if self.precededByExpr():
-    self.type = FoxySheepParser.BINARYMINUS
-};
-PLUSMINUS	: '\u00b1' {
-if self.precededByExpr():
-    self.type = FoxySheepParser.BINARYPLUSMINUS
-};
-MINUSPLUS	: '\u2213' {
-if self.precededByExpr():
-    self.type = FoxySheepParser.BINARYMINUSPLUS
-};
+PLUS			: '+' { self.checkAdditiveOp(FoxySheepParser.BINARYPLUS); } ;
+MINUS		: '-' { self.checkAdditiveOp(FoxySheepParser.BINARYMINUS); } ;
+PLUSMINUS	: '\u00b1' { self.checkAdditiveOp(FoxySheepParser.BINARYPLUSMINUS); } ;
+MINUSPLUS	: '\u2213' { self.checkAdditiveOp(FoxySheepParser.BINARYMINUSPLUS); } ;
 
 //Box related tokens.
 //These are special because they can only occur in a box.
@@ -457,17 +342,12 @@ TIMES	: '\u00d7';
 
 //Whitespace
 /*
- * Note that FoxySheep does not treat newlines the same way Mathematica does. 
- * FoxySheep assumes that the input is one single expression. On the other
- * hand, Wolfram Language "treats the input that you give on successive 
- * lines as belonging to the same expression whenever no complete expression 
- * would be formed without doing this."
+ * Note that FoxySheep treats newlines the same way Mathematica does: 
+ * Wolfram Language "treats the input that you give on successive 
+ * lines as belonging to the same expression whenever no complete 
+ * expression would be formed without doing this."
  */
-
-NEWLINE	: '\n' {
-if not self.expressionSeparator():
-    self.channel = self.HIDDEN
-};
+NEWLINE	: '\n' { self.checkNewline();} ;
 
 CONTINUATION	:	'\uf3b1' -> skip ;
 WHITESPACE  :   ([\t\r] | SpaceCharacter)+ -> skip ;
