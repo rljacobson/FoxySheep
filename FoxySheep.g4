@@ -9,7 +9,6 @@ prog
 
 expr
     :	NumberLiteral	#NumberLiteral
-    |	symbol			#SymbolLiteral
     |	StringLiteral	#StringLiteral
     
     |	LPAREN expr RPAREN	#Parentheses //Grouping with parentheses
@@ -23,7 +22,11 @@ expr
     |	expr DOUBLECOLON StringLiteral (DOUBLECOLON StringLiteral)?	#Message // MessageName[]
     |	slotExpression	#Slot //"forms containing #"
     |	outExpression 	#Out //"forms containing %"
-    |	pattern			#PatternForm // "forms containing _"
+//    |	pattern			#PatternForm // "forms containing _"
+	|	symbol? (TRIPPLEBLANK | DOUBLEBLANK | BLANK) expr?	#PatternBlanks
+	|	symbol? BLANKDOT		#PatternBlankDot
+    |	symbol				#SymbolLiteral
+
     |	DOUBLELESS StringLiteral 	#Get
 
 	//TODO: Finish and test box related grammar.
@@ -150,10 +153,10 @@ context
 	| Name BACKQUOTE Name BACKQUOTE	#CompoundContext
 	;
 
-pattern
-	:	symbol? (TRIPPLEBLANK | DOUBLEBLANK | BLANK) expr?	#PatternBlanks
-	|	symbol? BLANKDOT		#PatternBlankDot
-	;
+//pattern
+//	:	symbol? (TRIPPLEBLANK | DOUBLEBLANK | BLANK) expr?	#PatternBlanks
+//	|	symbol? BLANKDOT		#PatternBlankDot
+//	;
 
 outExpression
 	:	PERCENTDIGITS	#OutNumbered

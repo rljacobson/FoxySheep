@@ -44,6 +44,7 @@ public abstract class Lexer extends org.antlr.v4.runtime.Lexer{
 		FoxySheepParser.PERCENTS,
 		FoxySheepParser.TRIPPLEBLANK,
 		FoxySheepParser.DOUBLEBLANK,
+		FoxySheepParser.BLANKDOT,
 		FoxySheepParser.BLANK,
 		FoxySheepParser.HASHDIGITS,
 		FoxySheepParser.HASHStringLiteral,

@@ -552,9 +552,9 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public String visitPatternForm(FoxySheepParser.PatternFormContext ctx) {
-		return ctx.getText();
-	}
+//	@Override public String visitPatternForm(FoxySheepParser.PatternFormContext ctx) {
+//		return ctx.getText();
+//	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1276,7 +1276,35 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitPatternBlanks(FoxySheepParser.PatternBlanksContext ctx) {
-		return ctx.getText();
+		StringBuilder val = new StringBuilder();
+		
+		if(ctx.TRIPPLEBLANK() != null){
+			val.append("BlankNullSequence[");
+			if(ctx.expr() != null) val.append(getFullForm(ctx.expr()));
+			val.append("]");
+		}
+		if(ctx.DOUBLEBLANK() != null){
+			val.append("BlankSequence[");
+			if(ctx.expr() != null) val.append(getFullForm(ctx.expr()));
+			val.append("]");
+		}
+		if(ctx.BLANK() != null){
+			val.append("Blank[");
+			if(ctx.expr() != null) val.append(getFullForm(ctx.expr()));
+			val.append("]");
+		}
+		
+		// If there is a symbol, we wrap the whole expression in Pattern[]
+		if(ctx.symbol() != null){
+			StringBuilder wrap = new StringBuilder("Pattern[");
+			wrap.append(getFullForm(ctx.symbol()));
+			wrap.append(",");
+			wrap.append(val);
+			wrap.append("]");
+			val = wrap;
+		}
+		
+		return val.toString();
 	}
 	/**
 	 * {@inheritDoc}
@@ -1285,7 +1313,15 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public String visitPatternBlankDot(FoxySheepParser.PatternBlankDotContext ctx) {
-		return ctx.getText();
+		StringBuilder val = new StringBuilder();
+		if(ctx.symbol() != null){
+			val.append("Optional[Pattern[");
+			val.append(getFullForm(ctx.symbol()));
+			val.append(",Blank[]]]");
+		} else{
+			val.append("Optional[Blank[]]");
+		}
+		return val.toString();
 	}
 	/**
 	 * {@inheritDoc}

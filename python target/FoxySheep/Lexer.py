@@ -26,6 +26,7 @@ class Lexer(antlr4.Lexer):
         FoxySheepParser.PERCENTS,
         FoxySheepParser.TRIPPLEBLANK,
         FoxySheepParser.DOUBLEBLANK,
+        FoxySheepParser.BLANKDOT,
         FoxySheepParser.BLANK,
         FoxySheepParser.HASHDIGITS,
         FoxySheepParser.HASHStringLiteral,

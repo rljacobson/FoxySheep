@@ -311,12 +311,6 @@ class FullFormEmitter(FoxySheepVisitor):
     def visitFloor(self, ctx):
         return self.makeHead("Floor", ctx.expr() )
 
-
-    # Visit a parse tree produced by FoxySheepParser#PatternForm.
-    def visitPatternForm(self, ctx):
-        return ctx.getText()
-
-
     # Visit a parse tree produced by FoxySheepParser#Because.
     def visitBecause(self, ctx):
         return self.makeHeadList("Because", ctx.expr)
@@ -780,12 +774,44 @@ class FullFormEmitter(FoxySheepVisitor):
 
     # Visit a parse tree produced by FoxySheepParser#PatternBlanks.
     def visitPatternBlanks(self, ctx):
-        return ctx.getText()
+        val = ""
+        if ctx.TRIPPLEBLANK() is not None:
+            val += "BlankNullSequence["
+            if ctx.expr() is not None:
+                val += self.getFullForm(ctx.expr())
+            val += "]"
+        if ctx.DOUBLEBLANK() is not None:
+            val += "BlankSequence["
+            if ctx.expr() is not None:
+                val += self.getFullForm(ctx.expr())
+            val += "]"
+        if ctx.BLANK() is not None:
+            val += "Blank["
+            if ctx.expr() is not None:
+                val += self.getFullForm(ctx.expr())
+            val += "]"
+
+        # If there is a symbol, we wrap the whole expression in Pattern[]
+        if ctx.symbol() is not None:
+            wrap = "Pattern["
+            wrap += self.getFullForm(ctx.symbol())
+            wrap += ","
+            val = wrap + val + "]"
+
+        return val
 
 
     # Visit a parse tree produced by FoxySheepParser#PatternBlankDot.
     def visitPatternBlankDot(self, ctx):
-        return ctx.getText()
+        val = ""
+        if ctx.symbol() is not None:
+            val = "Optional[Pattern["
+            val += self.getFullForm(ctx.symbol())
+            val += ",Blank[]]]"
+        else:
+            val = "Optional[Blank[]]"
+
+        return val
 
 
     # Visit a parse tree produced by FoxySheepParser#OutNumbered.
