@@ -18,19 +18,22 @@ Or fix some current known bugs:
 # Finding your way through the source grammar
 The lexer rules are implemented in `FoxySheepLexerRules.g4`, while the parser rules are in `FoxySheep.g4`. Most of the action in the FoxySheep grammar happens in the `expr` production rule. The grammar relies on ANTLR to implement correct operator precedence according to the order of the alternatives.
 
-ANTLR generates a parse tree, but the tree needs to be walked using the PostParser listener (implemented in `src/PostParser.java`) which restructures the parse tree to flatten some of the operators.
+ANTLR generates a parse tree, but the tree needs to be walked using the PostParser listener (implemented in `src/PostParser.java` and `FoxySheep/PostParser.py`) which restructures the parse tree to flatten some of the operators.
 
-The FullForm emitter is a visitor class. It is implemented in `src/PostParser.java`.
+The FullForm emitter is a visitor class. It is implemented in `src/FullFormEmitter.java` and `FoxySheep/FullFormEmitter.py`.
 
 #Target language dependent code
-The project attempts to keep target language dependent code to a minimum. However, there is minimal target language dependent code embedded in `FoxySheepLexerRules.g4` to make implicit multiplication possible. This code is written in Java, but it should be trivial to port it to another target language.
+The project attempts to keep target language dependent code to a minimum. There is minimal target language dependent code embedded in `FoxySheepLexerRules.g4` that is written to be both valid Java and valid Python. It should be trivial to port this code to another target language. This code can be found:
 
- * In the `@lexer::header` and `@lexer::members` sections of the lexer grammar.
+ * In every bracket-like lexer rule.
  * In the actions on the PLUS, MINUS, PLUSMINUS, and MINUSPLUS lexer rules.
  * In the action on DOUBLESEMICOLON ";;".
  * In the NEWLINE action.
 
-The FullForm emitter and PostParser are written in Java. FullForm emitters for other target languages are planned—in fact, that would be a great way for you to contribute! 
+To make this embedded target language dependent code work, we put supporting member functions in a superclass that the generated lexer subclasses. 
+
+There is a post parser and FullForm emitter for Java and Python. Creating these classes for another target language would be a great way for you to contribute! 
+
 
 #Where is Wolfram Language documented?
 There is no official grammar available. However, the language is described in detail in a few documents published on Wolfram Research's website.

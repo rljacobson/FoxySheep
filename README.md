@@ -1,5 +1,5 @@
 #What is FoxySheep?
-FoxySheep is a **Wolf**_ram_ Language ANTLR4 lexer and parser grammar. FoxySheep also has a visitor that emits FullForm expressions (essentially the parse tree but in a format that Mathematica can read and evaluate). The FullForm emitter is written in Java, but other target languages are planned.
+FoxySheep is a **Wolf**_ram_ Language ANTLR4 lexer and parser grammar. FoxySheep also has a visitor that emits FullForm expressions (essentially the parse tree but in a format that Mathematica can read and evaluate). Both Java and Python target languages are supported.
 
 In this document, Wolfram Language refers to the programming language used in Mathematica (and some other Wolfram Research products), and Mathematica refers to the computer algebra system (or its kernel) produced by Wolfram Research. FoxySheep and its author(s) are not affiliated with Wolfram Research.
 
