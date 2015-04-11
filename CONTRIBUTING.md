@@ -12,8 +12,6 @@ Here are some ideas:
 Or fix some current known bugs:
 
 * Fix the string literal parsing rules so they parse Wolfram Language string literals. (Currently string literals are implemented incorrectly with lexer rules.)
-* There is a weird bug affecting parsing number literals that needs squashing. 
-* Implicit multiplication is fragile and occassionally breaks when changes are made to the grammar. Test implicit multiplication, and if it doesn't work correctly, fix it.
 
 # Finding your way through the source grammar
 The lexer rules are implemented in `FoxySheepLexerRules.g4`, while the parser rules are in `FoxySheep.g4`. Most of the action in the FoxySheep grammar happens in the `expr` production rule. The grammar relies on ANTLR to implement correct operator precedence according to the order of the alternatives.
@@ -100,3 +98,24 @@ Tokens that are string literals or character classes are in all caps. Tokens tha
 Command line Mathematica and Notebook Mathematica produce different output for `FullForm[Hold[3x^2-+2x + - -1]]`. Looks like the notebook doesn't properly flatten `Times[]`. Why the notebook has a different parser than the command line is a mystery.
 
 The Mathematica parser does not correctly hold the multiplication by -1 with number literals: `FullForm[Hold[1-2]]` gives `Plus[1, -2]`, whereas `FullForm[Hold[a-b]]` gives `Plus[a, Times[-1,b]]`.
+
+The Mathematica parser does not "hold" the resolution of the current context:
+
+```
+In[1]:= FullForm[Hold[`x`y]]
+Out[1]= Hold[Global`x`y]
+
+In[2]:= $Context = "Test`"
+Out[2]= Test`
+
+In[1]:= FullForm[Hold[`x`y]]
+Out[1]= Hold[Test`x`y]
+```
+
+Mathematica automatically computes number literal input forms and apparently does not have a FullForm representation for number literal input forms. For example:
+
+```
+In[1]:= Hold[36^^sadjh.87s567*^-14]
+Out[1]= Hold[7.73714*10^-15]
+```
+FoxySheep does parse out the components of number input forms, so FoxySheep applications can access these components without any extra work. However, the FullForm emitter just emits the number form as-is.

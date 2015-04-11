@@ -812,7 +812,13 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public String visitNumberLiteral(FoxySheepParser.NumberLiteralContext ctx) {
+	@Override public String visitNumber(FoxySheepParser.NumberContext ctx) {
+		/*
+		 * Frustratingly, number literals have no FullForm[] in Mathematica.
+		 * Mathematica will automatically compute the value of a number
+		 * literal. Since we do no computation in the parser, the only
+		 * "correct" option for us is to reproduce the number form as-is. 
+		 */
 		return ctx.getText();
 	}
 	/**

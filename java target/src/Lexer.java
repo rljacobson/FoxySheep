@@ -1,3 +1,9 @@
+/*
+ * In order for the FoxySheepLexer to subclass this class you must
+ * comment out "import org.antlr.v4.runtime.Lexer" from the 
+ * generated lexer.
+ */
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,7 +40,8 @@ public abstract class Lexer extends org.antlr.v4.runtime.Lexer{
 	* implicit multiplication.  
 	*/
 	List<Integer> closeExprTokens = Arrays.asList(
-		FoxySheepParser.NumberLiteral,
+		FoxySheepParser.DecimalNumber,
+		FoxySheepParser.NumberInBase,
 		FoxySheepParser.Name,
 		FoxySheepParser.StringLiteral,
 		FoxySheepParser.RPAREN,

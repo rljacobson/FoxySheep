@@ -8,7 +8,7 @@ prog
 	;
 
 expr
-    :	NumberLiteral	#NumberLiteral
+    :	numberLiteral	#Number
     |	StringLiteral	#StringLiteral
     
     |	LPAREN expr RPAREN	#Parentheses //Grouping with parentheses
@@ -153,11 +153,22 @@ context
 	| Name BACKQUOTE Name BACKQUOTE	#CompoundContext
 	;
 
-//pattern
-//	:	symbol? (TRIPPLEBLANK | DOUBLEBLANK | BLANK) expr?	#PatternBlanks
-//	|	symbol? BLANKDOT		#PatternBlankDot
-//	;
+//Numbers
+numberLiteral
+	:	DIGITS NumberInBase numberLiteralPrecision? numberLiteralExponent? 	#NumberBaseN		// Number in any base.
+	|	DecimalNumber numberLiteralPrecision? numberLiteralExponent? 			#NumberBaseTen	// Number in base ten.
+	;
 
+numberLiteralPrecision
+	:	DOUBLEBACKQUOTE (DecimalNumber | DIGITS)
+	|	BACKQUOTE (DecimalNumber | DIGITS)?
+	;
+
+numberLiteralExponent
+	:	(ASTERISKCARET (PLUS|MINUS)? DIGITS)
+	;
+
+//Slot[] and Out[]
 outExpression
 	:	PERCENTDIGITS	#OutNumbered
 	|	PERCENTS			#OutUnnumbered

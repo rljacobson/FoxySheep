@@ -11,7 +11,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 public class FoxySheep {
 
 	public static void main(String[] args) throws Exception {
-		String inputFile = "/Users/rljacobson/Google Drive/Development/FoxySheep/Expression.txt";
+		String inputFile = "/Users/rljacobson/Google Drive/Development/FoxySheep/python target/Expression.txt";
 		InputStream istream = new FileInputStream(inputFile);
 		
 		ANTLRInputStream input = new ANTLRInputStream(istream);
