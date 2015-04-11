@@ -458,7 +458,11 @@ class FullFormEmitter(FoxySheepVisitor):
 
 
     # Visit a parse tree produced by FoxySheepParser#NumberLiteral.
-    def visitNumberLiteral(self, ctx):
+    def visitNumber(self, ctx):
+        # Frustratingly, number literals have no FullForm[] in Mathematica.
+        # Mathematica will automatically compute the value of a number
+        # literal. Since we do no computation in the parser, the only
+        # "correct" option for us is to reproduce the number form as-is.
         return ctx.getText()
 
 

@@ -1,3 +1,9 @@
+# In order for the generated lexer to subclass our lexer base
+# class, we have to add the lines
+#       from generated.FoxySheepParser import FoxySheepParser
+#       from FoxySheep.Lexer import Lexer
+# to the generated lexer.
+
 import antlr4
 from generated.FoxySheepParser import FoxySheepParser
 
@@ -16,7 +22,8 @@ class Lexer(antlr4.Lexer):
     # implicit multiplication.
     
     closeExprTokens = [
-        FoxySheepParser.NumberLiteral,
+        FoxySheepParser.DecimalNumber,
+        FoxySheepParser.NumberInBase,
         FoxySheepParser.Name,
         FoxySheepParser.StringLiteral,
         FoxySheepParser.RPAREN,
