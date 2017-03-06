@@ -1,4 +1,4 @@
-DIR=/Users/rljacobson/Documents/Development/FoxySheep/python\ target
+DIR=/Users/rljacobson/Google\ Drive/Development/FoxySheep/python\ target
 
 all: FoxySheepParser.py
 

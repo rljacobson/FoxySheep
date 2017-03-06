@@ -156,7 +156,7 @@ context
 //Numbers
 numberLiteral
 	:	DIGITS NumberInBase numberLiteralPrecision? numberLiteralExponent? 	#NumberBaseN		// Number in any base.
-	|	DecimalNumber numberLiteralPrecision? numberLiteralExponent? 			#NumberBaseTen	// Number in base ten.
+	|	(DIGITS | DecimalNumber) numberLiteralPrecision? numberLiteralExponent? 			#NumberBaseTen	// Number in base ten.
 	;
 
 numberLiteralPrecision
