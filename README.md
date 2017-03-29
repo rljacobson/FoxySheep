@@ -1,9 +1,9 @@
-#What is FoxySheep?
+# What is FoxySheep?
 FoxySheep is a **Wolf**_ram_ Language ANTLR4 lexer and parser grammar. FoxySheep also has a visitor that emits FullForm expressions (essentially the parse tree but in a format that Mathematica can read and evaluate). Both Java and Python target languages are supported.
 
 In this document, Wolfram Language refers to the programming language used in Mathematica (and some other Wolfram Research products), and Mathematica refers to the computer algebra system (or its kernel) produced by Wolfram Research. FoxySheep and its author(s) are not affiliated with Wolfram Research.
 
-#Possible uses for FoxySheep
+# Possible uses for FoxySheep
 You can use it to
 
 * write a pretty printer for Wolfram Language code.
@@ -17,7 +17,7 @@ What FoxySheep doesn't do:
 
 But nothing is stopping *you* from using FoxySheep in your own project to do the above!
 
-#Project Status
+# Project Status
 FoxySheep is in heavy development. It is probably not yet ready to be used in your project. It needs a lot of testing and lacks some language features.
 
 FoxySheep has complete coverage of non-box-related language features, and sketchy untested coverage of box-related features. While it is a goal of the project, FoxySheep does not always have identical behavior to Mathematica for the language constructs that it implements.
@@ -77,7 +77,7 @@ The table below summarizes the status of planned features.
   </tr>
 </table>
 
-#Contributing
+# Contributing
 If you want to contribute to the project, read CONTRIBUTING.md.
 
 # Authors and License

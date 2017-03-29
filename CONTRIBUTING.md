@@ -20,7 +20,7 @@ ANTLR generates a parse tree, but the tree needs to be walked using the PostPars
 
 The FullForm emitter is a visitor class. It is implemented in `src/FullFormEmitter.java` and `FoxySheep/FullFormEmitter.py`.
 
-#Target language dependent code
+# Target language dependent code
 The project attempts to keep target language dependent code to a minimum. There is minimal target language dependent code embedded in `FoxySheepLexerRules.g4` that is written to be both valid Java and valid Python. It should be trivial to port this code to another target language. This code can be found:
 
  * In every bracket-like lexer rule.
@@ -33,7 +33,7 @@ To make this embedded target language dependent code work, we put supporting mem
 There is a post parser and FullForm emitter for Java and Python. Creating these classes for another target language would be a great way for you to contribute! 
 
 
-#Where is Wolfram Language documented?
+# Where is Wolfram Language documented?
 There is no official grammar available. However, the language is described in detail in a few documents published on Wolfram Research's website.
 
 | Document | Description |
@@ -44,18 +44,18 @@ There is no official grammar available. However, the language is described in de
 | [Special Characters](http://reference.wolfram.com/language/tutorial/SpecialCharacters-MathematicalAndOtherNotation.html) | A description of how special characters work in Mathematica. This is useful in dealing with operators involving special symbols. |
 | [Listing of Named Characters](http://reference.wolfram.com/language/guide/ListingOfNamedCharacters.html) | Lists all of the special characters Mathematica has a name for. This is useful when working with operators involving special symbols. |
 
-#Special symbols
+# Special symbols
 Special symbols are just unicode characters. No non-ascii characters should appear in the code itself. Use escape codes instead. Mathematica provides a database of named characters here: `.../SystemFiles/FrontEnd/TextResources/UnicodeCharacters.tr`.
 
-#Helpful Mathematica code snippets
+# Helpful Mathematica code snippets
 
-###Get the \uxxxx unicode string for a character
+### Get the \uxxxx unicode string for a character
 `"\\u" <> TextString[BaseForm[ToCharacterCode["\[And]"][[1]], 16]]` 
 
-###Get Mathematica's "name" of a special character
+### Get Mathematica's "name" of a special character
 `FullForm["\[And]"]`
 
-###Get Mathematica to give you a syntax tree of an arbitrary expression.
+### Get Mathematica to give you a syntax tree of an arbitrary expression.
 `FullForm` also gives what is essentially a syntax tree of any Wolfram Language expression. For example,
 
 ```
@@ -66,7 +66,7 @@ List[Power[x,2],Plus[x,Times[-1,Times[1,Power[x,-1]]]]]]]
 
 The `Hold` is necessary. It's helpful to pass the output of `FullForm` to `TextString` so that you can copy+paste the output: `TextString[FullForm[Hold[ expression ]]]`.
 
-#Code conventions
+# Code conventions
 
 Parser rules go in `FoxySheep.g4` while lexer rules go in `FoxySheepLexerRules.g4`.
 
@@ -94,7 +94,7 @@ Use named tokens.
 
 Tokens that are string literals or character classes are in all caps. Tokens that are regular expressions or rules are in CamelCase. (If someone wants to go through and regularize the naming, go for it.)
 
-#Mathematica oddities
+# Mathematica oddities
 Command line Mathematica and Notebook Mathematica produce different output for `FullForm[Hold[3x^2-+2x + - -1]]`. Looks like the notebook doesn't properly flatten `Times[]`. Why the notebook has a different parser than the command line is a mystery.
 
 The Mathematica parser does not correctly hold the multiplication by -1 with number literals: `FullForm[Hold[1-2]]` gives `Plus[1, -2]`, whereas `FullForm[Hold[a-b]]` gives `Plus[a, Times[-1,b]]`.
