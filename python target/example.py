@@ -4,7 +4,7 @@ from generated.FoxySheepParser import FoxySheepParser
 from FoxySheep.FullFormEmitter import FullFormEmitter
  
 def main():
-    inputFile = "/Users/rljacobson/Google Drive/Development/FoxySheep/python target/Expression.txt"
+    inputFile = "Expression.txt"
 
     #Boilerplate
     input = FileStream(inputFile)
