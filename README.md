@@ -1,5 +1,5 @@
 # What is FoxySheep?
-FoxySheep is a **Wolf**_ram_ Language ANTLR4 lexer and parser grammar. FoxySheep also has a visitor that emits FullForm expressions (essentially the parse tree but in a format that Mathematica can read and evaluate). Both Java and Python target languages are supported.
+FoxySheep is a **Wolf**_ram_ Language ANTLR4 lexer and parser grammar. FoxySheep also has a visitor that emits FullForm expressions (essentially the parse tree but in a format that Mathematica can read and evaluate) and a trimmed down lexer/parse for parsing FullForm expressions. Both Java and Python target languages are supported.
 
 In this document, Wolfram Language refers to the programming language used in Mathematica (and some other Wolfram Research products), and Mathematica refers to the computer algebra system (or its kernel) produced by Wolfram Research. FoxySheep and its author(s) are not affiliated with Wolfram Research.
 
@@ -42,7 +42,7 @@ The table below summarizes the status of planned features.
   </tr>
   <tr>
     <td>Parses box-related constructs</td>
-    <td>partial</td>
+    <td>started</td>
     <td>Low priority.</td>
   </tr>
   <tr>
@@ -52,17 +52,17 @@ The table below summarizes the status of planned features.
   </tr>
   <tr>
     <td>Python target</td>
-    <td>not started</td>
+    <td>complete</td>
     <td>Target language dependent components of the parser written in python.</td>
   </tr>
   <tr>
     <td>FullForm emitter (java)</td>
-    <td>almost complete</td>
+    <td>complete</td>
     <td></td>
   </tr>
   <tr>
     <td>FullForm emitter (python)</td>
-    <td>almost complete</td>
+    <td>complete</td>
     <td></td>
   </tr>
   <tr>
@@ -72,8 +72,8 @@ The table below summarizes the status of planned features.
   </tr>
   <tr>
     <td>Translator to another HIL</td>
-    <td>not started</td>
-    <td>Nontrivial impedance mismatch.</td>
+    <td>started</td>
+    <td>Nontrivial impedance mismatch makes this a very complex task.</td>
   </tr>
 </table>
 
