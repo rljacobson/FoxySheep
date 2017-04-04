@@ -11,5 +11,5 @@ from FoxySheep.Lexer import Lexer
 ```
 Of course, we don't actually do this manually. Instead we do some bash magic:
 ```bash
-(cat FoxySheep/LexerPreface.py && cat generated/FoxySheepLexer.py) > generated/FoxySheepLexer.py
+cat FoxySheep/LexerPreface.py generated/FoxySheepLexer.py > tmp.py && mv tmp.py generated/FoxySheepLexer.py
 ```
