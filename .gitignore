@@ -1,6 +1,10 @@
 # Specific to this repository #
 ###############################
-python_target/generated/FoxySheep*
+/python_target/generated/FoxySheep*
+/java_target/bin/*
+/java_target/generated/*
+/Reference/
+toc.md
 
 # Compiled source #
 ###################
