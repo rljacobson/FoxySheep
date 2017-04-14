@@ -4,7 +4,7 @@ from generated.FoxySheepParser import FoxySheepParser
 from FoxySheep.FullFormEmitter import FullFormEmitter
  
 def main():
-    inputFile = "Expression.txt"
+    inputFile = "../unit_tests/ParseExpressions/NumberLiterals.m"
 
     #Boilerplate
     input = FileStream(inputFile)
