@@ -1,7 +1,9 @@
 [TOC]: # "What is FoxySheep"
 
 # What is FoxySheep?
+
 FoxySheep is a collection of compiler technologies for **Wolf**_ram_ Language\*. In particular, FoxySheep...
+
 * is an ANTLR4 lexer and parser grammar for Wolfram Language.
 * is a Wolfram Language expression to FullForm expression translator. In other words, the FoxySheep parser has a visitor for the parse tree it produces that emits the FullForm of the parsed expression. The FullForm of an expression is a functionally equivalent form of the expression in a lisp-like expression format (`Head[arg1, arg2, ...]`). Thus FullForm is very easy to parse.
 * includes a trimmed down lexer/parse for parsing FullForm expressions. Both Java and Python target languages are supported. Users can use Mathematica itself or some other Wolfram Language parser to produce a FullForm expression and then use FoxySheep's FullForm parser to read the result into their own programs.
@@ -12,6 +14,7 @@ If you are here looking for a Wolfram Language parser for your project, jump dow
 \*In this document, Wolfram Language refers to the programming language used in Mathematica (and some other Wolfram Research products), and Mathematica refers to the computer algebra system (or its kernel) produced by Wolfram the company. FoxySheep and its author(s) are not affiliated with Wolfram.
 
 ## Motivation and Goals
+
 For the Wolfram Language parser, I wanted something that is both fully functional and easy for students to understand, use in their own projects, modify, and contribute to. ANTLR4 is the perfect choice to achieve these goals. ANTLR4 produces parsers for Java, C#, Python 2&3, JavaScript, Go, C++, and Swift. The FoxySheep ANTLR4 grammars are language agnostic while the FullForm emitter comes in both Java and Python flavors. It would be easy to add support for another language.
 
 For the Wolfram Language to Python translator, the goal is to be *useful*. My standard for usefulness is, it is sufficiently functional and easy to use that people, students especially, would want to use it to write simple programs in a Jupyter or Sage notebook.
@@ -19,6 +22,7 @@ For the Wolfram Language to Python translator, the goal is to be *useful*. My st
 Finally, for FoxySheep as a whole, my goal is that the project is helpful for students who are learning about compiler construction or Wolfram Language and helpful for me to learn how to teach those topics.
 
 ## Possible Uses for FoxySheep
+
 You can use it to...
 
 * write a pretty printer for Wolfram Language code.
@@ -33,6 +37,7 @@ FoxySheep doesn't...
 But nothing is stopping *you* from using FoxySheep in your own project to do the above!
 
 # Building
+
 This section is incomplete.
 
 You will need ANTLR4 installed and available in your path. To check this, check that you can run `antlr4` in a terminal.
@@ -48,6 +53,7 @@ make
 ```
 
 # Project Status
+
 FoxySheep is in heavy development. It is probably not yet ready to be used in your project. It needs a lot of testing and lacks some language features.
 
 FoxySheep has complete coverage of non-box-related language features, and sketchy untested coverage of box-related features. While it is a goal of the project, FoxySheep does not always have identical behavior to Mathematica for the language constructs that it implements.
@@ -68,7 +74,7 @@ The table below summarizes the status of planned features.
   <tr>
     <td>Parses major language constructs</td>
     <td>complete</td>
-    <td>The definition of "complete" and "major language constructs" is subjective. To be honest this needs auditing and testing.</td>
+    <td></td>
   </tr>
   <tr>
     <td>Parses box-related constructs</td>
@@ -103,11 +109,12 @@ The table below summarizes the status of planned features.
   <tr>
     <td>Translator to another HIL</td>
     <td>started</td>
-    <td>Nontrivial impedance mismatch makes this a very complex task.</td>
+    <td>Nontrivial impedance mismatch makes this a very complex task. Work has been started on a Wolfram Language to Python translator, but there is no functional code to share yet.</td>
   </tr>
 </table>
 
 # Contributing
+
 See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 # Similar Projects
@@ -124,6 +131,7 @@ Here's what the open source Wolfram Language parser landscape looks like:
 * [Symja-parser](https://github.com/axkr/symja-parser) is the Mathematica parser for [Symja - Java Computer Algebra Library](https://bitbucket.org/axelclk/symja_android_library/wiki/Home), "a general purpose Java library for symbolic mathematics" by Axel Kramer. Symja contains a Mathematica parser for a reasonable subset of Mathematica.
 
 # Authors and License
+
 Author(s): Robert Jacobson 
 
 License: BSD license. See the file LICENSE.txt for details.
