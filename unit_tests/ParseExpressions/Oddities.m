@@ -11,5 +11,5 @@ a-b;
 Global`x`y;
 
 (* Mathematica automatically computes number literal input forms, whereas FoxySheep does not. *)
-36^^sadjh.87s567*^-14
-7.73714*10^-15;
+36^^sadjh.87s567*^-14;
+7.73714*10^-15

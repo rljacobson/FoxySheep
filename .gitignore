@@ -1,6 +1,6 @@
 # Specific to this repository #
 ###############################
-/python_target/generated/FoxySheep*
+/python_target/FoxySheep/generated/FoxySheep*
 /java_target/bin/*
 /java_target/generated/*
 /Reference/
@@ -37,7 +37,7 @@ toc.md
 ######################
 .DS_Store
 ehthumbs.db
-Icon
+Icon*
 Thumbs.db
 .tmtags
 .idea

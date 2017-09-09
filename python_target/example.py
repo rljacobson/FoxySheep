@@ -1,8 +1,10 @@
 from antlr4 import *
-from generated.FoxySheepLexer import FoxySheepLexer
-from generated.FoxySheepParser import FoxySheepParser
+
 from FoxySheep.FullFormEmitter import FullFormEmitter
- 
+from FoxySheep.generated.FoxySheepLexer import FoxySheepLexer
+from FoxySheep.generated.FoxySheepParser import FoxySheepParser
+
+
 def main():
     inputFile = "../unit_tests/ParseExpressions/NumberLiterals.m"
 

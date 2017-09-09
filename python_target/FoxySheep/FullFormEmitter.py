@@ -3,8 +3,8 @@ from antlr4 import *
 from generated.FoxySheepVisitor import *
 from generated.FoxySheepParser import *
 
-# This class defines a complete generic visitor for a parse tree produced by FoxySheepParser.
 
+# This class defines a complete generic visitor for a parse tree produced by FoxySheepParser.
 class FullFormEmitter(FoxySheepVisitor):
     # Gets the FullForm of the ParseTree e.
     def getFullForm(self, e):

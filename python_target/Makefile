@@ -1,26 +1,34 @@
-all: generated/FoxySheepParser.py
+DIR = FoxySheep/generated
+FS_DIR = FoxySheep
 
-run: generated/FoxySheepParser.py
+all: $(DIR)/FoxySheepParser.py
+
+run: $(DIR)/FoxySheepParser.py
 	python example.py
 
-generated/FoxySheepParser.py: ../FoxySheep.g4 ../FoxySheepLexerRules.g4 FoxySheep/LexerPreface.py generated/__init__.py
-	antlr4 -Dlanguage=Python2 -o generated -visitor ../FoxySheep.g4
+$(DIR)/FoxySheepParser.py: ../FoxySheep.g4 ../FoxySheepLexerRules.g4 FoxySheep/LexerPreface.py $(DIR)/__init__.py
+	antlr4 -Dlanguage=Python2 -o $(DIR) -visitor ../FoxySheep.g4
 	# antlr4 does not respect the -o flag??
-	mv -f FoxySheep.tokens FoxySheepLexer.py FoxySheepLexer.tokens FoxySheepListener.py FoxySheepParser.py FoxySheepVisitor.py generated
-	# The next two lines modify the generated lexer.
-	cat FoxySheep/LexerPreface.py generated/FoxySheepLexer.py > tmp.py
-	mv -f tmp.py generated/FoxySheepLexer.py
-
-movegenerated: generated/FoxySheepParser.py
-	mv -f FoxySheep.tokens FoxySheepLexer.py FoxySheepLexer.tokens FoxySheepListener.py FoxySheepParser.py FoxySheepVisitor.py generated
+	mv -f $(FS_DIR)/FoxySheep.tokens $(FS_DIR)/FoxySheepLexer.py $(FS_DIR)/FoxySheepLexer.tokens $(FS_DIR)/FoxySheepListener.py $(FS_DIR)/FoxySheepParser.py $(FS_DIR)/FoxySheepVisitor.py $(DIR)
+	# The last few lines below modify the generated lexer.
+	# We delete the future imports of the generated file as they need to appear at the beginning of the file.
+	sed -i -e '1,3d' $(DIR)/FoxySheepLexer.py
+	# macOS sed insists on making a backup that we don't want.
+	rm -f $(DIR)/FoxySheepLexer.py-e
+	# Now we overwrite the generated file with a prefixed version.
+	cat $(FS_DIR)/LexerPreface.py $(DIR)/FoxySheepLexer.py > tmp.py
+	mv -f tmp.py $(DIR)/FoxySheepLexer.py
 
 clean:
-	rm -f generated/FoxySheep*
+	rm -f $(DIR)/FoxySheep*
 	rm -f tmp.py
 
 # This rule is useful if antlr4 chokes before we move the generated files to generated.
 rmsheep:
-	rm FoxySheep*.py FoxySheep*.tokens
+	rm -f FoxySheep*.py FoxySheep*.tokens
+	rm -f ../FoxySheep*.py ../FoxySheep*.tokens
+	rm -f $(DIR)/FoxySheep*.py $(DIR)/FoxySheep*.tokens
+	rm -f $(FS_DIR)/FoxySheep*.py $(FS_DIR)/FoxySheep*.tokens
 
-generated/__init__.py:
-	touch generated/__init__.py
+$(DIR)/__init__.py:
+	touch $(DIR)/__init__.py

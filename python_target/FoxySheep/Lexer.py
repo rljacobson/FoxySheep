@@ -4,13 +4,16 @@
 #       from FoxySheep.Lexer import Lexer
 # to the generated lexer.
 
+import sys
+
 import antlr4
 from generated.FoxySheepParser import FoxySheepParser
 
+
 class Lexer(antlr4.Lexer):
 
-    def __init__(self, input):
-        super(Lexer, self).__init__(input)
+    def __init__(self, input, output=sys.stdout):
+        super(Lexer, self).__init__(input, output=output)
         self.bracketLevel = 0
         self.lastToken = None
         
