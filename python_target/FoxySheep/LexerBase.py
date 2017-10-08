@@ -1,19 +1,19 @@
 # In order for the generated lexer to subclass our lexer base
 # class, we have to add the lines
 #       from generated.FoxySheepParser import FoxySheepParser
-#       from FoxySheep.Lexer import Lexer
+#       from FoxySheep.LexerBase import LexerBase
 # to the generated lexer.
 
 import sys
 
-import antlr4
-from generated.FoxySheepParser import FoxySheepParser
+from antlr4 import *
+from .generated.FoxySheepParser import FoxySheepParser
 
 
-class Lexer(antlr4.Lexer):
+class LexerBase(Lexer):
 
-    def __init__(self, input, output=sys.stdout):
-        super(Lexer, self).__init__(input, output=output)
+    def __init__(self, input_, output=sys.stdout):
+        super(LexerBase, self).__init__(input_, output=output)
         self.bracketLevel = 0
         self.lastToken = None
         
@@ -67,15 +67,14 @@ class Lexer(antlr4.Lexer):
     # Curiously, the lexer does not allow us to inspect previous
     # tokens. Thus we need to keep track of the previous token
     # so that we can use it to disambiguate unary/binary plus.
-    def getToken(self):
-        lt = super(Lexer, self).getToken()
-    
-        if lt.channel != self.HIDDEN:
-            self.lastToken = lt
-        return lt
-    
+    # I don't think getToken consumes a token, so I don't think we need to record lastToken here.
+    # def getToken(self):
+    #     lt = super(LexerBase, self)._token
+    #     if lt.channel != self.HIDDEN:
+    #         self.lastToken = lt
+    #     return lt
     def nextToken(self):
-        lt = super(Lexer, self).nextToken()
+        lt = super(LexerBase, self).nextToken()
         if lt.channel != self.HIDDEN:
             self.lastToken = lt
         return lt
@@ -103,12 +102,14 @@ class Lexer(antlr4.Lexer):
     # problem in the parser. See the Span parser rules for details.
     def checkDoubleSemicolon(self):
         if not self.precededByExpr():
-            self.setType(FoxySheepParser.SPANSEMICOLONS)
+            self.type = FoxySheepParser.SPANSEMICOLONS
+            # self.setType(FoxySheepParser.SPANSEMICOLONS)
 
     # We distinguish between unary plus and binary plus.
     def checkAdditiveOp(self, type):
         if self.precededByExpr():
-            self.setType(type)
+            self.type = type
+            # self.setType(type)
 
     # Note that FoxySheep treats newlines the same way Mathematica does:
     # Wolfram Language "treats the input that you give on successive
@@ -122,4 +123,5 @@ class Lexer(antlr4.Lexer):
     # expression separator, and we return true.
     def checkNewline(self):
         if not (self.precededByExpr() and self.bracketLevel == 0):
-            self.setChannel(self.HIDDEN)
+            self._channel = self.HIDDEN
+            # self.setChannel(self.HIDDEN)

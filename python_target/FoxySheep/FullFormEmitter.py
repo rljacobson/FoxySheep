@@ -1,7 +1,7 @@
 # Generated from java-escape by ANTLR 4.5
 from antlr4 import *
-from generated.FoxySheepVisitor import *
-from generated.FoxySheepParser import *
+from FoxySheep.generated.FoxySheepVisitor import *
+from FoxySheep.generated.FoxySheepParser import *
 
 
 # This class defines a complete generic visitor for a parse tree produced by FoxySheepParser.
@@ -309,7 +309,7 @@ class FullFormEmitter(FoxySheepVisitor):
 
     # Visit a parse tree produced by FoxySheepParser#Floor.
     def visitFloor(self, ctx):
-        return self.makeHead("Floor", ctx.expr() )
+        return self.makeHead("Floor", ctx.expr())
 
     # Visit a parse tree produced by FoxySheepParser#Because.
     def visitBecause(self, ctx):

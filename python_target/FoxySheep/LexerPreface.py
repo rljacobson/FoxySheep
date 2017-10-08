@@ -1,5 +1,5 @@
 # encoding: utf-8
-from __future__ import print_function
+# from __future__ import print_function
 
 # In order for the generated lexer to subclass our lexer base class, we
 # have to _manually_ add the following lines to the generated lexer,
@@ -7,10 +7,7 @@ from __future__ import print_function
 # manually. Instead we do some bash magic:
 #     cat FoxySheep/LexerPreface.py generated/FoxySheepLexer.py > tmp.py && mv tmp.py generated/FoxySheepLexer.py
 
-#from FoxySheepParser import FoxySheepParser
-#from FoxySheep.Lexer import Lexer
-from antlr4 import *
-from FoxySheepParser import FoxySheepParser
-from .. import Lexer
+from antlr4.ParserRuleContext import RuleContext
+from ..LexerBase import *
 
 # Generated from ../FoxySheep.g4 by ANTLR 4.7
