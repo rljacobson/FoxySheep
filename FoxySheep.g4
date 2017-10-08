@@ -30,7 +30,7 @@ expr
     |	DOUBLELESS StringLiteral 	#Get
 
 	//TODO: Finish and test box related grammar.
-	|	BoxLeftBoxParenthesis box* BoxRightBoxParenthesis	#BoxParen
+//	|	BoxLeftBoxParenthesis box* BoxRightBoxParenthesis	#BoxParen
 
 	|	expr QUESTIONMARK expr 	#PatternTest
     |	expr LBRACKET expressionList RBRACKET	#HeadExpression
@@ -195,24 +195,24 @@ accessExpression
 	|	LBARBRACKET expressionList RBARBRACKET				#AccessExpressionB
 	;
 
-box
-	:	expr
-	|	BoxLeftBoxParenthesis box* BoxRightBoxParenthesis
-	
-	|	box BoxUnderscript box BoxOtherscript box // Underoverscript[]
-	|	box BoxOverscript box BoxOtherscript box // Underoverscript[]
-	|	<assoc=right> box (BoxOverscript | BoxUnderscript) box // Overscript[]/Underscript
-	
-	|	box BoxSubscript box BoxOtherscript box // Power[Subscript[]]
-	|	box BoxSubscript box //Subscript
-	|	InterpretedBox BoxLeftBoxParenthesis box+ BoxRightBoxParenthesis
-
-	|	box BoxOverscript box
-	|	box BoxUnderscript box BoxOtherscript box
-	|	box BoxUnderscript box
-	|	box BoxFraction box
-	|	BoxSqrt box BoxOtherscript box
-	|	BoxSqrt box
-	|	box FormBox box
-	;
+//box
+//	:	expr
+//	|	BoxLeftBoxParenthesis box* BoxRightBoxParenthesis
+//
+//	|	box BoxUnderscript box BoxOtherscript box // Underoverscript[]
+//	|	box BoxOverscript box BoxOtherscript box // Underoverscript[]
+//	|	<assoc=right> box (BoxOverscript | BoxUnderscript) box // Overscript[]/Underscript
+//
+//	|	box BoxSubscript box BoxOtherscript box // Power[Subscript[]]
+//	|	box BoxSubscript box //Subscript
+//	|	InterpretedBox BoxLeftBoxParenthesis box+ BoxRightBoxParenthesis
+//
+//	|	box BoxOverscript box
+//	|	box BoxUnderscript box BoxOtherscript box
+//	|	box BoxUnderscript box
+//	|	box BoxFraction box
+//	|	BoxSqrt box BoxOtherscript box
+//	|	BoxSqrt box
+//	|	box FormBox box
+//	;
 

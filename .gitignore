@@ -40,7 +40,8 @@ ehthumbs.db
 Icon*
 Thumbs.db
 .tmtags
-.idea
+.idea*
+*.iml
 tags
 vendor.tags
 tmtagsHistory

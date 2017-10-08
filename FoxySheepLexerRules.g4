@@ -1,9 +1,9 @@
 lexer grammar FoxySheepLexerRules;
 
-//options{
-//	//We put target-language dependent code in a base class.
-//	superClass=FoxySheepBaseLexer;
-//}
+options{
+	//We put target-language dependent code in a base class.
+	superClass=LexerBase;
+}
 
 tokens {BINARYPLUS, BINARYMINUS, BINARYMINUSPLUS, BINARYPLUSMINUS, SPANSEMICOLONS}
 

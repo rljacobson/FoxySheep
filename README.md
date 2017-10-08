@@ -109,7 +109,7 @@ The table below summarizes the status of planned features.
   <tr>
     <td>Translator to another HIL</td>
     <td>started</td>
-    <td>Nontrivial impedance mismatch makes this a very complex task. Work has been started on a Wolfram Language to Python translator, but there is no functional code to share yet.</td>
+    <td>This is Phase 2 of development. See doc/TranslateToPythonNotes.md</td>
   </tr>
 </table>
 

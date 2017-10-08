@@ -15,11 +15,13 @@
 import java.util.ArrayList;
 import java.util.List;
 
-import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.*;
 //import org.antlr.v4.runtime.misc.NotNull;
 //import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import org.antlr.v4.runtime.tree.TerminalNodeImpl;
+//import org.antlr.v4.runtime.tree.Tree;
 
 /**
  * This class is a subclass of {@link FoxySheepBaseListener} that rewrites the
@@ -31,14 +33,55 @@ public class PostParser extends FoxySheepBaseListener {
 	public static void main(String[] args) throws Exception{
 		FoxySheep.main(args);
 	}
-	
+
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>Convenience function to create a bidirectional parent-child relationship.</p>
+     */
+    private static void adopt(ParserRuleContext parent, ParseTree child){
+        parent.addAnyChild(child);
+        child.setParent(parent);
+    }
+
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>This node represents a virtual ParseTree node that does not come from
+     * the parser but rather is constructed via a rewriting rule. For example,
+     * the expression "a-b" is parsed as "Plus[a, Times[-1, b]]" in exitPlusOp(),
+     * so a node for "-1" needs to be created even though "-1" does not appear as
+     * a token in the token stream.</p>
+     * <p>Note that makeNumber sets the NumberContext's parent but does not add
+     * anything to parent's children.</p>
+     */
+    private static FoxySheepParser.NumberContext makeNumber(ParserRuleContext parent, int n){
+        // The hierarchy is:
+        // CommonToken->TerminalNodeImpl->NumberLiteralContext
+        //   ->NumberBaseTenContext->NumberContext->parent
+
+        TerminalNodeImpl digits = new TerminalNodeImpl(new CommonToken(FoxySheepParser.DIGITS, Integer.toString(n)));
+
+        FoxySheepParser.NumberContext number = new FoxySheepParser.NumberContext(new FoxySheepParser.ExprContext(parent, 0));
+
+        //Why must these constructors require an argument?!
+        FoxySheepParser.NumberBaseTenContext number_literal = new FoxySheepParser.NumberBaseTenContext(new FoxySheepParser.NumberLiteralContext(number, 0));
+
+        number.addAnyChild(number_literal);
+        number_literal.addAnyChild(digits);
+
+        return number;
+    }
+
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>This takes a ParserRuleContext of a binary operator and "flattens"
 	 * the operator if one of its operands is the same binary operator context.</p>
 	 */
-	public void flatten(ParserRuleContext ctx){
+	private void flatten(ParserRuleContext ctx){
 		/* This function only flattens if the operator is the same and also 
 		 * keeps the operators intact. 
 		 *
@@ -52,20 +95,21 @@ public class PostParser extends FoxySheepBaseListener {
 		ParserRuleContext lhs = (ParserRuleContext)ctx.getChild(0);
 		ParseTree rhs = ctx.getChild(2);
 		TerminalNode op = (TerminalNode)ctx.getChild(1);
+        TerminalNode lhsop = (TerminalNode)lhs.getChild(1);
 		
 		/*If the operator of the nested Context isn't the same, nothing to do.
 		 *The operator is always in position 1 for infix operators. We do this
 		 *check because some Contexts that use the same context for multiple
 		 *operators.
 		*/
-		if(  !op.getText().equals(lhs.getChild(1).getText()) ) return;
+		if(  op.getSymbol().getType() !=  lhsop.getSymbol().getType()){
+		    return;
+        }
 		
 		//Clear all children.
 		ctx.children.clear();
-
 		//Add all children of lhs. (Also adds the operator of the lhs.)
 		ctx.children.addAll(  lhs.children  );
-
 		//Finally, add the rhs back in.
 		ctx.children.add(rhs);
 	}
@@ -77,7 +121,7 @@ public class PostParser extends FoxySheepBaseListener {
 	 * <p>Inequality[]</p>
 	 */
 	@Override public void exitComparison(FoxySheepParser.ComparisonContext ctx) {
-		/* This function flattens keeps the operators intact. It differs from 
+		/* This function flattens and keeps the operators intact. It differs from
 		 * flatten() in that we flatten if the class is the same but don't check
 		 * if the operator is the same. 
 		 */
@@ -163,7 +207,7 @@ public class PostParser extends FoxySheepBaseListener {
 	 * <p>Parsing Span nodes is a complete mess. This method essentially reparses
 	 * node sequences of the form expr? (;; expr?)+.</p>
 	 */
-	public void rewriteSpan(ParserRuleContext ctx){
+	private void rewriteSpan(ParserRuleContext ctx){
 		ArrayList<Integer> opIndex = new ArrayList<Integer>();
 		ArrayList<Integer> spanExpressions = new ArrayList<Integer>();
 		
@@ -180,12 +224,6 @@ public class PostParser extends FoxySheepBaseListener {
 		
 		
 		for(i = 0, nextOp = 0; i < ctx.children.size() && nextOp < opIndex.size(); i++, nextOp++){
-			//The index i always points to the first child in a Span expression,
-			//and index j always points to the current child of the current span
-			//expression.
-			j=i; //We are at the beginning of a span expression.
-			//We move j to the end of this span expression by looking for a second ";;".
-			
 			if( nextOp + 1 < opIndex.size() //There is a next ";;"
 					&& opIndex.get(nextOp+1) + 1 < ctx.children.size() //There is a node after the next ";;"
 					&& ctx.children.get(opIndex.get(nextOp+1) + 1) instanceof FoxySheepParser.ExprContext ) {
@@ -205,7 +243,7 @@ public class PostParser extends FoxySheepBaseListener {
 					i = opIndex.get(nextOp);
 					spanExpressions.add(i);
 				}
-			}
+			}// end if there is a next ";;"
 		}//end for
 		
 		//At this point spanExpressions holds the index of the last child of each span expression. It might be
@@ -214,10 +252,9 @@ public class PostParser extends FoxySheepBaseListener {
 		//Otherwise there is more than one span expression, and we need to rewrite the tree replacing the 
 		//Span?Context this method was invoked on with a TimesContext.
 		FoxySheepParser.TimesContext timesctx = new FoxySheepParser.TimesContext((FoxySheepParser.ExprContext)ctx);
-		//How much of the following is necessary?
-		timesctx.children = new ArrayList<ParseTree>();
-		timesctx.parent = ctx.parent;
-		
+		timesctx.children.clear();
+
+
 		//Add each span expression as a child to timesctx.
 		for(i = 0, j = 0; i < spanExpressions.size(); i++ ){
 			//i is the index of the current span expression in spanExpressions, 
@@ -387,7 +424,7 @@ public class PostParser extends FoxySheepBaseListener {
 		//If the child isn't the same construct, nothing to do.
 		if(	!(ctx.getChild(0) instanceof FoxySheepParser.TimesContext) )	return;
 		
-		ParserRuleContext lhs = (ParserRuleContext)ctx.expr(0);
+		ParserRuleContext lhs = ctx.expr(0);
 		ParseTree rhs = ctx.expr(1);
 		
 		//Clear all children.
@@ -460,34 +497,56 @@ public class PostParser extends FoxySheepBaseListener {
 	 * <p>PlusOp[expr1,expr2]</p>
 	 */
 	@Override public void exitPlusOp(FoxySheepParser.PlusOpContext ctx) {
-		/* We have to treat PlusOp special, because we only flatten if the operator
-		 * is the same, and we also have to keep the operators intact. Also, only 
-		 * plus and minus (not PlusMinus or MinusPlus) are flat.
+		/* We have to treat PlusOp special, because we have to keep the
+		 * operators intact, and only  plus and minus (not PlusMinus or
+		 * MinusPlus) are flat. The situation is complicated by the fact
+		 * that Mathematica parses "a-b" as "Plus[a, Times[-1, b]]". We
+		 * Rewrite the parse tree, inserting the Times context and
+		 * changing BINARYMINUS to BINARYPLUS.
 		 */
+
+        //If the op isn't Plus or Minus, nothing to do.
+        if( ctx.BINARYMINUS()==null && ctx.BINARYPLUS()==null ){
+            return;
+        }
+
 		/* Since ANTLR4 parses this operator as left associative, we only
 		 * need to check the left hand side expr.
 		 */
-		
-		//If the child isn't a PlusOp, nothing to do.
-		if(!(ctx.getChild(0) instanceof FoxySheepParser.PlusOpContext)) return;
-		//If the op isn't Plus or Minus, nothing to do.
-		if( ctx.BINARYMINUS()==null && ctx.BINARYPLUS()==null ) return;
-		
-		FoxySheepParser.PlusOpContext lhs = (FoxySheepParser.PlusOpContext)ctx.getChild(0);
-		ParseTree rhs = ctx.getChild(2);
-		TerminalNode op = (TerminalNode)ctx.getChild(1);
-		
-		//If the operator of the nested PlusOp isn't the same, nothing to do.
-		if(  !op.getText().equals(lhs.getChild(1).getText()) ) return;
-		
-		//Clear all children.
-		ctx.children.clear();
+        ParseTree rhs = ctx.getChild(2);
 
-		//Add all children of lhs. (Also adds the operator of the lhs.)
-		ctx.children.addAll(  lhs.children  );
+		/* If the operator of the PlusOp is BINARYMINUS, we rewrite the tree as
+		 * "Plus[lhs, Times[-1, rhs]]". Note that if rhs is TIMES, we have to
+		 * keep that TIMES flat.
+		 */
+        if( ctx.BINARYMINUS() != null ){
+            //Construct Times, or obtain it from the rhs.
+            FoxySheepParser.TimesContext times;
+            if(rhs instanceof FoxySheepParser.TimesContext){
+                //If rhs is already a times, keep it flat.
+                times = (FoxySheepParser.TimesContext)rhs;
+            }else{
+                //Otherwise, we have to create a new TimesContext.
+                times = new FoxySheepParser.TimesContext(new FoxySheepParser.ExprContext());
+                //Remove rhs from ctx.children
+                ctx.children.remove(rhs);
+                //Add the new Times node as a child.
+                adopt(ctx, times);
+                //Put rhs into Times.
+                adopt(times, rhs);
+            }
+            // Add "-1" as the first child of Times.
+            times.children.add(0, makeNumber(times, -1));
 
-		//Finally, add the rhs back in.
-		ctx.children.add(rhs);
+            // Finally, we have to change operator to BINARYPLUS.
+            TerminalNodeImpl plus = new TerminalNodeImpl(new CommonToken(FoxySheepParser.BINARYPLUS, "+"));
+            //The set method does a replace.
+            ctx.children.set(1, plus);
+            plus.parent = ctx;
+        } //end if BINARYMINUS
+
+        //Flatten!
+        flatten(ctx);
 	}
 
 	/**
@@ -565,10 +624,8 @@ public class PostParser extends FoxySheepBaseListener {
 		
 		//Clear all children.
 		ctx.children.clear();
-
 		//Add all children of lhs. (Also adds the operator of the lhs.)
 		ctx.children.addAll(  lhs.children  );
-
 		//Finally, add the rhs back in.
 		ctx.children.add(rhs);
 	}

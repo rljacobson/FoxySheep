@@ -432,7 +432,21 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 			return makeHeadList("Plus", ctx.expr());
 		}
 		if(ctx.BINARYMINUS() != null){
-			//Mathematica interprets x-y as Plus[x,Times[-1,y]].
+			/*
+			 * Mathematica interprets x-y as Plus[x,Times[-1,y]]. Typically
+			 * the PostParser will have already rewritten the parse tree to
+			 * eliminate BINARYMINUS, but we still need this code in case
+			 * client code wishes to emit FullForm from the as-parsed parse
+			 * tree.
+			 *
+			 * Note that there is no FullForm for x-y.
+			 */
+
+			/* ToDo: Make rewriting "a-b" optional. That is, create the option to emit:
+			 * 			1. Subtract[a, b]
+			 * 			2. Plus[a, Minus[b]]
+			 * 			3. Plus[a, Times[-1, b]]
+			 */
 			StringBuilder val = new StringBuilder("Plus[");
 			val.append( getFullForm(ctx.expr(0)) );
 			for(int i = 1; i < ctx.expr().size(); i++){
@@ -614,15 +628,6 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 */
 	@Override public String visitCup(FoxySheepParser.CupContext ctx) {
 		return makeHeadList("Cup", ctx.expr());
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public String visitBoxParen(FoxySheepParser.BoxParenContext ctx) {
-		return ctx.getText();
 	}
 	/**
 	 * {@inheritDoc}
@@ -1464,14 +1469,5 @@ public class FullFormEmitter extends FoxySheepBaseVisitor<String> {
 	 */
 	@Override public String visitAccessExpressionB(FoxySheepParser.AccessExpressionBContext ctx) {
 		return getFullForm(ctx.expressionList()); //ctx.expressionList().accept(this);
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public String visitBox(FoxySheepParser.BoxContext ctx) {
-		return ctx.getText();
 	}
 }

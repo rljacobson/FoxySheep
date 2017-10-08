@@ -10,13 +10,13 @@ import java.util.List;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.Token;
 
-public abstract class Lexer extends org.antlr.v4.runtime.Lexer{
+public abstract class LexerBase extends org.antlr.v4.runtime.Lexer{
 	
-	Lexer self;
+	LexerBase self;
 	long bracketLevel;
 	Token lastToken;
 
-	public Lexer(CharStream input) {
+	public LexerBase(CharStream input) {
 		super(input);
 		self = this;
 		lastToken = null;

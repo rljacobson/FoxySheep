@@ -1,0 +1,1 @@
+Plus[4, Times[-3, x], Power[x, 2]]
