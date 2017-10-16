@@ -1,4 +1,3 @@
-# Generated from java-escape by ANTLR 4.5
 from antlr4 import *
 from FoxySheep.generated.FoxySheepVisitor import *
 from FoxySheep.generated.FoxySheepParser import *

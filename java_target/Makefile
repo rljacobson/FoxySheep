@@ -16,6 +16,11 @@ $(GEN_DIR)/FoxySheepParser.java: ../FoxySheep.g4 ../FoxySheepLexerRules.g4 $(FS_
 	# The -o option actually doesn't work.
 	mv -f *java *.tokens generated
 
+$(GEN_DIR)/FullFormParser.java: ../FullForm.g4 ../FullFormLexerRules.g4
+	antlr4 -o $(GEN_DIR) -visitor ../FullForm.g4
+	# The -o option actually doesn't work.
+	mv -f *java *.tokens generated
+
 $(BIN_DIR)/FoxySheep.class: $(GEN_DIR)/*.java $(FS_DIR)/*.java
 	javac $(JAVAC_OPTS) src/*.java generated/*.java
 

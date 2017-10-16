@@ -2,7 +2,7 @@
 
 ## Options
 
-* Python 2 vs. Python 3
+* Python 2 vs. Python 3?
 * Sage vs. SciPy
 * Convert `Table` to `for` vs. list comprehension
 * Include Mathematica source in docstring
@@ -52,7 +52,7 @@ These milestones are expected to evolve as the tasks are better understood.
 
 Mathematica's scoping rules are described here: http://reference.wolfram.com/language/guide/ScopingConstructs.html.
 
-### Leaking names into parent scope
+### Expressions vs. statements
 
 It is sensible to translate Mathematica forms that employ anonymous "generating expression," like `Table`, into Python forms that also use anonymous expressions. For example, we might expect the following translation.
 
@@ -65,7 +65,7 @@ To list comprehension:
 t = [f(n) for n in range(1, 10)]
 ```
 
-However, there are cases where a `Table` expression cannot be translated to a Python list comprehension, i.e. when the generating expression cannot be written as a single Python expression. A (somewhat contrived) example is something like:
+However, there are cases where a `Table` expression cannot be translated to a Python list comprehension, i.e. when the generating expression cannot be written as a single Python expression. A somewhat contrived example is something like:
 ```mathematica
 t = Table[m = 2*n; m + 1, {n, 1, 5}]
 ```
@@ -76,24 +76,12 @@ for n in range(1, 6):
     m = 2*n
     t.append(m + 1)
 ```
-However, this Python code block leaks both `n` and `m` into the parent scope, whereas its Mathematica counterpart only leaks `m` into the parent scope. (In Python 2, comprehensions also leak the index variable to parent scope. This is not the case in Python 3.)
 
-And maybe that's ok. But if we want a strict translation of Mathematica's scoping rules, we need something more.
+There are two major problems with this. First, this Python code block leaks both `n` and `m` into the parent scope, whereas its Mathematica counterpart only leaks `m` into the parent scope. (In Python 2, comprehensions also leak the index variable to parent scope. This is not the case in Python 3.) This translation is not a strict translation of Mathematica's scoping rules.
 
-If we wish to prefer to translate Mathematical `Table` expressions to Python list comprehensions, then we presumably need to detect those cases in which a single (possibly compound) Mathematica expression does not have a direct translation into a single Python expression. It isn't clear whether this is easy or even possible.
+Second and perhaps more significantly, instead of assigning the list to a variable, the Mathematica Table expression can be embedded in a larger expression as a subexpression, whereas the Python translation cannot.
 
-We may choose instead to always translate `Table` into a Python `for` loop. (In fact, we could translate a Mathematica `Table` into a Mathematica `For` loop first, as the new Wolfram Mathematica compiler does.) To keep the parent scope clean, we can unique any locally scoped variables, perhaps `del`'ing the uniqued variables from the parent scope when we're done with them:
-
-```python
-t = []
-# n is uniqued by appending some automatically generated suffix.
-for n_local437 in range(1, 6):
-    m = 2*n_local437
-    t.append(m + 1)
-del n_local437 # Clean up current scope.
-```
-
-An uglier alternative is to use a function def with an automatically generated name. The above `Table` expression could be translated as:
+An awkward solution that solves both problems is to use a function def with an automatically generated name. The above `Table` expression could be translated as:
 
 ```python
 # Function name is some automatically generated name perhaps with a unique numeric suffix.
@@ -104,7 +92,13 @@ def TableFunction38727(n):
 t = [f(n) for n in range(1, 6)]
 del TableFunction38727 # Clean up current scope.
 ```
-We have traded leaking `m` into the parent scope for leaking `TableFunction38727` into the parent scope.
+We have only leaked `TableFunction38727` into the parent scope. We could even `del TableFunction38727` when we no longer need it.
+
+Defining a function every time we create a list is, to put it mildly, inelegant. The problem isn't just with `Table`, either, but with *every* Mathematica expression that has no translation into a single Python expression. `While` loops, for example, return the last evaluated expression in its body, and a Mathematica program may rely on this fact.
+
+We presumably need to detect those cases in which a single (possibly compound) Mathematica expression does not have a direct translation into a single Python expression. It isn't clear whether this is easy or even possible. But if it can be done consistently, then we can prefer to translate Mathematical `Table` expressions to Python list comprehensions (for example), falling back to a generated function def only when required.
+
+We might do an analysis to detect cases that have single expression translations. First, identify those functions which have single expression translations whenever its arguments do. Then propagate the property up the AST. We may also wish to "propagate down" the AST whether or not a single expression translation is required (requested?).
 
 ## Distinction between mathematical vs. normal functions/variables.
 

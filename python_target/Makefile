@@ -1,11 +1,14 @@
 DIR = FoxySheep/generated
 FS_DIR = FoxySheep
 
-all: $(DIR)/FoxySheepParser.py
+FullForm: $(DIR)/FullFormParser.py
 
-run: $(DIR)/FoxySheepParser.py
-	python example.py
+FoxySheep: $(DIR)/FoxySheepParser.py
 
+run: $(DIR)/FoxySheepParser.py $(DIR)/FullFormParser.py
+	python3 FoxySheep.py
+
+# The FoxySheep Parser
 $(DIR)/FoxySheepParser.py: ../FoxySheep.g4 ../FoxySheepLexerRules.g4 FoxySheep/LexerPreface.py $(DIR)/__init__.py
 	antlr4 -Dlanguage=Python3 -o $(DIR) -visitor ../FoxySheep.g4
 	# antlr4 does not respect the -o flag??
@@ -19,8 +22,15 @@ $(DIR)/FoxySheepParser.py: ../FoxySheep.g4 ../FoxySheepLexerRules.g4 FoxySheep/L
 	cat $(FS_DIR)/LexerPreface.py $(DIR)/FoxySheepLexer.py > tmp.py
 	mv -f tmp.py $(DIR)/FoxySheepLexer.py
 
+# The FullForm Parser
+$(DIR)/FullFormParser.py: ../FullForm.g4 ../FullFormLexerRules.g4 $(DIR)/__init__.py
+	antlr4 -Dlanguage=Python3 -o $(DIR) -visitor ../FullForm.g4
+	# antlr4 does not respect the -o flag??
+	mv -f $(FS_DIR)/FullForm.tokens $(FS_DIR)/FullFormLexer.py $(FS_DIR)/FullFormLexer.tokens $(FS_DIR)/FullFormListener.py $(FS_DIR)/FullFormParser.py $(FS_DIR)/FullFormVisitor.py $(DIR)
+
 clean:
 	rm -f $(DIR)/FoxySheep*
+	rm -f $(DIR)/FullForm*
 	rm -f tmp.py
 
 # This rule is useful if antlr4 chokes before we move the generated files to generated.

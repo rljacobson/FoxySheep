@@ -15,6 +15,15 @@
     * [Number literals](#number-literals)
 
 # Ways to contribute
+
+## Write unit tests
+
+Write a unit test (or doctest for the Python target)  for every function in the `FullFormEmitter` or `PostParser`.
+
+Write some automated tests comparing the equivalence of Mathematica's output to FoxySheep.
+
+## Add new features.
+
 Here are some ideas:
 
 * Find an input for which FoxySheep and Mathematica give differing `FullForm`'s and document it in a new ticket.
@@ -25,9 +34,12 @@ Here are some ideas:
 * Implement a translator to your favorite CAS's input language.
 * Implement a semantic analyzer (in your favorite target language).
 * Implement error recovery rules. (This is best left to experienced developers.)
-* Improve the parsing of number literals by bringing the number literal rule from the lexer to the parser. The parser should extract the base, etc. As it stands, the parser treats the number literal as a string blob, so any further analysis must parse the blob.
+* Create a new option. Here are some ideas:
+  * An option affecting parsing of subtraction: to automatically simplify `Times[-1, a]` to `-a` in the case that `a` is a number literal; to output `Subtract[a, b]` for `a-b`; to emulate Mathematica.
+  * An option for `PostParser` to flatten functions having the `Flat` attribute (`Attributes[name]` contains `Flat`). Similarly for `OneIdentity`.
+  * An option specifying some translation behavior.
 
-Or fix some current known bugs:
+## Fix bugs:
 
 * Fix the string literal parsing rules so they parse Wolfram Language string literals. (Currently string literals are implemented incorrectly with lexer rules.)
 
@@ -90,6 +102,14 @@ There is no official grammar available. However, the language is described in de
 | [Input Syntax](http://reference.wolfram.com/language/tutorial/InputSyntax.html) | Detailed descriptions of syntax for numeric literals, strings, symbols and contexts, and other language constructs. |
 | [Special Characters](http://reference.wolfram.com/language/tutorial/SpecialCharacters-MathematicalAndOtherNotation.html) | A description of how special characters work in Mathematica. This is useful in dealing with operators involving special symbols. |
 | [Listing of Named Characters](http://reference.wolfram.com/language/guide/ListingOfNamedCharacters.html) | Lists all of the special characters Mathematica has a name for. This is useful when working with operators involving special symbols. |
+
+Mathematica includes facilities in the language itself to describe the syntax, options, messages, etc., of functions. The most important functions that do this are given below.
+
+| Document | Description |
+|----------|-------------|
+| [`SyntaxInformation`](http://reference.wolfram.com/language/ref/SyntaxInformation.html) | Gives "ArgumentPattern" and other syntax properties of a function. |
+| [`Attributes`](http://reference.wolfram.com/language/ref/Attributes.html) | Gives "attributes" of a function, i.e. whether the function is listable, flat, etc. |
+| [Messages](http://reference.wolfram.com/language/ref/Messages.html) | Gives all messages associated to a function. |
 
 # Helpful Mathematica code snippets
 

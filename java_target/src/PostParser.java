@@ -29,6 +29,12 @@ import org.antlr.v4.runtime.tree.TerminalNodeImpl;
  * parses as left associative.
  */
 public class PostParser extends FoxySheepBaseListener {
+
+	//Options affecting parse.
+//	public enum FlattenOpt { DEFAULT, ALL}
+//	public FlattenOpt flattenOpt = FlattenOpt.DEFAULT;
+//	public enum SubtractOpt { DEFAULT, EMULATE, PLUSTIMES, PLUSMINUS, SUBTRACT}
+//	public SubtractOpt subtractOpt = SubtractOpt.DEFAULT;
 	
 	public static void main(String[] args) throws Exception{
 		FoxySheep.main(args);
