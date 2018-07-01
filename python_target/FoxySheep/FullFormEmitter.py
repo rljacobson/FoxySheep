@@ -1,34 +1,67 @@
 from antlr4 import *
-from FoxySheep.generated.FoxySheepVisitor import *
-from FoxySheep.generated.FoxySheepParser import *
+from FoxySheep import FoxySheepVisitor, FoxySheepParser
 
 
-# This class defines a complete generic visitor for a parse tree produced by FoxySheepParser.
+
 class FullFormEmitter(FoxySheepVisitor):
-    # Gets the FullForm of the ParseTree e.
+    """
+    This class defines a complete generic visitor for a parse tree produced by FoxySheepParser.
+    """
+
+
     def getFullForm(self, e):
+        """
+        Gets the FullForm of the ParseTree e.
+
+        :param e:
+        :return: FullForm string.
+        """
         if isinstance(e, TerminalNode):
             return e.getText()
 
         return self.visit(e)
 
-    # Makes string of the form head[e1, e2, ...]
+    #
     def makeHead(self, head, *args):
+        """
+        Makes string of the form `"head[e1, e2, ...]"`.
+
+        :param head: The head as a string.
+        :param args: SyntatTree nodes `e1`, `e2`, ..., that will be converted to FullForm.
+        :return: "head[e1, e2, ...]"
+        """
         argtext = ",".join(map(self.getFullForm, args))
         return "%s[%s]" % (head, argtext)
 
-    # Makes string of the form head[e1, e2, ...]
+
     def makeHeadList(self, head, efunction):
-        # We assume efunction is a function of an integer i. This awkward
-        # interface is from antlr4's python api.
+        """
+        Makes string of the form `"head[e1, e2, ...]"`.
+
+        We assume efunction is a function of an integer i. This awkward
+        interface is from antlr4's python api.
+
+        :param head: The head as a string.
+        :param efunction: An ANTLR efunction giving efunction(i)=ei.
+        :return: "head[e1, e2, ...]"
+        """
+
         elist = self.getChildList(efunction)
         argtext = ",".join(map(self.getFullForm, elist))
         return "%s[%s]" % (head, argtext)
 
-    # Convert antlr4's awkward functional api to a list.
+
     def getChildList(self, efunction):
-        # We assume efunction is a function of an integer i. This awkward
-        # interface is from antlr4's python api.
+        """
+        Convert antlr4's awkward functional api to a list.
+
+        We assume efunction is a function of an integer i. This awkward
+        interface is from antlr4's python api.
+
+        :param efunction:
+        :return:
+        """
+
         elist = []
         i = 0
         e = efunction(i)
@@ -112,18 +145,25 @@ class FullFormEmitter(FoxySheepVisitor):
 
     # Visit a parse tree produced by FoxySheepParser#Comparison.
     def visitComparison(self, ctx):
-        # This is a rather complicated construct, because:
-        # 		"x==y" 		-> Equal[x,y]
-        # 		"x==y>z" 	-> Inequality[x, Equal, y, Greater, z]
-        # 		"x==y==z		-> Equal[x,y,z]
-        # 		"x>y>z"		-> Greater[x,y,z]
-        # So we need to flatten many different operators at once
-        # if necessary.
-        #
-        # We solve this problem by postprocessing the syntax tree
-        # to flatten the tree where appropriate.
+        """
+        Visit a parse tree produced by FoxySheepParser#Comparison.
 
-        opText = {
+        This is a rather complicated construct, because:
+        		"x==y" 		-> Equal[x,y]
+        		"x==y>z" 	-> Inequality[x, Equal, y, Greater, z]
+        		"x==y==z		-> Equal[x,y,z]
+        		"x>y>z"		-> Greater[x,y,z]
+        So we need to flatten many different operators at once
+        if necessary.
+
+        We solve this problem by postprocessing the syntax tree
+        to flatten the tree where appropriate.
+
+        :param ctx:
+        :return: FullForm as a string.
+        """
+
+        op_text = {
             FoxySheepParser.EqualSymbol: "Equal",
             FoxySheepParser.NotEqualSymbol: "Unequal",
             FoxySheepParser.GREATER: "Greater",
@@ -132,14 +172,14 @@ class FullFormEmitter(FoxySheepVisitor):
             FoxySheepParser.LessEqualSymbol: "LessEqual"
         }
 
-        allSame = True
+        all_same = True
         opType = ctx.getChild(1).getSymbol().type
         for i in range(3, ctx.getChildCount(), 2):
-            allSame = allSame and (opType == ctx.getChild(i).getSymbol().type)
+            all_same = all_same and (opType == ctx.getChild(i).getSymbol().type)
 
         # If all operators are the same, make a "head" with that operator.
-        if allSame:
-            return self.makeHeadList(opText[opType], ctx.expr)
+        if all_same:
+            return self.makeHeadList(op_text[opType], ctx.expr)
 
         # All operators are not the same. We need to create an Inequality[].
         val = "Inequality["
@@ -147,7 +187,7 @@ class FullFormEmitter(FoxySheepVisitor):
         for i in range(1, ctx.getChildCount(), 2):
             val += ","
             op = ctx.getChild(i)
-            val += opText[ op.getSymbol().type ]
+            val += op_text[ op.getSymbol().type ]
             val += "," + self.getFullForm(ctx.getChild(i+1))
         val += "]"
 
@@ -458,10 +498,16 @@ class FullFormEmitter(FoxySheepVisitor):
 
     # Visit a parse tree produced by FoxySheepParser#NumberLiteral.
     def visitNumber(self, ctx):
-        # Frustratingly, number literals have no FullForm[] in Mathematica.
-        # Mathematica will automatically compute the value of a number
-        # literal. Since we do no computation in the parser, the only
-        # "correct" option for us is to reproduce the number form as-is.
+        """
+        Frustratingly, number literals have no FullForm[] in Mathematica.
+        Mathematica will automatically compute the value of a number
+        literal. Since we do no computation in the parser, the only
+        "correct" option for us is to reproduce the number form as-is.
+
+        :param ctx: A NumberLiteral SyntaxTree node.
+        :return: The text of the number literal as is.
+        """
+
         return ctx.getText()
 
 
@@ -662,7 +708,12 @@ class FullFormEmitter(FoxySheepVisitor):
 
     # Visit a parse tree produced by FoxySheepParser#SymbolLiteral.
     def visitSymbolLiteral(self, ctx):
-        # FullForm of a symbol is itself.
+        """
+        FullForm of a symbol is itself.
+
+        :param ctx: SymbolLiteral
+        :return: SymbolLiteral as a string.
+        """
         return ctx.getText()
 
 

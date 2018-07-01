@@ -54,11 +54,15 @@ make
 
 # Project Status
 
-FoxySheep is in heavy development. It is probably not yet ready to be used in your project. It needs a lot of testing and lacks some language features.
+FoxySheep is in heavy development.
 
-FoxySheep has complete coverage of non-box-related language features, and sketchy untested coverage of box-related features. While it is a goal of the project, FoxySheep does not always have identical behavior to Mathematica for the language constructs that it implements.
+The FoxySheep parser has complete coverage of non-box-related language features, and sketchy untested coverage of box-related features. While it is a goal of the project, FoxySheep does not always have identical behavior to Mathematica for the language constructs that it implements.
 
-The table below summarizes the status of planned features.
+The FoxySheep translator is not yet functional.
+
+## Phase 1 - The Parser
+
+The table below summarizes the status of planned features of Phase 1.
 
 <table style="table-layout: fixed; width: 100%">
 <colgroup>
@@ -110,6 +114,64 @@ The table below summarizes the status of planned features.
     <td>Translator to another HIL</td>
     <td>started</td>
     <td>This is Phase 2 of development. See doc/TranslateToPythonNotes.md</td>
+  </tr>
+</table>
+
+## Phase 2
+
+The table below summarizes the status of planned features of Phase 2. See [Notes on Wolfram Language to Python Translation](docs/TranslateToPythonNotes.md) and the [Translator Roadmap](docs/TranslatorRoadmap.md) for the most up-to-date status information.
+
+<table style="table-layout: fixed; width: 100%">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 12%;">
+<col style="width: 58%;">
+</colgroup>
+  <tr>
+    <th>Feature</th>
+    <th>Status</th>
+    <th>Comments</th>
+  </tr>
+  <tr>
+    <td>Skeleton of AST node types and construction</td>
+    <td>started</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Passes: Create Scopes and Verify Argument Patterns</td>
+    <td>not started</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Identify math expressions.</td>
+    <td>not started</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Transformations: Flatten, Thread Listables, Unwrap Iterated Functions</td>
+    <td>not started</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Passes: Convert [For | Do | NestWhile | FixedPoint | etc.] to While</td>
+    <td>not started</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Pass: Check Types</td>
+    <td>not started</td>
+    <td></td>
+  </tr>
+    <tr>
+    <td>Python Emitter</td>
+    <td>not started</td>
+    <td></td>
+  </tr>  
+  </tr>
+    <tr>
+    <td>AST-based FullForm Emitter</td>
+    <td>not started</td>
+    <td></td>
   </tr>
 </table>
 

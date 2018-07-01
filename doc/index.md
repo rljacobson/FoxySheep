@@ -4,4 +4,5 @@
 * [LICENSE](../LICENSE.txt)
 * doc/
   * [Difference Between FoxySheep and Mathematica's `FullForm`](DifferencesFromMathematica.md)
+  * [Translator Roadmap](docs/TranslatorRoadmap.md)
   * [Notes on Wolfram Language to Python Translation](TranslateToPythonNotes.md)

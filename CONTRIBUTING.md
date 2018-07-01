@@ -109,7 +109,7 @@ Mathematica includes facilities in the language itself to describe the syntax, o
 |----------|-------------|
 | [`SyntaxInformation`](http://reference.wolfram.com/language/ref/SyntaxInformation.html) | Gives "ArgumentPattern" and other syntax properties of a function. |
 | [`Attributes`](http://reference.wolfram.com/language/ref/Attributes.html) | Gives "attributes" of a function, i.e. whether the function is listable, flat, etc. |
-| [Messages](http://reference.wolfram.com/language/ref/Messages.html) | Gives all messages associated to a function. |
+| [`Messages`](http://reference.wolfram.com/language/ref/Messages.html) | Gives all messages associated to a function. |
 
 # Helpful Mathematica code snippets
 

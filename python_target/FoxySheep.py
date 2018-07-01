@@ -1,11 +1,11 @@
 from antlr4 import *
 
-from FoxySheep.generated.FoxySheepLexer import FoxySheepLexer
-from FoxySheep.generated.FoxySheepParser import FoxySheepParser
-from FoxySheep.FullFormEmitter import FullFormEmitter
-from FoxySheep.PostParser import PostParser
-from FoxySheep.generated.FullFormLexer import FullFormLexer
-from FoxySheep.generated.FullFormParser import FullFormParser
+from FoxySheep import FoxySheepLexer
+from FoxySheep import FoxySheepParser
+from FoxySheep import FullFormEmitter
+from FoxySheep import PostParser
+from FoxySheep import FullFormLexer
+from FoxySheep import FullFormParser
 
 # Cache the utility objects.
 parser = None
@@ -15,19 +15,24 @@ ff_lexer = None
 emitter = None
 
 
-def postParse(intree):
-    """Post process the parse tree (flattens flat operators)."""
-    tree = intree
+def postParse(tree):
+    """Post process the parse tree. In particular, flatten some flat
+    operators. Some operators appear in the source text without any
+    explicit associativity, such as: `
+
+    """
+
     walker = ParseTreeWalker()
-    postParser = PostParser()
-    walker.walk(postParser, tree)
+    post_parser = PostParser()
+    walker.walk(post_parser, tree)
+
     # The PostParser can restructure the tree in a way that changes the root.
     if tree.parentCtx is not None:
         tree = tree.parentCtx
     return tree
 
 
-def parse_tree_from_string(input:str, postprocess=True):
+def parse_tree_from_string(input:str, post_process=True):
 
     # Boilerplate
     # lexer = FoxySheepLexer(InputStream(input))
@@ -48,7 +53,7 @@ def parse_tree_from_string(input:str, postprocess=True):
 
     # Parse!
     tree = parser.prog()
-    if postprocess:
+    if post_process:
         tree = postParse(tree)
     return tree
 

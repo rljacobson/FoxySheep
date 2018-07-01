@@ -1,17 +1,71 @@
 # Notes on Wolfram Language to Python Translation
 
-## Options
+# Options
 
-* Python 2 vs. Python 3?
 * Sage vs. SciPy
 * Convert `Table` to `for` vs. list comprehension
-* Include Mathematica source in docstring
+* Decompose non-decimal number literals.
+* Include Mathematica source in docstring.
 * Strict translation of scope. (See "Incompatible Scoping Rules.")
 * Enforce Mathematica `var_Type` typing.
 
 # Roadmap
 
 These milestones are expected to evolve as the tasks are better understood. 
+
+<table style="table-layout: fixed; width: 100%">
+<colgroup>
+<col style="width: 30%;">
+<col style="width: 12%;">
+<col style="width: 58%;">
+</colgroup>
+  <tr>
+    <th>Feature</th>
+    <th>Status</th>
+    <th>Comments</th>
+  </tr>
+  <tr>
+    <td>Skeleton of AST node types and construction</td>
+    <td>started</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Passes: Create Scopes and Verify Argument Patterns</td>
+    <td>not started</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Identify math expressions.</td>
+    <td>not started</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Transformations: Flatten, Thread Listables, Unwrap Iterated Functions</td>
+    <td>not started</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Passes: Convert [For | Do | NestWhile | FixedPoint | etc.] to While</td>
+    <td>not started</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Pass: Check Types</td>
+    <td>not started</td>
+    <td></td>
+  </tr>
+    <tr>
+    <td>Python Emitter</td>
+    <td>not started</td>
+    <td></td>
+  </tr>  
+  </tr>
+    <tr>
+    <td>AST-based FullForm Emitter</td>
+    <td>not started</td>
+    <td></td>
+  </tr>
+</table>
 
 ## Preparatory Work
 
@@ -57,19 +111,25 @@ Mathematica's scoping rules are described here: http://reference.wolfram.com/lan
 It is sensible to translate Mathematica forms that employ anonymous "generating expression," like `Table`, into Python forms that also use anonymous expressions. For example, we might expect the following translation.
 
 Table:
+
 ```mathematica
 t = Table[f[n], {n, 1, 10}]
 ```
+
 To list comprehension:
+
 ```python
 t = [f(n) for n in range(1, 10)]
 ```
 
 However, there are cases where a `Table` expression cannot be translated to a Python list comprehension, i.e. when the generating expression cannot be written as a single Python expression. A somewhat contrived example is something like:
+
 ```mathematica
 t = Table[m = 2*n; m + 1, {n, 1, 5}]
 ```
+
 Here, the compound expression has no translation into a single Python expression. A reasonable solution is to translate this into a Python `for` loop:
+
 ```python
 t = []
 for n in range(1, 6):
@@ -90,7 +150,7 @@ def TableFunction38727(n):
     m = 2*n
     return m + 1
 t = [f(n) for n in range(1, 6)]
-del TableFunction38727 # Clean up current scope.
+del TableFunction38727 # Optional clean up of current scope.
 ```
 We have only leaked `TableFunction38727` into the parent scope. We could even `del TableFunction38727` when we no longer need it.
 
@@ -116,7 +176,7 @@ f[message_String, punctuation_String: "."]:=Module[{sentence},
 to
 
 ```python
-def f(message, punctuation):
+def f(message, punctuation='.'):
     sentence = message + punctuation
     return sentence
 ```
