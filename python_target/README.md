@@ -1,4 +1,4 @@
-# FoxySheep Python3 Target
+# FoxySheep Python Target
 
 This is the Python target of FoxySheep. To generate the lexer/parser, just do:
 

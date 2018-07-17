@@ -41,7 +41,7 @@ Here are some ideas:
 
 ## Fix bugs:
 
-* Fix the string literal parsing rules so they parse Wolfram Language string literals. (Currently string literals are implemented incorrectly with lexer rules.)
+See [Known Bugs](KnownBugs.md).
 
 # Finding your way through the source grammar
 The lexer rules are implemented in [`FoxySheepLexerRules.g4`](FoxySheepLexerRules.g4), while the parser rules are in [`FoxySheep.g4`](FoxySheep.g4). Most of the action in the FoxySheep grammar happens in the `expr` production rule. The grammar relies on ANTLR to implement correct operator precedence according to the order of the alternatives.
@@ -50,8 +50,8 @@ ANTLR generates a parse tree, but the tree needs to be walked using the PostPars
 
 The FullForm emitter is a visitor class. It is implemented in [`src/FullFormEmitter.java`](java_target/src/FullFormEmitter.java) and [`FoxySheep/FullFormEmitter.py`](python_target/FoxySheep/FullFormEmitter.py).
 
-# Target language dependent code
-The project attempts to keep target language dependent code to a minimum. There is minimal target language dependent code embedded in [`FoxySheepLexerRules.g4`](FoxySheepLexerRules.g4) that is written to be both valid Java and valid Python. It should be trivial to port this code to another target language. This code can be found:
+# Target language dependent code in the grammar
+The project attempts to keep target language dependent code in the grammar to a minimum. There is minimal target language dependent code embedded in [`FoxySheepLexerRules.g4`](FoxySheepLexerRules.g4) that is written to be both valid Java and valid Python. It should be trivial to port this code to another target language. This code can be found:
 
  * In every bracket-like lexer rule.
  * In the actions on the PLUS, MINUS, PLUSMINUS, and MINUSPLUS lexer rules.
@@ -107,9 +107,16 @@ Mathematica includes facilities in the language itself to describe the syntax, o
 
 | Document | Description |
 |----------|-------------|
-| [`SyntaxInformation`](http://reference.wolfram.com/language/ref/SyntaxInformation.html) | Gives "ArgumentPattern" and other syntax properties of a function. |
+| [`SyntaxInformation`](http://reference.wolfram.com/language/ref/SyntaxInformation.html) | Gives "ArgumentPattern" and other syntax properties of built-in functions. |
+| [`WolframLanguageData`](http://reference.wolfram.com/language/ref/WolframLanguageData.html) | Can be used to query a database of a variety of information on Wolfram Language symbols, including many—but not all—of the information that these other functions produce. |
+| [`Definition`](http://reference.wolfram.com/language/ref/Definition.html) | Prints out attributes, defaults, options, and, for user defined functions, definitions (*-`Values`).
+| `OwnValues` | Gives a symbol's OwnValues. |
+| `DownValues` | `DownValues` are a symbols function definitions. |
+| `UpValues` | Like `DownValues`, but more obscure. |
+| `Defaults` | Default values for function arguments. |
 | [`Attributes`](http://reference.wolfram.com/language/ref/Attributes.html) | Gives "attributes" of a function, i.e. whether the function is listable, flat, etc. |
 | [`Messages`](http://reference.wolfram.com/language/ref/Messages.html) | Gives all messages associated to a function. |
+
 
 # Helpful Mathematica code snippets
 
@@ -165,7 +172,7 @@ Note that I could have just as easily used `-+2x` instead, but wanted to avoid c
 ## Number literals
 The Mathematica parser does not "hold" the multiplication by -1 with number literals: `FullForm[Hold[1-2]]` gives `Plus[1, -2]`, whereas `FullForm[Hold[a-b]]` gives `Plus[a, Times[-1,b]]`.
 
-More generally, Mathematica automatically computes number literal input forms. In fact, Mathematica apparently does not have a FullForm representation for number literal input forms. For example:
+More generally, Mathematica automatically computes number literal input forms with `BaseForm` and scientific notation. For example:
 
 ```mathematica
 In[1]:= Hold[36^^sadjh.87s567*^-14]

@@ -18,8 +18,8 @@ emitter = None
 def postParse(tree):
     """Post process the parse tree. In particular, flatten some flat
     operators. Some operators appear in the source text without any
-    explicit associativity, such as: `
-
+    explicit associativity, such as `Plus`, and are parsed into arbitrary
+    tree structures.
     """
 
     walker = ParseTreeWalker()

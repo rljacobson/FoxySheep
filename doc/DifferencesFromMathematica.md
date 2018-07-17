@@ -6,16 +6,18 @@ Mathematica parses but
 
 ## Number literals
 
-### Mathematica does not "hold" number input forms
+### Mathematica does not "Hold" `BaseForm` or `*^` (scientific notation) for number input forms
 
-For example:
+Mathematica computes number input forms with `BaseForm`/`^^` and scientific notation at parse time, not evaluation time. These number input forms cannot be preserved with `Hold`. For example:
 
 ```mathematica
 In[1]:= Hold[36^^sadjh.87s567*^-14]
 Out[1]= Hold[7.737144491656395*^-15]
 ```
-
 FoxySheep does no calculation of number forms. FoxySheep does parse out the components of number input forms, so FoxySheep applications can access these components without any extra work. However, the FullForm emitter just emits the number form as it appears in the input (unlike Mathematica).
+
+Note that, while Mathematica *does* treat numbers like `2/7` and `1+7I` as atomics with heads `Rational` and `Complex` respecively, but these atomics are computed at evaluation time, and their constituent arithmetic operations are held by `Hold`.
+
 
 ### Negative numbers and subtraction
 

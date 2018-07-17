@@ -1,68 +1,131 @@
-"""
-A collection of base classes and utility objects for building an abstract syntax tree representing a Mathematica program.
-"""
+"""A collection of base classes and utility objects for building an abstract
+syntax tree representing a Mathematica program. """
 
-import enum
+from typing import List
 
-class ASTNodeBase:
+from Types import TypeBase, SymbolType
+
+
+class ASTNode:
     """
     The base class of all AST node classes.
     """
 
-    def __init__(self, children=None, parent=None, exprs=None, type=None):
+    def __init__(self, children: list('ASTNode') = None,
+                 parent: 'ASTNode' = None,
+                 type_: TypeBase = None,
+                 exprs: list = None,
+                 ):
         """
         Creates a node of the AST.
 
         :param children: A list of ASTNode objects that are children of this node.
-        :param parent: The parent ASTNode of this node.
+        :param parent: The parent_scope ASTNode of this node.
         :param exprs: A list of the ANTLR SyntaxTree objects that represent this node.
-        :param is_math_expression: A flag representing whether this node is a mathematical expression (unset=-1, no=0, yes=1).
+        :param type_: The type of the value held by this node.
         """
 
-        if children:
-            self.children = children
-        else:
-            self.children = []
-
+        self.children = children
         self.parent = parent
 
-        if exprs:
-            self.exprs = exprs
-        else:
-            self.exprs = []
+        # A list of the ANTLR SyntaxTree objects that represent this node.
+        self.exprs = exprs
 
-        self.type = type
+        # The type returned or represented by the node.
+        self._type = type_
 
+        # Subclasses can register names for their child nodes which can be
+        # accessed with __getattr__.
+        self._named_children: dict = None
 
-class FunctionAttribute(enum.IntEnum):
-    """An enum representing function attributes."""
-    Listable = enum.auto()
-    Flat = enum.auto()
-    Orderless = enum.auto()
-    OneIdentity = enum.auto()
+    def __getattr__(self, key: str):
+        # Implements a mechanism to have child nodes with names as
+        # attributes. See _add_named_child().
 
+        # Check to see if key is one of the named children.
+        if not self._named_children or key not in self._named_children:
+            raise AttributeError(key)
 
-class FunctionNodeBase(ASTNodeBase):
-    """
-    The base class of all AST node classes representing a callable function.
-    """
+        # If key is the name of a named child, find its index within
+        # self.children.
+        index = self._named_children[key]
 
-    def __init__(self, identifier=None, symbol=None, **kwargs):
+        # Check that this node has children.
+        if not self.children:
+            return None
+
+        # Try to retrieve the child.
+        try:
+            return self.children[index]
+        except IndexError:
+            pass
+
+        return None
+
+    def __setattr__(self, key, value):
+        # Implements a mechanism to have child nodes with names as
+        # attributes. See _add_named_child().
+
+        # Check to see if key is one of the named children.
+        if not self._named_children or key not in self._named_children:
+            # Nope, not one of ours.
+            super().__setattr__(key, value)
+
+        # Since key is the name of a named child, find its index within
+        # self.children.
+        index = self._named_children[key]
+
+        # Check that this node has children.
+        if not self.children:
+            self.children = []
+        # Check that key's index exists.
+        if len(self.children) < index + 1:
+            # This index in self.children doesn't exist yet. We just extend
+            # self.children with a list of None's.
+            amount = index + 1 - len(self.children)
+            self.children.extend(amount * [None])
+
+        # Set the value.
+        self.children[index] = value
+
+    def _add_named_child(self, name: str, index: int):
         """
+        Subclasses can register names for children at given indices in
+        self.children so that a child with a name can be accessed by
+        ASTNode.name.
 
-
-        :param identifier: The name (head) of the function.
-        :param symbol: The symbol associated to the function, or none if there is no symbol.
-        :param kwargs: The arguments to ASTNodeBase.
+        :param name: String, the name of the child.
+        :param index: Integer, the index in self.children at which the child
+        lives.
+        :return:
         """
+        # Lazy instantiation.
+        if not self._named_children:
+            self._named_children = dict()
+        self._named_children[name] = index
 
-        super().__init__(**kwargs)
+    def _add_named_children(self, names: List[str]):
+        """
+        Adds named children, automatically indexing starting at 0.
 
-        self.identifier = identifier
-        self.symbol = symbol
+        :param names: List[str], the names of the children in order.
+        :return:
+        """
+        for n, name in enumerate(names):
+            self._add_named_child(name, n)
 
-        self.scope = None
-        self.function_attributes = set() # A set of `FunctionAttribute`s.
-        self.options_pattern = None
-        self.arguments_pattern = None
+    def specify_type(self, type_: TypeBase):
+        """
+        The word *specify* is intentional, as type_ must be a subtype of this
+        node's type unless this node's type is SymbolType.
+
+        :param type_:
+        :return:
+        """
+        # TODO: Implement ASTNode.specify_type()
+        pass
+
+    @property
+    def type_(self):
+        return self._type
 
