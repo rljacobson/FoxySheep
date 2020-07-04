@@ -129,55 +129,8 @@ Mathematica includes facilities in the language itself to describe the syntax, o
 ### Get Mathematica to give you a syntax tree of an arbitrary expression.
 `FullForm` also gives what is essentially a syntax tree of any Wolfram Language expression. For example,
 
-```mathematica
-In[1]:=  FullForm[Hold[Plus@Integrate[#, x] & /@ {x^2, x - 1/x}]]
-Out[1]= Hold[Map[Function[Plus[Integrate[Slot[1],x]]],
-List[Power[x,2],Plus[x,Times[-1,Times[1,Power[x,-1]]]]]]]
-```
+    In[1]:=  FullForm[Hold[Plus@Integrate[#, x] & /@ {x^2, x - 1/x}]]
+    Out[1]= Hold[Map[Function[Plus[Integrate[Slot[1],x]]],
+    List[Power[x,2],Plus[x,Times[-1,Times[1,Power[x,-1]]]]]]]
 
-The `Hold` is necessary. It's helpful to pass the output of `FullForm` to `TextString` so that you can copy+paste the output: `TextString[FullForm[Hold[ expression ]]]`.
-
-# Mathematica oddities
-
-## Context resolution
-
-The Mathematica parser does not "hold" the resolution of the current context for some reason:
-```mathematica
-In[1]:= FullForm[Hold[`x`y]]
-Out[1]= Hold[Global`x`y]
-
-In[2]:= $Context = "Test`"
-Out[2]= Test`
-
-In[3]:= FullForm[Hold[`x`y]]
-Out[3]= Hold[Test`x`y]
-```
-
-## Differences between notebook and command line
-Command line Mathematica and Notebook Mathematica produce different output for `FullForm[Hold[-+x 2]]`:
-```mathematica
-(Notebook) In[1]:= FullForm[Hold[-+x 2]]
-(Notebook) Out[1]//FullForm= Hold[Times[Times[-1,Plus[x]],2]]
-
-(terminal) In[1]:= FullForm[Hold[-+x 2]]
-(terminal) Out[1]//FullForm= Hold[Times[-1, Plus[x], 2]]
-```
-Looks like the notebook doesn't properly flatten `Times[]`. Why the notebook has a different parser than the command line is a mystery, but I wonder if this bug has to do with how the parser resolves the ambiguity of the "-" and "+" symbols. Compare this to `+-x 2` for which both the notebook and the command line give the same result:
-```mathematica
-In[1]:= FullForm[Hold[+-x 2]]
-Out[1]//FullForm= Hold[Times[Plus[Times[-1, x]], 2]]
-```
-Note that I could have just as easily used `-+2x` instead, but wanted to avoid confusion with the next oddity which is distinct.
-
-## Number literals
-The Mathematica parser does not "hold" the multiplication by -1 with number literals: `FullForm[Hold[1-2]]` gives `Plus[1, -2]`, whereas `FullForm[Hold[a-b]]` gives `Plus[a, Times[-1,b]]`.
-
-More generally, Mathematica automatically computes number literal input forms with `BaseForm` and scientific notation. For example:
-
-```mathematica
-In[1]:= Hold[36^^sadjh.87s567*^-14]
-Out[1]= Hold[7.73714*10^-15]
-```
-This strikes me as odd, because Mathematica is surely using the kernel to compute whatever number a given input form represents. Mathematica even provides [several facilities](https://reference.wolfram.com/language/guide/NumberDigits.html) to the user to perform such computations (`FromDigits`, `MixedRadix`, `NumberCompose`, ...).
-
-FoxySheep does parse out the components of number input forms, so FoxySheep applications can access these components without any extra work. However, the FullForm emitter just emits the number form as-is (unlike Mathematica).
+The `Hold` is necessary. It's helpful to pass the output of `FullForm` to `TextString` so that it's easier to copy+paste the output: `TextString[FullForm[Hold[ expression ]]]`.
