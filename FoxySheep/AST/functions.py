@@ -2,12 +2,7 @@
 
 """
 
-import enum
-
-from FoxySheep.errors import error_handler
-from AST import ASTNode, SymbolNode
-from FoxySheep.scoping import Symbol, Scope
-
+from FoxySheep.AST.nodes import ASTNode, SymbolNode
 
 class FunctionCallNode(ASTNode):
     """

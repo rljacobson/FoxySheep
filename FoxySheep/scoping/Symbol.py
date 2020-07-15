@@ -1,6 +1,6 @@
 from enum import IntEnum, auto as _auto
-from AST import ASTNode, FunctionDeclarationNode
-
+import FoxySheep.AST
+from FoxySheep.AST import ASTNode, FunctionDeclarationNode
 
 class SymbolAttributes(IntEnum):
     Constant        = _auto()
@@ -24,7 +24,7 @@ class SymbolAttributes(IntEnum):
     Temporary       = _auto()
 
 
-class Symbol:
+class Symbol(FoxySheep.AST.Symbol):
     """
     Holds information about a particular symbol in a particular scope. In
     particular, it manages

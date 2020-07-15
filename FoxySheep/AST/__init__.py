@@ -1,6 +1,7 @@
-from .Functions import (
-    FunctionDeclarationNode, FunctionCallNode, FunctionAttribute
+from FoxySheep.AST.functions import (
+    FunctionDeclarationNode, FunctionCallNode
     )
-from .ASTNode import ASTNode
+
+from FoxySheep.AST.nodes import ASTNode, Symbol
 
 # Should we import all node classes, or should we only import the modules?

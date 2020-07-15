@@ -3,10 +3,15 @@ syntax tree representing a Mathematica program. """
 
 from typing import List
 
-from FoxySheep.types import TypeBase, SymbolType
+from FoxySheep.foxy_types import TypeBase
 
+class Symbol(object):
+    pass
 
-class ASTNode:
+class SymbolNode(object):
+    pass
+
+class ASTNode(object):
     """
     The base class of all AST node classes.
     """

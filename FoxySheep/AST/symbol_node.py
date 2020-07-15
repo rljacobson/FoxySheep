@@ -1,6 +1,4 @@
-
-from AST import ASTNode
-from Scoping.Symbol import Symbol
+from FoxySheep.AST.nodes import ASTNode, Symbol
 
 
 class SymbolNode(ASTNode):
@@ -21,8 +19,7 @@ class SymbolNode(ASTNode):
         `declaration` Where the symbol was declared.
     """
 
-    def __init__(self, identifier: str, symbol: Symbol = None,
-                 **kwargs):
+    def __init__(self, identifier: str, symbol: Symbol = None, **kwargs):
         """
         Create a SymbolNode representing an appearance of identifier in the
         source language. If a Symbol is provided, this SymbolNode's Symbol
@@ -42,5 +39,5 @@ class SymbolNode(ASTNode):
 
     @symbol.setter
     def symbol(self, symbol: Symbol):
-        assert (symbol.identifier == self.identifier)
+        assert symbol.identifier == self.identifier
         self._symbol = symbol

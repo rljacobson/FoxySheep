@@ -1,5 +1,5 @@
 from AST import ASTNode
-from Scoping.Symbol import Symbol
+from FoxySheep.scoping.Symbol import Symbol
 
 
 class FunctionSignatureNode(ASTNode):
@@ -16,5 +16,3 @@ class FunctionSignatureNode(ASTNode):
         """
         super().__init__(**kwargs)
         self.symbol = symbol
-
-
