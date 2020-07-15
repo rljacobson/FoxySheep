@@ -102,11 +102,11 @@ def FullForm_from_file(path: str):
 
 def REPL():
     # Simple REPL
-    print("Enter a Mathematica expression. Enter either an empty line or Ctrl-C to exit.")
+    print("Enter a Mathematica expression. Enter either an empty line, Ctrl-C, or Ctrl-D to exit.")
     while True:
         try:
             user_in = input("in:= ")
-        except KeyboardInterrupt:
+        except (KeyboardInterrupt, EOFError):
             break
         if user_in == "":
             break
