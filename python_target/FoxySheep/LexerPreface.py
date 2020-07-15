@@ -8,6 +8,6 @@
 #     cat FoxySheep/LexerPreface.py generated/FoxySheepLexer.py > tmp.py && mv tmp.py generated/FoxySheepLexer.py
 
 from antlr4.ParserRuleContext import RuleContext
-from ..LexerBase import *
+from FoxySheep.LexerBase import *
 
 # Generated from ../FoxySheep.g4 by ANTLR 4.7

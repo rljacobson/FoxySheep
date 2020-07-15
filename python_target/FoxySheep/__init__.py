@@ -1,12 +1,12 @@
-from .generated.FoxySheepLexer import FoxySheepLexer
-from .generated.FoxySheepParser import FoxySheepParser
-from .generated.FoxySheepListener import FoxySheepListener
-from .generated.FoxySheepVisitor import FoxySheepVisitor
+from FoxySheep.generated.FoxySheepLexer import FoxySheepLexer
+from FoxySheep.generated.FoxySheepParser import FoxySheepParser
+from FoxySheep.generated.FoxySheepListener import FoxySheepListener
+from FoxySheep.generated.FoxySheepVisitor import FoxySheepVisitor
 
-from .generated.FullFormLexer import FullFormLexer
-from .generated.FullFormParser import FullFormParser
-from .generated.FullFormListener import FullFormListener
-from .generated.FullFormVisitor import FullFormVisitor
+from FoxySheep.generated.FullFormLexer import FullFormLexer
+from FoxySheep.generated.FullFormParser import FullFormParser
+from FoxySheep.generated.FullFormListener import FullFormListener
+from FoxySheep.generated.FullFormVisitor import FullFormVisitor
 
-from .FullFormEmitter import FullFormEmitter
-from .PostParser import PostParser
+from FoxySheep.FullFormEmitter import FullFormEmitter
+from FoxySheep.PostParser import PostParser

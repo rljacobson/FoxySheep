@@ -1,0 +1,12 @@
+*~
+/.mypy_cache
+/FoxySheep.interp
+/FoxySheep.tokens
+/FoxySheepLexer.interp
+/FoxySheepLexer.py
+/FoxySheepLexer.tokens
+/FoxySheepListener.py
+/FoxySheepParser.py
+/FoxySheepVisitor.py
+/FullForm.interp
+/FullFormLexer.interp
