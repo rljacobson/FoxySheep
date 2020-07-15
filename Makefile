@@ -1,5 +1,6 @@
-.PHONY: all develop FullForm FoxySheep run clean rmsheep demo install uninstall
+.PHONY: all develop dist FullForm FoxySheep run clean rmsheep demo install uninstall rmChangeLog ChangeLog
 
+GIT2CL ?= git2cl
 GEN_DIR = FoxySheep/generated
 FS_DIR = FoxySheep
 
@@ -51,3 +52,14 @@ $(GEN_DIR)/__init__.py:
 #: Run demo program
 demo:
 	python demo.py
+
+#: Make distribution
+dist:
+	python setup.py bdist_egg bdist_wheel
+
+rmChangeLog:
+	rm ChangeLog || true
+
+#: Create a ChangeLog from git via git log and git2cl
+ChangeLog: rmChangeLog
+	git log --pretty --numstat --summary | $(GIT2CL) >$@

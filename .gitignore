@@ -1,6 +1,7 @@
 *~
 .mypy_cache
-/dist
-__pycache__
 /.python-version
 /FoxySheep.egg-info
+/build
+/dist
+__pycache__

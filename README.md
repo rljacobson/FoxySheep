@@ -1,4 +1,12 @@
-[TOC]:
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- [FoxySheep2](#foxysheep2)
+- [Using](#using)
+- [Regenerating the lexer/parser](#regenerating-the-lexerparser)
+    - [FoxySheepLexer Must Subclass Lexer](#foxysheeplexer-must-subclass-lexer)
+
+<!-- markdown-toc end -->
 # FoxySheep2
 
 This is the Robert Jacobson's Python implementation of the FoxySheep parser and lexer for Mathematica.
@@ -8,9 +16,7 @@ In particular, the Java code has been removed. For that see the original [FoxySh
 
 You need Python 3.6 or later to run this.
 
-To change the grammar you'll need the ANTLR Parser Generation version 4.7.x (`antlr4)` installed. However the git repo currently contains the antlr-derived Python files. This may change in the future.
-
-There are varous Makefile targets for:
+There are various `Makefile` targets for:
 
 * setting up to run from the source tree
 * running a canned set of Mathematics translations
@@ -38,6 +44,8 @@ $
 To see a demo after installed, run `python demo.py` in this directory.
 
 # Regenerating the lexer/parser
+
+To change the grammar you'll need the ANTLR Parser Generator (`antlr4)`, version 4.7.x  installed. If you don't want to change the grammar but just run the code, the distribution and git repository contain the antlr-derived Python files.
 
 To (re)generate the lexer/parser:
 

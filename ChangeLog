@@ -1,0 +1,503 @@
+2020-07-15  rocky <rb@dustyfeet.com>
+
+	* .gitignore, Makefile, README.md, README.rst,
+	admin_tools/how-to-make-a-release.md, admin_tools/make-dist.sh,
+	admin_tools/pyenv-versions, doc/NEWS.md, setup.py: Get ready for
+	release 1.0.0
+
+2020-07-15  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__main__.py: Small tweak in REPL input handling
+
+2020-07-15  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__main__.py, FoxySheep/scoping/Scope.py,
+	FoxySheep/version.py, setup.py: Add --expr and --version options
+
+2020-07-15  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/AST/__init__.py, FoxySheep/AST/{Functions.py =>
+	functions.py}, FoxySheep/AST/ir/FunctionSignatureNode.py,
+	FoxySheep/AST/{ASTNode.py => nodes.py},
+	FoxySheep/AST/{SymbolNode.py => symbol_node.py}, FoxySheep/{types
+	=> foxy_types}/__init__.py, FoxySheep/{types/Types.py =>
+	foxy_types/types.py}, FoxySheep/scoping/Scope.py,
+	FoxySheep/scoping/Symbol.py, FoxySheep/scoping/__init__.py: Relative
+	import removal
+
+2020-07-15  rocky <rb@dustyfeet.com>
+
+	* README.md: Small README changes
+
+2020-07-15  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/AST/ASTNode.py, FoxySheep/AST/Functions.py,
+	FoxySheep/Passes/.gitignore, FoxySheep/Passes/ASTVisitor.py,
+	FoxySheep/Passes/__init__.py, FoxySheep/Scoping/__init__.py,
+	FoxySheep/Utils/__init__.py, FoxySheep/__main__.py,
+	FoxySheep/{Errors => errors}/__init__.py,
+	FoxySheep/{Errors/ErrorHandler.py => errors/error_handler.py},
+	FoxySheep/{Scoping => scoping}/Scope.py, FoxySheep/{Scoping =>
+	scoping}/Symbol.py, FoxySheep/{Scoping =>
+	scoping}/VirtualSymbols.py, FoxySheep/scoping/__init__.py,
+	FoxySheep/{Types => types}/Types.py, FoxySheep/{Types =>
+	types}/__init__.py, FoxySheep/{Utils => utils}/Mathematica.py,
+	FoxySheep/{Utils => utils}/PatternMatcher.py, FoxySheep/{Utils =>
+	utils}/WolframLanguageData.py, FoxySheep/utils/__init__.py,
+	FoxySheep/{Utils => utils}/misc.py: Start using Python-style module
+	names...  No CamelCase but lowercase with underscores
+
+2020-07-15  rocky <rb@dustyfeet.com>
+
+	* .gitignore, ParseExpressions/NumberLiterals.m,
+	doc/DifferencesFromMathematica.md,
+	doc/TranslateToPythonBrainstorm.md, grammar/FoxySheep.iml: Track
+	Robert's changes of 18 days ago Specifically ffc923a Note we don't accept all of the changes. The `chmod +x` is a bit
+	weird and may be "bit rot".  Not sure what the `.iml` stuff is but
+	we took it.
+
+2020-07-14  rocky <rocky@gnu.org>
+
+	* .gitignore, {python_target/FoxySheep => FoxySheep}/.gitignore,
+	{python_target/FoxySheep => FoxySheep}/AST/ASTNode.py,
+	{python_target/FoxySheep => FoxySheep}/AST/Functions.py,
+	{python_target/FoxySheep => FoxySheep}/AST/SymbolNode.py,
+	{python_target/FoxySheep => FoxySheep}/AST/__init__.py,
+	{python_target/FoxySheep =>
+	FoxySheep}/AST/ir/FunctionSignatureNode.py,
+	{python_target/FoxySheep => FoxySheep}/AST/ir/__init__.py,
+	{python_target/FoxySheep =>
+	FoxySheep}/AST/pattern/AlternativeNode.py, {python_target/FoxySheep
+	=> FoxySheep}/AST/pattern/BlankAbstractNode.py,
+	{python_target/FoxySheep => FoxySheep}/AST/pattern/BlankNode.py,
+	{python_target/FoxySheep =>
+	FoxySheep}/AST/pattern/BlankNullSequenceNode.py,
+	{python_target/FoxySheep =>
+	FoxySheep}/AST/pattern/BlankSequenceNode.py,
+	{python_target/FoxySheep =>
+	FoxySheep}/AST/pattern/ConditionNode.py, {python_target/FoxySheep
+	=> FoxySheep}/AST/pattern/DefaultNode.py, {python_target/FoxySheep
+	=> FoxySheep}/AST/pattern/OptionalNode.py, {python_target/FoxySheep
+	=> FoxySheep}/AST/pattern/OptionsPatternNode.py,
+	{python_target/FoxySheep => FoxySheep}/AST/pattern/PatternNode.py,
+	{python_target/FoxySheep =>
+	FoxySheep}/AST/pattern/PatternTestNode.py, {python_target/FoxySheep
+	=> FoxySheep}/AST/pattern/RepeatedNode.py, {python_target/FoxySheep
+	=> FoxySheep}/AST/pattern/RepeatedNullNode.py,
+	{python_target/FoxySheep => FoxySheep}/AST/pattern/__init__.py,
+	{python_target/FoxySheep => FoxySheep}/Errors/ErrorHandler.py,
+	{python_target/FoxySheep => FoxySheep}/Errors/__init__.py,
+	{python_target/FoxySheep => FoxySheep}/FullFormEmitter.py,
+	{python_target/FoxySheep => FoxySheep}/LexerBase.py,
+	{python_target/FoxySheep => FoxySheep}/LexerPreface.py,
+	{python_target/FoxySheep/generated => FoxySheep/Passes}/.gitignore,
+	{python_target/FoxySheep => FoxySheep}/Passes/ASTVisitor.py,
+	{python_target/FoxySheep => FoxySheep}/Passes/__init__.py,
+	{python_target/FoxySheep => FoxySheep}/PostParser.py,
+	{python_target/FoxySheep => FoxySheep}/Scoping/Scope.py,
+	{python_target/FoxySheep => FoxySheep}/Scoping/Symbol.py,
+	{python_target/FoxySheep => FoxySheep}/Scoping/VirtualSymbols.py,
+	FoxySheep/Scoping/__init__.py, {python_target/FoxySheep =>
+	FoxySheep}/Types/Types.py, {python_target/FoxySheep =>
+	FoxySheep}/Types/__init__.py, {python_target/FoxySheep =>
+	FoxySheep}/Utils/Mathematica.py, {python_target/FoxySheep =>
+	FoxySheep}/Utils/PatternMatcher.py, {python_target/FoxySheep =>
+	FoxySheep}/Utils/WolframLanguageData.py, {python_target/FoxySheep
+	=> FoxySheep}/Utils/__init__.py, {python_target/FoxySheep =>
+	FoxySheep}/Utils/misc.py, {python_target/FoxySheep =>
+	FoxySheep}/__init__.py, python_target/FoxySheep.py =>
+	FoxySheep/__main__.py, FoxySheep/generated/.gitignore,
+	FoxySheep/generated/FoxySheep.lexer.py.patch,
+	FoxySheep/generated/FoxySheepLexer.py,
+	FoxySheep/generated/FoxySheepListener.py,
+	FoxySheep/generated/FoxySheepParser.py,
+	FoxySheep/generated/FoxySheepVisitor.py, {python_target/FoxySheep
+	=> FoxySheep}/generated/FullFormLexer.py, {python_target/FoxySheep
+	=> FoxySheep}/generated/FullFormListener.py,
+	{python_target/FoxySheep => FoxySheep}/generated/FullFormParser.py,
+	{python_target/FoxySheep =>
+	FoxySheep}/generated/FullFormVisitor.py, {python_target/FoxySheep
+	=> FoxySheep}/generated/__init__.py, Makefile, Notes.md,
+	{unit_tests/ParseExpressions =>
+	ParseExpressions}/FullFormFunctionDefinition.m,
+	{unit_tests/ParseExpressions => ParseExpressions}/NumberLiterals.m,
+	{unit_tests/ParseExpressions => ParseExpressions}/Oddities.m,
+	{unit_tests/ParseExpressions =>
+	ParseExpressions}/SimpleAlgebraic.m, {unit_tests/ParseExpressions
+	=> ParseExpressions}/SimpleAlgebraicFF.m, README-orig.md,
+	README.md, demo.py, FoxySheep.g4 => grammar/FoxySheep.g4,
+	FoxySheepLexerRules.g4 => grammar/FoxySheepLexerRules.g4,
+	FullForm.g4 => grammar/FullForm.g4, FullFormLexerRules.g4 =>
+	grammar/FullFormLexerRules.g4, python_target/lexermembers.py =>
+	lexermembers.py, python_target/makeexit.py => makeexit.py,
+	python_target/.gitignore,
+	python_target/FoxySheep/Scoping/__init__.py,
+	python_target/FoxySheep/generated/FullForm.tokens,
+	python_target/FoxySheep/generated/FullFormLexer.tokens,
+	python_target/Makefile, python_target/README.md,
+	python_target/tools/__init__.py, python_target/setup.py =>
+	setup.py, {python_target/tools => tools}/ASTClasses.py,
+	{python_target/tools => tools}/CodeWriter.ipynb, {python_target =>
+	tools}/__init__.py: Add demo program and reorganize more
+
+2020-07-14  rocky <rocky@gnu.org>
+
+	* java_target/Makefile, java_target/Notes.md,
+	java_target/src/FoxySheep.java,
+	java_target/src/FullFormEmitter.java,
+	java_target/src/LexerBase.java, java_target/src/PostParser.java,
+	python_target/.gitignore, python_target/FoxySheep/.gitignore,
+	python_target/FoxySheep/LexerPreface.py,
+	python_target/FoxySheep/__init__.py,
+	python_target/FoxySheep/generated/.gitignore,
+	python_target/FoxySheep/generated/FullFormLexer.py,
+	python_target/FoxySheep/generated/FullFormListener.py,
+	python_target/FoxySheep/generated/FullFormParser.py,
+	python_target/FoxySheep/generated/FullFormVisitor.py,
+	python_target/README.md, python_target/setup.py: Tweaks for
+	Python-only use Remove java_target stuff Regenerate parsers. Warning: for
+	somereaseon the Lexer doesn't import from LexerBase so that was
+	changed by hand.  Add some .gitignores Add a setup.py
+
+2018-07-17  Robert Jacobson <rljacobson@gmail.com>
+
+	* .gitignore, CONTRIBUTING.md, doc/DifferencesFromMathematica.md,
+	doc/KnownBugs.md, doc/Symbol Table Design.md,
+	doc/TranslateToPythonNotes.md, doc/TranslateToPythonRoadmap.md,
+	doc/TranslatorRoadmap.md, doc/index.md, python_target/FoxySheep.py,
+	python_target/FoxySheep/AST/ASTNode.py,
+	python_target/FoxySheep/AST/Functions.py,
+	python_target/FoxySheep/AST/Scope.py,
+	python_target/FoxySheep/AST/SymbolNode.py,
+	python_target/FoxySheep/AST/Types.py,
+	python_target/FoxySheep/AST/__init__.py,
+	python_target/FoxySheep/AST/ir/FunctionSignatureNode.py,
+	python_target/FoxySheep/AST/ir/__init__.py,
+	python_target/FoxySheep/AST/pattern/AlternativeNode.py,
+	python_target/FoxySheep/AST/pattern/BlankAbstractNode.py,
+	python_target/FoxySheep/AST/pattern/BlankNode.py,
+	python_target/FoxySheep/AST/pattern/BlankNullSequenceNode.py,
+	python_target/FoxySheep/AST/pattern/BlankSequenceNode.py,
+	python_target/FoxySheep/AST/pattern/ConditionNode.py,
+	python_target/FoxySheep/AST/pattern/DefaultNode.py,
+	python_target/FoxySheep/AST/pattern/OptionalNode.py,
+	python_target/FoxySheep/AST/pattern/OptionsPatternNode.py,
+	python_target/FoxySheep/AST/pattern/PatternNode.py,
+	python_target/FoxySheep/AST/pattern/PatternTestNode.py,
+	python_target/FoxySheep/AST/pattern/RepeatedNode.py,
+	python_target/FoxySheep/AST/pattern/RepeatedNullNode.py,
+	python_target/FoxySheep/AST/pattern/__init__.py,
+	python_target/FoxySheep/Errors/ErrorHandler.py,
+	python_target/FoxySheep/Errors/__init__.py,
+	python_target/FoxySheep/Passes/ASTVisitor.py,
+	python_target/FoxySheep/Passes/__init__.py,
+	python_target/FoxySheep/Scoping/Scope.py,
+	python_target/FoxySheep/Scoping/Symbol.py,
+	python_target/FoxySheep/Scoping/VirtualSymbols.py,
+	python_target/FoxySheep/Scoping/__init__.py,
+	python_target/FoxySheep/Types/Types.py,
+	python_target/FoxySheep/Types/__init__.py,
+	python_target/FoxySheep/Utils/Mathematica.py,
+	python_target/FoxySheep/Utils/PatternMatcher.py,
+	python_target/FoxySheep/Utils/WolframLanguageData.py,
+	python_target/FoxySheep/Utils/__init__.py,
+	python_target/FoxySheep/Utils/misc.py, python_target/README.md,
+	python_target/__init__.py, python_target/tools/ASTClasses.py,
+	python_target/tools/CodeWriter.ipynb,
+	python_target/tools/__init__.py: Significant work on pattern
+	matcher, symbols and scopes. Other minor work.
+
+2018-06-30  Robert Jacobson <rljacobson@gmail.com>
+
+	* CONTRIBUTING.md, README.md, doc/TranslateToPythonNotes.md,
+	doc/TranslatorRoadmap.md, doc/index.md, python_target/FoxySheep.py,
+	python_target/FoxySheep/AST/ASTNode.py,
+	python_target/FoxySheep/AST/Scope.py,
+	python_target/FoxySheep/AST/Types.py,
+	python_target/FoxySheep/AST/__init__.py,
+	python_target/FoxySheep/FullFormEmitter.py,
+	python_target/FoxySheep/__init__.py: Initial commit of AST design.
+
+2017-10-15  Robert Jacobson <rljacobson@gmail.com>
+
+	* CONTRIBUTING.md, doc/DifferencesFromMathematica.md,
+	doc/TranslateToPythonNotes.md, doc/index.md, java_target/Makefile,
+	java_target/src/FoxySheep.java, java_target/src/PostParser.java,
+	python_target/FoxySheep.py,
+	python_target/FoxySheep/FullFormEmitter.py,
+	python_target/FoxySheep/generated/FullForm.tokens,
+	python_target/FoxySheep/generated/FullFormLexer.py,
+	python_target/FoxySheep/generated/FullFormLexer.tokens,
+	python_target/FoxySheep/generated/FullFormListener.py,
+	python_target/FoxySheep/generated/FullFormParser.py,
+	python_target/FoxySheep/generated/FullFormVisitor.py,
+	python_target/Makefile, python_target/makeexit.py: Both targets now
+	have supporting code for the FullForm parser. Added simple REPL to
+	"main" functions for debugging.
+
+2017-10-07  Robert Jacobson <rljacobson@gmail.com>
+
+	* python_target/FoxySheep.py,
+	python_target/FoxySheep/FullFormEmitter.py,
+	python_target/FoxySheep/{Lexer.py => LexerBase.py},
+	python_target/FoxySheep/LexerPreface.py,
+	python_target/FoxySheep/PostParser.py, python_target/Makefile,
+	python_target/README.md, python_target/example.py: Added poster
+	parser to Python target, added simple REPL. Python target now how
+	feature parity with Java target.
+
+2017-10-07  Robert Jacobson <rljacobson@gmail.com>
+
+	* .gitignore, FoxySheep.g4, FoxySheepLexerRules.g4, Notes.md,
+	README.md, doc/TranslateToPythonNotes.md, java_target/Makefile,
+	java_target/Notes.md, java_target/src/FoxySheep.java,
+	java_target/src/FullFormEmitter.java, java_target/src/{Lexer.java
+	=> LexerBase.java}, java_target/src/PostParser.java,
+	unit_tests/ParseExpressions/SimpleAlgebraic.m,
+	unit_tests/ParseExpressions/SimpleAlgebraicFF.m: Java target: Fixed
+	bug in exitPlusOp(), removed box-related garbage.
+
+2017-09-09  Robert Jacobson <rljacobson@gmail.com>
+
+	* .gitignore, python_target/FoxySheep/FullFormEmitter.py,
+	python_target/FoxySheep/Lexer.py,
+	python_target/FoxySheep/LexerPreface.py, python_target/{ =>
+	FoxySheep}/generated/__init__.py, python_target/Makefile,
+	python_target/example.py,
+	unit_tests/ParseExpressions/NumberLiterals.m,
+	unit_tests/ParseExpressions/Oddities.m: Reorganized Python target
+	files.
+
+2017-08-11  Robert Jacobson <rljacobson@gmail.com>
+
+	* README.md: Minor edits.
+
+2017-08-10  Robert Jacobson <rljacobson@gmail.com>
+
+	* README.md: Clarified operator-precedance parsers.
+
+2017-04-14  Robert Jacobson <rljacobson@gmail.com>
+
+	* Expression.txt, unit_tests/FullForm Function Definition.txt,
+	unit_tests/Oddities.txt: .txt -> .md
+
+2017-04-14  Robert Jacobson <rljacobson@gmail.com>
+
+	* README.md, python_target/Expression.txt,
+	python_target/example.py,
+	unit_tests/ParseExpressions/FullFormFunctionDefinition.m,
+	unit_tests/{Number Literals.txt =>
+	ParseExpressions/NumberLiterals.m},
+	unit_tests/ParseExpressions/Oddities.m: Expanded documentation.
+
+2017-04-04  Robert Jacobson <rljacobson@gmail.com>
+
+	* : commit 958e68bd0fed3f21fc94c5772802b8321b013892 Author: Robert
+	Jacobson <rljacobson@gmail.com> Date:   Tue Apr 4 22:07:00 2017
+	-0400
+
+2017-04-04  Robert Jacobson <rljacobson@gmail.com>
+
+	* .gitignore, CONTRIBUTING.md, README.md, {unit tests =>
+	unit_tests}/FullForm Function Definition.txt, {unit tests =>
+	unit_tests}/Number Literals.txt, unit_tests/Oddities.txt: 
+	Significant copy editing of markdown content.
+
+2017-04-04  Robert Jacobson <rljacobson@gmail.com>
+
+	* .gitignore: Ignore antlr generated files.
+
+2017-04-04  Robert Jacobson <rljacobson@gmail.com>
+
+	* .gitignore, {java target => java_target}/src/FoxySheep.java,
+	{java target => java_target}/src/FullFormEmitter.java, {java target
+	=> java_target}/src/Lexer.java, {java target =>
+	java_target}/src/PostParser.java, python target/Makefile, {python
+	target => python_target}/Expression.txt, {python target =>
+	python_target}/FoxySheep/FullFormEmitter.py, {python target =>
+	python_target}/FoxySheep/Lexer.py, {python target =>
+	python_target}/FoxySheep/LexerPreface.py, {python target =>
+	python_target}/FoxySheep/__init__.py, python_target/Makefile,
+	{python target => python_target}/README.md, {python target =>
+	python_target}/example.py, python_target/generated/__init__.py,
+	{python target => python_target}/lexermembers.py: Refactored Python
+	build system, added .gitignore, removed spaces in directory names.
+
+2017-04-04  Robert Jacobson <rljacobson@gmail.com>
+
+	* python target/Expression.txt, python
+	target/FoxySheep/LexerPreface.py, python target/Makefile, python
+	target/README.md, python target/{FoxySheep.py => example.py}: 
+	Partial refactor of prefix to the lever class.
+
+2017-04-04  Robert Jacobson <rljacobson@gmail.com>
+
+	* Expression.txt, FullForm.g4, FullFormLexerRules.g4, README.md,
+	unit tests/FullForm Function Definition.txt, unit tests/Number
+	Literals.txt: Initial commit of FullForm parser/lexer.
+
+2017-03-29  Robert Jacobson <rljacobson@gmail.com>
+
+	* CONTRIBUTING.md, README.md: Fixed headings/subheadings in markdown
+	that something removed somehow.
+
+2017-03-05  Robert Jacobson <rljacobson@gmail.com>
+
+	* FoxySheep.g4, python target/Makefile: Improved base ten number
+	literal lexer.
+
+2015-04-10  Robert Jacobson <rljacobson@gmail.com>
+
+	* python target/FoxySheep/FullFormEmitter.py, python
+	target/FoxySheep/Lexer.py: Updated the python target to account for
+	improved number literal parsing.
+
+2015-04-10  Robert Jacobson <rljacobson@gmail.com>
+
+	* CONTRIBUTING.md, FoxySheep.g4, FoxySheepLexerRules.g4, java
+	target/src/FoxySheep.java, java target/src/FullFormEmitter.java,
+	java target/src/Lexer.java: Significantly improved the parsing of
+	number input forms.
+
+2015-04-04  Robert Jacobson <rljacobson@gmail.com>
+
+	* FoxySheep.g4, java target/src/FullFormEmitter.java, java
+	target/src/Lexer.java, python target/FoxySheep/FullFormEmitter.py,
+	python target/FoxySheep/Lexer.py: FullForm emitter now handles
+	patterns. Also fixed a bug related to parsing patterns.
+
+2015-04-04  Robert Jacobson <rljacobson@gmail.com>
+
+	* CONTRIBUTING.md, README.md: Updated to reflect python target.
+
+2015-04-04  Robert Jacobson <rljacobson@gmail.com>
+
+	* java target/FoxySheep.g4 => FoxySheep.g4, java
+	target/FoxySheepLexerRules.g4 => FoxySheepLexerRules.g4, java
+	target/src/Lexer.java, python target/FoxySheep.g4, python
+	target/FoxySheep/Lexer.py, python target/FoxySheepLexerRules.g4,
+	python target/Makefile: Unified the target-language specific
+	grammars. There is now only one set of *.g4's that is used for both
+	python and java.
+
+2015-04-03  Robert Jacobson <rljacobson@gmail.com>
+
+	* java target/FoxySheep.g4, java target/FoxySheepLexerRules.g4,
+	java target/src/FullFormEmitter.java, python target/Expression.txt,
+	python target/FoxySheep.g4, python
+	target/FoxySheep/FullFormEmitter.py, python
+	target/FoxySheepLexerRules.g4: FullForm emitter now handles Slot[]
+	and Out[] expressions.
+
+2015-04-02  Robert Jacobson <rljacobson@gmail.com>
+
+	* README.md, java target/FoxySheep.g4, java
+	target/FoxySheepLexerRules.g4, java
+	target/src/FullFormEmitter.java, python target/Expression.txt,
+	python target/FoxySheep.g4, python target/FoxySheep.py, python
+	target/FoxySheep/FullFormEmitter.py, python
+	target/FoxySheep/__init__.py, python target/FoxySheepLexerRules.g4,
+	python target/Makefile, python target/lexermembers.py: Started work
+	on python Full Form emitter, fixed lots of minor bugs in the java
+	target along the way.
+
+2015-03-31  Robert Jacobson <rljacobson@gmail.com>
+
+	* FoxySheep.g4 => java target/FoxySheep.g4, FoxySheepLexerRules.g4
+	=> java target/FoxySheepLexerRules.g4, {src => java
+	target/src}/FoxySheep.java, {src => java
+	target/src}/FullFormEmitter.java, {src => java
+	target/src}/PostParser.java: Reorganized directory structure in
+	preparation for python target.
+
+2015-03-31  Robert Jacobson <rljacobson@gmail.com>
+
+	* CONTRIBUTING.md, FoxySheep.g4, FoxySheepLexerRules.g4, README.md,
+	src/FoxySheep.java, src/FullFormEmitter.java: FoxySheep now treats
+	newlines the same way Mathematica does.
+
+2015-03-30  Robert Jacobson <rljacobson@gmail.com>
+
+	* FoxySheep.g4, FoxySheepLexerRules.g4, README.md,
+	src/FullFormEmitter.java: Added bracketing expressions AngleBracket,
+	Floor, Ceiling, BracketingBar, and DoubleBracketingBar.
+
+2015-03-30  Robert Jacobson <rljacobson@gmail.com>
+
+	* CONTRIBUTING.md: Corrected a minor error in the "Mathematica code
+	snippets" section.
+
+2015-03-29  Robert Jacobson <rljacobson@gmail.com>
+
+	* CONTRIBUTING.md, FoxySheep.g4, FoxySheepLexerRules.g4,
+	src/FoxySheep.java, src/FullFormEmitter.java, src/PostParser.java: 
+	Now correctly parses Span[] expressions.
+
+2015-03-21  Robert Jacobson <rljacobson@gmail.com>
+
+	* README.md: Removed CSS from Markdown.
+
+2015-03-21  Robert Jacobson <rljacobson@gmail.com>
+
+	* : commit 083249ef360371c3308c0be0049e8a691f9aca96 Author: Robert
+	Jacobson <rljacobson@gmail.com> Date:   Sat Mar 21 21:55:44 2015
+	-0400
+
+2015-03-21  Robert Jacobson <rljacobson@gmail.com>
+
+	* README.md: Added a table of planned features and the status of
+	each.
+
+2015-03-21  Robert Jacobson <rljacobson@gmail.com>
+
+	* FoxySheep.g4, FoxySheepLexerRules.g4, README.md,
+	src/FullFormEmitter.java, src/PostParser.java: Added support for
+	exotic whitespace. Simplified implicit multiplication.
+
+2015-03-13  Robert Jacobson <rljacobson@gmail.com>
+
+	* src/FullFormEmitter.java, src/PostParser.java: PostParser and
+	FullForm emitter now correctly handle compound expressions.
+
+2015-03-13  Robert Jacobson <rljacobson@gmail.com>
+
+	* FoxySheep.g4, FoxySheepLexerRules.g4, src/FullFormEmitter.java,
+	src/PostParser.java: The FullForm emitter now handles inequalities
+	correctly.
+
+2015-03-12  Robert Jacobson <rljacobson@gmail.com>
+
+	* CONTRIBUTING.md, Expression.txt, README.md,
+	src/FullFormEmitter.java, src/PostParser.java: Added PostParser that
+	rewrites the parse tree to flatten some operators. Adjusted
+	FullFormEmitter accordingly.
+
+2015-03-09  Robert Jacobson <rljacobson@gmail.com>
+
+	* README.md: Updated README.md to reflect existence of FullForm
+	emitter.
+
+2015-03-09  Robert Jacobson <rljacobson@gmail.com>
+
+	* CONTRIBUTING.md, FoxySheep.g4, FoxySheepLexerRules.g4,
+	src/FullFormEmitter.java: Fixed implicit multiplication again. We
+	now use a different method to disambiguate unary/binary plus/minus.
+
+2015-03-08  Robert Jacobson <rljacobson@gmail.com>
+
+	* CONTRIBUTING.md, FoxySheep.g4, FoxySheepLexerRules.g4, README.md,
+	src/FullFormEmitter.java: Added a first draft of a FullForm emitter.
+
+2015-02-28  Robert Jacobson <rljacobson@gmail.com>
+
+	* FoxySheep.g4, FoxySheepLexerRules.g4, README.md: Added many rules
+	having no built-in meaning.
+
+2015-02-22  Robert Jacobson <rljacobson@gmail.com>
+
+	* LICENSE.txt: Typo.
+
+2015-02-22  Robert Jacobson <rljacobson@gmail.com>
+
+	* Initial commit.
+
