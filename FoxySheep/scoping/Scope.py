@@ -5,7 +5,7 @@ from typing import List
 
 from enum import Enum, auto as _auto
 from FoxySheep.AST import ASTNode
-from FoxySheep.Scoping import Symbol, VirtualSymbolProvider
+from FoxySheep.scoping import Symbol, VirtualSymbolProvider
 
 
 class ScopeType(Enum):

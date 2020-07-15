@@ -3,7 +3,7 @@ syntax tree representing a Mathematica program. """
 
 from typing import List
 
-from Types import TypeBase, SymbolType
+from FoxySheep.types import TypeBase, SymbolType
 
 
 class ASTNode:

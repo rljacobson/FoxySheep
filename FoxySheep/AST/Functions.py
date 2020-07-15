@@ -4,9 +4,9 @@
 
 import enum
 
-from FoxySheep.Errors import ErrorHandler
+from FoxySheep.errors import error_handler
 from AST import ASTNode, SymbolNode
-from Scoping import Symbol, Scope
+from FoxySheep.scoping import Symbol, Scope
 
 
 class FunctionCallNode(ASTNode):
@@ -78,4 +78,3 @@ class FunctionDeclarationNode(ASTNode):
         if not self.children:
             self.children.append(None)
         self.children[1] = ASTNode
-

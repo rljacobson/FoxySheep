@@ -58,8 +58,8 @@ from typing import List, Tuple
 from AST import ASTNode, SymbolNode
 from AST.pattern import *
 from AST.list import ListNode
-from Scoping import Scope, Symbol
-from Utils.misc import camel_to_snake
+from FoxySHeep.scoping import Scope, Symbol
+from FoxySheep.utils.misc import camel_to_snake
 
 
 def get_bound_symbols(signature: ASTNode, scope: Scope = None)->List[Symbol]:
@@ -563,4 +563,3 @@ def _match_blank_null_sequence(lhs: List[ASTNode], rhs: List[ASTNode], gt: bool)
         lhs.append(lhs_node)
 
     return result
-

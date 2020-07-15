@@ -8,9 +8,8 @@ Currently this is just a wrapper that provides access to the services of
 WolframLanguageData.
 """
 
-# from Scoping.Symbol import Symbol
-from FoxySheep.Scoping import Symbol
-import FoxySheep.Utils.WolframLanguageData as wld
+from FoxySheep.scoping import Symbol
+import FoxySheep.utils.WolframLanguageData as wld
 
 
 def find_virtual_symbol(cls, name: str) -> Symbol:
