@@ -1,3 +1,4 @@
+import click
 from antlr4 import ParseTreeWalker, InputStream, CommonTokenStream
 
 from FoxySheep import FoxySheepLexer
@@ -6,6 +7,7 @@ from FoxySheep import FullFormEmitter
 from FoxySheep import PostParser
 from FoxySheep import FullFormLexer
 from FoxySheep import FullFormParser
+from FoxySheep.version import VERSION
 
 # Cache the utility objects.
 parser = None
@@ -100,17 +102,34 @@ def FullForm_from_file(path: str):
 
 def REPL():
     # Simple REPL
-    print("Enter a Mathematica expression. Enter either an empty line, Ctrl-C, or Ctrl-D to exit.")
+    print("Enter a Mathematica expression. Enter either an empty line or Ctrl-C to exit.")
     while True:
         try:
             user_in = input("in:= ")
-        except (KeyboardInterrupt, EOFError):
+        except KeyboardInterrupt:
             break
         if user_in == "":
             break
 
         print(FullForm_from_string(user_in))
 
+@click.command()
+@click.option(
+    "--repl/--no-repl",
+    default=True,
+    required=False,
+    type=bool,
+    help="Go into REPL")
+@click.option("-e", "--expr",
+              help="translate *expr*", required=False)
+@click.version_option(version=VERSION)
+def main(repl: bool, expr: str):
+    if expr:
+        print(FullForm_from_string(expr))
+    elif repl:
+        REPL()
+    else:
+        print("Something went wrong")
 
 if __name__ == "__main__":
-    REPL()
+    main()

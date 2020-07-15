@@ -142,7 +142,7 @@ class GlobalScope(Scope):
         return self._virtual_symbol_provider.find_virtual_symbol(identifier)
 
 
-class ScopeStack:
+class ScopeStack(object):
     """
     A stack data structure that keeps track of the (linear) nested scopes as
     we walk the AST.
