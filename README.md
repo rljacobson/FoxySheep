@@ -1,4 +1,15 @@
-[TOC]: # "What is FoxySheep"
+
+
+#### July 15, 2020
+
+I am grateful to Rocky Bernstein for breathing new life into FoxySheep in the form of a [Python package](https://pypi.org/project/FoxySheep/). FoxySheep continues to evolve with Rocky's help at its [new home on GitHub](https://github.com/rocky/FoxySheep2). This repository, the original, has suffered a little bit rot, but it feels right to leave it here as it is in case someone is interested in the Java target or has a use for it in its current state, prior to its evolution under a more focused vision.
+
+Sincerely,
+
+Robert Jacobson
+
+
+<hr>
 
 # What is FoxySheep?
 
