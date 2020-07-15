@@ -1,0 +1,24 @@
+--- FoxySheepLexer.py	2020-07-15 05:39:54.637547108 -0400
++++ FoxySheepLexer-patched.py	2020-07-15 05:49:26.587740074 -0400
+@@ -1,3 +1,13 @@
++# encoding: utf-8
++# In order for the generated lexer to subclass our lexer base class, we
++# have to patch the generated lexer using FoxySheepLexer.py.patch
++#
++# This is applied in the top-level Makefile. However to apply by hand run:
++#    patch < FoxySheepLexer.py.patch
++
++from antlr4.ParserRuleContext import RuleContext
++from FoxySheep.LexerBase import FoxySheepParser, LexerBase
++
+ # Generated from FoxySheep.g4 by ANTLR 4.7.2
+ from antlr4 import *
+ from io import StringIO
+@@ -534,6 +544,6 @@
+         return buf.getvalue()
+
+
+-class FoxySheepLexer(Lexer):
++class FoxySheepLexer(LexerBase):
+
+     atn = ATNDeserializer().deserialize(serializedATN())

@@ -1,4 +1,4 @@
-* The checkNewline function sets HIDDEN. Is this right? Are newlines treated correctly? (Java and Python)
+* The checkNewline function sets HIDDEN. Is this right? Are newlines treated correctly?
 
 * Getters and setters in Python are missing. Use properties and getter/setter decorators for: setType, setChannel, _token?
 

@@ -1,50 +1,5 @@
-# Specific to this repository #
-###############################
-/python_target/FoxySheep/generated/FoxySheep*
-/java_target/bin/*
-/java_target/generated/*
-/Reference/
-toc.md
-
-# Compiled source #
-###################
-*.com
-*.class
-*.dll
-*.exe
-*.o
-*.so
-*.pyc
-
-# Packages #
-############
-# it's better to unpack these files and commit the raw source
-# git has its own built in compression methods
-*.7z
-*.dmg
-*.gz
-*.iso
-*.rar
-#*.tar
-*.zip
-
-# Logs and databases #
-######################
-*.log
-*.sqlite
-
-# OS generated files #
-######################
-.DS_Store
-ehthumbs.db
-Icon?
-Thumbs.db
-.tmtags
-.idea*
-*.iml
-tags
-vendor.tags
-tmtagsHistory
-*.sublime-project
-*.sublime-workspace
-.bundle
+*~
+.mypy_cache
+__pycache__
+/.python-version
+/FoxySheep.egg-info

@@ -1,0 +1,5 @@
+# Antlr derived files
+/*.interp
+/*.tokens
+# Artifact from patch program
+/FoxySheepLexer.py.orig
