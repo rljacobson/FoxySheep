@@ -1,6 +1,6 @@
 import click
 from antlr4 import ParseTreeWalker, InputStream, CommonTokenStream
-
+from typing import Callable
 from FoxySheep import FoxySheepLexer
 from FoxySheep import FoxySheepParser
 from FoxySheep import FullFormEmitter
@@ -81,7 +81,7 @@ def ff_parse_tree_from_string(input: str):
     return ff_parser.prog()
 
 
-def FullForm_from_string(input: str):
+def FullForm_from_string(input: str, parse_tree_fn=parse_tree_from_string):
     """Convert Mathematica string `input` into Full-Form input"""
     global emitter
 
@@ -90,17 +90,17 @@ def FullForm_from_string(input: str):
         emitter = FullFormEmitter()
 
     # Parse the input.
-    tree = parse_tree_from_string(input)
+    tree = parse_tree_fn(input)
 
     # Emit FullForm.
     return emitter.visit(tree)
 
-def FullForm_from_file(path: str):
+def FullForm_from_file(path: str, parse_tree_fn=parse_tree_from_string):
     """Convert Mathematica string `input` into Full-Form input"""
-    return FullForm_from_string(open(path, "r").read())
+    return FullForm_from_string(open(path, "r").read(), parse_tree_fn)
 
 
-def REPL():
+def REPL(parse_tree_fn: Callable=parse_tree_from_string):
     # Simple REPL
     print("Enter a Mathematica expression. Enter either an empty line, Ctrl-C, or Ctrl-D to exit.")
     while True:
@@ -111,7 +111,7 @@ def REPL():
         if user_in == "":
             break
 
-        print(FullForm_from_string(user_in))
+        print(FullForm_from_string(user_in, parse_tree_fn))
 
 @click.command()
 @click.option(
@@ -119,15 +119,23 @@ def REPL():
     default=True,
     required=False,
     type=bool,
-    help="Go into REPL")
+    help="Go into REPL",
+    )
+@click.option(
+    "-i", "--input-style",
+    type=click.Choice(["InputForm", "FullForm"],
+                      case_sensitive=False),
+    required=False,
+    )
 @click.option("-e", "--expr",
               help="translate *expr*", required=False)
 @click.version_option(version=VERSION)
-def main(repl: bool, expr: str):
+def main(repl: bool, input_style, expr: str):
+    parse_tree_fn = ff_parse_tree_from_string if input_style.lower() == "fullform" else parse_tree_from_string
     if expr:
-        print(FullForm_from_string(expr))
+        print(FullForm_from_string(expr, parse_tree_fn))
     elif repl:
-        REPL()
+        REPL(parse_tree_fn)
     else:
         print("Something went wrong")
 

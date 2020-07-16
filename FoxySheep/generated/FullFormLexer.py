@@ -1,5 +1,14 @@
+# encoding: utf-8
+# In order for the generated lexer to subclass our lexer base class, we
+# have to patch the generated lexer using FoxySheepLexer.py.patch
+#
+# This is applied in the top-level Makefile. However to apply by hand run:
+#    patch < FoxySheepLexer.py.patch
+
+from FoxySheep.LexerBase import LexerBase
+
 # Generated from FullForm.g4 by ANTLR 4.7.2
-from antlr4 import *
+from antlr4 import ATNDeserializer, DFA, LexerATNSimulator, PredictionContextCache
 from io import StringIO
 from typing.io import TextIO
 import sys
@@ -146,7 +155,7 @@ def serializedATN():
         return buf.getvalue()
 
 
-class FullFormLexer(Lexer):
+class FullFormLexer(LexerBase):
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
