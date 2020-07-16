@@ -1,15 +1,16 @@
 # encoding: utf-8
 # In order for the generated lexer to subclass our lexer base class, we
-# have to patch the generated lexer using FoxySheepLexer.py.patch
+# have to patch the generated lexer using InputFormLexer.py.patch
 #
 # This is applied in the top-level Makefile. However to apply by hand run:
-#    patch < FoxySheepLexer.py.patch
+#    patch < InputFormLexer.py.patch
 
 from antlr4.ParserRuleContext import RuleContext
-from FoxySheep.LexerBase import FoxySheepParser, LexerBase
+from FoxySheep.LexerBase import LexerBase
+from FoxySheep.generated.InputFormParser import InputFormParser, PredictionContextCache
 
-# Generated from FoxySheep.g4 by ANTLR 4.7.2
-from antlr4 import ATNDeserializer, DFA, LexerATNSimulator, PredictionContextCache
+# Generated from InputForm.g4 by ANTLR 4.7.2
+from antlr4 import ATNDeserializer, DFA, LexerATNSimulator
 from io import StringIO
 from typing.io import TextIO
 import sys
@@ -544,7 +545,7 @@ def serializedATN():
         return buf.getvalue()
 
 
-class FoxySheepLexer(LexerBase):
+class InputFormLexer(LexerBase):
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
@@ -850,7 +851,7 @@ class FoxySheepLexer(LexerBase):
                   "ASTERISK", "TIMES", "NEWLINE", "CONTINUATION", "WHITESPACE",
                   "SpaceCharacter" ]
 
-    grammarFileName = "FoxySheep.g4"
+    grammarFileName = "InputForm.g4"
 
     def __init__(self, input=None, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -991,22 +992,22 @@ class FoxySheepLexer(LexerBase):
 
     def PLUS_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 19:
-             self.checkAdditiveOp(FoxySheepParser.BINARYPLUS);
+             self.checkAdditiveOp(InputFormParser.BINARYPLUS);
 
 
     def MINUS_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 20:
-             self.checkAdditiveOp(FoxySheepParser.BINARYMINUS);
+             self.checkAdditiveOp(InputFormParser.BINARYMINUS);
 
 
     def PLUSMINUS_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 21:
-             self.checkAdditiveOp(FoxySheepParser.BINARYPLUSMINUS);
+             self.checkAdditiveOp(InputFormParser.BINARYPLUSMINUS);
 
 
     def MINUSPLUS_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 22:
-             self.checkAdditiveOp(FoxySheepParser.BINARYMINUSPLUS);
+             self.checkAdditiveOp(InputFormParser.BINARYMINUSPLUS);
 
 
     def NEWLINE_action(self, localctx:RuleContext , actionIndex:int):

@@ -1,8 +1,8 @@
 import click
 from antlr4 import ParseTreeWalker, InputStream, CommonTokenStream
 from typing import Callable
-from FoxySheep import FoxySheepLexer
-from FoxySheep import FoxySheepParser
+from FoxySheep import InputFormLexer
+from FoxySheep import InputFormParser
 from FoxySheep import FullFormEmitter
 from FoxySheep import PostParser
 from FoxySheep import FullFormLexer
@@ -37,19 +37,19 @@ def postParse(tree):
 def parse_tree_from_string(input: str, post_process=True):
 
     # Boilerplate
-    # lexer = FoxySheepLexer(InputStream(input))
+    # lexer = InputFormLexer(InputStream(input))
     # stream = CommonTokenStream(lexer)
-    # parser = FoxySheepParser(stream)
+    # parser = InputFormParser(stream)
 
     global parser, lexer
 
     # Reuse any existing parser or lexer.
     if not lexer:
-        lexer = FoxySheepLexer(InputStream(input))
+        lexer = InputFormLexer(InputStream(input))
     else:
         lexer.inputStream = InputStream(input)
     if not parser:
-        parser = FoxySheepParser(CommonTokenStream(lexer))
+        parser = InputFormParser(CommonTokenStream(lexer))
     else:
         parser.setTokenStream(CommonTokenStream(lexer))
 
@@ -131,7 +131,7 @@ def REPL(parse_tree_fn: Callable=parse_tree_from_string):
               help="translate *expr*", required=False)
 @click.version_option(version=VERSION)
 def main(repl: bool, input_style, expr: str):
-    parse_tree_fn = ff_parse_tree_from_string if input_style.lower() == "fullform" else parse_tree_from_string
+    parse_tree_fn = ff_parse_tree_from_string if input_style and input_style.lower() == "fullform" else parse_tree_from_string
     if expr:
         print(FullForm_from_string(expr, parse_tree_fn))
     elif repl:

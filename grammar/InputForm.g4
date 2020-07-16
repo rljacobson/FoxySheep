@@ -1,5 +1,5 @@
-grammar FoxySheep;
-import FoxySheepLexerRules;
+grammar InputForm;
+import InputFormLexerRules;
 
 
 // PARSER RULES
@@ -10,7 +10,7 @@ prog
 expr
     :	numberLiteral	#Number
     |	StringLiteral	#StringLiteral
-    
+
     |	LPAREN expr RPAREN	#Parentheses //Grouping with parentheses
     |	LBRACE expressionList RBRACE 	#List //List expression
     |	LANGLE expressionList RANGLE		#AngleBracket
@@ -18,7 +18,7 @@ expr
     |	LCEILING expr RCEILING			#Ceiling
     |	LBRACKETINGBAR expressionList RBRACKETINGBAR	#BracketingBar
     |	LDOUBLEBRACKETINGBAR expressionList RDOUBLEBRACKETINGBAR #DoubleBracketingBar
-    
+
     |	expr DOUBLECOLON StringLiteral (DOUBLECOLON StringLiteral)?	#Message // MessageName[]
     |	slotExpression	#Slot //"forms containing #"
     |	outExpression 	#Out //"forms containing %"
@@ -50,7 +50,7 @@ expr
 	|	<assoc=right> expr CARET expr	#Power
 	|	INTEGRAL expr DIFFERENTIALD expr	#Integrate
 	|	<assoc=right> DEL expr			#Del
-	|	<assoc=right> SQUARE expr		#Square 
+	|	<assoc=right> SQUARE expr		#Square
 	|	expr SMALLCIRCLE expr			#SmallCircle
 	|	expr CIRCLEDOT expr				#CircleDot
 	|	expr DOUBLEASTERISK expr			#NonCommutativeMultiply
@@ -65,7 +65,7 @@ expr
 	|	expr CIRCLETIMES expr		#CircleTimes
 	|	expr CENTERDOT expr			#CenterDot
 
-	//Implicit Multiplication	
+	//Implicit Multiplication
 //	|	expr expr	#MultiplyImplicit
 
 	|	expr MultiplicationSymbol? expr	#Times
@@ -76,29 +76,29 @@ expr
 	|	expr CUP expr 			#Cup
 	|	expr CIRCLEPLUS expr		#CirclePlus
 	|	expr CIRCLEMINUS expr 	#CircleMinus
-	
+
 	|	expr (BINARYPLUS | BINARYMINUS | BINARYPLUSMINUS | BINARYMINUSPLUS) expr	#PlusOp
-	
+
 	|	expr INTERSECTION expr		#Intersection
 	|	expr UNION expr				#Union
 
 	//Span expressions.
 	/*
-	 * There is a tricky context sensitivity with the following two rules. Consider the 
-	 * expression "2 ;; 10 ;; 3". Since implicit multiplication has higher precedence 
-	 * than span, this expression wants to parse as Times[2, Span[All, 10, 3]]. We 
+	 * There is a tricky context sensitivity with the following two rules. Consider the
+	 * expression "2 ;; 10 ;; 3". Since implicit multiplication has higher precedence
+	 * than span, this expression wants to parse as Times[2, Span[All, 10, 3]]. We
 	 * solve this problem in the lexer by detecting when the ";;" follows a complete
 	 * expression (or another ";;"), and if it doesn't, sending a different token to
-	 * the parser. Hence the two tokens SPANSEMICOLONS and DOUBLESEMICOLON both 
+	 * the parser. Hence the two tokens SPANSEMICOLONS and DOUBLESEMICOLON both
 	 * representing ";;".
-	 * 
+	 *
 	 * Note that the following rules do not accurately represent permissible Span
-	 * expressions in Wolfram Language (though they accept and reject the right stuff). 
-	 * The parse tree is rewritten post-parse to obtain the correct tree for Wolfram 
-	 * Language Span expressions, because the correct parse trees are difficult to get 
+	 * expressions in Wolfram Language (though they accept and reject the right stuff).
+	 * The parse tree is rewritten post-parse to obtain the correct tree for Wolfram
+	 * Language Span expressions, because the correct parse trees are difficult to get
 	 * using automated parser generators.
-	 * 
-	 */ 
+	 *
+	 */
 	|	expr DOUBLESEMICOLON expr?  #SpanA
 	|	SPANSEMICOLONS expr? (DOUBLESEMICOLON expr?)* #SpanB
 
@@ -125,7 +125,7 @@ expr
 	|	symbol RAWCOLON expr		#PatternExp //Pattern[] and Optional[]
 	|	expr RAWCOLON expr		#Optional //Pattern[] and Optional[]
 	|	expr DOUBLETILDE expr	#StringExpression
-	|	expr SLASHSEMI expr		#Condition 
+	|	expr SLASHSEMI expr		#Condition
 	|	<assoc=right> expr (MINUSGREATER | RARROW | COLONGREATER | COLONARROW) expr 	#Rule //Rule and RuleDelayed
 	|	expr (SLASHDOT | DOUBLESLASHDOT) expr	#ReplaceAll //ReplaceAll[]/ReplaceRepeated[]
 	|	<assoc=right> expr (PLUSEQUAL | MINUSEQUAL | ASTERISKEQUAL | SLASHEQUAL) expr 	#OpEquals //var += 1
@@ -215,4 +215,3 @@ accessExpression
 //	|	BoxSqrt box
 //	|	box FormBox box
 //	;
-

@@ -2,5 +2,5 @@
 # Artifact from patch program
 /*.interp
 /*.tokens
-/FoxySheepLexer.py.orig
+/InputFormLexer.py.orig
 /FullFormLexer.py.orig

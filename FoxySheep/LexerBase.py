@@ -7,7 +7,7 @@
 import sys
 
 from antlr4 import Lexer
-from FoxySheep.generated.FoxySheepParser import FoxySheepParser
+from FoxySheep.generated.InputFormParser import InputFormParser
 
 
 class LexerBase(Lexer):
@@ -24,43 +24,43 @@ class LexerBase(Lexer):
     # implicit multiplication.
 
     closeExprTokens = [
-        FoxySheepParser.DecimalNumber,
-        FoxySheepParser.NumberInBase,
-        FoxySheepParser.Name,
-        FoxySheepParser.StringLiteral,
-        FoxySheepParser.RPAREN,
-        FoxySheepParser.RBRACE,
-        FoxySheepParser.HASH,
-        FoxySheepParser.PERCENTDIGITS,
-        FoxySheepParser.PERCENTS,
-        FoxySheepParser.TRIPPLEBLANK,
-        FoxySheepParser.DOUBLEBLANK,
-        FoxySheepParser.BLANKDOT,
-        FoxySheepParser.BLANK,
-        FoxySheepParser.HASHDIGITS,
-        FoxySheepParser.HASHStringLiteral,
-        FoxySheepParser.DOUBLEHASHDIGITS,
-        FoxySheepParser.HASH,
-        FoxySheepParser.DOUBLEHASH,
-        FoxySheepParser.DIGITS,
-        FoxySheepParser.RBRACKET,
-        FoxySheepParser.RBARBRACKET,
-        FoxySheepParser.BoxRightBoxParenthesis,
-        FoxySheepParser.DOUBLEPLUS,
-        FoxySheepParser.DOUBLEMINUS,
-        FoxySheepParser.BANG,
-        FoxySheepParser.DOUBLEBANG,
-        FoxySheepParser.CONJUGATE,
-        FoxySheepParser.TRANSPOSE,
-        FoxySheepParser.CONJUGATETRANSPOSE,
-        FoxySheepParser.HERMITIANCONJUGATE,
-        FoxySheepParser.SINGLEQUOTE,
-        FoxySheepParser.DOUBLESEMICOLON,
-        FoxySheepParser.DOUBLEDOT,
-        FoxySheepParser.TRIPPLEDOT,
-        FoxySheepParser.AMP,
-        FoxySheepParser.DOT,
-        FoxySheepParser.SEMICOLON,
+        InputFormParser.DecimalNumber,
+        InputFormParser.NumberInBase,
+        InputFormParser.Name,
+        InputFormParser.StringLiteral,
+        InputFormParser.RPAREN,
+        InputFormParser.RBRACE,
+        InputFormParser.HASH,
+        InputFormParser.PERCENTDIGITS,
+        InputFormParser.PERCENTS,
+        InputFormParser.TRIPPLEBLANK,
+        InputFormParser.DOUBLEBLANK,
+        InputFormParser.BLANKDOT,
+        InputFormParser.BLANK,
+        InputFormParser.HASHDIGITS,
+        InputFormParser.HASHStringLiteral,
+        InputFormParser.DOUBLEHASHDIGITS,
+        InputFormParser.HASH,
+        InputFormParser.DOUBLEHASH,
+        InputFormParser.DIGITS,
+        InputFormParser.RBRACKET,
+        InputFormParser.RBARBRACKET,
+        InputFormParser.BoxRightBoxParenthesis,
+        InputFormParser.DOUBLEPLUS,
+        InputFormParser.DOUBLEMINUS,
+        InputFormParser.BANG,
+        InputFormParser.DOUBLEBANG,
+        InputFormParser.CONJUGATE,
+        InputFormParser.TRANSPOSE,
+        InputFormParser.CONJUGATETRANSPOSE,
+        InputFormParser.HERMITIANCONJUGATE,
+        InputFormParser.SINGLEQUOTE,
+        InputFormParser.DOUBLESEMICOLON,
+        InputFormParser.DOUBLEDOT,
+        InputFormParser.TRIPPLEDOT,
+        InputFormParser.AMP,
+        InputFormParser.DOT,
+        InputFormParser.SEMICOLON,
     ]
 
     # Curiously, the lexer does not allow us to inspect previous
@@ -101,8 +101,8 @@ class LexerBase(Lexer):
     # problem in the parser. See the Span parser rules for details.
     def checkDoubleSemicolon(self):
         if not self.precededByExpr():
-            self.type = FoxySheepParser.SPANSEMICOLONS
-            # self.setType(FoxySheepParser.SPANSEMICOLONS)
+            self.type = InputFormParser.SPANSEMICOLONS
+            # self.setType(InputFormParser.SPANSEMICOLONS)
 
     # We distinguish between unary plus and binary plus.
     def checkAdditiveOp(self, type):

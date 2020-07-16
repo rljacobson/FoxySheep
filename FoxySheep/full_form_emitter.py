@@ -1,10 +1,10 @@
 from antlr4 import TerminalNode
-from FoxySheep import FoxySheepVisitor, FoxySheepParser
+from FoxySheep.generated.InputFormVisitor import InputFormVisitor
+from FoxySheep.generated.InputFormParser import InputFormParser
 
-
-class FullFormEmitter(FoxySheepVisitor):
+class FullFormEmitter(InputFormVisitor):
     """
-    This class defines a complete generic visitor for a parse tree produced by FoxySheepParser.
+    This class defines a complete generic visitor for a parse tree produced by InputFormParser.
     """
 
     def getFullForm(self, e):
@@ -67,24 +67,24 @@ class FullFormEmitter(FoxySheepVisitor):
             e = efunction(i)
         return elist
 
-    # Visit a parse tree produced by FoxySheepParser#prog.
+    # Visit a parse tree produced by InputFormParser#prog.
     def visitProg(self, ctx):
         exprList = self.getChildList(ctx.expr)
         return "\n\n".join(map(self.getFullForm, exprList))
 
-    # Visit a parse tree produced by FoxySheepParser#Unset.
+    # Visit a parse tree produced by InputFormParser#Unset.
     def visitUnset(self, ctx):
         return self.makeHead("Unset", ctx.expr())
 
-    # Visit a parse tree produced by FoxySheepParser#Condition.
+    # Visit a parse tree produced by InputFormParser#Condition.
     def visitCondition(self, ctx):
         return self.makeHeadList("Condition", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Implies.
+    # Visit a parse tree produced by InputFormParser#Implies.
     def visitImplies(self, ctx):
         return self.makeHeadList("Implies", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#CompoundExpression.
+    # Visit a parse tree produced by InputFormParser#CompoundExpression.
     def visitCompoundExpression(self, ctx):
         # Since we need to check for ending in "Null" anyway, we might as
         # well not bother with makeHeadList().
@@ -102,7 +102,7 @@ class FullFormEmitter(FoxySheepVisitor):
 
         return val
 
-    # Visit a parse tree produced by FoxySheepParser#VerticalBar.
+    # Visit a parse tree produced by InputFormParser#VerticalBar.
     def visitVerticalBar(self, ctx):
         if ctx.VERTICALBAR() is not None:
             return self.makeHeadList("VerticalBar", ctx.expr)
@@ -113,26 +113,26 @@ class FullFormEmitter(FoxySheepVisitor):
         # if(ctx.NOTDOUBLEVERTICALBAR() != null){
         return self.makeHeadList("NotDoubleVerticalBar", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#VerticalTilde.
+    # Visit a parse tree produced by InputFormParser#VerticalTilde.
     def visitVerticalTilde(self, ctx):
         return self.makeHeadList("VerticalTilde", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Vee.
+    # Visit a parse tree produced by InputFormParser#Vee.
     def visitVee(self, ctx):
         return self.makeHeadList("Vee", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Cross.
+    # Visit a parse tree produced by InputFormParser#Cross.
     def visitCross(self, ctx):
         return self.makeHeadList("Cross", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#StringJoin.
+    # Visit a parse tree produced by InputFormParser#StringJoin.
     def visitStringJoin(self, ctx):
         return self.makeHeadList("StringJoin", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Comparison.
+    # Visit a parse tree produced by InputFormParser#Comparison.
     def visitComparison(self, ctx):
         """
-        Visit a parse tree produced by FoxySheepParser#Comparison.
+        Visit a parse tree produced by InputFormParser#Comparison.
 
         This is a rather complicated construct, because:
         		"x==y" 		-> Equal[x,y]
@@ -150,12 +150,12 @@ class FullFormEmitter(FoxySheepVisitor):
         """
 
         op_text = {
-            FoxySheepParser.EqualSymbol: "Equal",
-            FoxySheepParser.NotEqualSymbol: "Unequal",
-            FoxySheepParser.GREATER: "Greater",
-            FoxySheepParser.GreaterEqualSymbol: "GreaterEqual",
-            FoxySheepParser.LESS: "Less",
-            FoxySheepParser.LessEqualSymbol: "LessEqual",
+            InputFormParser.EqualSymbol: "Equal",
+            InputFormParser.NotEqualSymbol: "Unequal",
+            InputFormParser.GREATER: "Greater",
+            InputFormParser.GreaterEqualSymbol: "GreaterEqual",
+            InputFormParser.LESS: "Less",
+            InputFormParser.LessEqualSymbol: "LessEqual",
         }
 
         all_same = True
@@ -179,11 +179,11 @@ class FullFormEmitter(FoxySheepVisitor):
 
         return val
 
-    # Visit a parse tree produced by FoxySheepParser#CirclePlus.
+    # Visit a parse tree produced by InputFormParser#CirclePlus.
     def visitCirclePlus(self, ctx):
         return self.makeHeadList("CirclePlus", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Tee.
+    # Visit a parse tree produced by InputFormParser#Tee.
     def visitTee(self, ctx):
         if ctx.LEFTTEE() is not None:
             return self.makeHeadList("LeftTee", ctx.expr)
@@ -193,22 +193,22 @@ class FullFormEmitter(FoxySheepVisitor):
             return self.makeHeadList("UpTee", ctx.expr)
         return self.makeHeadList("DownTee", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Intersection.
+    # Visit a parse tree produced by InputFormParser#Intersection.
     def visitIntersection(self, ctx):
         return self.makeHeadList("Intersection", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Increment.
+    # Visit a parse tree produced by InputFormParser#Increment.
     def visitIncrement(self, ctx):
         if ctx.DOUBLEMINUS() is None:
             return self.makeHead("Increment", ctx.expr())
 
         return self.makeHead("Decrement", ctx.expr())
 
-    # Visit a parse tree produced by FoxySheepParser#Slot.
+    # Visit a parse tree produced by InputFormParser#Slot.
     def visitSlot(self, ctx):
         return self.getFullForm(ctx.slotExpression())
 
-    # Visit a parse tree produced by FoxySheepParser#Set.
+    # Visit a parse tree produced by InputFormParser#Set.
     def visitSet(self, ctx):
         if ctx.EQUAL() is not None:
             return self.makeHeadList("Set", ctx.expr)
@@ -228,47 +228,47 @@ class FullFormEmitter(FoxySheepVisitor):
 
         return val
 
-    # Visit a parse tree produced by FoxySheepParser#Xor.
+    # Visit a parse tree produced by InputFormParser#Xor.
     def visitXor(self, ctx):
         if ctx.XOR() is not None:
             return self.makeHeadList("Xor", ctx.expr)
         return self.makeHeadList("Xnor", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Composition.
+    # Visit a parse tree produced by InputFormParser#Composition.
     def visitComposition(self, ctx):
         return self.makeHeadList("Composition", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Out.
+    # Visit a parse tree produced by InputFormParser#Out.
     def visitOut(self, ctx):
         return self.getFullForm(ctx.outExpression())
 
-    # Visit a parse tree produced by FoxySheepParser#Integrate.
+    # Visit a parse tree produced by InputFormParser#Integrate.
     def visitIntegrate(self, ctx):
         return self.makeHeadList("Integrate", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Accessor.
+    # Visit a parse tree produced by InputFormParser#Accessor.
     def visitAccessor(self, ctx):
         return self.makeHead("Part", ctx.expr(), ctx.accessExpression())
 
-    # Visit a parse tree produced by FoxySheepParser#HeadExpression.
+    # Visit a parse tree produced by InputFormParser#HeadExpression.
     def visitHeadExpression(self, ctx):
         return self.makeHead(self.getFullForm(ctx.expr()), ctx.expressionList())
 
-    # Visit a parse tree produced by FoxySheepParser#Therefore.
+    # Visit a parse tree produced by InputFormParser#Therefore.
     def visitTherefore(self, ctx):
         return self.makeHeadList("Therefore", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Square.
+    # Visit a parse tree produced by InputFormParser#Square.
     def visitSquare(self, ctx):
         return self.makeHead("Square", ctx.expr())
 
-    # Visit a parse tree produced by FoxySheepParser#Put.
+    # Visit a parse tree produced by InputFormParser#Put.
     def visitPut(self, ctx):
         if ctx.DOUBLEGREATER() is not None:
             return self.makeHead("Put", ctx.expr(), ctx.StringLiteral())
         return self.makeHead("PutAppend", ctx.expr(), ctx.StringLiteral())
 
-    # Visit a parse tree produced by FoxySheepParser#PlusOp.
+    # Visit a parse tree produced by InputFormParser#PlusOp.
     def visitPlusOp(self, ctx):
         if ctx.BINARYPLUS() is not None:
             return self.makeHeadList("Plus", ctx.expr)
@@ -289,65 +289,65 @@ class FullFormEmitter(FoxySheepVisitor):
         # if ctx.BINARYMINUSPLUS() is not None:
         return self.makeHeadList("MinusPlus", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Power.
+    # Visit a parse tree produced by InputFormParser#Power.
     def visitPower(self, ctx):
         return self.makeHeadList("Power", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#VerticalSeparator.
+    # Visit a parse tree produced by InputFormParser#VerticalSeparator.
     def visitVerticalSeparator(self, ctx):
         return self.makeHeadList("VerticalSeparator", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Union.
+    # Visit a parse tree produced by InputFormParser#Union.
     def visitUnion(self, ctx):
         return self.makeHeadList("Union", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#PreIncrement.
+    # Visit a parse tree produced by InputFormParser#PreIncrement.
     def visitPreIncrement(self, ctx):
         if ctx.DOUBLEMINUS() is None:
             return self.makeHead("PreIncrement", ctx.expr())
         return self.makeHead("PreDecrement", ctx.expr())
 
-    # Visit a parse tree produced by FoxySheepParser#Prefix.
+    # Visit a parse tree produced by InputFormParser#Prefix.
     def visitPrefix(self, ctx):
         return self.makeHead(self.getFullForm(ctx.expr(0)), ctx.expr(1))
 
-    # Visit a parse tree produced by FoxySheepParser#Floor.
+    # Visit a parse tree produced by InputFormParser#Floor.
     def visitFloor(self, ctx):
         return self.makeHead("Floor", ctx.expr())
 
-    # Visit a parse tree produced by FoxySheepParser#Because.
+    # Visit a parse tree produced by InputFormParser#Because.
     def visitBecause(self, ctx):
         return self.makeHeadList("Because", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#BracketingBar.
+    # Visit a parse tree produced by InputFormParser#BracketingBar.
     def visitBracketingBar(self, ctx):
         return self.makeHead("BracketingBar", ctx.expressionList())
 
-    # Visit a parse tree produced by FoxySheepParser#RightTee.
+    # Visit a parse tree produced by InputFormParser#RightTee.
     def visitRightTee(self, ctx):
         if ctx.RIGHTTEE() is not None:
             return self.makeHeadList("RightTee", ctx.expr)
         return self.makeHeadList("DoubleRightTee", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Or.
+    # Visit a parse tree produced by InputFormParser#Or.
     def visitOr(self, ctx):
         if ctx.NOR() is not None:
             return self.makeHeadList("Nor", ctx.expr)
         return self.makeHeadList("Or", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Cup.
+    # Visit a parse tree produced by InputFormParser#Cup.
     def visitCup(self, ctx):
         return self.makeHeadList("Cup", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#BoxParen.
+    # Visit a parse tree produced by InputFormParser#BoxParen.
     def visitBoxParen(self, ctx):
         return ctx.getText()
 
-    # Visit a parse tree produced by FoxySheepParser#StringExpression.
+    # Visit a parse tree produced by InputFormParser#StringExpression.
     def visitStringExpression(self, ctx):
         return self.makeHeadList("StringExpression", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Postfix.
+    # Visit a parse tree produced by InputFormParser#Postfix.
     def visitPostfix(self, ctx):
         val = self.getFullForm(ctx.expr(1))
         val += "["
@@ -355,26 +355,26 @@ class FullFormEmitter(FoxySheepVisitor):
         val += "]"
         return val
 
-    # Visit a parse tree produced by FoxySheepParser#And.
+    # Visit a parse tree produced by InputFormParser#And.
     def visitAnd(self, ctx):
         if ctx.NAND() != None:
             return self.makeHeadList("Nand", ctx.expr)
 
         return self.makeHeadList("And", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Optional.
+    # Visit a parse tree produced by InputFormParser#Optional.
     def visitOptional(self, ctx):
         return self.makeHeadList("Optional", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#PatternTest.
+    # Visit a parse tree produced by InputFormParser#PatternTest.
     def visitPatternTest(self, ctx):
         return self.makeHeadList("PatternTest", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#RightComposition.
+    # Visit a parse tree produced by InputFormParser#RightComposition.
     def visitRightComposition(self, ctx):
         return self.makeHeadList("RightComposition", ctx.expr())
 
-    # Visit a parse tree produced by FoxySheepParser#NonCommutativeMultiply.
+    # Visit a parse tree produced by InputFormParser#NonCommutativeMultiply.
     def visitNonCommutativeMultiply(self, ctx):
         return self.makeHeadList("NonCommutativeMultiply", ctx.expr)
 
@@ -418,38 +418,38 @@ class FullFormEmitter(FoxySheepVisitor):
         val += "]"
         return val
 
-    # Visit a parse tree produced by FoxySheepParser#SpanA.
+    # Visit a parse tree produced by InputFormParser#SpanA.
     def visitSpanA(self, ctx):
         return self.visitSpan(ctx)
 
-    # Visit a parse tree produced by FoxySheepParser#SpanB.
+    # Visit a parse tree produced by InputFormParser#SpanB.
     def visitSpanB(self, ctx):
         return self.visitSpan(ctx)
 
-    # Visit a parse tree produced by FoxySheepParser#Parentheses.
+    # Visit a parse tree produced by InputFormParser#Parentheses.
     def visitParentheses(self, ctx):
         return self.getFullForm(ctx.expr())
 
-    # Visit a parse tree produced by FoxySheepParser#Infix.
+    # Visit a parse tree produced by InputFormParser#Infix.
     def visitInfix(self, ctx):
         return self.makeHead(self.getFullForm(ctx.expr(1)), ctx.expr(0), ctx.expr(2))
 
-    # Visit a parse tree produced by FoxySheepParser#Factorial.
+    # Visit a parse tree produced by InputFormParser#Factorial.
     def visitFactorial(self, ctx):
         if ctx.BANG() is None:
             return self.makeHead("Factorial", ctx.expr())
 
         return self.makeHead("Factorial2", ctx.expr())
 
-    # Visit a parse tree produced by FoxySheepParser#SuchThat.
+    # Visit a parse tree produced by InputFormParser#SuchThat.
     def visitSuchThat(self, ctx):
         return self.makeHeadList("SuchThat", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#DoubleBracketingBar.
+    # Visit a parse tree produced by InputFormParser#DoubleBracketingBar.
     def visitDoubleBracketingBar(self, ctx):
         return self.makeHead("DoubleBracketingBar", ctx.expressionList())
 
-    # Visit a parse tree produced by FoxySheepParser#NumberLiteral.
+    # Visit a parse tree produced by InputFormParser#NumberLiteral.
     def visitNumber(self, ctx):
         """
         Frustratingly, number literals have no FullForm[] in Mathematica.
@@ -463,7 +463,7 @@ class FullFormEmitter(FoxySheepVisitor):
 
         return ctx.getText()
 
-    # Visit a parse tree produced by FoxySheepParser#SetContainment.
+    # Visit a parse tree produced by InputFormParser#SetContainment.
     def visitSetContainment(self, ctx):
         if ctx.ELEMENT() is not None:
             return self.makeHeadList("Element", ctx.expr)
@@ -475,27 +475,27 @@ class FullFormEmitter(FoxySheepVisitor):
         # if(ctx.SUPERSET() != null)
         return self.makeHeadList("Superset", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#CircleDot.
+    # Visit a parse tree produced by InputFormParser#CircleDot.
     def visitCircleDot(self, ctx):
         return self.makeHeadList("CircleDot", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Del.
+    # Visit a parse tree produced by InputFormParser#Del.
     def visitDel(self, ctx):
         return self.makeHead("Del", ctx.expr())
 
-    # Visit a parse tree produced by FoxySheepParser#Wedge.
+    # Visit a parse tree produced by InputFormParser#Wedge.
     def visitWedge(self, ctx):
         return self.makeHeadList("Wedge", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Colon.
+    # Visit a parse tree produced by InputFormParser#Colon.
     def visitColon(self, ctx):
         return self.makeHeadList("Colon", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#BoxConstructor.
+    # Visit a parse tree produced by InputFormParser#BoxConstructor.
     def visitBoxConstructor(self, ctx):
         return ctx.getText()
 
-    # Visit a parse tree produced by FoxySheepParser#OpEquals.
+    # Visit a parse tree produced by InputFormParser#OpEquals.
     def visitOpEquals(self, ctx):
         if ctx.PLUSEQUAL() is not None:
             return self.makeHeadList("AddTo", ctx.expr)
@@ -507,29 +507,29 @@ class FullFormEmitter(FoxySheepVisitor):
         # if(ctx.SLASHEQUAL() != null){
         return self.makeHeadList("DivideBy", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Cap.
+    # Visit a parse tree produced by InputFormParser#Cap.
     def visitCap(self, ctx):
         return self.makeHeadList("Cap", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Alternatives.
+    # Visit a parse tree produced by InputFormParser#Alternatives.
     def visitAlternatives(self, ctx):
         return self.makeHeadList("Alternatives", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#AngleBracket.
+    # Visit a parse tree produced by InputFormParser#AngleBracket.
     def visitAngleBracket(self, ctx):
         return self.makeHead("AngleBracket", ctx.expressionList())
 
-    # Visit a parse tree produced by FoxySheepParser#ReplaceAll.
+    # Visit a parse tree produced by InputFormParser#ReplaceAll.
     def visitReplaceAll(self, ctx):
         if ctx.SLASHDOT() is not None:
             return self.makeHeadList("ReplaceAll", ctx.expr)
         return self.makeHeadList("ReplaceRepeated", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#TagUnset.
+    # Visit a parse tree produced by InputFormParser#TagUnset.
     def visitTagUnset(self, ctx):
         return self.makeHead("TagUnset", ctx.symbol(), ctx.expr())
 
-    # Visit a parse tree produced by FoxySheepParser#Divide.
+    # Visit a parse tree produced by InputFormParser#Divide.
     def visitDivide(self, ctx):
         if ctx.DIVIDE() is not None:
             return self.makeHeadList("Divide", ctx.expr)
@@ -543,15 +543,15 @@ class FullFormEmitter(FoxySheepVisitor):
 
         return val
 
-    # Visit a parse tree produced by FoxySheepParser#Diamond.
+    # Visit a parse tree produced by InputFormParser#Diamond.
     def visitDiamond(self, ctx):
         return self.makeHeadList("Diamond", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#List.
+    # Visit a parse tree produced by InputFormParser#List.
     def visitList(self, ctx):
         return self.makeHead("List", ctx.expressionList())
 
-    # Visit a parse tree produced by FoxySheepParser#MapApply.
+    # Visit a parse tree produced by InputFormParser#MapApply.
     def visitMapApply(self, ctx):
         # expr (MAP | MAPALL | DOUBLEAT | TRIPPLEAT) expr
         if ctx.MAP() is not None:
@@ -571,11 +571,11 @@ class FullFormEmitter(FoxySheepVisitor):
 
         return val
 
-    # Visit a parse tree produced by FoxySheepParser#CenterDot.
+    # Visit a parse tree produced by InputFormParser#CenterDot.
     def visitCenterDot(self, ctx):
         return self.makeHeadList("CenterDot", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Conjugate.
+    # Visit a parse tree produced by InputFormParser#Conjugate.
     def visitConjugate(self, ctx):
         if ctx.CONJUGATE() is not None:
             return self.makeHead("Conjugate", ctx.expr())
@@ -588,19 +588,19 @@ class FullFormEmitter(FoxySheepVisitor):
 
         return self.makeHead("ConjugateTranspose", ctx.expr())
 
-    # Visit a parse tree produced by FoxySheepParser#StringLiteral.
+    # Visit a parse tree produced by InputFormParser#StringLiteral.
     def visitStringLiteral(self, ctx):
         return ctx.getText()
 
-    # Visit a parse tree produced by FoxySheepParser#Equivalent.
+    # Visit a parse tree produced by InputFormParser#Equivalent.
     def visitEquivalent(self, ctx):
         return self.makeHeadList("Equivalent", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Coproduct.
+    # Visit a parse tree produced by InputFormParser#Coproduct.
     def visitCoproduct(self, ctx):
         return self.makeHeadList("Coproduct", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Message.
+    # Visit a parse tree produced by InputFormParser#Message.
     def visitMessage(self, ctx):
         # One string literal.
         if ctx.StringLiteral(1) is None:
@@ -610,30 +610,30 @@ class FullFormEmitter(FoxySheepVisitor):
             "MessageName", ctx.expr(), ctx.StringLiteral(0), ctx.StringLiteral(1)
         )
 
-    # Visit a parse tree produced by FoxySheepParser#SmallCircle.
+    # Visit a parse tree produced by InputFormParser#SmallCircle.
     def visitSmallCircle(self, ctx):
         return self.makeHeadList("SmallCircle", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Function.
+    # Visit a parse tree produced by InputFormParser#Function.
     def visitFunction(self, ctx):
         return self.makeHead("Function", ctx.expr())
 
-    # Visit a parse tree produced by FoxySheepParser#PatternExp.
+    # Visit a parse tree produced by InputFormParser#PatternExp.
     def visitPatternExp(self, ctx):
         # symb:expr
         return self.makeHead("Pattern", ctx.symbol(), ctx.expr())
 
-    # Visit a parse tree produced by FoxySheepParser#Times.
+    # Visit a parse tree produced by InputFormParser#Times.
     def visitTimes(self, ctx):
         return self.makeHeadList("Times", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Rule.
+    # Visit a parse tree produced by InputFormParser#Rule.
     def visitRule(self, ctx):
         if ctx.MINUSGREATER() is not None or ctx.RARROW() is not None:
             return self.makeHeadList("Rule", ctx.expr)
         return self.makeHeadList("RuleDelayed", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#SymbolLiteral.
+    # Visit a parse tree produced by InputFormParser#SymbolLiteral.
     def visitSymbolLiteral(self, ctx):
         """
         FullForm of a symbol is itself.
@@ -643,30 +643,30 @@ class FullFormEmitter(FoxySheepVisitor):
         """
         return ctx.getText()
 
-    # Visit a parse tree produced by FoxySheepParser#TagSet.
+    # Visit a parse tree produced by InputFormParser#TagSet.
     def visitTagSet(self, ctx):
         if ctx.EQUAL() is not None:
             return self.makeHead("TagSet", ctx.symbol(), ctx.expr(0), ctx.expr(1))
         # Must be TagSetDelated.
         return self.makeHead("TagSetDelayed", ctx.symbol(), ctx.expr(0), ctx.expr(1))
 
-    # Visit a parse tree produced by FoxySheepParser#Ceiling.
+    # Visit a parse tree produced by InputFormParser#Ceiling.
     def visitCeiling(self, ctx):
         return self.makeHead("Ceiling", ctx.expr())
 
-    # Visit a parse tree produced by FoxySheepParser#Not.
+    # Visit a parse tree produced by InputFormParser#Not.
     def visitNot(self, ctx):
         return self.makeHead("Not", ctx.expr())
 
-    # Visit a parse tree produced by FoxySheepParser#Backslash.
+    # Visit a parse tree produced by InputFormParser#Backslash.
     def visitBackslash(self, ctx):
         return self.makeHeadList("Backslash", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Dot.
+    # Visit a parse tree produced by InputFormParser#Dot.
     def visitDot(self, ctx):
         return self.makeHeadList("Dot", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#UnaryPlusMinus.
+    # Visit a parse tree produced by InputFormParser#UnaryPlusMinus.
     def visitUnaryPlusMinus(self, ctx):
         if ctx.MINUS() is not None:
             val = "Times[-1,"
@@ -680,21 +680,21 @@ class FullFormEmitter(FoxySheepVisitor):
 
         return self.makeHead("MinusPlus", ctx.expr())
 
-    # Visit a parse tree produced by FoxySheepParser#CircleTimes.
+    # Visit a parse tree produced by InputFormParser#CircleTimes.
     def visitCircleTimes(self, ctx):
         return self.makeHeadList("CircleTimes", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Same.
+    # Visit a parse tree produced by InputFormParser#Same.
     def visitSame(self, ctx):
         if ctx.TRIPPLEEQUAL() is not None:
             return self.makeHeadList("SameQ", ctx.expr)
         return self.makeHeadList("UnsameQ", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Star.
+    # Visit a parse tree produced by InputFormParser#Star.
     def visitStar(self, ctx):
         return self.makeHeadList("Star", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#Derivative.
+    # Visit a parse tree produced by InputFormParser#Derivative.
     def visitDerivative(self, ctx):
         val = "Derivative["
 
@@ -711,33 +711,33 @@ class FullFormEmitter(FoxySheepVisitor):
 
         return val
 
-    # Visit a parse tree produced by FoxySheepParser#Get.
+    # Visit a parse tree produced by InputFormParser#Get.
     def visitGet(self, ctx):
         return self.makeHead("Get", ctx.StringLiteral())
 
-    # Visit a parse tree produced by FoxySheepParser#Repeated.
+    # Visit a parse tree produced by InputFormParser#Repeated.
     def visitRepeated(self, ctx):
         if ctx.DOUBLEDOT() is not None:
             return self.makeHead("Repeated", ctx.expr())
         return self.makeHead("RepeatedNull", ctx.expr())
 
-    # Visit a parse tree produced by FoxySheepParser#CircleMinus.
+    # Visit a parse tree produced by InputFormParser#CircleMinus.
     def visitCircleMinus(self, ctx):
         return self.makeHeadList("CircleMinus", ctx.expr)
 
-    # Visit a parse tree produced by FoxySheepParser#ContextName.
+    # Visit a parse tree produced by InputFormParser#ContextName.
     def visitContextName(self, ctx):
         return ctx.getText()
 
-    # Visit a parse tree produced by FoxySheepParser#SimpleContext.
+    # Visit a parse tree produced by InputFormParser#SimpleContext.
     def visitSimpleContext(self, ctx):
         return ctx.getText()
 
-    # Visit a parse tree produced by FoxySheepParser#CompoundContext.
+    # Visit a parse tree produced by InputFormParser#CompoundContext.
     def visitCompoundContext(self, ctx):
         return ctx.getText()
 
-    # Visit a parse tree produced by FoxySheepParser#PatternBlanks.
+    # Visit a parse tree produced by InputFormParser#PatternBlanks.
     def visitPatternBlanks(self, ctx):
         val = ""
         if ctx.TRIPPLEBLANK() is not None:
@@ -765,7 +765,7 @@ class FullFormEmitter(FoxySheepVisitor):
 
         return val
 
-    # Visit a parse tree produced by FoxySheepParser#PatternBlankDot.
+    # Visit a parse tree produced by InputFormParser#PatternBlankDot.
     def visitPatternBlankDot(self, ctx):
         val = ""
         if ctx.symbol() is not None:
@@ -777,50 +777,50 @@ class FullFormEmitter(FoxySheepVisitor):
 
         return val
 
-    # Visit a parse tree produced by FoxySheepParser#OutNumbered.
+    # Visit a parse tree produced by InputFormParser#OutNumbered.
     def visitOutNumbered(self, ctx):
         val = "Out["
         val += ctx.getText()[1:]
         val += "]"
         return val
 
-    # Visit a parse tree produced by FoxySheepParser#OutUnnumbered.
+    # Visit a parse tree produced by InputFormParser#OutUnnumbered.
     def visitOutUnnumbered(self, ctx):
         textLen = len(ctx.getText())
         if textLen == 1:
             return "Out[]"
         return "Out[-" + str(textLen) + "]"
 
-    # Visit a parse tree produced by FoxySheepParser#SlotDigits.
+    # Visit a parse tree produced by InputFormParser#SlotDigits.
     def visitSlotDigits(self, ctx):
         val = "Slot["
         val += ctx.getText()[1:]
         val += "]"
         return val
 
-    # Visit a parse tree produced by FoxySheepParser#SlotNamed.
+    # Visit a parse tree produced by InputFormParser#SlotNamed.
     def visitSlotNamed(self, ctx):
         val = "Slot["
         val += ctx.getText()[1:]
         val += "]"
         return val
 
-    # Visit a parse tree produced by FoxySheepParser#SlotSequenceDigits.
+    # Visit a parse tree produced by InputFormParser#SlotSequenceDigits.
     def visitSlotSequenceDigits(self, ctx):
         val = "SlotSequence["
         val += ctx.getText()[2:]
         val += "]"
         return val
 
-    # Visit a parse tree produced by FoxySheepParser#SlotSequence.
+    # Visit a parse tree produced by InputFormParser#SlotSequence.
     def visitSlotSequence(self, ctx):
         return "SlotSequence[1]"
 
-    # Visit a parse tree produced by FoxySheepParser#SlotUnnamed.
+    # Visit a parse tree produced by InputFormParser#SlotUnnamed.
     def visitSlotUnnamed(self, ctx):
         return "Slot[1]"
 
-    # Visit a parse tree produced by FoxySheepParser#ExpressionListed.
+    # Visit a parse tree produced by InputFormParser#ExpressionListed.
     def visitExpressionListed(self, ctx):
         # expressionList can be empty.
         if not hasattr(ctx, "children") or ctx.getChildCount() == 0:
@@ -850,20 +850,20 @@ class FullFormEmitter(FoxySheepVisitor):
 
         # If the comma is the last child, it needs to be followed by a Null, too.
         if not isinstance(
-            ctx.getChild(ctx.getChildCount() - 1), FoxySheepParser.ExprContext
+            ctx.getChild(ctx.getChildCount() - 1), InputFormParser.ExprContext
         ):
             val += ",Null"
 
         return val
 
-    # Visit a parse tree produced by FoxySheepParser#AccessExpressionA.
+    # Visit a parse tree produced by InputFormParser#AccessExpressionA.
     def visitAccessExpressionA(self, ctx):
         return self.getFullForm(ctx.expressionList())
 
-    # Visit a parse tree produced by FoxySheepParser#AccessExpressionB.
+    # Visit a parse tree produced by InputFormParser#AccessExpressionB.
     def visitAccessExpressionB(self, ctx):
         return self.getFullForm(ctx.expressionList())
 
-    # Visit a parse tree produced by FoxySheepParser#box.
+    # Visit a parse tree produced by InputFormParser#box.
     def visitBox(self, ctx):
         return ctx.getText()

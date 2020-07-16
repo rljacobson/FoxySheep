@@ -1,4 +1,4 @@
-# Generated from FoxySheep.g4 by ANTLR 4.7.2
+# Generated from InputForm.g4 by ANTLR 4.7.2
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -241,9 +241,9 @@ def serializedATN():
         return buf.getvalue()
 
 
-class FoxySheepParser ( Parser ):
+class InputFormParser ( Parser ):
 
-    grammarFileName = "FoxySheep.g4"
+    grammarFileName = "InputForm.g4"
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
@@ -552,19 +552,19 @@ class FoxySheepParser ( Parser ):
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
 
         def NEWLINE(self, i:int=None):
             if i is None:
-                return self.getTokens(FoxySheepParser.NEWLINE)
+                return self.getTokens(InputFormParser.NEWLINE)
             else:
-                return self.getToken(FoxySheepParser.NEWLINE, i)
+                return self.getToken(InputFormParser.NEWLINE, i)
 
         def getRuleIndex(self):
-            return FoxySheepParser.RULE_prog
+            return InputFormParser.RULE_prog
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterProg" ):
@@ -585,7 +585,7 @@ class FoxySheepParser ( Parser ):
 
     def prog(self):
 
-        localctx = FoxySheepParser.ProgContext(self, self._ctx, self.state)
+        localctx = InputFormParser.ProgContext(self, self._ctx, self.state)
         self.enterRule(localctx, 0, self.RULE_prog)
         self._la = 0 # Token type
         try:
@@ -595,14 +595,14 @@ class FoxySheepParser ( Parser ):
             self.state = 33
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==FoxySheepParser.NEWLINE:
+            while _la==InputFormParser.NEWLINE:
                 self.state = 24 
                 self._errHandler.sync(self)
                 _alt = 1
                 while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt == 1:
                         self.state = 23
-                        self.match(FoxySheepParser.NEWLINE)
+                        self.match(InputFormParser.NEWLINE)
 
                     else:
                         raise NoViableAltException(self)
@@ -613,7 +613,7 @@ class FoxySheepParser ( Parser ):
                 self.state = 29
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << FoxySheepParser.Name) | (1 << FoxySheepParser.DecimalNumber) | (1 << FoxySheepParser.DIGITS) | (1 << FoxySheepParser.StringLiteral) | (1 << FoxySheepParser.LPAREN) | (1 << FoxySheepParser.LBRACE) | (1 << FoxySheepParser.LANGLE) | (1 << FoxySheepParser.LFLOOR) | (1 << FoxySheepParser.LCEILING) | (1 << FoxySheepParser.LBRACKETINGBAR) | (1 << FoxySheepParser.LDOUBLEBRACKETINGBAR) | (1 << FoxySheepParser.BACKQUOTE) | (1 << FoxySheepParser.DOUBLELESS) | (1 << FoxySheepParser.NOT))) != 0) or ((((_la - 77)) & ~0x3f) == 0 and ((1 << (_la - 77)) & ((1 << (FoxySheepParser.TRIPPLEBLANK - 77)) | (1 << (FoxySheepParser.DOUBLEBLANK - 77)) | (1 << (FoxySheepParser.BLANKDOT - 77)) | (1 << (FoxySheepParser.BLANK - 77)) | (1 << (FoxySheepParser.PERCENTDIGITS - 77)) | (1 << (FoxySheepParser.PERCENTS - 77)) | (1 << (FoxySheepParser.HASHDIGITS - 77)) | (1 << (FoxySheepParser.HASHStringLiteral - 77)) | (1 << (FoxySheepParser.DOUBLEHASHDIGITS - 77)) | (1 << (FoxySheepParser.DOUBLEHASH - 77)) | (1 << (FoxySheepParser.HASH - 77)) | (1 << (FoxySheepParser.DOUBLEPLUS - 77)) | (1 << (FoxySheepParser.DOUBLEMINUS - 77)) | (1 << (FoxySheepParser.BANG - 77)) | (1 << (FoxySheepParser.INTEGRAL - 77)) | (1 << (FoxySheepParser.DEL - 77)) | (1 << (FoxySheepParser.SQUARE - 77)))) != 0) or ((((_la - 158)) & ~0x3f) == 0 and ((1 << (_la - 158)) & ((1 << (FoxySheepParser.PLUS - 158)) | (1 << (FoxySheepParser.MINUS - 158)) | (1 << (FoxySheepParser.PLUSMINUS - 158)) | (1 << (FoxySheepParser.MINUSPLUS - 158)) | (1 << (FoxySheepParser.BoxConstructor - 158)) | (1 << (FoxySheepParser.SPANSEMICOLONS - 158)))) != 0):
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << InputFormParser.Name) | (1 << InputFormParser.DecimalNumber) | (1 << InputFormParser.DIGITS) | (1 << InputFormParser.StringLiteral) | (1 << InputFormParser.LPAREN) | (1 << InputFormParser.LBRACE) | (1 << InputFormParser.LANGLE) | (1 << InputFormParser.LFLOOR) | (1 << InputFormParser.LCEILING) | (1 << InputFormParser.LBRACKETINGBAR) | (1 << InputFormParser.LDOUBLEBRACKETINGBAR) | (1 << InputFormParser.BACKQUOTE) | (1 << InputFormParser.DOUBLELESS) | (1 << InputFormParser.NOT))) != 0) or ((((_la - 77)) & ~0x3f) == 0 and ((1 << (_la - 77)) & ((1 << (InputFormParser.TRIPPLEBLANK - 77)) | (1 << (InputFormParser.DOUBLEBLANK - 77)) | (1 << (InputFormParser.BLANKDOT - 77)) | (1 << (InputFormParser.BLANK - 77)) | (1 << (InputFormParser.PERCENTDIGITS - 77)) | (1 << (InputFormParser.PERCENTS - 77)) | (1 << (InputFormParser.HASHDIGITS - 77)) | (1 << (InputFormParser.HASHStringLiteral - 77)) | (1 << (InputFormParser.DOUBLEHASHDIGITS - 77)) | (1 << (InputFormParser.DOUBLEHASH - 77)) | (1 << (InputFormParser.HASH - 77)) | (1 << (InputFormParser.DOUBLEPLUS - 77)) | (1 << (InputFormParser.DOUBLEMINUS - 77)) | (1 << (InputFormParser.BANG - 77)) | (1 << (InputFormParser.INTEGRAL - 77)) | (1 << (InputFormParser.DEL - 77)) | (1 << (InputFormParser.SQUARE - 77)))) != 0) or ((((_la - 158)) & ~0x3f) == 0 and ((1 << (_la - 158)) & ((1 << (InputFormParser.PLUS - 158)) | (1 << (InputFormParser.MINUS - 158)) | (1 << (InputFormParser.PLUSMINUS - 158)) | (1 << (InputFormParser.MINUSPLUS - 158)) | (1 << (InputFormParser.BoxConstructor - 158)) | (1 << (InputFormParser.SPANSEMICOLONS - 158)))) != 0):
                     self.state = 28
                     self.expr(0)
 
@@ -638,7 +638,7 @@ class FoxySheepParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return FoxySheepParser.RULE_expr
+            return InputFormParser.RULE_expr
 
      
         def copyFrom(self, ctx:ParserRuleContext):
@@ -647,17 +647,17 @@ class FoxySheepParser ( Parser ):
 
     class PatternExpContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def symbol(self):
-            return self.getTypedRuleContext(FoxySheepParser.SymbolContext,0)
+            return self.getTypedRuleContext(InputFormParser.SymbolContext,0)
 
         def RAWCOLON(self):
-            return self.getToken(FoxySheepParser.RAWCOLON, 0)
+            return self.getToken(InputFormParser.RAWCOLON, 0)
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
 
         def enterRule(self, listener:ParseTreeListener):
@@ -677,22 +677,22 @@ class FoxySheepParser ( Parser ):
 
     class OrContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def OR(self):
-            return self.getToken(FoxySheepParser.OR, 0)
+            return self.getToken(InputFormParser.OR, 0)
         def NOR(self):
-            return self.getToken(FoxySheepParser.NOR, 0)
+            return self.getToken(InputFormParser.NOR, 0)
         def DOUBLEBAR(self):
-            return self.getToken(FoxySheepParser.DOUBLEBAR, 0)
+            return self.getToken(InputFormParser.DOUBLEBAR, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterOr" ):
@@ -711,21 +711,21 @@ class FoxySheepParser ( Parser ):
 
     class ConjugateContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
         def CONJUGATE(self):
-            return self.getToken(FoxySheepParser.CONJUGATE, 0)
+            return self.getToken(InputFormParser.CONJUGATE, 0)
         def TRANSPOSE(self):
-            return self.getToken(FoxySheepParser.TRANSPOSE, 0)
+            return self.getToken(InputFormParser.TRANSPOSE, 0)
         def CONJUGATETRANSPOSE(self):
-            return self.getToken(FoxySheepParser.CONJUGATETRANSPOSE, 0)
+            return self.getToken(InputFormParser.CONJUGATETRANSPOSE, 0)
         def HERMITIANCONJUGATE(self):
-            return self.getToken(FoxySheepParser.HERMITIANCONJUGATE, 0)
+            return self.getToken(InputFormParser.HERMITIANCONJUGATE, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterConjugate" ):
@@ -744,17 +744,17 @@ class FoxySheepParser ( Parser ):
 
     class CeilingContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LCEILING(self):
-            return self.getToken(FoxySheepParser.LCEILING, 0)
+            return self.getToken(InputFormParser.LCEILING, 0)
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
         def RCEILING(self):
-            return self.getToken(FoxySheepParser.RCEILING, 0)
+            return self.getToken(InputFormParser.RCEILING, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterCeiling" ):
@@ -773,21 +773,21 @@ class FoxySheepParser ( Parser ):
 
     class InfixContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def TILDE(self, i:int=None):
             if i is None:
-                return self.getTokens(FoxySheepParser.TILDE)
+                return self.getTokens(InputFormParser.TILDE)
             else:
-                return self.getToken(FoxySheepParser.TILDE, i)
+                return self.getToken(InputFormParser.TILDE, i)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterInfix" ):
@@ -806,18 +806,18 @@ class FoxySheepParser ( Parser ):
 
     class ThereforeContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def THEREFORE(self):
-            return self.getToken(FoxySheepParser.THEREFORE, 0)
+            return self.getToken(InputFormParser.THEREFORE, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterTherefore" ):
@@ -836,22 +836,22 @@ class FoxySheepParser ( Parser ):
 
     class TagUnsetContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def symbol(self):
-            return self.getTypedRuleContext(FoxySheepParser.SymbolContext,0)
+            return self.getTypedRuleContext(InputFormParser.SymbolContext,0)
 
         def SLASHCOLON(self):
-            return self.getToken(FoxySheepParser.SLASHCOLON, 0)
+            return self.getToken(InputFormParser.SLASHCOLON, 0)
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
         def EQUAL(self):
-            return self.getToken(FoxySheepParser.EQUAL, 0)
+            return self.getToken(InputFormParser.EQUAL, 0)
         def DOT(self):
-            return self.getToken(FoxySheepParser.DOT, 0)
+            return self.getToken(InputFormParser.DOT, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterTagUnset" ):
@@ -870,15 +870,15 @@ class FoxySheepParser ( Parser ):
 
     class AccessorContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
         def accessExpression(self):
-            return self.getTypedRuleContext(FoxySheepParser.AccessExpressionContext,0)
+            return self.getTypedRuleContext(InputFormParser.AccessExpressionContext,0)
 
 
         def enterRule(self, listener:ParseTreeListener):
@@ -898,18 +898,18 @@ class FoxySheepParser ( Parser ):
 
     class CircleMinusContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def CIRCLEMINUS(self):
-            return self.getToken(FoxySheepParser.CIRCLEMINUS, 0)
+            return self.getToken(InputFormParser.CIRCLEMINUS, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterCircleMinus" ):
@@ -928,20 +928,20 @@ class FoxySheepParser ( Parser ):
 
     class DivideContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def SLASH(self):
-            return self.getToken(FoxySheepParser.SLASH, 0)
+            return self.getToken(InputFormParser.SLASH, 0)
         def DIVIDE(self):
-            return self.getToken(FoxySheepParser.DIVIDE, 0)
+            return self.getToken(InputFormParser.DIVIDE, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterDivide" ):
@@ -960,20 +960,20 @@ class FoxySheepParser ( Parser ):
 
     class ImpliesContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def RDOUBLEARROW(self):
-            return self.getToken(FoxySheepParser.RDOUBLEARROW, 0)
+            return self.getToken(InputFormParser.RDOUBLEARROW, 0)
         def LCONTAINS(self):
-            return self.getToken(FoxySheepParser.LCONTAINS, 0)
+            return self.getToken(InputFormParser.LCONTAINS, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterImplies" ):
@@ -992,24 +992,24 @@ class FoxySheepParser ( Parser ):
 
     class PlusOpContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def BINARYPLUS(self):
-            return self.getToken(FoxySheepParser.BINARYPLUS, 0)
+            return self.getToken(InputFormParser.BINARYPLUS, 0)
         def BINARYMINUS(self):
-            return self.getToken(FoxySheepParser.BINARYMINUS, 0)
+            return self.getToken(InputFormParser.BINARYMINUS, 0)
         def BINARYPLUSMINUS(self):
-            return self.getToken(FoxySheepParser.BINARYPLUSMINUS, 0)
+            return self.getToken(InputFormParser.BINARYPLUSMINUS, 0)
         def BINARYMINUSPLUS(self):
-            return self.getToken(FoxySheepParser.BINARYMINUSPLUS, 0)
+            return self.getToken(InputFormParser.BINARYMINUSPLUS, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterPlusOp" ):
@@ -1028,18 +1028,18 @@ class FoxySheepParser ( Parser ):
 
     class RightCompositionContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def SLASHASTERISK(self):
-            return self.getToken(FoxySheepParser.SLASHASTERISK, 0)
+            return self.getToken(InputFormParser.SLASHASTERISK, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterRightComposition" ):
@@ -1058,18 +1058,18 @@ class FoxySheepParser ( Parser ):
 
     class NonCommutativeMultiplyContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def DOUBLEASTERISK(self):
-            return self.getToken(FoxySheepParser.DOUBLEASTERISK, 0)
+            return self.getToken(InputFormParser.DOUBLEASTERISK, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterNonCommutativeMultiply" ):
@@ -1088,17 +1088,17 @@ class FoxySheepParser ( Parser ):
 
     class ListContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LBRACE(self):
-            return self.getToken(FoxySheepParser.LBRACE, 0)
+            return self.getToken(InputFormParser.LBRACE, 0)
         def expressionList(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExpressionListContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExpressionListContext,0)
 
         def RBRACE(self):
-            return self.getToken(FoxySheepParser.RBRACE, 0)
+            return self.getToken(InputFormParser.RBRACE, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterList" ):
@@ -1117,18 +1117,18 @@ class FoxySheepParser ( Parser ):
 
     class CupContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def CUP(self):
-            return self.getToken(FoxySheepParser.CUP, 0)
+            return self.getToken(InputFormParser.CUP, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterCup" ):
@@ -1147,20 +1147,20 @@ class FoxySheepParser ( Parser ):
 
     class SameContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def TRIPPLEEQUAL(self):
-            return self.getToken(FoxySheepParser.TRIPPLEEQUAL, 0)
+            return self.getToken(InputFormParser.TRIPPLEEQUAL, 0)
         def EQUALBANGEQUAL(self):
-            return self.getToken(FoxySheepParser.EQUALBANGEQUAL, 0)
+            return self.getToken(InputFormParser.EQUALBANGEQUAL, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterSame" ):
@@ -1179,18 +1179,18 @@ class FoxySheepParser ( Parser ):
 
     class OptionalContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def RAWCOLON(self):
-            return self.getToken(FoxySheepParser.RAWCOLON, 0)
+            return self.getToken(InputFormParser.RAWCOLON, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterOptional" ):
@@ -1209,18 +1209,18 @@ class FoxySheepParser ( Parser ):
 
     class SuchThatContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def SUCHTHAT(self):
-            return self.getToken(FoxySheepParser.SUCHTHAT, 0)
+            return self.getToken(InputFormParser.SUCHTHAT, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterSuchThat" ):
@@ -1239,17 +1239,17 @@ class FoxySheepParser ( Parser ):
 
     class DoubleBracketingBarContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LDOUBLEBRACKETINGBAR(self):
-            return self.getToken(FoxySheepParser.LDOUBLEBRACKETINGBAR, 0)
+            return self.getToken(InputFormParser.LDOUBLEBRACKETINGBAR, 0)
         def expressionList(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExpressionListContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExpressionListContext,0)
 
         def RDOUBLEBRACKETINGBAR(self):
-            return self.getToken(FoxySheepParser.RDOUBLEBRACKETINGBAR, 0)
+            return self.getToken(InputFormParser.RDOUBLEBRACKETINGBAR, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterDoubleBracketingBar" ):
@@ -1268,14 +1268,14 @@ class FoxySheepParser ( Parser ):
 
     class PatternBlankDotContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def BLANKDOT(self):
-            return self.getToken(FoxySheepParser.BLANKDOT, 0)
+            return self.getToken(InputFormParser.BLANKDOT, 0)
         def symbol(self):
-            return self.getTypedRuleContext(FoxySheepParser.SymbolContext,0)
+            return self.getTypedRuleContext(InputFormParser.SymbolContext,0)
 
 
         def enterRule(self, listener:ParseTreeListener):
@@ -1295,18 +1295,18 @@ class FoxySheepParser ( Parser ):
 
     class DotContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def DOT(self):
-            return self.getToken(FoxySheepParser.DOT, 0)
+            return self.getToken(InputFormParser.DOT, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterDot" ):
@@ -1325,24 +1325,24 @@ class FoxySheepParser ( Parser ):
 
     class VerticalBarContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def VERTICALBAR(self):
-            return self.getToken(FoxySheepParser.VERTICALBAR, 0)
+            return self.getToken(InputFormParser.VERTICALBAR, 0)
         def NOTVERTICALBAR(self):
-            return self.getToken(FoxySheepParser.NOTVERTICALBAR, 0)
+            return self.getToken(InputFormParser.NOTVERTICALBAR, 0)
         def DOUBLEVERTICALBAR(self):
-            return self.getToken(FoxySheepParser.DOUBLEVERTICALBAR, 0)
+            return self.getToken(InputFormParser.DOUBLEVERTICALBAR, 0)
         def NOTDOUBLEVERTICALBAR(self):
-            return self.getToken(FoxySheepParser.NOTDOUBLEVERTICALBAR, 0)
+            return self.getToken(InputFormParser.NOTDOUBLEVERTICALBAR, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterVerticalBar" ):
@@ -1361,14 +1361,14 @@ class FoxySheepParser ( Parser ):
 
     class SquareContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def SQUARE(self):
-            return self.getToken(FoxySheepParser.SQUARE, 0)
+            return self.getToken(InputFormParser.SQUARE, 0)
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
 
         def enterRule(self, listener:ParseTreeListener):
@@ -1388,18 +1388,18 @@ class FoxySheepParser ( Parser ):
 
     class AlternativesContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def BAR(self):
-            return self.getToken(FoxySheepParser.BAR, 0)
+            return self.getToken(InputFormParser.BAR, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterAlternatives" ):
@@ -1418,12 +1418,12 @@ class FoxySheepParser ( Parser ):
 
     class OutContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def outExpression(self):
-            return self.getTypedRuleContext(FoxySheepParser.OutExpressionContext,0)
+            return self.getTypedRuleContext(InputFormParser.OutExpressionContext,0)
 
 
         def enterRule(self, listener:ParseTreeListener):
@@ -1443,14 +1443,14 @@ class FoxySheepParser ( Parser ):
 
     class BoxConstructorContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def BoxConstructor(self):
-            return self.getToken(FoxySheepParser.BoxConstructor, 0)
+            return self.getToken(InputFormParser.BoxConstructor, 0)
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
 
         def enterRule(self, listener:ParseTreeListener):
@@ -1470,17 +1470,17 @@ class FoxySheepParser ( Parser ):
 
     class NotContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
         def BANG(self):
-            return self.getToken(FoxySheepParser.BANG, 0)
+            return self.getToken(InputFormParser.BANG, 0)
         def NOT(self):
-            return self.getToken(FoxySheepParser.NOT, 0)
+            return self.getToken(InputFormParser.NOT, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterNot" ):
@@ -1499,18 +1499,18 @@ class FoxySheepParser ( Parser ):
 
     class PostfixContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def DOUBLESLASH(self):
-            return self.getToken(FoxySheepParser.DOUBLESLASH, 0)
+            return self.getToken(InputFormParser.DOUBLESLASH, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterPostfix" ):
@@ -1529,21 +1529,21 @@ class FoxySheepParser ( Parser ):
 
     class PatternBlanksContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def TRIPPLEBLANK(self):
-            return self.getToken(FoxySheepParser.TRIPPLEBLANK, 0)
+            return self.getToken(InputFormParser.TRIPPLEBLANK, 0)
         def DOUBLEBLANK(self):
-            return self.getToken(FoxySheepParser.DOUBLEBLANK, 0)
+            return self.getToken(InputFormParser.DOUBLEBLANK, 0)
         def BLANK(self):
-            return self.getToken(FoxySheepParser.BLANK, 0)
+            return self.getToken(InputFormParser.BLANK, 0)
         def symbol(self):
-            return self.getTypedRuleContext(FoxySheepParser.SymbolContext,0)
+            return self.getTypedRuleContext(InputFormParser.SymbolContext,0)
 
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
 
         def enterRule(self, listener:ParseTreeListener):
@@ -1563,21 +1563,21 @@ class FoxySheepParser ( Parser ):
 
     class UnaryPlusMinusContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
         def MINUS(self):
-            return self.getToken(FoxySheepParser.MINUS, 0)
+            return self.getToken(InputFormParser.MINUS, 0)
         def PLUS(self):
-            return self.getToken(FoxySheepParser.PLUS, 0)
+            return self.getToken(InputFormParser.PLUS, 0)
         def PLUSMINUS(self):
-            return self.getToken(FoxySheepParser.PLUSMINUS, 0)
+            return self.getToken(InputFormParser.PLUSMINUS, 0)
         def MINUSPLUS(self):
-            return self.getToken(FoxySheepParser.MINUSPLUS, 0)
+            return self.getToken(InputFormParser.MINUSPLUS, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterUnaryPlusMinus" ):
@@ -1596,18 +1596,18 @@ class FoxySheepParser ( Parser ):
 
     class CapContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def CAP(self):
-            return self.getToken(FoxySheepParser.CAP, 0)
+            return self.getToken(InputFormParser.CAP, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterCap" ):
@@ -1626,18 +1626,18 @@ class FoxySheepParser ( Parser ):
 
     class CirclePlusContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def CIRCLEPLUS(self):
-            return self.getToken(FoxySheepParser.CIRCLEPLUS, 0)
+            return self.getToken(InputFormParser.CIRCLEPLUS, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterCirclePlus" ):
@@ -1656,18 +1656,18 @@ class FoxySheepParser ( Parser ):
 
     class BecauseContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def BECAUSE(self):
-            return self.getToken(FoxySheepParser.BECAUSE, 0)
+            return self.getToken(InputFormParser.BECAUSE, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterBecause" ):
@@ -1686,12 +1686,12 @@ class FoxySheepParser ( Parser ):
 
     class StringLiteralContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def StringLiteral(self):
-            return self.getToken(FoxySheepParser.StringLiteral, 0)
+            return self.getToken(InputFormParser.StringLiteral, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterStringLiteral" ):
@@ -1710,22 +1710,22 @@ class FoxySheepParser ( Parser ):
 
     class AndContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def DOUBLEAMP(self):
-            return self.getToken(FoxySheepParser.DOUBLEAMP, 0)
+            return self.getToken(InputFormParser.DOUBLEAMP, 0)
         def AND(self):
-            return self.getToken(FoxySheepParser.AND, 0)
+            return self.getToken(InputFormParser.AND, 0)
         def NAND(self):
-            return self.getToken(FoxySheepParser.NAND, 0)
+            return self.getToken(InputFormParser.NAND, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterAnd" ):
@@ -1744,14 +1744,14 @@ class FoxySheepParser ( Parser ):
 
     class GetContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def DOUBLELESS(self):
-            return self.getToken(FoxySheepParser.DOUBLELESS, 0)
+            return self.getToken(InputFormParser.DOUBLELESS, 0)
         def StringLiteral(self):
-            return self.getToken(FoxySheepParser.StringLiteral, 0)
+            return self.getToken(InputFormParser.StringLiteral, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterGet" ):
@@ -1770,18 +1770,18 @@ class FoxySheepParser ( Parser ):
 
     class EquivalentContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def LRDOUBLEARROW(self):
-            return self.getToken(FoxySheepParser.LRDOUBLEARROW, 0)
+            return self.getToken(InputFormParser.LRDOUBLEARROW, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterEquivalent" ):
@@ -1800,18 +1800,18 @@ class FoxySheepParser ( Parser ):
 
     class CompoundExpressionContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def SEMICOLON(self):
-            return self.getToken(FoxySheepParser.SEMICOLON, 0)
+            return self.getToken(InputFormParser.SEMICOLON, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterCompoundExpression" ):
@@ -1830,18 +1830,18 @@ class FoxySheepParser ( Parser ):
 
     class DerivativeContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
         def SINGLEQUOTE(self, i:int=None):
             if i is None:
-                return self.getTokens(FoxySheepParser.SINGLEQUOTE)
+                return self.getTokens(InputFormParser.SINGLEQUOTE)
             else:
-                return self.getToken(FoxySheepParser.SINGLEQUOTE, i)
+                return self.getToken(InputFormParser.SINGLEQUOTE, i)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterDerivative" ):
@@ -1860,12 +1860,12 @@ class FoxySheepParser ( Parser ):
 
     class SlotContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def slotExpression(self):
-            return self.getTypedRuleContext(FoxySheepParser.SlotExpressionContext,0)
+            return self.getTypedRuleContext(InputFormParser.SlotExpressionContext,0)
 
 
         def enterRule(self, listener:ParseTreeListener):
@@ -1885,20 +1885,20 @@ class FoxySheepParser ( Parser ):
 
     class RightTeeContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def RIGHTTEE(self):
-            return self.getToken(FoxySheepParser.RIGHTTEE, 0)
+            return self.getToken(InputFormParser.RIGHTTEE, 0)
         def DOUBLERIGHTTEE(self):
-            return self.getToken(FoxySheepParser.DOUBLERIGHTTEE, 0)
+            return self.getToken(InputFormParser.DOUBLERIGHTTEE, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterRightTee" ):
@@ -1917,20 +1917,20 @@ class FoxySheepParser ( Parser ):
 
     class XorContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def XOR(self):
-            return self.getToken(FoxySheepParser.XOR, 0)
+            return self.getToken(InputFormParser.XOR, 0)
         def XNOR(self):
-            return self.getToken(FoxySheepParser.XNOR, 0)
+            return self.getToken(InputFormParser.XNOR, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterXor" ):
@@ -1949,24 +1949,24 @@ class FoxySheepParser ( Parser ):
 
     class RuleContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def MINUSGREATER(self):
-            return self.getToken(FoxySheepParser.MINUSGREATER, 0)
+            return self.getToken(InputFormParser.MINUSGREATER, 0)
         def RARROW(self):
-            return self.getToken(FoxySheepParser.RARROW, 0)
+            return self.getToken(InputFormParser.RARROW, 0)
         def COLONGREATER(self):
-            return self.getToken(FoxySheepParser.COLONGREATER, 0)
+            return self.getToken(InputFormParser.COLONGREATER, 0)
         def COLONARROW(self):
-            return self.getToken(FoxySheepParser.COLONARROW, 0)
+            return self.getToken(InputFormParser.COLONARROW, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterRule" ):
@@ -1985,20 +1985,20 @@ class FoxySheepParser ( Parser ):
 
     class HeadExpressionContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
         def LBRACKET(self):
-            return self.getToken(FoxySheepParser.LBRACKET, 0)
+            return self.getToken(InputFormParser.LBRACKET, 0)
         def expressionList(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExpressionListContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExpressionListContext,0)
 
         def RBRACKET(self):
-            return self.getToken(FoxySheepParser.RBRACKET, 0)
+            return self.getToken(InputFormParser.RBRACKET, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterHeadExpression" ):
@@ -2017,20 +2017,20 @@ class FoxySheepParser ( Parser ):
 
     class ReplaceAllContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def SLASHDOT(self):
-            return self.getToken(FoxySheepParser.SLASHDOT, 0)
+            return self.getToken(InputFormParser.SLASHDOT, 0)
         def DOUBLESLASHDOT(self):
-            return self.getToken(FoxySheepParser.DOUBLESLASHDOT, 0)
+            return self.getToken(InputFormParser.DOUBLESLASHDOT, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterReplaceAll" ):
@@ -2049,18 +2049,18 @@ class FoxySheepParser ( Parser ):
 
     class IntersectionContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def INTERSECTION(self):
-            return self.getToken(FoxySheepParser.INTERSECTION, 0)
+            return self.getToken(InputFormParser.INTERSECTION, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterIntersection" ):
@@ -2079,17 +2079,17 @@ class FoxySheepParser ( Parser ):
 
     class PreIncrementContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
         def DOUBLEPLUS(self):
-            return self.getToken(FoxySheepParser.DOUBLEPLUS, 0)
+            return self.getToken(InputFormParser.DOUBLEPLUS, 0)
         def DOUBLEMINUS(self):
-            return self.getToken(FoxySheepParser.DOUBLEMINUS, 0)
+            return self.getToken(InputFormParser.DOUBLEMINUS, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterPreIncrement" ):
@@ -2108,20 +2108,20 @@ class FoxySheepParser ( Parser ):
 
     class IntegrateContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def INTEGRAL(self):
-            return self.getToken(FoxySheepParser.INTEGRAL, 0)
+            return self.getToken(InputFormParser.INTEGRAL, 0)
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def DIFFERENTIALD(self):
-            return self.getToken(FoxySheepParser.DIFFERENTIALD, 0)
+            return self.getToken(InputFormParser.DIFFERENTIALD, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterIntegrate" ):
@@ -2140,26 +2140,26 @@ class FoxySheepParser ( Parser ):
 
     class SetContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def EQUAL(self):
-            return self.getToken(FoxySheepParser.EQUAL, 0)
+            return self.getToken(InputFormParser.EQUAL, 0)
         def COLONEQUAL(self):
-            return self.getToken(FoxySheepParser.COLONEQUAL, 0)
+            return self.getToken(InputFormParser.COLONEQUAL, 0)
         def CARETEQUAL(self):
-            return self.getToken(FoxySheepParser.CARETEQUAL, 0)
+            return self.getToken(InputFormParser.CARETEQUAL, 0)
         def CARETCOLONEQUAL(self):
-            return self.getToken(FoxySheepParser.CARETCOLONEQUAL, 0)
+            return self.getToken(InputFormParser.CARETCOLONEQUAL, 0)
         def FUNCTIONARROW(self):
-            return self.getToken(FoxySheepParser.FUNCTIONARROW, 0)
+            return self.getToken(InputFormParser.FUNCTIONARROW, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterSet" ):
@@ -2178,24 +2178,24 @@ class FoxySheepParser ( Parser ):
 
     class OpEqualsContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def PLUSEQUAL(self):
-            return self.getToken(FoxySheepParser.PLUSEQUAL, 0)
+            return self.getToken(InputFormParser.PLUSEQUAL, 0)
         def MINUSEQUAL(self):
-            return self.getToken(FoxySheepParser.MINUSEQUAL, 0)
+            return self.getToken(InputFormParser.MINUSEQUAL, 0)
         def ASTERISKEQUAL(self):
-            return self.getToken(FoxySheepParser.ASTERISKEQUAL, 0)
+            return self.getToken(InputFormParser.ASTERISKEQUAL, 0)
         def SLASHEQUAL(self):
-            return self.getToken(FoxySheepParser.SLASHEQUAL, 0)
+            return self.getToken(InputFormParser.SLASHEQUAL, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterOpEquals" ):
@@ -2214,23 +2214,23 @@ class FoxySheepParser ( Parser ):
 
     class MessageContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
         def DOUBLECOLON(self, i:int=None):
             if i is None:
-                return self.getTokens(FoxySheepParser.DOUBLECOLON)
+                return self.getTokens(InputFormParser.DOUBLECOLON)
             else:
-                return self.getToken(FoxySheepParser.DOUBLECOLON, i)
+                return self.getToken(InputFormParser.DOUBLECOLON, i)
         def StringLiteral(self, i:int=None):
             if i is None:
-                return self.getTokens(FoxySheepParser.StringLiteral)
+                return self.getTokens(InputFormParser.StringLiteral)
             else:
-                return self.getToken(FoxySheepParser.StringLiteral, i)
+                return self.getToken(InputFormParser.StringLiteral, i)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterMessage" ):
@@ -2249,18 +2249,18 @@ class FoxySheepParser ( Parser ):
 
     class CrossContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def CROSS(self):
-            return self.getToken(FoxySheepParser.CROSS, 0)
+            return self.getToken(InputFormParser.CROSS, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterCross" ):
@@ -2279,18 +2279,18 @@ class FoxySheepParser ( Parser ):
 
     class PatternTestContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def QUESTIONMARK(self):
-            return self.getToken(FoxySheepParser.QUESTIONMARK, 0)
+            return self.getToken(InputFormParser.QUESTIONMARK, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterPatternTest" ):
@@ -2309,18 +2309,18 @@ class FoxySheepParser ( Parser ):
 
     class PrefixContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def AT(self):
-            return self.getToken(FoxySheepParser.AT, 0)
+            return self.getToken(InputFormParser.AT, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterPrefix" ):
@@ -2339,18 +2339,18 @@ class FoxySheepParser ( Parser ):
 
     class BackslashContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def RAWBACKSLASH(self):
-            return self.getToken(FoxySheepParser.RAWBACKSLASH, 0)
+            return self.getToken(InputFormParser.RAWBACKSLASH, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterBackslash" ):
@@ -2369,17 +2369,17 @@ class FoxySheepParser ( Parser ):
 
     class RepeatedContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
         def DOUBLEDOT(self):
-            return self.getToken(FoxySheepParser.DOUBLEDOT, 0)
+            return self.getToken(InputFormParser.DOUBLEDOT, 0)
         def TRIPPLEDOT(self):
-            return self.getToken(FoxySheepParser.TRIPPLEDOT, 0)
+            return self.getToken(InputFormParser.TRIPPLEDOT, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterRepeated" ):
@@ -2398,24 +2398,24 @@ class FoxySheepParser ( Parser ):
 
     class MapApplyContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def MAP(self):
-            return self.getToken(FoxySheepParser.MAP, 0)
+            return self.getToken(InputFormParser.MAP, 0)
         def MAPALL(self):
-            return self.getToken(FoxySheepParser.MAPALL, 0)
+            return self.getToken(InputFormParser.MAPALL, 0)
         def DOUBLEAT(self):
-            return self.getToken(FoxySheepParser.DOUBLEAT, 0)
+            return self.getToken(InputFormParser.DOUBLEAT, 0)
         def TRIPPLEAT(self):
-            return self.getToken(FoxySheepParser.TRIPPLEAT, 0)
+            return self.getToken(InputFormParser.TRIPPLEAT, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterMapApply" ):
@@ -2434,18 +2434,18 @@ class FoxySheepParser ( Parser ):
 
     class UnionContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def UNION(self):
-            return self.getToken(FoxySheepParser.UNION, 0)
+            return self.getToken(InputFormParser.UNION, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterUnion" ):
@@ -2464,18 +2464,18 @@ class FoxySheepParser ( Parser ):
 
     class VerticalSeparatorContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def VERTICALSEPARATOR(self):
-            return self.getToken(FoxySheepParser.VERTICALSEPARATOR, 0)
+            return self.getToken(InputFormParser.VERTICALSEPARATOR, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterVerticalSeparator" ):
@@ -2494,17 +2494,17 @@ class FoxySheepParser ( Parser ):
 
     class FactorialContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
         def BANG(self):
-            return self.getToken(FoxySheepParser.BANG, 0)
+            return self.getToken(InputFormParser.BANG, 0)
         def DOUBLEBANG(self):
-            return self.getToken(FoxySheepParser.DOUBLEBANG, 0)
+            return self.getToken(InputFormParser.DOUBLEBANG, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterFactorial" ):
@@ -2523,18 +2523,18 @@ class FoxySheepParser ( Parser ):
 
     class SpanAContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def DOUBLESEMICOLON(self):
-            return self.getToken(FoxySheepParser.DOUBLESEMICOLON, 0)
+            return self.getToken(InputFormParser.DOUBLESEMICOLON, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterSpanA" ):
@@ -2553,15 +2553,15 @@ class FoxySheepParser ( Parser ):
 
     class FunctionContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
         def AMP(self):
-            return self.getToken(FoxySheepParser.AMP, 0)
+            return self.getToken(InputFormParser.AMP, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterFunction" ):
@@ -2580,12 +2580,12 @@ class FoxySheepParser ( Parser ):
 
     class NumberContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def numberLiteral(self):
-            return self.getTypedRuleContext(FoxySheepParser.NumberLiteralContext,0)
+            return self.getTypedRuleContext(InputFormParser.NumberLiteralContext,0)
 
 
         def enterRule(self, listener:ParseTreeListener):
@@ -2605,18 +2605,18 @@ class FoxySheepParser ( Parser ):
 
     class StarContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def STAR(self):
-            return self.getToken(FoxySheepParser.STAR, 0)
+            return self.getToken(InputFormParser.STAR, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterStar" ):
@@ -2635,28 +2635,28 @@ class FoxySheepParser ( Parser ):
 
     class ComparisonContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def EqualSymbol(self):
-            return self.getToken(FoxySheepParser.EqualSymbol, 0)
+            return self.getToken(InputFormParser.EqualSymbol, 0)
         def NotEqualSymbol(self):
-            return self.getToken(FoxySheepParser.NotEqualSymbol, 0)
+            return self.getToken(InputFormParser.NotEqualSymbol, 0)
         def GreaterEqualSymbol(self):
-            return self.getToken(FoxySheepParser.GreaterEqualSymbol, 0)
+            return self.getToken(InputFormParser.GreaterEqualSymbol, 0)
         def LessEqualSymbol(self):
-            return self.getToken(FoxySheepParser.LessEqualSymbol, 0)
+            return self.getToken(InputFormParser.LessEqualSymbol, 0)
         def GREATER(self):
-            return self.getToken(FoxySheepParser.GREATER, 0)
+            return self.getToken(InputFormParser.GREATER, 0)
         def LESS(self):
-            return self.getToken(FoxySheepParser.LESS, 0)
+            return self.getToken(InputFormParser.LESS, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterComparison" ):
@@ -2675,25 +2675,25 @@ class FoxySheepParser ( Parser ):
 
     class TagSetContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def symbol(self):
-            return self.getTypedRuleContext(FoxySheepParser.SymbolContext,0)
+            return self.getTypedRuleContext(InputFormParser.SymbolContext,0)
 
         def SLASHCOLON(self):
-            return self.getToken(FoxySheepParser.SLASHCOLON, 0)
+            return self.getToken(InputFormParser.SLASHCOLON, 0)
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def EQUAL(self):
-            return self.getToken(FoxySheepParser.EQUAL, 0)
+            return self.getToken(InputFormParser.EQUAL, 0)
         def COLONEQUAL(self):
-            return self.getToken(FoxySheepParser.COLONEQUAL, 0)
+            return self.getToken(InputFormParser.COLONEQUAL, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterTagSet" ):
@@ -2712,17 +2712,17 @@ class FoxySheepParser ( Parser ):
 
     class IncrementContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
         def DOUBLEPLUS(self):
-            return self.getToken(FoxySheepParser.DOUBLEPLUS, 0)
+            return self.getToken(InputFormParser.DOUBLEPLUS, 0)
         def DOUBLEMINUS(self):
-            return self.getToken(FoxySheepParser.DOUBLEMINUS, 0)
+            return self.getToken(InputFormParser.DOUBLEMINUS, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterIncrement" ):
@@ -2741,18 +2741,18 @@ class FoxySheepParser ( Parser ):
 
     class VerticalTildeContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def VERTICALTILDE(self):
-            return self.getToken(FoxySheepParser.VERTICALTILDE, 0)
+            return self.getToken(InputFormParser.VERTICALTILDE, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterVerticalTilde" ):
@@ -2771,18 +2771,18 @@ class FoxySheepParser ( Parser ):
 
     class ColonContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def COLON(self):
-            return self.getToken(FoxySheepParser.COLON, 0)
+            return self.getToken(InputFormParser.COLON, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterColon" ):
@@ -2801,18 +2801,18 @@ class FoxySheepParser ( Parser ):
 
     class SmallCircleContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def SMALLCIRCLE(self):
-            return self.getToken(FoxySheepParser.SMALLCIRCLE, 0)
+            return self.getToken(InputFormParser.SMALLCIRCLE, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterSmallCircle" ):
@@ -2831,17 +2831,17 @@ class FoxySheepParser ( Parser ):
 
     class ParenthesesContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LPAREN(self):
-            return self.getToken(FoxySheepParser.LPAREN, 0)
+            return self.getToken(InputFormParser.LPAREN, 0)
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
         def RPAREN(self):
-            return self.getToken(FoxySheepParser.RPAREN, 0)
+            return self.getToken(InputFormParser.RPAREN, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterParentheses" ):
@@ -2860,23 +2860,23 @@ class FoxySheepParser ( Parser ):
 
     class SpanBContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def SPANSEMICOLONS(self):
-            return self.getToken(FoxySheepParser.SPANSEMICOLONS, 0)
+            return self.getToken(InputFormParser.SPANSEMICOLONS, 0)
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def DOUBLESEMICOLON(self, i:int=None):
             if i is None:
-                return self.getTokens(FoxySheepParser.DOUBLESEMICOLON)
+                return self.getTokens(InputFormParser.DOUBLESEMICOLON)
             else:
-                return self.getToken(FoxySheepParser.DOUBLESEMICOLON, i)
+                return self.getToken(InputFormParser.DOUBLESEMICOLON, i)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterSpanB" ):
@@ -2895,18 +2895,18 @@ class FoxySheepParser ( Parser ):
 
     class ConditionContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def SLASHSEMI(self):
-            return self.getToken(FoxySheepParser.SLASHSEMI, 0)
+            return self.getToken(InputFormParser.SLASHSEMI, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterCondition" ):
@@ -2925,17 +2925,17 @@ class FoxySheepParser ( Parser ):
 
     class FloorContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LFLOOR(self):
-            return self.getToken(FoxySheepParser.LFLOOR, 0)
+            return self.getToken(InputFormParser.LFLOOR, 0)
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
         def RFLOOR(self):
-            return self.getToken(FoxySheepParser.RFLOOR, 0)
+            return self.getToken(InputFormParser.RFLOOR, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterFloor" ):
@@ -2954,18 +2954,18 @@ class FoxySheepParser ( Parser ):
 
     class CompositionContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def ATASTERISK(self):
-            return self.getToken(FoxySheepParser.ATASTERISK, 0)
+            return self.getToken(InputFormParser.ATASTERISK, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterComposition" ):
@@ -2984,18 +2984,18 @@ class FoxySheepParser ( Parser ):
 
     class CircleDotContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def CIRCLEDOT(self):
-            return self.getToken(FoxySheepParser.CIRCLEDOT, 0)
+            return self.getToken(InputFormParser.CIRCLEDOT, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterCircleDot" ):
@@ -3014,12 +3014,12 @@ class FoxySheepParser ( Parser ):
 
     class SymbolLiteralContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def symbol(self):
-            return self.getTypedRuleContext(FoxySheepParser.SymbolContext,0)
+            return self.getTypedRuleContext(InputFormParser.SymbolContext,0)
 
 
         def enterRule(self, listener:ParseTreeListener):
@@ -3039,18 +3039,18 @@ class FoxySheepParser ( Parser ):
 
     class CircleTimesContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def CIRCLETIMES(self):
-            return self.getToken(FoxySheepParser.CIRCLETIMES, 0)
+            return self.getToken(InputFormParser.CIRCLETIMES, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterCircleTimes" ):
@@ -3069,17 +3069,17 @@ class FoxySheepParser ( Parser ):
 
     class UnsetContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
         def EQUAL(self):
-            return self.getToken(FoxySheepParser.EQUAL, 0)
+            return self.getToken(InputFormParser.EQUAL, 0)
         def DOT(self):
-            return self.getToken(FoxySheepParser.DOT, 0)
+            return self.getToken(InputFormParser.DOT, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterUnset" ):
@@ -3098,14 +3098,14 @@ class FoxySheepParser ( Parser ):
 
     class DelContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def DEL(self):
-            return self.getToken(FoxySheepParser.DEL, 0)
+            return self.getToken(InputFormParser.DEL, 0)
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
 
         def enterRule(self, listener:ParseTreeListener):
@@ -3125,18 +3125,18 @@ class FoxySheepParser ( Parser ):
 
     class DiamondContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def DIAMOND(self):
-            return self.getToken(FoxySheepParser.DIAMOND, 0)
+            return self.getToken(InputFormParser.DIAMOND, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterDiamond" ):
@@ -3155,18 +3155,18 @@ class FoxySheepParser ( Parser ):
 
     class WedgeContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def WEDGE(self):
-            return self.getToken(FoxySheepParser.WEDGE, 0)
+            return self.getToken(InputFormParser.WEDGE, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterWedge" ):
@@ -3185,19 +3185,19 @@ class FoxySheepParser ( Parser ):
 
     class PutContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExprContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExprContext,0)
 
         def StringLiteral(self):
-            return self.getToken(FoxySheepParser.StringLiteral, 0)
+            return self.getToken(InputFormParser.StringLiteral, 0)
         def DOUBLEGREATER(self):
-            return self.getToken(FoxySheepParser.DOUBLEGREATER, 0)
+            return self.getToken(InputFormParser.DOUBLEGREATER, 0)
         def TRIPPLEGREATER(self):
-            return self.getToken(FoxySheepParser.TRIPPLEGREATER, 0)
+            return self.getToken(InputFormParser.TRIPPLEGREATER, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterPut" ):
@@ -3216,18 +3216,18 @@ class FoxySheepParser ( Parser ):
 
     class StringJoinContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def LESSGREATER(self):
-            return self.getToken(FoxySheepParser.LESSGREATER, 0)
+            return self.getToken(InputFormParser.LESSGREATER, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterStringJoin" ):
@@ -3246,24 +3246,24 @@ class FoxySheepParser ( Parser ):
 
     class TeeContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def LEFTTEE(self):
-            return self.getToken(FoxySheepParser.LEFTTEE, 0)
+            return self.getToken(InputFormParser.LEFTTEE, 0)
         def DOUBLELEFTTEE(self):
-            return self.getToken(FoxySheepParser.DOUBLELEFTTEE, 0)
+            return self.getToken(InputFormParser.DOUBLELEFTTEE, 0)
         def UPTEE(self):
-            return self.getToken(FoxySheepParser.UPTEE, 0)
+            return self.getToken(InputFormParser.UPTEE, 0)
         def DOWNTEE(self):
-            return self.getToken(FoxySheepParser.DOWNTEE, 0)
+            return self.getToken(InputFormParser.DOWNTEE, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterTee" ):
@@ -3282,24 +3282,24 @@ class FoxySheepParser ( Parser ):
 
     class SetContainmentContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def ELEMENT(self):
-            return self.getToken(FoxySheepParser.ELEMENT, 0)
+            return self.getToken(InputFormParser.ELEMENT, 0)
         def NOTELEMENT(self):
-            return self.getToken(FoxySheepParser.NOTELEMENT, 0)
+            return self.getToken(InputFormParser.NOTELEMENT, 0)
         def SUBSET(self):
-            return self.getToken(FoxySheepParser.SUBSET, 0)
+            return self.getToken(InputFormParser.SUBSET, 0)
         def SUPERSET(self):
-            return self.getToken(FoxySheepParser.SUPERSET, 0)
+            return self.getToken(InputFormParser.SUPERSET, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterSetContainment" ):
@@ -3318,18 +3318,18 @@ class FoxySheepParser ( Parser ):
 
     class VeeContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def VEE(self):
-            return self.getToken(FoxySheepParser.VEE, 0)
+            return self.getToken(InputFormParser.VEE, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterVee" ):
@@ -3348,18 +3348,18 @@ class FoxySheepParser ( Parser ):
 
     class CenterDotContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def CENTERDOT(self):
-            return self.getToken(FoxySheepParser.CENTERDOT, 0)
+            return self.getToken(InputFormParser.CENTERDOT, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterCenterDot" ):
@@ -3378,18 +3378,18 @@ class FoxySheepParser ( Parser ):
 
     class TimesContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def MultiplicationSymbol(self):
-            return self.getToken(FoxySheepParser.MultiplicationSymbol, 0)
+            return self.getToken(InputFormParser.MultiplicationSymbol, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterTimes" ):
@@ -3408,18 +3408,18 @@ class FoxySheepParser ( Parser ):
 
     class StringExpressionContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def DOUBLETILDE(self):
-            return self.getToken(FoxySheepParser.DOUBLETILDE, 0)
+            return self.getToken(InputFormParser.DOUBLETILDE, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterStringExpression" ):
@@ -3438,17 +3438,17 @@ class FoxySheepParser ( Parser ):
 
     class BracketingBarContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LBRACKETINGBAR(self):
-            return self.getToken(FoxySheepParser.LBRACKETINGBAR, 0)
+            return self.getToken(InputFormParser.LBRACKETINGBAR, 0)
         def expressionList(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExpressionListContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExpressionListContext,0)
 
         def RBRACKETINGBAR(self):
-            return self.getToken(FoxySheepParser.RBRACKETINGBAR, 0)
+            return self.getToken(InputFormParser.RBRACKETINGBAR, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterBracketingBar" ):
@@ -3467,18 +3467,18 @@ class FoxySheepParser ( Parser ):
 
     class CoproductContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def COPRODUCT(self):
-            return self.getToken(FoxySheepParser.COPRODUCT, 0)
+            return self.getToken(InputFormParser.COPRODUCT, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterCoproduct" ):
@@ -3497,17 +3497,17 @@ class FoxySheepParser ( Parser ):
 
     class AngleBracketContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LANGLE(self):
-            return self.getToken(FoxySheepParser.LANGLE, 0)
+            return self.getToken(InputFormParser.LANGLE, 0)
         def expressionList(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExpressionListContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExpressionListContext,0)
 
         def RANGLE(self):
-            return self.getToken(FoxySheepParser.RANGLE, 0)
+            return self.getToken(InputFormParser.RANGLE, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterAngleBracket" ):
@@ -3526,18 +3526,18 @@ class FoxySheepParser ( Parser ):
 
     class PowerContext(ExprContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExprContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExprContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def CARET(self):
-            return self.getToken(FoxySheepParser.CARET, 0)
+            return self.getToken(InputFormParser.CARET, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterPower" ):
@@ -3558,7 +3558,7 @@ class FoxySheepParser ( Parser ):
     def expr(self, _p:int=0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = FoxySheepParser.ExprContext(self, self._ctx, _parentState)
+        localctx = InputFormParser.ExprContext(self, self._ctx, _parentState)
         _prevctx = localctx
         _startState = 2
         self.enterRecursionRule(localctx, 2, self.RULE_expr, _p)
@@ -3569,7 +3569,7 @@ class FoxySheepParser ( Parser ):
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,9,self._ctx)
             if la_ == 1:
-                localctx = FoxySheepParser.NumberContext(self, localctx)
+                localctx = InputFormParser.NumberContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
 
@@ -3578,99 +3578,99 @@ class FoxySheepParser ( Parser ):
                 pass
 
             elif la_ == 2:
-                localctx = FoxySheepParser.StringLiteralContext(self, localctx)
+                localctx = InputFormParser.StringLiteralContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 38
-                self.match(FoxySheepParser.StringLiteral)
+                self.match(InputFormParser.StringLiteral)
                 pass
 
             elif la_ == 3:
-                localctx = FoxySheepParser.ParenthesesContext(self, localctx)
+                localctx = InputFormParser.ParenthesesContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 39
-                self.match(FoxySheepParser.LPAREN)
+                self.match(InputFormParser.LPAREN)
                 self.state = 40
                 self.expr(0)
                 self.state = 41
-                self.match(FoxySheepParser.RPAREN)
+                self.match(InputFormParser.RPAREN)
                 pass
 
             elif la_ == 4:
-                localctx = FoxySheepParser.ListContext(self, localctx)
+                localctx = InputFormParser.ListContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 43
-                self.match(FoxySheepParser.LBRACE)
+                self.match(InputFormParser.LBRACE)
                 self.state = 44
                 self.expressionList()
                 self.state = 45
-                self.match(FoxySheepParser.RBRACE)
+                self.match(InputFormParser.RBRACE)
                 pass
 
             elif la_ == 5:
-                localctx = FoxySheepParser.AngleBracketContext(self, localctx)
+                localctx = InputFormParser.AngleBracketContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 47
-                self.match(FoxySheepParser.LANGLE)
+                self.match(InputFormParser.LANGLE)
                 self.state = 48
                 self.expressionList()
                 self.state = 49
-                self.match(FoxySheepParser.RANGLE)
+                self.match(InputFormParser.RANGLE)
                 pass
 
             elif la_ == 6:
-                localctx = FoxySheepParser.FloorContext(self, localctx)
+                localctx = InputFormParser.FloorContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 51
-                self.match(FoxySheepParser.LFLOOR)
+                self.match(InputFormParser.LFLOOR)
                 self.state = 52
                 self.expr(0)
                 self.state = 53
-                self.match(FoxySheepParser.RFLOOR)
+                self.match(InputFormParser.RFLOOR)
                 pass
 
             elif la_ == 7:
-                localctx = FoxySheepParser.CeilingContext(self, localctx)
+                localctx = InputFormParser.CeilingContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 55
-                self.match(FoxySheepParser.LCEILING)
+                self.match(InputFormParser.LCEILING)
                 self.state = 56
                 self.expr(0)
                 self.state = 57
-                self.match(FoxySheepParser.RCEILING)
+                self.match(InputFormParser.RCEILING)
                 pass
 
             elif la_ == 8:
-                localctx = FoxySheepParser.BracketingBarContext(self, localctx)
+                localctx = InputFormParser.BracketingBarContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 59
-                self.match(FoxySheepParser.LBRACKETINGBAR)
+                self.match(InputFormParser.LBRACKETINGBAR)
                 self.state = 60
                 self.expressionList()
                 self.state = 61
-                self.match(FoxySheepParser.RBRACKETINGBAR)
+                self.match(InputFormParser.RBRACKETINGBAR)
                 pass
 
             elif la_ == 9:
-                localctx = FoxySheepParser.DoubleBracketingBarContext(self, localctx)
+                localctx = InputFormParser.DoubleBracketingBarContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 63
-                self.match(FoxySheepParser.LDOUBLEBRACKETINGBAR)
+                self.match(InputFormParser.LDOUBLEBRACKETINGBAR)
                 self.state = 64
                 self.expressionList()
                 self.state = 65
-                self.match(FoxySheepParser.RDOUBLEBRACKETINGBAR)
+                self.match(InputFormParser.RDOUBLEBRACKETINGBAR)
                 pass
 
             elif la_ == 10:
-                localctx = FoxySheepParser.SlotContext(self, localctx)
+                localctx = InputFormParser.SlotContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 67
@@ -3678,7 +3678,7 @@ class FoxySheepParser ( Parser ):
                 pass
 
             elif la_ == 11:
-                localctx = FoxySheepParser.OutContext(self, localctx)
+                localctx = InputFormParser.OutContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 68
@@ -3686,20 +3686,20 @@ class FoxySheepParser ( Parser ):
                 pass
 
             elif la_ == 12:
-                localctx = FoxySheepParser.PatternBlanksContext(self, localctx)
+                localctx = InputFormParser.PatternBlanksContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 70
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la==FoxySheepParser.Name or _la==FoxySheepParser.BACKQUOTE:
+                if _la==InputFormParser.Name or _la==InputFormParser.BACKQUOTE:
                     self.state = 69
                     self.symbol()
 
 
                 self.state = 72
                 _la = self._input.LA(1)
-                if not(((((_la - 77)) & ~0x3f) == 0 and ((1 << (_la - 77)) & ((1 << (FoxySheepParser.TRIPPLEBLANK - 77)) | (1 << (FoxySheepParser.DOUBLEBLANK - 77)) | (1 << (FoxySheepParser.BLANK - 77)))) != 0)):
+                if not(((((_la - 77)) & ~0x3f) == 0 and ((1 << (_la - 77)) & ((1 << (InputFormParser.TRIPPLEBLANK - 77)) | (1 << (InputFormParser.DOUBLEBLANK - 77)) | (1 << (InputFormParser.BLANK - 77)))) != 0)):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
@@ -3715,23 +3715,23 @@ class FoxySheepParser ( Parser ):
                 pass
 
             elif la_ == 13:
-                localctx = FoxySheepParser.PatternBlankDotContext(self, localctx)
+                localctx = InputFormParser.PatternBlankDotContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 77
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la==FoxySheepParser.Name or _la==FoxySheepParser.BACKQUOTE:
+                if _la==InputFormParser.Name or _la==InputFormParser.BACKQUOTE:
                     self.state = 76
                     self.symbol()
 
 
                 self.state = 79
-                self.match(FoxySheepParser.BLANKDOT)
+                self.match(InputFormParser.BLANKDOT)
                 pass
 
             elif la_ == 14:
-                localctx = FoxySheepParser.SymbolLiteralContext(self, localctx)
+                localctx = InputFormParser.SymbolLiteralContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 80
@@ -3739,32 +3739,32 @@ class FoxySheepParser ( Parser ):
                 pass
 
             elif la_ == 15:
-                localctx = FoxySheepParser.GetContext(self, localctx)
+                localctx = InputFormParser.GetContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 81
-                self.match(FoxySheepParser.DOUBLELESS)
+                self.match(InputFormParser.DOUBLELESS)
                 self.state = 82
-                self.match(FoxySheepParser.StringLiteral)
+                self.match(InputFormParser.StringLiteral)
                 pass
 
             elif la_ == 16:
-                localctx = FoxySheepParser.BoxConstructorContext(self, localctx)
+                localctx = InputFormParser.BoxConstructorContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 83
-                self.match(FoxySheepParser.BoxConstructor)
+                self.match(InputFormParser.BoxConstructor)
                 self.state = 84
                 self.expr(76)
                 pass
 
             elif la_ == 17:
-                localctx = FoxySheepParser.PreIncrementContext(self, localctx)
+                localctx = InputFormParser.PreIncrementContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 85
                 _la = self._input.LA(1)
-                if not(_la==FoxySheepParser.DOUBLEPLUS or _la==FoxySheepParser.DOUBLEMINUS):
+                if not(_la==InputFormParser.DOUBLEPLUS or _la==InputFormParser.DOUBLEMINUS):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
@@ -3774,46 +3774,46 @@ class FoxySheepParser ( Parser ):
                 pass
 
             elif la_ == 18:
-                localctx = FoxySheepParser.IntegrateContext(self, localctx)
+                localctx = InputFormParser.IntegrateContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 87
-                self.match(FoxySheepParser.INTEGRAL)
+                self.match(InputFormParser.INTEGRAL)
                 self.state = 88
                 self.expr(0)
                 self.state = 89
-                self.match(FoxySheepParser.DIFFERENTIALD)
+                self.match(InputFormParser.DIFFERENTIALD)
                 self.state = 90
                 self.expr(63)
                 pass
 
             elif la_ == 19:
-                localctx = FoxySheepParser.DelContext(self, localctx)
+                localctx = InputFormParser.DelContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 92
-                self.match(FoxySheepParser.DEL)
+                self.match(InputFormParser.DEL)
                 self.state = 93
                 self.expr(62)
                 pass
 
             elif la_ == 20:
-                localctx = FoxySheepParser.SquareContext(self, localctx)
+                localctx = InputFormParser.SquareContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 94
-                self.match(FoxySheepParser.SQUARE)
+                self.match(InputFormParser.SQUARE)
                 self.state = 95
                 self.expr(61)
                 pass
 
             elif la_ == 21:
-                localctx = FoxySheepParser.UnaryPlusMinusContext(self, localctx)
+                localctx = InputFormParser.UnaryPlusMinusContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 96
                 _la = self._input.LA(1)
-                if not(((((_la - 158)) & ~0x3f) == 0 and ((1 << (_la - 158)) & ((1 << (FoxySheepParser.PLUS - 158)) | (1 << (FoxySheepParser.MINUS - 158)) | (1 << (FoxySheepParser.PLUSMINUS - 158)) | (1 << (FoxySheepParser.MINUSPLUS - 158)))) != 0)):
+                if not(((((_la - 158)) & ~0x3f) == 0 and ((1 << (_la - 158)) & ((1 << (InputFormParser.PLUS - 158)) | (1 << (InputFormParser.MINUS - 158)) | (1 << (InputFormParser.PLUSMINUS - 158)) | (1 << (InputFormParser.MINUSPLUS - 158)))) != 0)):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
@@ -3823,11 +3823,11 @@ class FoxySheepParser ( Parser ):
                 pass
 
             elif la_ == 22:
-                localctx = FoxySheepParser.SpanBContext(self, localctx)
+                localctx = InputFormParser.SpanBContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 98
-                self.match(FoxySheepParser.SPANSEMICOLONS)
+                self.match(InputFormParser.SPANSEMICOLONS)
                 self.state = 100
                 self._errHandler.sync(self)
                 la_ = self._interp.adaptivePredict(self._input,6,self._ctx)
@@ -3842,7 +3842,7 @@ class FoxySheepParser ( Parser ):
                 while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt==1:
                         self.state = 102
-                        self.match(FoxySheepParser.DOUBLESEMICOLON)
+                        self.match(InputFormParser.DOUBLESEMICOLON)
                         self.state = 104
                         self._errHandler.sync(self)
                         la_ = self._interp.adaptivePredict(self._input,7,self._ctx)
@@ -3858,12 +3858,12 @@ class FoxySheepParser ( Parser ):
                 pass
 
             elif la_ == 23:
-                localctx = FoxySheepParser.NotContext(self, localctx)
+                localctx = InputFormParser.NotContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 111
                 _la = self._input.LA(1)
-                if not(_la==FoxySheepParser.NOT or _la==FoxySheepParser.BANG):
+                if not(_la==InputFormParser.NOT or _la==InputFormParser.BANG):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
@@ -3873,30 +3873,30 @@ class FoxySheepParser ( Parser ):
                 pass
 
             elif la_ == 24:
-                localctx = FoxySheepParser.PatternExpContext(self, localctx)
+                localctx = InputFormParser.PatternExpContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 113
                 self.symbol()
                 self.state = 114
-                self.match(FoxySheepParser.RAWCOLON)
+                self.match(InputFormParser.RAWCOLON)
                 self.state = 115
                 self.expr(19)
                 pass
 
             elif la_ == 25:
-                localctx = FoxySheepParser.TagSetContext(self, localctx)
+                localctx = InputFormParser.TagSetContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 117
                 self.symbol()
                 self.state = 118
-                self.match(FoxySheepParser.SLASHCOLON)
+                self.match(InputFormParser.SLASHCOLON)
                 self.state = 119
                 self.expr(0)
                 self.state = 120
                 _la = self._input.LA(1)
-                if not(_la==FoxySheepParser.EQUAL or _la==FoxySheepParser.COLONEQUAL):
+                if not(_la==InputFormParser.EQUAL or _la==InputFormParser.COLONEQUAL):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
@@ -3906,19 +3906,19 @@ class FoxySheepParser ( Parser ):
                 pass
 
             elif la_ == 26:
-                localctx = FoxySheepParser.TagUnsetContext(self, localctx)
+                localctx = InputFormParser.TagUnsetContext(self, localctx)
                 self._ctx = localctx
                 _prevctx = localctx
                 self.state = 123
                 self.symbol()
                 self.state = 124
-                self.match(FoxySheepParser.SLASHCOLON)
+                self.match(InputFormParser.SLASHCOLON)
                 self.state = 125
                 self.expr(0)
                 self.state = 126
-                self.match(FoxySheepParser.EQUAL)
+                self.match(InputFormParser.EQUAL)
                 self.state = 127
-                self.match(FoxySheepParser.DOT)
+                self.match(InputFormParser.DOT)
                 pass
 
 
@@ -3935,76 +3935,76 @@ class FoxySheepParser ( Parser ):
                     self._errHandler.sync(self)
                     la_ = self._interp.adaptivePredict(self._input,15,self._ctx)
                     if la_ == 1:
-                        localctx = FoxySheepParser.PatternTestContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.PatternTestContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 131
                         if not self.precpred(self._ctx, 79):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 79)")
                         self.state = 132
-                        self.match(FoxySheepParser.QUESTIONMARK)
+                        self.match(InputFormParser.QUESTIONMARK)
                         self.state = 133
                         self.expr(80)
                         pass
 
                     elif la_ == 2:
-                        localctx = FoxySheepParser.CompositionContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.CompositionContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 134
                         if not self.precpred(self._ctx, 73):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 73)")
                         self.state = 135
-                        self.match(FoxySheepParser.ATASTERISK)
+                        self.match(InputFormParser.ATASTERISK)
                         self.state = 136
                         self.expr(74)
                         pass
 
                     elif la_ == 3:
-                        localctx = FoxySheepParser.RightCompositionContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.RightCompositionContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 137
                         if not self.precpred(self._ctx, 72):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 72)")
                         self.state = 138
-                        self.match(FoxySheepParser.SLASHASTERISK)
+                        self.match(InputFormParser.SLASHASTERISK)
                         self.state = 139
                         self.expr(73)
                         pass
 
                     elif la_ == 4:
-                        localctx = FoxySheepParser.PrefixContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.PrefixContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 140
                         if not self.precpred(self._ctx, 71):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 71)")
                         self.state = 141
-                        self.match(FoxySheepParser.AT)
+                        self.match(InputFormParser.AT)
                         self.state = 142
                         self.expr(71)
                         pass
 
                     elif la_ == 5:
-                        localctx = FoxySheepParser.InfixContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.InfixContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 143
                         if not self.precpred(self._ctx, 70):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 70)")
                         self.state = 144
-                        self.match(FoxySheepParser.TILDE)
+                        self.match(InputFormParser.TILDE)
                         self.state = 145
                         self.expr(0)
                         self.state = 146
-                        self.match(FoxySheepParser.TILDE)
+                        self.match(InputFormParser.TILDE)
                         self.state = 147
                         self.expr(71)
                         pass
 
                     elif la_ == 6:
-                        localctx = FoxySheepParser.MapApplyContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.MapApplyContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 149
                         if not self.precpred(self._ctx, 69):
@@ -4012,7 +4012,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 69)")
                         self.state = 150
                         _la = self._input.LA(1)
-                        if not(((((_la - 114)) & ~0x3f) == 0 and ((1 << (_la - 114)) & ((1 << (FoxySheepParser.TRIPPLEAT - 114)) | (1 << (FoxySheepParser.DOUBLEAT - 114)) | (1 << (FoxySheepParser.MAP - 114)) | (1 << (FoxySheepParser.MAPALL - 114)))) != 0)):
+                        if not(((((_la - 114)) & ~0x3f) == 0 and ((1 << (_la - 114)) & ((1 << (InputFormParser.TRIPPLEAT - 114)) | (1 << (InputFormParser.DOUBLEAT - 114)) | (1 << (InputFormParser.MAP - 114)) | (1 << (InputFormParser.MAPALL - 114)))) != 0)):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4022,98 +4022,98 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 7:
-                        localctx = FoxySheepParser.StringJoinContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.StringJoinContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 152
                         if not self.precpred(self._ctx, 65):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 65)")
                         self.state = 153
-                        self.match(FoxySheepParser.LESSGREATER)
+                        self.match(InputFormParser.LESSGREATER)
                         self.state = 154
                         self.expr(66)
                         pass
 
                     elif la_ == 8:
-                        localctx = FoxySheepParser.PowerContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.PowerContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 155
                         if not self.precpred(self._ctx, 64):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 64)")
                         self.state = 156
-                        self.match(FoxySheepParser.CARET)
+                        self.match(InputFormParser.CARET)
                         self.state = 157
                         self.expr(64)
                         pass
 
                     elif la_ == 9:
-                        localctx = FoxySheepParser.SmallCircleContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.SmallCircleContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 158
                         if not self.precpred(self._ctx, 60):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 60)")
                         self.state = 159
-                        self.match(FoxySheepParser.SMALLCIRCLE)
+                        self.match(InputFormParser.SMALLCIRCLE)
                         self.state = 160
                         self.expr(61)
                         pass
 
                     elif la_ == 10:
-                        localctx = FoxySheepParser.CircleDotContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.CircleDotContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 161
                         if not self.precpred(self._ctx, 59):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 59)")
                         self.state = 162
-                        self.match(FoxySheepParser.CIRCLEDOT)
+                        self.match(InputFormParser.CIRCLEDOT)
                         self.state = 163
                         self.expr(60)
                         pass
 
                     elif la_ == 11:
-                        localctx = FoxySheepParser.NonCommutativeMultiplyContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.NonCommutativeMultiplyContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 164
                         if not self.precpred(self._ctx, 58):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 58)")
                         self.state = 165
-                        self.match(FoxySheepParser.DOUBLEASTERISK)
+                        self.match(InputFormParser.DOUBLEASTERISK)
                         self.state = 166
                         self.expr(59)
                         pass
 
                     elif la_ == 12:
-                        localctx = FoxySheepParser.CrossContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.CrossContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 167
                         if not self.precpred(self._ctx, 57):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 57)")
                         self.state = 168
-                        self.match(FoxySheepParser.CROSS)
+                        self.match(InputFormParser.CROSS)
                         self.state = 169
                         self.expr(58)
                         pass
 
                     elif la_ == 13:
-                        localctx = FoxySheepParser.DotContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.DotContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 170
                         if not self.precpred(self._ctx, 56):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 56)")
                         self.state = 171
-                        self.match(FoxySheepParser.DOT)
+                        self.match(InputFormParser.DOT)
                         self.state = 172
                         self.expr(57)
                         pass
 
                     elif la_ == 14:
-                        localctx = FoxySheepParser.DivideContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.DivideContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 173
                         if not self.precpred(self._ctx, 54):
@@ -4121,7 +4121,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 54)")
                         self.state = 174
                         _la = self._input.LA(1)
-                        if not(_la==FoxySheepParser.SLASH or _la==FoxySheepParser.DIVIDE):
+                        if not(_la==InputFormParser.SLASH or _la==InputFormParser.DIVIDE):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4131,85 +4131,85 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 15:
-                        localctx = FoxySheepParser.BackslashContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.BackslashContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 176
                         if not self.precpred(self._ctx, 53):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 53)")
                         self.state = 177
-                        self.match(FoxySheepParser.RAWBACKSLASH)
+                        self.match(InputFormParser.RAWBACKSLASH)
                         self.state = 178
                         self.expr(54)
                         pass
 
                     elif la_ == 16:
-                        localctx = FoxySheepParser.DiamondContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.DiamondContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 179
                         if not self.precpred(self._ctx, 52):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 52)")
                         self.state = 180
-                        self.match(FoxySheepParser.DIAMOND)
+                        self.match(InputFormParser.DIAMOND)
                         self.state = 181
                         self.expr(53)
                         pass
 
                     elif la_ == 17:
-                        localctx = FoxySheepParser.WedgeContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.WedgeContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 182
                         if not self.precpred(self._ctx, 51):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 51)")
                         self.state = 183
-                        self.match(FoxySheepParser.WEDGE)
+                        self.match(InputFormParser.WEDGE)
                         self.state = 184
                         self.expr(52)
                         pass
 
                     elif la_ == 18:
-                        localctx = FoxySheepParser.VeeContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.VeeContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 185
                         if not self.precpred(self._ctx, 50):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 50)")
                         self.state = 186
-                        self.match(FoxySheepParser.VEE)
+                        self.match(InputFormParser.VEE)
                         self.state = 187
                         self.expr(51)
                         pass
 
                     elif la_ == 19:
-                        localctx = FoxySheepParser.CircleTimesContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.CircleTimesContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 188
                         if not self.precpred(self._ctx, 49):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 49)")
                         self.state = 189
-                        self.match(FoxySheepParser.CIRCLETIMES)
+                        self.match(InputFormParser.CIRCLETIMES)
                         self.state = 190
                         self.expr(50)
                         pass
 
                     elif la_ == 20:
-                        localctx = FoxySheepParser.CenterDotContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.CenterDotContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 191
                         if not self.precpred(self._ctx, 48):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 48)")
                         self.state = 192
-                        self.match(FoxySheepParser.CENTERDOT)
+                        self.match(InputFormParser.CENTERDOT)
                         self.state = 193
                         self.expr(49)
                         pass
 
                     elif la_ == 21:
-                        localctx = FoxySheepParser.TimesContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.TimesContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 194
                         if not self.precpred(self._ctx, 47):
@@ -4218,9 +4218,9 @@ class FoxySheepParser ( Parser ):
                         self.state = 196
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        if _la==FoxySheepParser.MultiplicationSymbol:
+                        if _la==InputFormParser.MultiplicationSymbol:
                             self.state = 195
-                            self.match(FoxySheepParser.MultiplicationSymbol)
+                            self.match(InputFormParser.MultiplicationSymbol)
 
 
                         self.state = 198
@@ -4228,98 +4228,98 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 22:
-                        localctx = FoxySheepParser.StarContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.StarContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 199
                         if not self.precpred(self._ctx, 46):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 46)")
                         self.state = 200
-                        self.match(FoxySheepParser.STAR)
+                        self.match(InputFormParser.STAR)
                         self.state = 201
                         self.expr(47)
                         pass
 
                     elif la_ == 23:
-                        localctx = FoxySheepParser.VerticalTildeContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.VerticalTildeContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 202
                         if not self.precpred(self._ctx, 45):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 45)")
                         self.state = 203
-                        self.match(FoxySheepParser.VERTICALTILDE)
+                        self.match(InputFormParser.VERTICALTILDE)
                         self.state = 204
                         self.expr(46)
                         pass
 
                     elif la_ == 24:
-                        localctx = FoxySheepParser.CoproductContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.CoproductContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 205
                         if not self.precpred(self._ctx, 44):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 44)")
                         self.state = 206
-                        self.match(FoxySheepParser.COPRODUCT)
+                        self.match(InputFormParser.COPRODUCT)
                         self.state = 207
                         self.expr(45)
                         pass
 
                     elif la_ == 25:
-                        localctx = FoxySheepParser.CapContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.CapContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 208
                         if not self.precpred(self._ctx, 43):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 43)")
                         self.state = 209
-                        self.match(FoxySheepParser.CAP)
+                        self.match(InputFormParser.CAP)
                         self.state = 210
                         self.expr(44)
                         pass
 
                     elif la_ == 26:
-                        localctx = FoxySheepParser.CupContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.CupContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 211
                         if not self.precpred(self._ctx, 42):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 42)")
                         self.state = 212
-                        self.match(FoxySheepParser.CUP)
+                        self.match(InputFormParser.CUP)
                         self.state = 213
                         self.expr(43)
                         pass
 
                     elif la_ == 27:
-                        localctx = FoxySheepParser.CirclePlusContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.CirclePlusContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 214
                         if not self.precpred(self._ctx, 41):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 41)")
                         self.state = 215
-                        self.match(FoxySheepParser.CIRCLEPLUS)
+                        self.match(InputFormParser.CIRCLEPLUS)
                         self.state = 216
                         self.expr(42)
                         pass
 
                     elif la_ == 28:
-                        localctx = FoxySheepParser.CircleMinusContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.CircleMinusContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 217
                         if not self.precpred(self._ctx, 40):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 40)")
                         self.state = 218
-                        self.match(FoxySheepParser.CIRCLEMINUS)
+                        self.match(InputFormParser.CIRCLEMINUS)
                         self.state = 219
                         self.expr(41)
                         pass
 
                     elif la_ == 29:
-                        localctx = FoxySheepParser.PlusOpContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.PlusOpContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 220
                         if not self.precpred(self._ctx, 39):
@@ -4327,7 +4327,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 39)")
                         self.state = 221
                         _la = self._input.LA(1)
-                        if not(((((_la - 182)) & ~0x3f) == 0 and ((1 << (_la - 182)) & ((1 << (FoxySheepParser.BINARYPLUS - 182)) | (1 << (FoxySheepParser.BINARYMINUS - 182)) | (1 << (FoxySheepParser.BINARYMINUSPLUS - 182)) | (1 << (FoxySheepParser.BINARYPLUSMINUS - 182)))) != 0)):
+                        if not(((((_la - 182)) & ~0x3f) == 0 and ((1 << (_la - 182)) & ((1 << (InputFormParser.BINARYPLUS - 182)) | (1 << (InputFormParser.BINARYMINUS - 182)) | (1 << (InputFormParser.BINARYMINUSPLUS - 182)) | (1 << (InputFormParser.BINARYPLUSMINUS - 182)))) != 0)):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4337,33 +4337,33 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 30:
-                        localctx = FoxySheepParser.IntersectionContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.IntersectionContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 223
                         if not self.precpred(self._ctx, 38):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 38)")
                         self.state = 224
-                        self.match(FoxySheepParser.INTERSECTION)
+                        self.match(InputFormParser.INTERSECTION)
                         self.state = 225
                         self.expr(39)
                         pass
 
                     elif la_ == 31:
-                        localctx = FoxySheepParser.UnionContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.UnionContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 226
                         if not self.precpred(self._ctx, 37):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 37)")
                         self.state = 227
-                        self.match(FoxySheepParser.UNION)
+                        self.match(InputFormParser.UNION)
                         self.state = 228
                         self.expr(38)
                         pass
 
                     elif la_ == 32:
-                        localctx = FoxySheepParser.ComparisonContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.ComparisonContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 229
                         if not self.precpred(self._ctx, 34):
@@ -4371,7 +4371,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 34)")
                         self.state = 230
                         _la = self._input.LA(1)
-                        if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << FoxySheepParser.EqualSymbol) | (1 << FoxySheepParser.NotEqualSymbol) | (1 << FoxySheepParser.GreaterEqualSymbol) | (1 << FoxySheepParser.LessEqualSymbol) | (1 << FoxySheepParser.LESS) | (1 << FoxySheepParser.GREATER))) != 0)):
+                        if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << InputFormParser.EqualSymbol) | (1 << InputFormParser.NotEqualSymbol) | (1 << InputFormParser.GreaterEqualSymbol) | (1 << InputFormParser.LessEqualSymbol) | (1 << InputFormParser.LESS) | (1 << InputFormParser.GREATER))) != 0)):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4381,7 +4381,7 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 33:
-                        localctx = FoxySheepParser.VerticalBarContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.VerticalBarContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 232
                         if not self.precpred(self._ctx, 33):
@@ -4389,7 +4389,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 33)")
                         self.state = 233
                         _la = self._input.LA(1)
-                        if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << FoxySheepParser.VERTICALBAR) | (1 << FoxySheepParser.NOTVERTICALBAR) | (1 << FoxySheepParser.DOUBLEVERTICALBAR) | (1 << FoxySheepParser.NOTDOUBLEVERTICALBAR))) != 0)):
+                        if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << InputFormParser.VERTICALBAR) | (1 << InputFormParser.NOTVERTICALBAR) | (1 << InputFormParser.DOUBLEVERTICALBAR) | (1 << InputFormParser.NOTDOUBLEVERTICALBAR))) != 0)):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4399,7 +4399,7 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 34:
-                        localctx = FoxySheepParser.SameContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.SameContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 235
                         if not self.precpred(self._ctx, 32):
@@ -4407,7 +4407,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 32)")
                         self.state = 236
                         _la = self._input.LA(1)
-                        if not(_la==FoxySheepParser.TRIPPLEEQUAL or _la==FoxySheepParser.EQUALBANGEQUAL):
+                        if not(_la==InputFormParser.TRIPPLEEQUAL or _la==InputFormParser.EQUALBANGEQUAL):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4417,7 +4417,7 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 35:
-                        localctx = FoxySheepParser.SetContainmentContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.SetContainmentContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 238
                         if not self.precpred(self._ctx, 31):
@@ -4425,7 +4425,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 31)")
                         self.state = 239
                         _la = self._input.LA(1)
-                        if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << FoxySheepParser.ELEMENT) | (1 << FoxySheepParser.NOTELEMENT) | (1 << FoxySheepParser.SUBSET) | (1 << FoxySheepParser.SUPERSET))) != 0)):
+                        if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << InputFormParser.ELEMENT) | (1 << InputFormParser.NOTELEMENT) | (1 << InputFormParser.SUBSET) | (1 << InputFormParser.SUPERSET))) != 0)):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4435,7 +4435,7 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 36:
-                        localctx = FoxySheepParser.AndContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.AndContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 241
                         if not self.precpred(self._ctx, 29):
@@ -4443,7 +4443,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 29)")
                         self.state = 242
                         _la = self._input.LA(1)
-                        if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << FoxySheepParser.DOUBLEAMP) | (1 << FoxySheepParser.AND) | (1 << FoxySheepParser.NAND))) != 0)):
+                        if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << InputFormParser.DOUBLEAMP) | (1 << InputFormParser.AND) | (1 << InputFormParser.NAND))) != 0)):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4453,7 +4453,7 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 37:
-                        localctx = FoxySheepParser.XorContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.XorContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 244
                         if not self.precpred(self._ctx, 28):
@@ -4461,7 +4461,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 28)")
                         self.state = 245
                         _la = self._input.LA(1)
-                        if not(_la==FoxySheepParser.XOR or _la==FoxySheepParser.XNOR):
+                        if not(_la==InputFormParser.XOR or _la==InputFormParser.XNOR):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4471,7 +4471,7 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 38:
-                        localctx = FoxySheepParser.OrContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.OrContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 247
                         if not self.precpred(self._ctx, 27):
@@ -4479,7 +4479,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 27)")
                         self.state = 248
                         _la = self._input.LA(1)
-                        if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << FoxySheepParser.DOUBLEBAR) | (1 << FoxySheepParser.OR) | (1 << FoxySheepParser.NOR))) != 0)):
+                        if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << InputFormParser.DOUBLEBAR) | (1 << InputFormParser.OR) | (1 << InputFormParser.NOR))) != 0)):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4489,20 +4489,20 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 39:
-                        localctx = FoxySheepParser.EquivalentContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.EquivalentContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 250
                         if not self.precpred(self._ctx, 26):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 26)")
                         self.state = 251
-                        self.match(FoxySheepParser.LRDOUBLEARROW)
+                        self.match(InputFormParser.LRDOUBLEARROW)
                         self.state = 252
                         self.expr(27)
                         pass
 
                     elif la_ == 40:
-                        localctx = FoxySheepParser.ImpliesContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.ImpliesContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 253
                         if not self.precpred(self._ctx, 25):
@@ -4510,7 +4510,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 25)")
                         self.state = 254
                         _la = self._input.LA(1)
-                        if not(_la==FoxySheepParser.RDOUBLEARROW or _la==FoxySheepParser.LCONTAINS):
+                        if not(_la==InputFormParser.RDOUBLEARROW or _la==InputFormParser.LCONTAINS):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4520,7 +4520,7 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 41:
-                        localctx = FoxySheepParser.RightTeeContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.RightTeeContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 256
                         if not self.precpred(self._ctx, 24):
@@ -4528,7 +4528,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 24)")
                         self.state = 257
                         _la = self._input.LA(1)
-                        if not(_la==FoxySheepParser.RIGHTTEE or _la==FoxySheepParser.DOUBLERIGHTTEE):
+                        if not(_la==InputFormParser.RIGHTTEE or _la==InputFormParser.DOUBLERIGHTTEE):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4538,7 +4538,7 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 42:
-                        localctx = FoxySheepParser.TeeContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.TeeContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 259
                         if not self.precpred(self._ctx, 23):
@@ -4546,7 +4546,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 23)")
                         self.state = 260
                         _la = self._input.LA(1)
-                        if not(((((_la - 67)) & ~0x3f) == 0 and ((1 << (_la - 67)) & ((1 << (FoxySheepParser.LEFTTEE - 67)) | (1 << (FoxySheepParser.DOUBLELEFTTEE - 67)) | (1 << (FoxySheepParser.UPTEE - 67)) | (1 << (FoxySheepParser.DOWNTEE - 67)))) != 0)):
+                        if not(((((_la - 67)) & ~0x3f) == 0 and ((1 << (_la - 67)) & ((1 << (InputFormParser.LEFTTEE - 67)) | (1 << (InputFormParser.DOUBLELEFTTEE - 67)) | (1 << (InputFormParser.UPTEE - 67)) | (1 << (InputFormParser.DOWNTEE - 67)))) != 0)):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4556,72 +4556,72 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 43:
-                        localctx = FoxySheepParser.SuchThatContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.SuchThatContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 262
                         if not self.precpred(self._ctx, 22):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 22)")
                         self.state = 263
-                        self.match(FoxySheepParser.SUCHTHAT)
+                        self.match(InputFormParser.SUCHTHAT)
                         self.state = 264
                         self.expr(22)
                         pass
 
                     elif la_ == 44:
-                        localctx = FoxySheepParser.AlternativesContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.AlternativesContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 265
                         if not self.precpred(self._ctx, 20):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 20)")
                         self.state = 266
-                        self.match(FoxySheepParser.BAR)
+                        self.match(InputFormParser.BAR)
                         self.state = 267
                         self.expr(21)
                         pass
 
                     elif la_ == 45:
-                        localctx = FoxySheepParser.OptionalContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.OptionalContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 268
                         if not self.precpred(self._ctx, 18):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 18)")
                         self.state = 269
-                        self.match(FoxySheepParser.RAWCOLON)
+                        self.match(InputFormParser.RAWCOLON)
                         self.state = 270
                         self.expr(19)
                         pass
 
                     elif la_ == 46:
-                        localctx = FoxySheepParser.StringExpressionContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.StringExpressionContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 271
                         if not self.precpred(self._ctx, 17):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 17)")
                         self.state = 272
-                        self.match(FoxySheepParser.DOUBLETILDE)
+                        self.match(InputFormParser.DOUBLETILDE)
                         self.state = 273
                         self.expr(18)
                         pass
 
                     elif la_ == 47:
-                        localctx = FoxySheepParser.ConditionContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.ConditionContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 274
                         if not self.precpred(self._ctx, 16):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 16)")
                         self.state = 275
-                        self.match(FoxySheepParser.SLASHSEMI)
+                        self.match(InputFormParser.SLASHSEMI)
                         self.state = 276
                         self.expr(17)
                         pass
 
                     elif la_ == 48:
-                        localctx = FoxySheepParser.RuleContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.RuleContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 277
                         if not self.precpred(self._ctx, 15):
@@ -4629,7 +4629,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 15)")
                         self.state = 278
                         _la = self._input.LA(1)
-                        if not(((((_la - 87)) & ~0x3f) == 0 and ((1 << (_la - 87)) & ((1 << (FoxySheepParser.MINUSGREATER - 87)) | (1 << (FoxySheepParser.RARROW - 87)) | (1 << (FoxySheepParser.COLONGREATER - 87)) | (1 << (FoxySheepParser.COLONARROW - 87)))) != 0)):
+                        if not(((((_la - 87)) & ~0x3f) == 0 and ((1 << (_la - 87)) & ((1 << (InputFormParser.MINUSGREATER - 87)) | (1 << (InputFormParser.RARROW - 87)) | (1 << (InputFormParser.COLONGREATER - 87)) | (1 << (InputFormParser.COLONARROW - 87)))) != 0)):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4639,7 +4639,7 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 49:
-                        localctx = FoxySheepParser.ReplaceAllContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.ReplaceAllContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 280
                         if not self.precpred(self._ctx, 14):
@@ -4647,7 +4647,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 14)")
                         self.state = 281
                         _la = self._input.LA(1)
-                        if not(_la==FoxySheepParser.SLASHDOT or _la==FoxySheepParser.DOUBLESLASHDOT):
+                        if not(_la==InputFormParser.SLASHDOT or _la==InputFormParser.DOUBLESLASHDOT):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4657,7 +4657,7 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 50:
-                        localctx = FoxySheepParser.OpEqualsContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.OpEqualsContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 283
                         if not self.precpred(self._ctx, 13):
@@ -4665,7 +4665,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 13)")
                         self.state = 284
                         _la = self._input.LA(1)
-                        if not(((((_la - 98)) & ~0x3f) == 0 and ((1 << (_la - 98)) & ((1 << (FoxySheepParser.PLUSEQUAL - 98)) | (1 << (FoxySheepParser.MINUSEQUAL - 98)) | (1 << (FoxySheepParser.ASTERISKEQUAL - 98)) | (1 << (FoxySheepParser.SLASHEQUAL - 98)))) != 0)):
+                        if not(((((_la - 98)) & ~0x3f) == 0 and ((1 << (_la - 98)) & ((1 << (InputFormParser.PLUSEQUAL - 98)) | (1 << (InputFormParser.MINUSEQUAL - 98)) | (1 << (InputFormParser.ASTERISKEQUAL - 98)) | (1 << (InputFormParser.SLASHEQUAL - 98)))) != 0)):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4675,72 +4675,72 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 51:
-                        localctx = FoxySheepParser.ColonContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.ColonContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 286
                         if not self.precpred(self._ctx, 11):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 11)")
                         self.state = 287
-                        self.match(FoxySheepParser.COLON)
+                        self.match(InputFormParser.COLON)
                         self.state = 288
                         self.expr(12)
                         pass
 
                     elif la_ == 52:
-                        localctx = FoxySheepParser.PostfixContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.PostfixContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 289
                         if not self.precpred(self._ctx, 10):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 10)")
                         self.state = 290
-                        self.match(FoxySheepParser.DOUBLESLASH)
+                        self.match(InputFormParser.DOUBLESLASH)
                         self.state = 291
                         self.expr(11)
                         pass
 
                     elif la_ == 53:
-                        localctx = FoxySheepParser.VerticalSeparatorContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.VerticalSeparatorContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 292
                         if not self.precpred(self._ctx, 9):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 9)")
                         self.state = 293
-                        self.match(FoxySheepParser.VERTICALSEPARATOR)
+                        self.match(InputFormParser.VERTICALSEPARATOR)
                         self.state = 294
                         self.expr(10)
                         pass
 
                     elif la_ == 54:
-                        localctx = FoxySheepParser.ThereforeContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.ThereforeContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 295
                         if not self.precpred(self._ctx, 8):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 8)")
                         self.state = 296
-                        self.match(FoxySheepParser.THEREFORE)
+                        self.match(InputFormParser.THEREFORE)
                         self.state = 297
                         self.expr(8)
                         pass
 
                     elif la_ == 55:
-                        localctx = FoxySheepParser.BecauseContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.BecauseContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 298
                         if not self.precpred(self._ctx, 7):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 7)")
                         self.state = 299
-                        self.match(FoxySheepParser.BECAUSE)
+                        self.match(InputFormParser.BECAUSE)
                         self.state = 300
                         self.expr(8)
                         pass
 
                     elif la_ == 56:
-                        localctx = FoxySheepParser.SetContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.SetContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 301
                         if not self.precpred(self._ctx, 5):
@@ -4748,7 +4748,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
                         self.state = 302
                         _la = self._input.LA(1)
-                        if not(_la==FoxySheepParser.EQUAL or ((((_la - 103)) & ~0x3f) == 0 and ((1 << (_la - 103)) & ((1 << (FoxySheepParser.CARETCOLONEQUAL - 103)) | (1 << (FoxySheepParser.COLONEQUAL - 103)) | (1 << (FoxySheepParser.CARETEQUAL - 103)) | (1 << (FoxySheepParser.FUNCTIONARROW - 103)))) != 0)):
+                        if not(_la==InputFormParser.EQUAL or ((((_la - 103)) & ~0x3f) == 0 and ((1 << (_la - 103)) & ((1 << (InputFormParser.CARETCOLONEQUAL - 103)) | (1 << (InputFormParser.COLONEQUAL - 103)) | (1 << (InputFormParser.CARETEQUAL - 103)) | (1 << (InputFormParser.FUNCTIONARROW - 103)))) != 0)):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4758,45 +4758,45 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 57:
-                        localctx = FoxySheepParser.MessageContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.MessageContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 304
                         if not self.precpred(self._ctx, 86):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 86)")
                         self.state = 305
-                        self.match(FoxySheepParser.DOUBLECOLON)
+                        self.match(InputFormParser.DOUBLECOLON)
                         self.state = 306
-                        self.match(FoxySheepParser.StringLiteral)
+                        self.match(InputFormParser.StringLiteral)
                         self.state = 309
                         self._errHandler.sync(self)
                         la_ = self._interp.adaptivePredict(self._input,11,self._ctx)
                         if la_ == 1:
                             self.state = 307
-                            self.match(FoxySheepParser.DOUBLECOLON)
+                            self.match(InputFormParser.DOUBLECOLON)
                             self.state = 308
-                            self.match(FoxySheepParser.StringLiteral)
+                            self.match(InputFormParser.StringLiteral)
 
 
                         pass
 
                     elif la_ == 58:
-                        localctx = FoxySheepParser.HeadExpressionContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.HeadExpressionContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 311
                         if not self.precpred(self._ctx, 78):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 78)")
                         self.state = 312
-                        self.match(FoxySheepParser.LBRACKET)
+                        self.match(InputFormParser.LBRACKET)
                         self.state = 313
                         self.expressionList()
                         self.state = 314
-                        self.match(FoxySheepParser.RBRACKET)
+                        self.match(InputFormParser.RBRACKET)
                         pass
 
                     elif la_ == 59:
-                        localctx = FoxySheepParser.AccessorContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.AccessorContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 316
                         if not self.precpred(self._ctx, 77):
@@ -4807,7 +4807,7 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 60:
-                        localctx = FoxySheepParser.IncrementContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.IncrementContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 318
                         if not self.precpred(self._ctx, 75):
@@ -4815,7 +4815,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 75)")
                         self.state = 319
                         _la = self._input.LA(1)
-                        if not(_la==FoxySheepParser.DOUBLEPLUS or _la==FoxySheepParser.DOUBLEMINUS):
+                        if not(_la==InputFormParser.DOUBLEPLUS or _la==InputFormParser.DOUBLEMINUS):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4823,7 +4823,7 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 61:
-                        localctx = FoxySheepParser.FactorialContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.FactorialContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 320
                         if not self.precpred(self._ctx, 68):
@@ -4831,7 +4831,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 68)")
                         self.state = 321
                         _la = self._input.LA(1)
-                        if not(_la==FoxySheepParser.DOUBLEBANG or _la==FoxySheepParser.BANG):
+                        if not(_la==InputFormParser.DOUBLEBANG or _la==InputFormParser.BANG):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4839,7 +4839,7 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 62:
-                        localctx = FoxySheepParser.ConjugateContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.ConjugateContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 322
                         if not self.precpred(self._ctx, 67):
@@ -4847,7 +4847,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 67)")
                         self.state = 323
                         _la = self._input.LA(1)
-                        if not(((((_la - 132)) & ~0x3f) == 0 and ((1 << (_la - 132)) & ((1 << (FoxySheepParser.TRANSPOSE - 132)) | (1 << (FoxySheepParser.CONJUGATETRANSPOSE - 132)) | (1 << (FoxySheepParser.HERMITIANCONJUGATE - 132)) | (1 << (FoxySheepParser.CONJUGATE - 132)))) != 0)):
+                        if not(((((_la - 132)) & ~0x3f) == 0 and ((1 << (_la - 132)) & ((1 << (InputFormParser.TRANSPOSE - 132)) | (1 << (InputFormParser.CONJUGATETRANSPOSE - 132)) | (1 << (InputFormParser.HERMITIANCONJUGATE - 132)) | (1 << (InputFormParser.CONJUGATE - 132)))) != 0)):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4855,7 +4855,7 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 63:
-                        localctx = FoxySheepParser.DerivativeContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.DerivativeContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 324
                         if not self.precpred(self._ctx, 66):
@@ -4867,7 +4867,7 @@ class FoxySheepParser ( Parser ):
                         while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                             if _alt == 1:
                                 self.state = 325
-                                self.match(FoxySheepParser.SINGLEQUOTE)
+                                self.match(InputFormParser.SINGLEQUOTE)
 
                             else:
                                 raise NoViableAltException(self)
@@ -4878,14 +4878,14 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 64:
-                        localctx = FoxySheepParser.SpanAContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.SpanAContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 330
                         if not self.precpred(self._ctx, 36):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 36)")
                         self.state = 331
-                        self.match(FoxySheepParser.DOUBLESEMICOLON)
+                        self.match(InputFormParser.DOUBLESEMICOLON)
                         self.state = 333
                         self._errHandler.sync(self)
                         la_ = self._interp.adaptivePredict(self._input,13,self._ctx)
@@ -4897,7 +4897,7 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 65:
-                        localctx = FoxySheepParser.RepeatedContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.RepeatedContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 335
                         if not self.precpred(self._ctx, 21):
@@ -4905,7 +4905,7 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 21)")
                         self.state = 336
                         _la = self._input.LA(1)
-                        if not(_la==FoxySheepParser.TRIPPLEDOT or _la==FoxySheepParser.DOUBLEDOT):
+                        if not(_la==InputFormParser.TRIPPLEDOT or _la==InputFormParser.DOUBLEDOT):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -4913,31 +4913,31 @@ class FoxySheepParser ( Parser ):
                         pass
 
                     elif la_ == 66:
-                        localctx = FoxySheepParser.FunctionContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.FunctionContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 337
                         if not self.precpred(self._ctx, 12):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 12)")
                         self.state = 338
-                        self.match(FoxySheepParser.AMP)
+                        self.match(InputFormParser.AMP)
                         pass
 
                     elif la_ == 67:
-                        localctx = FoxySheepParser.UnsetContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.UnsetContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 339
                         if not self.precpred(self._ctx, 6):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 6)")
                         self.state = 340
-                        self.match(FoxySheepParser.EQUAL)
+                        self.match(InputFormParser.EQUAL)
                         self.state = 341
-                        self.match(FoxySheepParser.DOT)
+                        self.match(InputFormParser.DOT)
                         pass
 
                     elif la_ == 68:
-                        localctx = FoxySheepParser.PutContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.PutContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 342
                         if not self.precpred(self._ctx, 2):
@@ -4945,24 +4945,24 @@ class FoxySheepParser ( Parser ):
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
                         self.state = 343
                         _la = self._input.LA(1)
-                        if not(_la==FoxySheepParser.TRIPPLEGREATER or _la==FoxySheepParser.DOUBLEGREATER):
+                        if not(_la==InputFormParser.TRIPPLEGREATER or _la==InputFormParser.DOUBLEGREATER):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
                             self.consume()
                         self.state = 344
-                        self.match(FoxySheepParser.StringLiteral)
+                        self.match(InputFormParser.StringLiteral)
                         pass
 
                     elif la_ == 69:
-                        localctx = FoxySheepParser.CompoundExpressionContext(self, FoxySheepParser.ExprContext(self, _parentctx, _parentState))
+                        localctx = InputFormParser.CompoundExpressionContext(self, InputFormParser.ExprContext(self, _parentctx, _parentState))
                         self.pushNewRecursionContext(localctx, _startState, self.RULE_expr)
                         self.state = 345
                         if not self.precpred(self._ctx, 1):
                             from antlr4.error.Errors import FailedPredicateException
                             raise FailedPredicateException(self, "self.precpred(self._ctx, 1)")
                         self.state = 346
-                        self.match(FoxySheepParser.SEMICOLON)
+                        self.match(InputFormParser.SEMICOLON)
                         self.state = 348
                         self._errHandler.sync(self)
                         la_ = self._interp.adaptivePredict(self._input,14,self._ctx)
@@ -4994,7 +4994,7 @@ class FoxySheepParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return FoxySheepParser.RULE_symbol
+            return InputFormParser.RULE_symbol
 
      
         def copyFrom(self, ctx:ParserRuleContext):
@@ -5004,14 +5004,14 @@ class FoxySheepParser ( Parser ):
 
     class ContextNameContext(SymbolContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.SymbolContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.SymbolContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def Name(self):
-            return self.getToken(FoxySheepParser.Name, 0)
+            return self.getToken(InputFormParser.Name, 0)
         def context(self):
-            return self.getTypedRuleContext(FoxySheepParser.ContextContext,0)
+            return self.getTypedRuleContext(InputFormParser.ContextContext,0)
 
 
         def enterRule(self, listener:ParseTreeListener):
@@ -5032,10 +5032,10 @@ class FoxySheepParser ( Parser ):
 
     def symbol(self):
 
-        localctx = FoxySheepParser.SymbolContext(self, self._ctx, self.state)
+        localctx = InputFormParser.SymbolContext(self, self._ctx, self.state)
         self.enterRule(localctx, 4, self.RULE_symbol)
         try:
-            localctx = FoxySheepParser.ContextNameContext(self, localctx)
+            localctx = InputFormParser.ContextNameContext(self, localctx)
             self.enterOuterAlt(localctx, 1)
             self.state = 356
             self._errHandler.sync(self)
@@ -5046,7 +5046,7 @@ class FoxySheepParser ( Parser ):
 
 
             self.state = 358
-            self.match(FoxySheepParser.Name)
+            self.match(InputFormParser.Name)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -5063,7 +5063,7 @@ class FoxySheepParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return FoxySheepParser.RULE_context
+            return InputFormParser.RULE_context
 
      
         def copyFrom(self, ctx:ParserRuleContext):
@@ -5073,17 +5073,17 @@ class FoxySheepParser ( Parser ):
 
     class SimpleContextContext(ContextContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ContextContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ContextContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def Name(self):
-            return self.getToken(FoxySheepParser.Name, 0)
+            return self.getToken(InputFormParser.Name, 0)
         def BACKQUOTE(self, i:int=None):
             if i is None:
-                return self.getTokens(FoxySheepParser.BACKQUOTE)
+                return self.getTokens(InputFormParser.BACKQUOTE)
             else:
-                return self.getToken(FoxySheepParser.BACKQUOTE, i)
+                return self.getToken(InputFormParser.BACKQUOTE, i)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterSimpleContext" ):
@@ -5102,20 +5102,20 @@ class FoxySheepParser ( Parser ):
 
     class CompoundContextContext(ContextContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ContextContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ContextContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def Name(self, i:int=None):
             if i is None:
-                return self.getTokens(FoxySheepParser.Name)
+                return self.getTokens(InputFormParser.Name)
             else:
-                return self.getToken(FoxySheepParser.Name, i)
+                return self.getToken(InputFormParser.Name, i)
         def BACKQUOTE(self, i:int=None):
             if i is None:
-                return self.getTokens(FoxySheepParser.BACKQUOTE)
+                return self.getTokens(InputFormParser.BACKQUOTE)
             else:
-                return self.getToken(FoxySheepParser.BACKQUOTE, i)
+                return self.getToken(InputFormParser.BACKQUOTE, i)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterCompoundContext" ):
@@ -5135,7 +5135,7 @@ class FoxySheepParser ( Parser ):
 
     def context(self):
 
-        localctx = FoxySheepParser.ContextContext(self, self._ctx, self.state)
+        localctx = InputFormParser.ContextContext(self, self._ctx, self.state)
         self.enterRule(localctx, 6, self.RULE_context)
         self._la = 0 # Token type
         try:
@@ -5143,33 +5143,33 @@ class FoxySheepParser ( Parser ):
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,19,self._ctx)
             if la_ == 1:
-                localctx = FoxySheepParser.SimpleContextContext(self, localctx)
+                localctx = InputFormParser.SimpleContextContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
                 self.state = 361
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la==FoxySheepParser.BACKQUOTE:
+                if _la==InputFormParser.BACKQUOTE:
                     self.state = 360
-                    self.match(FoxySheepParser.BACKQUOTE)
+                    self.match(InputFormParser.BACKQUOTE)
 
 
                 self.state = 363
-                self.match(FoxySheepParser.Name)
+                self.match(InputFormParser.Name)
                 self.state = 364
-                self.match(FoxySheepParser.BACKQUOTE)
+                self.match(InputFormParser.BACKQUOTE)
                 pass
 
             elif la_ == 2:
-                localctx = FoxySheepParser.CompoundContextContext(self, localctx)
+                localctx = InputFormParser.CompoundContextContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
                 self.state = 365
-                self.match(FoxySheepParser.Name)
+                self.match(InputFormParser.Name)
                 self.state = 366
-                self.match(FoxySheepParser.BACKQUOTE)
+                self.match(InputFormParser.BACKQUOTE)
                 self.state = 367
-                self.match(FoxySheepParser.Name)
+                self.match(InputFormParser.Name)
                 self.state = 368
-                self.match(FoxySheepParser.BACKQUOTE)
+                self.match(InputFormParser.BACKQUOTE)
                 pass
 
 
@@ -5189,7 +5189,7 @@ class FoxySheepParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return FoxySheepParser.RULE_numberLiteral
+            return InputFormParser.RULE_numberLiteral
 
      
         def copyFrom(self, ctx:ParserRuleContext):
@@ -5199,19 +5199,19 @@ class FoxySheepParser ( Parser ):
 
     class NumberBaseNContext(NumberLiteralContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.NumberLiteralContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.NumberLiteralContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def DIGITS(self):
-            return self.getToken(FoxySheepParser.DIGITS, 0)
+            return self.getToken(InputFormParser.DIGITS, 0)
         def NumberInBase(self):
-            return self.getToken(FoxySheepParser.NumberInBase, 0)
+            return self.getToken(InputFormParser.NumberInBase, 0)
         def numberLiteralPrecision(self):
-            return self.getTypedRuleContext(FoxySheepParser.NumberLiteralPrecisionContext,0)
+            return self.getTypedRuleContext(InputFormParser.NumberLiteralPrecisionContext,0)
 
         def numberLiteralExponent(self):
-            return self.getTypedRuleContext(FoxySheepParser.NumberLiteralExponentContext,0)
+            return self.getTypedRuleContext(InputFormParser.NumberLiteralExponentContext,0)
 
 
         def enterRule(self, listener:ParseTreeListener):
@@ -5231,19 +5231,19 @@ class FoxySheepParser ( Parser ):
 
     class NumberBaseTenContext(NumberLiteralContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.NumberLiteralContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.NumberLiteralContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def DIGITS(self):
-            return self.getToken(FoxySheepParser.DIGITS, 0)
+            return self.getToken(InputFormParser.DIGITS, 0)
         def DecimalNumber(self):
-            return self.getToken(FoxySheepParser.DecimalNumber, 0)
+            return self.getToken(InputFormParser.DecimalNumber, 0)
         def numberLiteralPrecision(self):
-            return self.getTypedRuleContext(FoxySheepParser.NumberLiteralPrecisionContext,0)
+            return self.getTypedRuleContext(InputFormParser.NumberLiteralPrecisionContext,0)
 
         def numberLiteralExponent(self):
-            return self.getTypedRuleContext(FoxySheepParser.NumberLiteralExponentContext,0)
+            return self.getTypedRuleContext(InputFormParser.NumberLiteralExponentContext,0)
 
 
         def enterRule(self, listener:ParseTreeListener):
@@ -5264,7 +5264,7 @@ class FoxySheepParser ( Parser ):
 
     def numberLiteral(self):
 
-        localctx = FoxySheepParser.NumberLiteralContext(self, self._ctx, self.state)
+        localctx = InputFormParser.NumberLiteralContext(self, self._ctx, self.state)
         self.enterRule(localctx, 8, self.RULE_numberLiteral)
         self._la = 0 # Token type
         try:
@@ -5272,12 +5272,12 @@ class FoxySheepParser ( Parser ):
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,24,self._ctx)
             if la_ == 1:
-                localctx = FoxySheepParser.NumberBaseNContext(self, localctx)
+                localctx = InputFormParser.NumberBaseNContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
                 self.state = 371
-                self.match(FoxySheepParser.DIGITS)
+                self.match(InputFormParser.DIGITS)
                 self.state = 372
-                self.match(FoxySheepParser.NumberInBase)
+                self.match(InputFormParser.NumberInBase)
                 self.state = 374
                 self._errHandler.sync(self)
                 la_ = self._interp.adaptivePredict(self._input,20,self._ctx)
@@ -5297,11 +5297,11 @@ class FoxySheepParser ( Parser ):
                 pass
 
             elif la_ == 2:
-                localctx = FoxySheepParser.NumberBaseTenContext(self, localctx)
+                localctx = InputFormParser.NumberBaseTenContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
                 self.state = 379
                 _la = self._input.LA(1)
-                if not(_la==FoxySheepParser.DecimalNumber or _la==FoxySheepParser.DIGITS):
+                if not(_la==InputFormParser.DecimalNumber or _la==InputFormParser.DIGITS):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
@@ -5340,19 +5340,19 @@ class FoxySheepParser ( Parser ):
             self.parser = parser
 
         def DOUBLEBACKQUOTE(self):
-            return self.getToken(FoxySheepParser.DOUBLEBACKQUOTE, 0)
+            return self.getToken(InputFormParser.DOUBLEBACKQUOTE, 0)
 
         def DecimalNumber(self):
-            return self.getToken(FoxySheepParser.DecimalNumber, 0)
+            return self.getToken(InputFormParser.DecimalNumber, 0)
 
         def DIGITS(self):
-            return self.getToken(FoxySheepParser.DIGITS, 0)
+            return self.getToken(InputFormParser.DIGITS, 0)
 
         def BACKQUOTE(self):
-            return self.getToken(FoxySheepParser.BACKQUOTE, 0)
+            return self.getToken(InputFormParser.BACKQUOTE, 0)
 
         def getRuleIndex(self):
-            return FoxySheepParser.RULE_numberLiteralPrecision
+            return InputFormParser.RULE_numberLiteralPrecision
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterNumberLiteralPrecision" ):
@@ -5373,36 +5373,36 @@ class FoxySheepParser ( Parser ):
 
     def numberLiteralPrecision(self):
 
-        localctx = FoxySheepParser.NumberLiteralPrecisionContext(self, self._ctx, self.state)
+        localctx = InputFormParser.NumberLiteralPrecisionContext(self, self._ctx, self.state)
         self.enterRule(localctx, 10, self.RULE_numberLiteralPrecision)
         self._la = 0 # Token type
         try:
             self.state = 394
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [FoxySheepParser.DOUBLEBACKQUOTE]:
+            if token in [InputFormParser.DOUBLEBACKQUOTE]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 388
-                self.match(FoxySheepParser.DOUBLEBACKQUOTE)
+                self.match(InputFormParser.DOUBLEBACKQUOTE)
                 self.state = 389
                 _la = self._input.LA(1)
-                if not(_la==FoxySheepParser.DecimalNumber or _la==FoxySheepParser.DIGITS):
+                if not(_la==InputFormParser.DecimalNumber or _la==InputFormParser.DIGITS):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
                     self.consume()
                 pass
-            elif token in [FoxySheepParser.BACKQUOTE]:
+            elif token in [InputFormParser.BACKQUOTE]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 390
-                self.match(FoxySheepParser.BACKQUOTE)
+                self.match(InputFormParser.BACKQUOTE)
                 self.state = 392
                 self._errHandler.sync(self)
                 la_ = self._interp.adaptivePredict(self._input,25,self._ctx)
                 if la_ == 1:
                     self.state = 391
                     _la = self._input.LA(1)
-                    if not(_la==FoxySheepParser.DecimalNumber or _la==FoxySheepParser.DIGITS):
+                    if not(_la==InputFormParser.DecimalNumber or _la==InputFormParser.DIGITS):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
@@ -5428,19 +5428,19 @@ class FoxySheepParser ( Parser ):
             self.parser = parser
 
         def ASTERISKCARET(self):
-            return self.getToken(FoxySheepParser.ASTERISKCARET, 0)
+            return self.getToken(InputFormParser.ASTERISKCARET, 0)
 
         def DIGITS(self):
-            return self.getToken(FoxySheepParser.DIGITS, 0)
+            return self.getToken(InputFormParser.DIGITS, 0)
 
         def PLUS(self):
-            return self.getToken(FoxySheepParser.PLUS, 0)
+            return self.getToken(InputFormParser.PLUS, 0)
 
         def MINUS(self):
-            return self.getToken(FoxySheepParser.MINUS, 0)
+            return self.getToken(InputFormParser.MINUS, 0)
 
         def getRuleIndex(self):
-            return FoxySheepParser.RULE_numberLiteralExponent
+            return InputFormParser.RULE_numberLiteralExponent
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterNumberLiteralExponent" ):
@@ -5461,20 +5461,20 @@ class FoxySheepParser ( Parser ):
 
     def numberLiteralExponent(self):
 
-        localctx = FoxySheepParser.NumberLiteralExponentContext(self, self._ctx, self.state)
+        localctx = InputFormParser.NumberLiteralExponentContext(self, self._ctx, self.state)
         self.enterRule(localctx, 12, self.RULE_numberLiteralExponent)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 396
-            self.match(FoxySheepParser.ASTERISKCARET)
+            self.match(InputFormParser.ASTERISKCARET)
             self.state = 398
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==FoxySheepParser.PLUS or _la==FoxySheepParser.MINUS:
+            if _la==InputFormParser.PLUS or _la==InputFormParser.MINUS:
                 self.state = 397
                 _la = self._input.LA(1)
-                if not(_la==FoxySheepParser.PLUS or _la==FoxySheepParser.MINUS):
+                if not(_la==InputFormParser.PLUS or _la==InputFormParser.MINUS):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
@@ -5482,7 +5482,7 @@ class FoxySheepParser ( Parser ):
 
 
             self.state = 400
-            self.match(FoxySheepParser.DIGITS)
+            self.match(InputFormParser.DIGITS)
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -5499,7 +5499,7 @@ class FoxySheepParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return FoxySheepParser.RULE_outExpression
+            return InputFormParser.RULE_outExpression
 
      
         def copyFrom(self, ctx:ParserRuleContext):
@@ -5509,12 +5509,12 @@ class FoxySheepParser ( Parser ):
 
     class OutUnnumberedContext(OutExpressionContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.OutExpressionContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.OutExpressionContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def PERCENTS(self):
-            return self.getToken(FoxySheepParser.PERCENTS, 0)
+            return self.getToken(InputFormParser.PERCENTS, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterOutUnnumbered" ):
@@ -5533,12 +5533,12 @@ class FoxySheepParser ( Parser ):
 
     class OutNumberedContext(OutExpressionContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.OutExpressionContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.OutExpressionContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def PERCENTDIGITS(self):
-            return self.getToken(FoxySheepParser.PERCENTDIGITS, 0)
+            return self.getToken(InputFormParser.PERCENTDIGITS, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterOutNumbered" ):
@@ -5558,23 +5558,23 @@ class FoxySheepParser ( Parser ):
 
     def outExpression(self):
 
-        localctx = FoxySheepParser.OutExpressionContext(self, self._ctx, self.state)
+        localctx = InputFormParser.OutExpressionContext(self, self._ctx, self.state)
         self.enterRule(localctx, 14, self.RULE_outExpression)
         try:
             self.state = 404
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [FoxySheepParser.PERCENTDIGITS]:
-                localctx = FoxySheepParser.OutNumberedContext(self, localctx)
+            if token in [InputFormParser.PERCENTDIGITS]:
+                localctx = InputFormParser.OutNumberedContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
                 self.state = 402
-                self.match(FoxySheepParser.PERCENTDIGITS)
+                self.match(InputFormParser.PERCENTDIGITS)
                 pass
-            elif token in [FoxySheepParser.PERCENTS]:
-                localctx = FoxySheepParser.OutUnnumberedContext(self, localctx)
+            elif token in [InputFormParser.PERCENTS]:
+                localctx = InputFormParser.OutUnnumberedContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
                 self.state = 403
-                self.match(FoxySheepParser.PERCENTS)
+                self.match(InputFormParser.PERCENTS)
                 pass
             else:
                 raise NoViableAltException(self)
@@ -5595,7 +5595,7 @@ class FoxySheepParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return FoxySheepParser.RULE_slotExpression
+            return InputFormParser.RULE_slotExpression
 
      
         def copyFrom(self, ctx:ParserRuleContext):
@@ -5605,12 +5605,12 @@ class FoxySheepParser ( Parser ):
 
     class SlotDigitsContext(SlotExpressionContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.SlotExpressionContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.SlotExpressionContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def HASHDIGITS(self):
-            return self.getToken(FoxySheepParser.HASHDIGITS, 0)
+            return self.getToken(InputFormParser.HASHDIGITS, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterSlotDigits" ):
@@ -5629,12 +5629,12 @@ class FoxySheepParser ( Parser ):
 
     class SlotSequenceDigitsContext(SlotExpressionContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.SlotExpressionContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.SlotExpressionContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def DOUBLEHASHDIGITS(self):
-            return self.getToken(FoxySheepParser.DOUBLEHASHDIGITS, 0)
+            return self.getToken(InputFormParser.DOUBLEHASHDIGITS, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterSlotSequenceDigits" ):
@@ -5653,12 +5653,12 @@ class FoxySheepParser ( Parser ):
 
     class SlotNamedContext(SlotExpressionContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.SlotExpressionContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.SlotExpressionContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def HASHStringLiteral(self):
-            return self.getToken(FoxySheepParser.HASHStringLiteral, 0)
+            return self.getToken(InputFormParser.HASHStringLiteral, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterSlotNamed" ):
@@ -5677,12 +5677,12 @@ class FoxySheepParser ( Parser ):
 
     class SlotSequenceContext(SlotExpressionContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.SlotExpressionContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.SlotExpressionContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def DOUBLEHASH(self):
-            return self.getToken(FoxySheepParser.DOUBLEHASH, 0)
+            return self.getToken(InputFormParser.DOUBLEHASH, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterSlotSequence" ):
@@ -5701,12 +5701,12 @@ class FoxySheepParser ( Parser ):
 
     class SlotUnnamedContext(SlotExpressionContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.SlotExpressionContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.SlotExpressionContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def HASH(self):
-            return self.getToken(FoxySheepParser.HASH, 0)
+            return self.getToken(InputFormParser.HASH, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterSlotUnnamed" ):
@@ -5726,41 +5726,41 @@ class FoxySheepParser ( Parser ):
 
     def slotExpression(self):
 
-        localctx = FoxySheepParser.SlotExpressionContext(self, self._ctx, self.state)
+        localctx = InputFormParser.SlotExpressionContext(self, self._ctx, self.state)
         self.enterRule(localctx, 16, self.RULE_slotExpression)
         try:
             self.state = 411
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [FoxySheepParser.HASHDIGITS]:
-                localctx = FoxySheepParser.SlotDigitsContext(self, localctx)
+            if token in [InputFormParser.HASHDIGITS]:
+                localctx = InputFormParser.SlotDigitsContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
                 self.state = 406
-                self.match(FoxySheepParser.HASHDIGITS)
+                self.match(InputFormParser.HASHDIGITS)
                 pass
-            elif token in [FoxySheepParser.HASHStringLiteral]:
-                localctx = FoxySheepParser.SlotNamedContext(self, localctx)
+            elif token in [InputFormParser.HASHStringLiteral]:
+                localctx = InputFormParser.SlotNamedContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
                 self.state = 407
-                self.match(FoxySheepParser.HASHStringLiteral)
+                self.match(InputFormParser.HASHStringLiteral)
                 pass
-            elif token in [FoxySheepParser.DOUBLEHASHDIGITS]:
-                localctx = FoxySheepParser.SlotSequenceDigitsContext(self, localctx)
+            elif token in [InputFormParser.DOUBLEHASHDIGITS]:
+                localctx = InputFormParser.SlotSequenceDigitsContext(self, localctx)
                 self.enterOuterAlt(localctx, 3)
                 self.state = 408
-                self.match(FoxySheepParser.DOUBLEHASHDIGITS)
+                self.match(InputFormParser.DOUBLEHASHDIGITS)
                 pass
-            elif token in [FoxySheepParser.DOUBLEHASH]:
-                localctx = FoxySheepParser.SlotSequenceContext(self, localctx)
+            elif token in [InputFormParser.DOUBLEHASH]:
+                localctx = InputFormParser.SlotSequenceContext(self, localctx)
                 self.enterOuterAlt(localctx, 4)
                 self.state = 409
-                self.match(FoxySheepParser.DOUBLEHASH)
+                self.match(InputFormParser.DOUBLEHASH)
                 pass
-            elif token in [FoxySheepParser.HASH]:
-                localctx = FoxySheepParser.SlotUnnamedContext(self, localctx)
+            elif token in [InputFormParser.HASH]:
+                localctx = InputFormParser.SlotUnnamedContext(self, localctx)
                 self.enterOuterAlt(localctx, 5)
                 self.state = 410
-                self.match(FoxySheepParser.HASH)
+                self.match(InputFormParser.HASH)
                 pass
             else:
                 raise NoViableAltException(self)
@@ -5781,7 +5781,7 @@ class FoxySheepParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return FoxySheepParser.RULE_expressionList
+            return InputFormParser.RULE_expressionList
 
      
         def copyFrom(self, ctx:ParserRuleContext):
@@ -5791,21 +5791,21 @@ class FoxySheepParser ( Parser ):
 
     class ExpressionListedContext(ExpressionListContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.ExpressionListContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.ExpressionListContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def expr(self, i:int=None):
             if i is None:
-                return self.getTypedRuleContexts(FoxySheepParser.ExprContext)
+                return self.getTypedRuleContexts(InputFormParser.ExprContext)
             else:
-                return self.getTypedRuleContext(FoxySheepParser.ExprContext,i)
+                return self.getTypedRuleContext(InputFormParser.ExprContext,i)
 
         def COMMA(self, i:int=None):
             if i is None:
-                return self.getTokens(FoxySheepParser.COMMA)
+                return self.getTokens(InputFormParser.COMMA)
             else:
-                return self.getToken(FoxySheepParser.COMMA, i)
+                return self.getToken(InputFormParser.COMMA, i)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterExpressionListed" ):
@@ -5825,16 +5825,16 @@ class FoxySheepParser ( Parser ):
 
     def expressionList(self):
 
-        localctx = FoxySheepParser.ExpressionListContext(self, self._ctx, self.state)
+        localctx = InputFormParser.ExpressionListContext(self, self._ctx, self.state)
         self.enterRule(localctx, 18, self.RULE_expressionList)
         self._la = 0 # Token type
         try:
-            localctx = FoxySheepParser.ExpressionListedContext(self, localctx)
+            localctx = InputFormParser.ExpressionListedContext(self, localctx)
             self.enterOuterAlt(localctx, 1)
             self.state = 414
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << FoxySheepParser.Name) | (1 << FoxySheepParser.DecimalNumber) | (1 << FoxySheepParser.DIGITS) | (1 << FoxySheepParser.StringLiteral) | (1 << FoxySheepParser.LPAREN) | (1 << FoxySheepParser.LBRACE) | (1 << FoxySheepParser.LANGLE) | (1 << FoxySheepParser.LFLOOR) | (1 << FoxySheepParser.LCEILING) | (1 << FoxySheepParser.LBRACKETINGBAR) | (1 << FoxySheepParser.LDOUBLEBRACKETINGBAR) | (1 << FoxySheepParser.BACKQUOTE) | (1 << FoxySheepParser.DOUBLELESS) | (1 << FoxySheepParser.NOT))) != 0) or ((((_la - 77)) & ~0x3f) == 0 and ((1 << (_la - 77)) & ((1 << (FoxySheepParser.TRIPPLEBLANK - 77)) | (1 << (FoxySheepParser.DOUBLEBLANK - 77)) | (1 << (FoxySheepParser.BLANKDOT - 77)) | (1 << (FoxySheepParser.BLANK - 77)) | (1 << (FoxySheepParser.PERCENTDIGITS - 77)) | (1 << (FoxySheepParser.PERCENTS - 77)) | (1 << (FoxySheepParser.HASHDIGITS - 77)) | (1 << (FoxySheepParser.HASHStringLiteral - 77)) | (1 << (FoxySheepParser.DOUBLEHASHDIGITS - 77)) | (1 << (FoxySheepParser.DOUBLEHASH - 77)) | (1 << (FoxySheepParser.HASH - 77)) | (1 << (FoxySheepParser.DOUBLEPLUS - 77)) | (1 << (FoxySheepParser.DOUBLEMINUS - 77)) | (1 << (FoxySheepParser.BANG - 77)) | (1 << (FoxySheepParser.INTEGRAL - 77)) | (1 << (FoxySheepParser.DEL - 77)) | (1 << (FoxySheepParser.SQUARE - 77)))) != 0) or ((((_la - 158)) & ~0x3f) == 0 and ((1 << (_la - 158)) & ((1 << (FoxySheepParser.PLUS - 158)) | (1 << (FoxySheepParser.MINUS - 158)) | (1 << (FoxySheepParser.PLUSMINUS - 158)) | (1 << (FoxySheepParser.MINUSPLUS - 158)) | (1 << (FoxySheepParser.BoxConstructor - 158)) | (1 << (FoxySheepParser.SPANSEMICOLONS - 158)))) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << InputFormParser.Name) | (1 << InputFormParser.DecimalNumber) | (1 << InputFormParser.DIGITS) | (1 << InputFormParser.StringLiteral) | (1 << InputFormParser.LPAREN) | (1 << InputFormParser.LBRACE) | (1 << InputFormParser.LANGLE) | (1 << InputFormParser.LFLOOR) | (1 << InputFormParser.LCEILING) | (1 << InputFormParser.LBRACKETINGBAR) | (1 << InputFormParser.LDOUBLEBRACKETINGBAR) | (1 << InputFormParser.BACKQUOTE) | (1 << InputFormParser.DOUBLELESS) | (1 << InputFormParser.NOT))) != 0) or ((((_la - 77)) & ~0x3f) == 0 and ((1 << (_la - 77)) & ((1 << (InputFormParser.TRIPPLEBLANK - 77)) | (1 << (InputFormParser.DOUBLEBLANK - 77)) | (1 << (InputFormParser.BLANKDOT - 77)) | (1 << (InputFormParser.BLANK - 77)) | (1 << (InputFormParser.PERCENTDIGITS - 77)) | (1 << (InputFormParser.PERCENTS - 77)) | (1 << (InputFormParser.HASHDIGITS - 77)) | (1 << (InputFormParser.HASHStringLiteral - 77)) | (1 << (InputFormParser.DOUBLEHASHDIGITS - 77)) | (1 << (InputFormParser.DOUBLEHASH - 77)) | (1 << (InputFormParser.HASH - 77)) | (1 << (InputFormParser.DOUBLEPLUS - 77)) | (1 << (InputFormParser.DOUBLEMINUS - 77)) | (1 << (InputFormParser.BANG - 77)) | (1 << (InputFormParser.INTEGRAL - 77)) | (1 << (InputFormParser.DEL - 77)) | (1 << (InputFormParser.SQUARE - 77)))) != 0) or ((((_la - 158)) & ~0x3f) == 0 and ((1 << (_la - 158)) & ((1 << (InputFormParser.PLUS - 158)) | (1 << (InputFormParser.MINUS - 158)) | (1 << (InputFormParser.PLUSMINUS - 158)) | (1 << (InputFormParser.MINUSPLUS - 158)) | (1 << (InputFormParser.BoxConstructor - 158)) | (1 << (InputFormParser.SPANSEMICOLONS - 158)))) != 0):
                 self.state = 413
                 self.expr(0)
 
@@ -5842,13 +5842,13 @@ class FoxySheepParser ( Parser ):
             self.state = 422
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==FoxySheepParser.COMMA:
+            while _la==InputFormParser.COMMA:
                 self.state = 416
-                self.match(FoxySheepParser.COMMA)
+                self.match(InputFormParser.COMMA)
                 self.state = 418
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << FoxySheepParser.Name) | (1 << FoxySheepParser.DecimalNumber) | (1 << FoxySheepParser.DIGITS) | (1 << FoxySheepParser.StringLiteral) | (1 << FoxySheepParser.LPAREN) | (1 << FoxySheepParser.LBRACE) | (1 << FoxySheepParser.LANGLE) | (1 << FoxySheepParser.LFLOOR) | (1 << FoxySheepParser.LCEILING) | (1 << FoxySheepParser.LBRACKETINGBAR) | (1 << FoxySheepParser.LDOUBLEBRACKETINGBAR) | (1 << FoxySheepParser.BACKQUOTE) | (1 << FoxySheepParser.DOUBLELESS) | (1 << FoxySheepParser.NOT))) != 0) or ((((_la - 77)) & ~0x3f) == 0 and ((1 << (_la - 77)) & ((1 << (FoxySheepParser.TRIPPLEBLANK - 77)) | (1 << (FoxySheepParser.DOUBLEBLANK - 77)) | (1 << (FoxySheepParser.BLANKDOT - 77)) | (1 << (FoxySheepParser.BLANK - 77)) | (1 << (FoxySheepParser.PERCENTDIGITS - 77)) | (1 << (FoxySheepParser.PERCENTS - 77)) | (1 << (FoxySheepParser.HASHDIGITS - 77)) | (1 << (FoxySheepParser.HASHStringLiteral - 77)) | (1 << (FoxySheepParser.DOUBLEHASHDIGITS - 77)) | (1 << (FoxySheepParser.DOUBLEHASH - 77)) | (1 << (FoxySheepParser.HASH - 77)) | (1 << (FoxySheepParser.DOUBLEPLUS - 77)) | (1 << (FoxySheepParser.DOUBLEMINUS - 77)) | (1 << (FoxySheepParser.BANG - 77)) | (1 << (FoxySheepParser.INTEGRAL - 77)) | (1 << (FoxySheepParser.DEL - 77)) | (1 << (FoxySheepParser.SQUARE - 77)))) != 0) or ((((_la - 158)) & ~0x3f) == 0 and ((1 << (_la - 158)) & ((1 << (FoxySheepParser.PLUS - 158)) | (1 << (FoxySheepParser.MINUS - 158)) | (1 << (FoxySheepParser.PLUSMINUS - 158)) | (1 << (FoxySheepParser.MINUSPLUS - 158)) | (1 << (FoxySheepParser.BoxConstructor - 158)) | (1 << (FoxySheepParser.SPANSEMICOLONS - 158)))) != 0):
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << InputFormParser.Name) | (1 << InputFormParser.DecimalNumber) | (1 << InputFormParser.DIGITS) | (1 << InputFormParser.StringLiteral) | (1 << InputFormParser.LPAREN) | (1 << InputFormParser.LBRACE) | (1 << InputFormParser.LANGLE) | (1 << InputFormParser.LFLOOR) | (1 << InputFormParser.LCEILING) | (1 << InputFormParser.LBRACKETINGBAR) | (1 << InputFormParser.LDOUBLEBRACKETINGBAR) | (1 << InputFormParser.BACKQUOTE) | (1 << InputFormParser.DOUBLELESS) | (1 << InputFormParser.NOT))) != 0) or ((((_la - 77)) & ~0x3f) == 0 and ((1 << (_la - 77)) & ((1 << (InputFormParser.TRIPPLEBLANK - 77)) | (1 << (InputFormParser.DOUBLEBLANK - 77)) | (1 << (InputFormParser.BLANKDOT - 77)) | (1 << (InputFormParser.BLANK - 77)) | (1 << (InputFormParser.PERCENTDIGITS - 77)) | (1 << (InputFormParser.PERCENTS - 77)) | (1 << (InputFormParser.HASHDIGITS - 77)) | (1 << (InputFormParser.HASHStringLiteral - 77)) | (1 << (InputFormParser.DOUBLEHASHDIGITS - 77)) | (1 << (InputFormParser.DOUBLEHASH - 77)) | (1 << (InputFormParser.HASH - 77)) | (1 << (InputFormParser.DOUBLEPLUS - 77)) | (1 << (InputFormParser.DOUBLEMINUS - 77)) | (1 << (InputFormParser.BANG - 77)) | (1 << (InputFormParser.INTEGRAL - 77)) | (1 << (InputFormParser.DEL - 77)) | (1 << (InputFormParser.SQUARE - 77)))) != 0) or ((((_la - 158)) & ~0x3f) == 0 and ((1 << (_la - 158)) & ((1 << (InputFormParser.PLUS - 158)) | (1 << (InputFormParser.MINUS - 158)) | (1 << (InputFormParser.PLUSMINUS - 158)) | (1 << (InputFormParser.MINUSPLUS - 158)) | (1 << (InputFormParser.BoxConstructor - 158)) | (1 << (InputFormParser.SPANSEMICOLONS - 158)))) != 0):
                     self.state = 417
                     self.expr(0)
 
@@ -5873,7 +5873,7 @@ class FoxySheepParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return FoxySheepParser.RULE_accessExpression
+            return InputFormParser.RULE_accessExpression
 
      
         def copyFrom(self, ctx:ParserRuleContext):
@@ -5883,17 +5883,17 @@ class FoxySheepParser ( Parser ):
 
     class AccessExpressionBContext(AccessExpressionContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.AccessExpressionContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.AccessExpressionContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LBARBRACKET(self):
-            return self.getToken(FoxySheepParser.LBARBRACKET, 0)
+            return self.getToken(InputFormParser.LBARBRACKET, 0)
         def expressionList(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExpressionListContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExpressionListContext,0)
 
         def RBARBRACKET(self):
-            return self.getToken(FoxySheepParser.RBARBRACKET, 0)
+            return self.getToken(InputFormParser.RBARBRACKET, 0)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterAccessExpressionB" ):
@@ -5912,23 +5912,23 @@ class FoxySheepParser ( Parser ):
 
     class AccessExpressionAContext(AccessExpressionContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a FoxySheepParser.AccessExpressionContext
+        def __init__(self, parser, ctx:ParserRuleContext): # actually a InputFormParser.AccessExpressionContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def LBRACKET(self, i:int=None):
             if i is None:
-                return self.getTokens(FoxySheepParser.LBRACKET)
+                return self.getTokens(InputFormParser.LBRACKET)
             else:
-                return self.getToken(FoxySheepParser.LBRACKET, i)
+                return self.getToken(InputFormParser.LBRACKET, i)
         def expressionList(self):
-            return self.getTypedRuleContext(FoxySheepParser.ExpressionListContext,0)
+            return self.getTypedRuleContext(InputFormParser.ExpressionListContext,0)
 
         def RBRACKET(self, i:int=None):
             if i is None:
-                return self.getTokens(FoxySheepParser.RBRACKET)
+                return self.getTokens(InputFormParser.RBRACKET)
             else:
-                return self.getToken(FoxySheepParser.RBRACKET, i)
+                return self.getToken(InputFormParser.RBRACKET, i)
 
         def enterRule(self, listener:ParseTreeListener):
             if hasattr( listener, "enterAccessExpressionA" ):
@@ -5948,35 +5948,35 @@ class FoxySheepParser ( Parser ):
 
     def accessExpression(self):
 
-        localctx = FoxySheepParser.AccessExpressionContext(self, self._ctx, self.state)
+        localctx = InputFormParser.AccessExpressionContext(self, self._ctx, self.state)
         self.enterRule(localctx, 20, self.RULE_accessExpression)
         try:
             self.state = 435
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [FoxySheepParser.LBRACKET]:
-                localctx = FoxySheepParser.AccessExpressionAContext(self, localctx)
+            if token in [InputFormParser.LBRACKET]:
+                localctx = InputFormParser.AccessExpressionAContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
                 self.state = 425
-                self.match(FoxySheepParser.LBRACKET)
+                self.match(InputFormParser.LBRACKET)
                 self.state = 426
-                self.match(FoxySheepParser.LBRACKET)
+                self.match(InputFormParser.LBRACKET)
                 self.state = 427
                 self.expressionList()
                 self.state = 428
-                self.match(FoxySheepParser.RBRACKET)
+                self.match(InputFormParser.RBRACKET)
                 self.state = 429
-                self.match(FoxySheepParser.RBRACKET)
+                self.match(InputFormParser.RBRACKET)
                 pass
-            elif token in [FoxySheepParser.LBARBRACKET]:
-                localctx = FoxySheepParser.AccessExpressionBContext(self, localctx)
+            elif token in [InputFormParser.LBARBRACKET]:
+                localctx = InputFormParser.AccessExpressionBContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
                 self.state = 431
-                self.match(FoxySheepParser.LBARBRACKET)
+                self.match(InputFormParser.LBARBRACKET)
                 self.state = 432
                 self.expressionList()
                 self.state = 433
-                self.match(FoxySheepParser.RBARBRACKET)
+                self.match(InputFormParser.RBARBRACKET)
                 pass
             else:
                 raise NoViableAltException(self)
