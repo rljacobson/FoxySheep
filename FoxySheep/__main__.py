@@ -5,6 +5,7 @@ from FoxySheep import InputFormLexer
 from FoxySheep import InputFormParser
 from FoxySheep import FullFormEmitter
 from FoxySheep import PostParser
+from FoxySheep.pretty_printer import pretty_print
 from FoxySheep import FullFormLexer
 from FoxySheep import FullFormParser
 from FoxySheep.version import VERSION
@@ -34,7 +35,7 @@ def postParse(tree):
     return tree
 
 
-def parse_tree_from_string(input: str, post_process=True):
+def parse_tree_from_string(input: str, post_process=True, show_tree=False):
 
     # Boilerplate
     # lexer = InputFormLexer(InputStream(input))
@@ -56,11 +57,16 @@ def parse_tree_from_string(input: str, post_process=True):
     # Parse!
     tree = parser.prog()
     if post_process:
-        tree = postParse(tree)
+        if show_tree:
+            pretty_print(tree, parser.ruleNames)
+        post_tree = postParse(tree)
+        if post_tree != tree:
+            pretty_print(post_tree, parser.ruleNames)
+            tree = post_tree
     return tree
 
 
-def ff_parse_tree_from_string(input: str):
+def ff_parse_tree_from_string(input: str, show_tree=False):
     global ff_parser, ff_lexer
 
     # Reuse any existing parser or lexer.
@@ -78,10 +84,15 @@ def ff_parse_tree_from_string(input: str):
         ff_parser.reset()
 
     # Parse!
-    return ff_parser.prog()
+    tree = ff_parser.prog()
+    if show_tree:
+        pretty_print(tree, ff_parser.ruleNames)
+    return tree
 
 
-def FullForm_from_string(input: str, parse_tree_fn=parse_tree_from_string):
+def FullForm_from_string(
+    input: str, parse_tree_fn=parse_tree_from_string, show_tree=False
+):
     """Convert Mathematica string `input` into Full-Form input"""
     global emitter
 
@@ -90,19 +101,22 @@ def FullForm_from_string(input: str, parse_tree_fn=parse_tree_from_string):
         emitter = FullFormEmitter()
 
     # Parse the input.
-    tree = parse_tree_fn(input)
+    tree = parse_tree_fn(input, show_tree)
 
     # Emit FullForm.
     return emitter.visit(tree)
+
 
 def FullForm_from_file(path: str, parse_tree_fn=parse_tree_from_string):
     """Convert Mathematica string `input` into Full-Form input"""
     return FullForm_from_string(open(path, "r").read(), parse_tree_fn)
 
 
-def REPL(parse_tree_fn: Callable=parse_tree_from_string):
+def REPL(parse_tree_fn: Callable = parse_tree_from_string, show_tree=False):
     # Simple REPL
-    print("Enter a Mathematica expression. Enter either an empty line, Ctrl-C, or Ctrl-D to exit.")
+    print(
+        "Enter a Mathematica expression. Enter either an empty line, Ctrl-C, or Ctrl-D to exit."
+    )
     while True:
         try:
             user_in = input("in:= ")
@@ -111,33 +125,41 @@ def REPL(parse_tree_fn: Callable=parse_tree_from_string):
         if user_in == "":
             break
 
-        print(FullForm_from_string(user_in, parse_tree_fn))
+        print(FullForm_from_string(user_in, parse_tree_fn, show_tree))
+
 
 @click.command()
 @click.option(
-    "--repl/--no-repl",
-    default=True,
+    "--repl/--no-repl", default=True, required=False, type=bool, help="Go into REPL",
+)
+@click.option(
+    "--ast/--no-ast",
+    default=False,
     required=False,
     type=bool,
-    help="Go into REPL",
-    )
+    help="show AST(s) created",
+)
 @click.option(
-    "-i", "--input-style",
-    type=click.Choice(["InputForm", "FullForm"],
-                      case_sensitive=False),
+    "-i",
+    "--input-style",
+    type=click.Choice(["InputForm", "FullForm"], case_sensitive=False),
     required=False,
-    )
-@click.option("-e", "--expr",
-              help="translate *expr*", required=False)
+)
+@click.option("-e", "--expr", help="translate *expr*", required=False)
 @click.version_option(version=VERSION)
-def main(repl: bool, input_style, expr: str):
-    parse_tree_fn = ff_parse_tree_from_string if input_style and input_style.lower() == "fullform" else parse_tree_from_string
+def main(repl: bool, ast: bool, input_style, expr: str):
+    parse_tree_fn = (
+        ff_parse_tree_from_string
+        if input_style and input_style.lower() == "fullform"
+        else parse_tree_from_string
+    )
     if expr:
-        print(FullForm_from_string(expr, parse_tree_fn))
+        print(FullForm_from_string(expr, parse_tree_fn, ast))
     elif repl:
-        REPL(parse_tree_fn)
+        REPL(parse_tree_fn, ast)
     else:
         print("Something went wrong")
+
 
 if __name__ == "__main__":
     main()
