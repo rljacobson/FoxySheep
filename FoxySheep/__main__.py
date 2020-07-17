@@ -5,7 +5,7 @@ from FoxySheep import InputFormLexer
 from FoxySheep import InputFormParser
 from FoxySheep import FullFormEmitter
 from FoxySheep import PostParser
-from FoxySheep.pretty_printer import pretty_print
+from FoxySheep.pretty_printer import pretty_print, pretty_print_compact
 from FoxySheep import FullFormLexer
 from FoxySheep import FullFormParser
 from FoxySheep.version import VERSION
@@ -35,7 +35,7 @@ def postParse(tree):
     return tree
 
 
-def parse_tree_from_string(input: str, post_process=True, show_tree=False):
+def parse_tree_from_string(input: str, post_process=True, show_tree_fn=None):
 
     # Boilerplate
     # lexer = InputFormLexer(InputStream(input))
@@ -57,16 +57,16 @@ def parse_tree_from_string(input: str, post_process=True, show_tree=False):
     # Parse!
     tree = parser.prog()
     if post_process:
-        if show_tree:
-            pretty_print(tree, parser.ruleNames)
+        if show_tree_fn:
+            show_tree_fn(tree, parser.ruleNames)
         post_tree = postParse(tree)
         if post_tree != tree:
-            pretty_print(post_tree, parser.ruleNames)
+            show_tree_fn(post_tree, parser.ruleNames)
             tree = post_tree
     return tree
 
 
-def ff_parse_tree_from_string(input: str, show_tree=False):
+def ff_parse_tree_from_string(input: str, show_tree_fn=False):
     global ff_parser, ff_lexer
 
     # Reuse any existing parser or lexer.
@@ -85,13 +85,13 @@ def ff_parse_tree_from_string(input: str, show_tree=False):
 
     # Parse!
     tree = ff_parser.prog()
-    if show_tree:
-        pretty_print(tree, ff_parser.ruleNames)
+    if show_tree_fn:
+        show_tree_fn(tree, ff_parser.ruleNames)
     return tree
 
 
 def FullForm_from_string(
-    input: str, parse_tree_fn=parse_tree_from_string, show_tree=False
+    input: str, parse_tree_fn=parse_tree_from_string, show_tree_fn=None
 ):
     """Convert Mathematica string `input` into Full-Form input"""
     global emitter
@@ -101,7 +101,7 @@ def FullForm_from_string(
         emitter = FullFormEmitter()
 
     # Parse the input.
-    tree = parse_tree_fn(input, show_tree)
+    tree = parse_tree_fn(input, show_tree_fn=show_tree_fn)
 
     # Emit FullForm.
     return emitter.visit(tree)
@@ -112,7 +112,7 @@ def FullForm_from_file(path: str, parse_tree_fn=parse_tree_from_string):
     return FullForm_from_string(open(path, "r").read(), parse_tree_fn)
 
 
-def REPL(parse_tree_fn: Callable = parse_tree_from_string, show_tree=False):
+def REPL(parse_tree_fn: Callable = parse_tree_from_string, show_tree_fn=None) -> None:
     # Simple REPL
     print(
         "Enter a Mathematica expression. Enter either an empty line, Ctrl-C, or Ctrl-D to exit."
@@ -125,7 +125,7 @@ def REPL(parse_tree_fn: Callable = parse_tree_from_string, show_tree=False):
         if user_in == "":
             break
 
-        print(FullForm_from_string(user_in, parse_tree_fn, show_tree))
+        print(FullForm_from_string(user_in, parse_tree_fn, show_tree_fn))
 
 
 @click.command()
@@ -133,11 +133,11 @@ def REPL(parse_tree_fn: Callable = parse_tree_from_string, show_tree=False):
     "--repl/--no-repl", default=True, required=False, type=bool, help="Go into REPL",
 )
 @click.option(
-    "--ast/--no-ast",
+    "-t", "--tree",
+    type=click.Choice(["full", "compact"], case_sensitive=False),
     default=False,
     required=False,
-    type=bool,
-    help="show AST(s) created",
+    help="show parse tree(s) created",
 )
 @click.option(
     "-i",
@@ -147,16 +147,22 @@ def REPL(parse_tree_fn: Callable = parse_tree_from_string, show_tree=False):
 )
 @click.option("-e", "--expr", help="translate *expr*", required=False)
 @click.version_option(version=VERSION)
-def main(repl: bool, ast: bool, input_style, expr: str):
+def main(repl: bool, tree, input_style, expr: str):
     parse_tree_fn = (
         ff_parse_tree_from_string
         if input_style and input_style.lower() == "fullform"
         else parse_tree_from_string
     )
+
+    if tree == "full":
+        show_tree_fn = pretty_print
+    elif  tree == "compact":
+        show_tree_fn = pretty_print_compact
+
     if expr:
-        print(FullForm_from_string(expr, parse_tree_fn, ast))
+        print(FullForm_from_string(expr, parse_tree_fn, show_tree_fn))
     elif repl:
-        REPL(parse_tree_fn, ast)
+        REPL(parse_tree_fn, show_tree_fn)
     else:
         print("Something went wrong")
 
