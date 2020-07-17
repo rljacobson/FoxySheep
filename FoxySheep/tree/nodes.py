@@ -11,23 +11,23 @@ class Symbol(object):
 class SymbolNode(object):
     pass
 
-class ASTNode(object):
+class treeNode(object):
     """
-    The base class of all AST node classes.
+    The base class of all tree node classes.
     """
 
     def __init__(
         self,
-        children: List["ASTNode"] = None,
-        parent: "ASTNode" = None,
+        children: List["treeNode"] = None,
+        parent: "treeNode" = None,
         type_: TypeBase = None,
         exprs: list = None,
     ):
         """
-        Creates a node of the AST.
+        Creates a node of the tree.
 
-        :param children: A list of ASTNode objects that are children of this node.
-        :param parent: The parent_scope ASTNode of this node.
+        :param children: A list of treeNode objects that are children of this node.
+        :param parent: The parent_scope treeNode of this node.
         :param exprs: A list of the ANTLR SyntaxTree objects that represent this node.
         :param type_: The type of the value held by this node.
         """
@@ -99,7 +99,7 @@ class ASTNode(object):
         """
         Subclasses can register names for children at given indices in
         self.children so that a child with a name can be accessed by
-        ASTNode.name.
+        treeNode.name.
 
         :param name: String, the name of the child.
         :param index: Integer, the index in self.children at which the child
@@ -129,7 +129,7 @@ class ASTNode(object):
         :param type_:
         :return:
         """
-        # TODO: Implement ASTNode.specify_type()
+        # TODO: Implement treeNode.specify_type()
         pass
 
     @property

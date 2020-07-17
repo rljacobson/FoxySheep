@@ -2,11 +2,11 @@
 
 """
 
-from FoxySheep.AST.nodes import ASTNode, SymbolNode
+from FoxySheep.tree.nodes import treeNode, SymbolNode
 
-class FunctionCallNode(ASTNode):
+class FunctionCallNode(treeNode):
     """
-    The base class of all AST node classes representing a function call.
+    The base class of all tree node classes representing a function call.
 
     The symbol_node
     """
@@ -17,9 +17,9 @@ class FunctionCallNode(ASTNode):
         self.FunctionType = None
 
 
-class FunctionDeclarationNode(ASTNode):
+class FunctionDeclarationNode(treeNode):
     """
-    The base class of all AST node classes representing something that
+    The base class of all tree node classes representing something that
     creates a DownValue. This node will represent the DownValue in the symbol
     table. The symbol_node is the Head of the declaration, that is, the name
     of the function being created. The symbol_node will point to a Symbol in
@@ -36,7 +36,7 @@ class FunctionDeclarationNode(ASTNode):
         Create a new function declaration.
 
         :param symbol_node: The name (head) of the function.
-        :param kwargs: The arguments to ASTNodeBase.
+        :param kwargs: The arguments to treeNodeBase.
         """
 
         super().__init__(**kwargs)
@@ -58,7 +58,7 @@ class FunctionDeclarationNode(ASTNode):
         return None
 
     @lhs.setter
-    def lhs(self, symbol_node: SymbolNode, arguments_pattern: ASTNode = None):
+    def lhs(self, symbol_node: SymbolNode, arguments_pattern: treeNode = None):
         self.children[0] = symbol_node
 
     @property
@@ -69,7 +69,7 @@ class FunctionDeclarationNode(ASTNode):
             return None
 
     @rhs.setter
-    def rhs(self, rhs_node: ASTNode):
+    def rhs(self, rhs_node: treeNode):
         if not self.children:
             self.children.append(None)
-        self.children[1] = ASTNode
+        self.children[1] = treeNode

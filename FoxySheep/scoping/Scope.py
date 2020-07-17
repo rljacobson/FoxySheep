@@ -3,10 +3,10 @@ Classes for Scoping.
 """
 from typing import List
 
-import FoxySheep.AST
+import FoxySheep.tree
 
 from enum import Enum, auto as _auto
-from FoxySheep.scoping import Symbol, VirtualSymbolProvider
+from FoxySheep.scoping import Symbol
 
 
 class ScopeType(Enum):
@@ -23,7 +23,7 @@ class ScopeType(Enum):
     Rule = _auto()
 
 
-class Scope(FoxySheep.AST.Scope):
+class Scope(FoxySheep.tree.Scope):
     """
     Represents the local scope of a Scoping construct, e.g. SetDelayed, Table
 
@@ -53,7 +53,7 @@ class Scope(FoxySheep.AST.Scope):
 
     def __init__(
         self,
-        parent: FoxySheep.AST.ASTNode = None,
+        parent: FoxySheep.tree.treeNode = None,
         parent_scope: "Scope" = None,
         scope_type: int = None,
         scope_start: int = -1,
@@ -116,7 +116,8 @@ class GlobalScope(Scope):
 
     def __init__(self):
         super().__init__(parent=None)
-        self._virtual_symbol_provider = VirtualSymbolProvider()
+        # rocky: VirtualSymbolProvider is missing in FoxySheep
+        # self._virtual_symbol_provider = VirtualSymbolProvider()
 
     def find_symbol(self, identifier: str) -> Symbol:
         """

@@ -5,7 +5,7 @@ This module defines the mechanism by which errors are handled in FoxySheep.
 import sys
 
 from antlr4.ParserRuleContext import ParserRuleContext
-from AST import ASTNode
+from tree import treeNode
 
 
 def _print_err(*args, flush=False):
@@ -17,7 +17,7 @@ def _print_err(*args, flush=False):
 class ErrorBase:
 
     def __init__(self, parse_tree_node: ParserRuleContext=None,
-                 ast_node: ASTNode = None):
+                 ast_node: treeNode = None):
         self.parse_tree_node = parse_tree_node
         self.ast_node = ast_node
 
@@ -100,4 +100,3 @@ class ExternalExceptionError(ErrorBase):
 
 def handle_error(error: ErrorBase):
     _print_err(error.to_string())
-

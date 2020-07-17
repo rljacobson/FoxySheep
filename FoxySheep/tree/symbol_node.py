@@ -1,7 +1,7 @@
-from FoxySheep.AST.nodes import ASTNode, Symbol
+from FoxySheep.tree.nodes import treeNode, Symbol
 
 
-class SymbolNode(ASTNode):
+class SymbolNode(treeNode):
     """
     A SymbolNode is a particular appearance in the source code of a
     name.

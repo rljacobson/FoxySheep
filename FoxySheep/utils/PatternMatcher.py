@@ -55,14 +55,14 @@ Constructs a list of Symbols that are bound within the scope of a function.
 from enum import IntEnum, auto
 from typing import List, Tuple
 
-from AST import ASTNode, SymbolNode
-from AST.pattern import *
-from AST.list import ListNode
-from FoxySHeep.scoping import Scope, Symbol
+from FoxySheep.tree.symbol_node import SymbolNode
+from FoxySheep.scoping import Scope, Symbol
+from FoxySheep.tree import treeNode
+from FoxySheep.tree.pattern import PatternNode, BlankAbstractNode
 from FoxySheep.utils.misc import camel_to_snake
 
 
-def get_bound_symbols(signature: ASTNode, scope: Scope = None)->List[Symbol]:
+def get_bound_symbols(signature: treeNode, scope: Scope = None)->List[Symbol]:
     """
     Creates a list of symbols bound by the given function signature (a
     pattern). Signature should have the form `Head[arguments_pattern]`. The
@@ -97,7 +97,7 @@ def get_bound_symbols(signature: ASTNode, scope: Scope = None)->List[Symbol]:
     return symbol_list
 
 
-def _find_bound_symbols(arguments: List[ASTNode], symbol_list: list):
+def _find_bound_symbols(arguments: List[treeNode], symbol_list: list):
     if not arguments:
         # Done.
         return
@@ -144,17 +144,17 @@ class ComparisonValue(IntEnum):
 _order = {BlankNode: 1, BlankSequenceNode: 2, BlankNullSequenceNode: 3}
 
 
-def match(lhs: List[ASTNode], rhs: List[ASTNode], gt: bool = None):
+def match(lhs: List[treeNode], rhs: List[treeNode], gt: bool = None):
     """
     The driver of the pattern matcher. Does dynamic dispatch according to
-    the subclass of each ASTNode.
+    the subclass of each treeNode.
 
     :param gt: True if the lhs > rhs, False if rhs > lhs, and None if
     undetermined.
-    :param lhs: A list of ASTNode instances in reverse order from how
-    they appear in the AST.
-    :param rhs: A list of ASTNode instances in reverse order from how
-    they appear in the AST.
+    :param lhs: A list of treeNode instances in reverse order from how
+    they appear in the tree.
+    :param rhs: A list of treeNode instances in reverse order from how
+    they appear in the tree.
     :return: A ComparisonValue.
     """
 
@@ -239,7 +239,7 @@ def match(lhs: List[ASTNode], rhs: List[ASTNode], gt: bool = None):
     return result
 
 
-def match_pattern(lhs: ASTNode, rhs: ASTNode):
+def match_pattern(lhs: treeNode, rhs: treeNode):
     """
     Determines if the argument pattern with root node_lhs matches the
     argument pattern with root node_rhs.
@@ -254,7 +254,7 @@ def match_pattern(lhs: ASTNode, rhs: ASTNode):
     """
 
     # The work of doing the pattern matching is delegated to the match
-    # function which takes lists of ASTNodes, not ASTNodes themselves.
+    # function which takes lists of treeNodes, not treeNodes themselves.
     return match([lhs], [rhs])
 
 
@@ -371,11 +371,11 @@ def _flip_result(result: int):
     return result
 
 
-def _dynamic_dispatch(node: ASTNode):
+def _dynamic_dispatch(node: treeNode):
     """
     Returns the function _match_node_class_name if exists and None otherwise.
 
-    :param node: An instance of some ASTNode subclass.
+    :param node: An instance of some treeNode subclass.
     :return: The function _match_node_name, or None if it doesn't exist.
     """
 
@@ -387,9 +387,9 @@ def _dynamic_dispatch(node: ASTNode):
     return globals().get(method_name, None)
 
 
-def _match_node(lhs: List[ASTNode], rhs: List[ASTNode], gt: bool):
+def _match_node(lhs: List[treeNode], rhs: List[treeNode], gt: bool):
     """
-    Determines whether the node at the top of lhs is the same ASTNode
+    Determines whether the node at the top of lhs is the same treeNode
     subclass as the node at the top of rhs. In the case of two `SymbolNode`s,
     the `SymbolNodes`s match if and only if their names match. If the nodes
     match, match is called on their children. If successful, the match is
@@ -412,7 +412,7 @@ def _match_node(lhs: List[ASTNode], rhs: List[ASTNode], gt: bool):
 
     # TODO: Implement type matching.
     # if match_types:
-    #     handle_error(NotImplementedError_("Matching types", ASTNode=lhs_node))
+    #     handle_error(NotImplementedError_("Matching types", treeNode=lhs_node))
 
 
     # Peak the current nodes.
@@ -452,8 +452,8 @@ def _match_node(lhs: List[ASTNode], rhs: List[ASTNode], gt: bool):
     return _synthesize(ComparisonValue.Equal, rest_result)
 
 
-def _match_optional(lhs: List[ASTNode],
-                    rhs: List[ASTNode],
+def _match_optional(lhs: List[treeNode],
+                    rhs: List[treeNode],
                     gt: bool,
                     optional_on_lhs: bool = True):
     """
@@ -496,7 +496,7 @@ def _match_optional(lhs: List[ASTNode],
     return result
 
 
-def _match_blank(lhs: List[ASTNode], rhs: List[ASTNode], gt: bool):
+def _match_blank(lhs: List[treeNode], rhs: List[treeNode], gt: bool):
     if not rhs:
         return ComparisonValue.Incomparable
 
@@ -514,7 +514,7 @@ def _match_blank(lhs: List[ASTNode], rhs: List[ASTNode], gt: bool):
     return result
 
 
-def _match_blank_sequence(lhs: List[ASTNode], rhs: List[ASTNode], gt: bool):
+def _match_blank_sequence(lhs: List[treeNode], rhs: List[treeNode], gt: bool):
     # BlankSequence needs to match at least one node in rhs.
     if not rhs:
         return ComparisonValue.Incomparable
@@ -538,7 +538,7 @@ def _match_blank_sequence(lhs: List[ASTNode], rhs: List[ASTNode], gt: bool):
     return result
 
 
-def _match_blank_null_sequence(lhs: List[ASTNode], rhs: List[ASTNode], gt: bool):
+def _match_blank_null_sequence(lhs: List[treeNode], rhs: List[treeNode], gt: bool):
     if not rhs:
         return ComparisonValue.Generalizes
 

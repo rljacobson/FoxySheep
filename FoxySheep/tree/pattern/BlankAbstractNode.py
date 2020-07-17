@@ -1,7 +1,7 @@
-from AST import ASTNode, SymbolNode
+from FoxySheep.tree import treeNode, SymbolNode
 
 
-class BlankAbstractNode(ASTNode):
+class BlankAbstractNode(treeNode):
     """
     `BlankAbstractNode` is the superclass of Blank*Node, each of which has
     one optional child called `required_head`.

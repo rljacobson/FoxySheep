@@ -5,7 +5,7 @@ from FoxySheep.emitter.full_form import FullFormEmitter
 from FoxySheep.generated.InputFormLexer import InputFormLexer
 from FoxySheep.generated.InputFormParser import InputFormParser
 from FoxySheep.post_parser import PostParser
-from FoxySheep.AST.pretty_printer import pretty_print, pretty_print_compact
+from FoxySheep.tree.pretty_printer import pretty_print, pretty_print_compact
 from FoxySheep.generated.FullFormLexer import FullFormLexer
 from FoxySheep.generated.FullFormParser import FullFormParser
 from FoxySheep.version import VERSION

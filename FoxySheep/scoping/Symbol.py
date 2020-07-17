@@ -1,6 +1,6 @@
 from enum import IntEnum, auto as _auto
-import FoxySheep.AST
-from FoxySheep.AST import ASTNode, FunctionDeclarationNode
+import FoxySheep.tree
+from FoxySheep.tree import treeNode, FunctionDeclarationNode
 
 class SymbolAttributes(IntEnum):
     Constant        = _auto()
@@ -24,7 +24,7 @@ class SymbolAttributes(IntEnum):
     Temporary       = _auto()
 
 
-class Symbol(FoxySheep.AST.Symbol):
+class Symbol(FoxySheep.tree.Symbol):
     """
     Holds information about a particular symbol in a particular scope. In
     particular, it manages
@@ -35,7 +35,7 @@ class Symbol(FoxySheep.AST.Symbol):
 
         * DownValues: Function definitions, i.e., anything accessed with [].
         A DownValue can be considered a function declaration; it is the
-        ASTNode for the assignment that "creates" the DownValue.
+        treeNode for the assignment that "creates" the DownValue.
 
         * DefaultValues: Default values for optional arguments.
 
@@ -119,7 +119,7 @@ class Symbol(FoxySheep.AST.Symbol):
             pass
         return None
 
-    def set_default_at(self, position: int, value: ASTNode):
+    def set_default_at(self, position: int, value: treeNode):
         if not self._default_values:
             self._default_values = dict()
         self._default_values[position] = value
@@ -141,7 +141,7 @@ class Symbol(FoxySheep.AST.Symbol):
             return self._own_values[0]
         return None
 
-    def find_matching_down_value(self, usage: ASTNode):
+    def find_matching_down_value(self, usage: treeNode):
         """
         Given a usage `f[3, 5]`, find the first DownValue of f matching the
         usage.
