@@ -1,13 +1,13 @@
 import click
 from antlr4 import ParseTreeWalker, InputStream, CommonTokenStream
 from typing import Callable
-from FoxySheep import InputFormLexer
-from FoxySheep import InputFormParser
-from FoxySheep import FullFormEmitter
-from FoxySheep import PostParser
-from FoxySheep.pretty_printer import pretty_print, pretty_print_compact
-from FoxySheep import FullFormLexer
-from FoxySheep import FullFormParser
+from FoxySheep.emitter.full_form import FullFormEmitter
+from FoxySheep.generated.InputFormLexer import InputFormLexer
+from FoxySheep.generated.InputFormParser import InputFormParser
+from FoxySheep.post_parser import PostParser
+from FoxySheep.AST.pretty_printer import pretty_print, pretty_print_compact
+from FoxySheep.generated.FullFormLexer import FullFormLexer
+from FoxySheep.generated.FullFormParser import FullFormParser
 from FoxySheep.version import VERSION
 
 # Cache the utility objects.

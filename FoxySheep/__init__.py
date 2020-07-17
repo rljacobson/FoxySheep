@@ -7,8 +7,9 @@ from FoxySheep.generated.FullFormLexer import FullFormLexer
 from FoxySheep.generated.FullFormParser import FullFormParser
 from FoxySheep.generated.FullFormListener import FullFormListener
 from FoxySheep.generated.FullFormVisitor import FullFormVisitor
-from FoxySheep.full_form_emitter import FullFormEmitter
+from FoxySheep.emitter.full_form import FullFormEmitter
 from FoxySheep.post_parser import PostParser
+from FoxySheep.AST.pretty_printer import pretty_print, pretty_print_compact, PrettyPrinter, PrettyPrinterCompact
 from FoxySheep.__main__ import (
     parse_tree_from_string,
     FullForm_from_string,
