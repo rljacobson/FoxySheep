@@ -1,4 +1,4 @@
-lexer grammar FoxySheepLexerRules;
+lexer grammar InputFormLexerRules;
 
 options{
 	//We put target-language dependent code in a base class.
@@ -13,7 +13,7 @@ tokens {BINARYPLUS, BINARYMINUS, BINARYMINUSPLUS, BINARYPLUSMINUS, SPANSEMICOLON
 Name
 	:	LetterForm+ LetterFormOrDigit*
 	;
-	
+
 //Too many fragments in this section?
 fragment
 LetterFormOrDigit :	LetterForm | DIGIT ;
@@ -27,8 +27,8 @@ Letterlike : [\u0024\u00a1\u00a2\u00a3\u00a5\u00a7\u00a9\u00ab\u00ae\u00b0\u00b5
 //Number Representations
 //The rest of the number literal recognition is done in the parser.
 DecimalNumber
-	:	DIGITS DOT DIGIT* 	//We can omit numbers after the decimal point and not before, or... 
-	|	DIGIT* DOT DIGITS 	//...before the decimal point and not after. 
+	:	DIGITS DOT DIGIT* 	//We can omit numbers after the decimal point and not before, or...
+	|	DIGIT* DOT DIGITS 	//...before the decimal point and not after.
 	;
 
 NumberInBase
@@ -61,7 +61,7 @@ StringCharacter
     :   ~["\\]
     |   EscapeSequence
     ;
-    
+
 // Escape Sequences for Character and String Literals
 fragment
 EscapeSequence
@@ -73,7 +73,7 @@ fragment
 UnicodeEscape
     :   RAWBACKSLASH RAWCOLON HexDigit HexDigit HexDigit HexDigit
     ;
-    
+
 fragment
 HexDigit
     :   [0-9a-fA-F]
@@ -82,7 +82,7 @@ HexDigit
 //Comments
 COMMENT
 	:	LCOMMENT .*? RCOMMENT -> skip
-	; 
+	;
 
 // Separators and brackets
 
@@ -232,7 +232,7 @@ DOUBLESLASHDOT	: '//.';
 // Slot related symbols
 HASHDIGITS			: HASH DIGITS;
 HASHStringLiteral 	: HASH StringLiteral;
-DOUBLEHASHDIGITS		: DOUBLEHASH DIGITS; 
+DOUBLEHASHDIGITS		: DOUBLEHASH DIGITS;
 DOUBLEHASH			: '##';
 HASH 				: '#';
 
@@ -250,7 +250,7 @@ CARETEQUAL	: '^=';
 SLASHCOLON	: '/:';
 FUNCTIONARROW	: '\uf4a1';
 
-// Other Operators and Characters 
+// Other Operators and Characters
 DOT         : '.';
 DOUBLECARET	: '^^';
 CARET		: '^';
@@ -308,10 +308,10 @@ DOUBLESLASH	: '//';
 VERTICALSEPARATOR	: '\uf432';
 
 //Additive arithmetic
-PLUS			: '+' { self.checkAdditiveOp(FoxySheepParser.BINARYPLUS); } ;
-MINUS		: '-' { self.checkAdditiveOp(FoxySheepParser.BINARYMINUS); } ;
-PLUSMINUS	: '\u00b1' { self.checkAdditiveOp(FoxySheepParser.BINARYPLUSMINUS); } ;
-MINUSPLUS	: '\u2213' { self.checkAdditiveOp(FoxySheepParser.BINARYMINUSPLUS); } ;
+PLUS			: '+' { self.checkAdditiveOp(InputFormParser.BINARYPLUS); } ;
+MINUS		: '-' { self.checkAdditiveOp(InputFormParser.BINARYMINUS); } ;
+PLUSMINUS	: '\u00b1' { self.checkAdditiveOp(InputFormParser.BINARYPLUSMINUS); } ;
+MINUSPLUS	: '\u2213' { self.checkAdditiveOp(InputFormParser.BINARYMINUSPLUS); } ;
 
 //Box related tokens.
 //These are special because they can only occur in a box.
@@ -343,9 +343,9 @@ TIMES	: '\u00d7';
 
 //Whitespace
 /*
- * Note that FoxySheep treats newlines the same way Mathematica does: 
- * Wolfram Language "treats the input that you give on successive 
- * lines as belonging to the same expression whenever no complete 
+ * Note that InputForm treats newlines the same way Mathematica does:
+ * Wolfram Language "treats the input that you give on successive
+ * lines as belonging to the same expression whenever no complete
  * expression would be formed without doing this."
  */
 NEWLINE	: '\n' { self.checkNewline();} ;

@@ -5,7 +5,7 @@
 # This is applied in the top-level Makefile. However to apply by hand run:
 #    patch < FoxySheepLexer.py.patch
 
-from FoxySheep.LexerBase import LexerBase
+from FoxySheep.lexer_base import LexerBase
 
 # Generated from FullForm.g4 by ANTLR 4.7.2
 from antlr4 import ATNDeserializer, DFA, LexerATNSimulator, PredictionContextCache
@@ -192,24 +192,24 @@ class FullFormLexer(LexerBase):
     modeNames = [ "DEFAULT_MODE" ]
 
     literalNames = [ "<INVALID>",
-            "'+'", "'-'", "'['", "']'", "','", "'(*'", "'*)'", "'``'", "'`'", 
-            "'''", "'\"'", "':'", "'\\'", "'^^'", "'*^'", "'.'", "'\n'", 
+            "'+'", "'-'", "'['", "']'", "','", "'(*'", "'*)'", "'``'", "'`'",
+            "'''", "'\"'", "':'", "'\\'", "'^^'", "'*^'", "'.'", "'\n'",
             "'\uF3B1'" ]
 
     symbolicNames = [ "<INVALID>",
-            "Name", "DecimalNumber", "NumberInBase", "DIGITS", "StringLiteral", 
-            "PLUS", "MINUS", "COMMENT", "LBRACKET", "RBRACKET", "COMMA", 
-            "LCOMMENT", "RCOMMENT", "DOUBLEBACKQUOTE", "BACKQUOTE", "SINGLEQUOTE", 
-            "QUOTE", "RAWCOLON", "RAWBACKSLASH", "DOUBLECARET", "ASTERISKCARET", 
+            "Name", "DecimalNumber", "NumberInBase", "DIGITS", "StringLiteral",
+            "PLUS", "MINUS", "COMMENT", "LBRACKET", "RBRACKET", "COMMA",
+            "LCOMMENT", "RCOMMENT", "DOUBLEBACKQUOTE", "BACKQUOTE", "SINGLEQUOTE",
+            "QUOTE", "RAWCOLON", "RAWBACKSLASH", "DOUBLECARET", "ASTERISKCARET",
             "DOT", "NEWLINE", "CONTINUATION", "WHITESPACE" ]
 
-    ruleNames = [ "Name", "LetterFormOrDigit", "LetterForm", "Letter", "Letterlike", 
-                  "DecimalNumber", "NumberInBase", "DIGITS", "DIGIT", "DigitInAnyBase", 
-                  "StringLiteral", "StringCharacters", "StringCharacter", 
-                  "EscapeSequence", "UnicodeEscape", "HexDigit", "PLUS", 
-                  "MINUS", "COMMENT", "LBRACKET", "RBRACKET", "COMMA", "LCOMMENT", 
-                  "RCOMMENT", "DOUBLEBACKQUOTE", "BACKQUOTE", "SINGLEQUOTE", 
-                  "QUOTE", "RAWCOLON", "RAWBACKSLASH", "DOUBLECARET", "ASTERISKCARET", 
+    ruleNames = [ "Name", "LetterFormOrDigit", "LetterForm", "Letter", "Letterlike",
+                  "DecimalNumber", "NumberInBase", "DIGITS", "DIGIT", "DigitInAnyBase",
+                  "StringLiteral", "StringCharacters", "StringCharacter",
+                  "EscapeSequence", "UnicodeEscape", "HexDigit", "PLUS",
+                  "MINUS", "COMMENT", "LBRACKET", "RBRACKET", "COMMA", "LCOMMENT",
+                  "RCOMMENT", "DOUBLEBACKQUOTE", "BACKQUOTE", "SINGLEQUOTE",
+                  "QUOTE", "RAWCOLON", "RAWBACKSLASH", "DOUBLECARET", "ASTERISKCARET",
                   "DOT", "NEWLINE", "CONTINUATION", "WHITESPACE", "SpaceCharacter" ]
 
     grammarFileName = "FullForm.g4"
@@ -220,5 +220,3 @@ class FullFormLexer(LexerBase):
         self._interp = LexerATNSimulator(self, self.atn, self.decisionsToDFA, PredictionContextCache())
         self._actions = None
         self._predicates = None
-
-

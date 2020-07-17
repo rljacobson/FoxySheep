@@ -135,7 +135,6 @@ def REPL(parse_tree_fn: Callable = parse_tree_from_string, show_tree_fn=None) ->
 @click.option(
     "-t", "--tree",
     type=click.Choice(["full", "compact"], case_sensitive=False),
-    default=False,
     required=False,
     help="show parse tree(s) created",
 )
@@ -158,6 +157,8 @@ def main(repl: bool, tree, input_style, expr: str):
         show_tree_fn = pretty_print
     elif  tree == "compact":
         show_tree_fn = pretty_print_compact
+    else:
+        show_tree_fn = None
 
     if expr:
         print(FullForm_from_string(expr, parse_tree_fn, show_tree_fn))

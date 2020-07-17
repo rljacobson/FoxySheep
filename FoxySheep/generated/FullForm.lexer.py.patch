@@ -8,7 +8,7 @@
 +# This is applied in the top-level Makefile. However to apply by hand run:
 +#    patch < FoxySheepLexer.py.patch
 +
-+from FoxySheep.LexerBase import LexerBase
++from FoxySheep.lexer_base import LexerBase
 +
  # Generated from FullForm.g4 by ANTLR 4.7.2
 -from antlr4 import *

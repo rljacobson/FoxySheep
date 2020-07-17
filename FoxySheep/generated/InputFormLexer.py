@@ -6,8 +6,8 @@
 #    patch < InputFormLexer.py.patch
 
 from antlr4.ParserRuleContext import RuleContext
-from FoxySheep.LexerBase import LexerBase
-from FoxySheep.generated.InputFormParser import InputFormParser, PredictionContextCache
+from FoxySheep.lexer_base import LexerBase
+from FoxySheep.generated.InputFormParser import PredictionContextCache, InputFormParser
 
 # Generated from InputForm.g4 by ANTLR 4.7.2
 from antlr4 import ATNDeserializer, DFA, LexerATNSimulator
@@ -738,117 +738,117 @@ class InputFormLexer(LexerBase):
     modeNames = [ "DEFAULT_MODE" ]
 
     literalNames = [ "<INVALID>",
-            "'('", "')'", "'{'", "'}'", "'['", "']'", "','", "'(*'", "'*)'",
-            "'\u2329'", "'\u232A'", "'\u230A'", "'\u230B'", "'\u2308'",
-            "'\u2309'", "'||'", "'|'", "'\u301A'", "'\u301B'", "'\uF603'",
-            "'\uF604'", "'\uF605'", "'\uF606'", "'``'", "'`'", "'''", "'\"'",
-            "'<<'", "'>>>'", "'>>'", "'==='", "'=!='", "'='", "'<'", "'>'",
-            "'\uF3D0'", "'\uF3D1'", "'\u2225'", "'\u2226'", "'\u2208'",
-            "'\u2209'", "'\u2282'", "'\u2283'", "'\u00AC'", "'&&'", "'\u2227'",
-            "'\u22BC'", "'\u22BB'", "'\uF4A2'", "'\u2228'", "'\u22BD'",
-            "'\u29E6'", "'\uF523'", "'\u2970'", "'\u22A2'", "'\u22A8'",
-            "'\u22A3'", "'\u2AE4'", "'\u22A5'", "'\u22A4'", "'\u220D'",
-            "'\u2234'", "'\u2235'", "'...'", "'..'", "'?'", "'___'", "'__'",
-            "'_.'", "'_'", "'::'", "':'", "'~~'", "'/;'", "'->'", "'\uF522'",
-            "':>'", "'\uF51F'", "'/.'", "'//.'", "'##'", "'#'", "'+='",
-            "'-='", "'*='", "'/='", "'&'", "'^:='", "':='", "'^='", "'/:'",
-            "'\uF4A1'", "'.'", "'^^'", "'^'", "'*^'", "'++'", "'--'", "'@@@'",
-            "'@@'", "'@*'", "'@'", "'/@'", "'/*'", "'//@'", "'!!'", "'!'",
-            "'<>'", "'\u222B'", "'\uF74C'", "'\uF4A0'", "'\\'", "'\u22C2'",
-            "'\u22C3'", "';;'", "';'", "'\uF3C7'", "'\uF3C9'", "'\uF3CE'",
-            "'\uF3C8'", "'~'", "'\u2207'", "'\uF520'", "'\u2218'", "'\u2299'",
-            "'**'", "'\u2216'", "'\u22C4'", "'\u22C0'", "'\u22C1'", "'\u2297'",
-            "'\u00B7'", "'\u22C6'", "'\u2240'", "'\u2210'", "'\u2322'",
-            "'\u2323'", "'\u2295'", "'\u2296'", "'\u2236'", "'//'", "'\uF432'",
-            "'+'", "'-'", "'\u00B1'", "'\u2213'", "'\\`'", "'\\!'", "'\\/'",
-            "'\\('", "'\\%'", "'\\&'", "'\\)'", "'\\@'", "'\\_'", "'\\^'",
-            "'\\+'", "'\\*'", "'/'", "'\u00F7'", "'*'", "'\u00D7'", "'\n'",
+            "'('", "')'", "'{'", "'}'", "'['", "']'", "','", "'(*'", "'*)'", 
+            "'\u2329'", "'\u232A'", "'\u230A'", "'\u230B'", "'\u2308'", 
+            "'\u2309'", "'||'", "'|'", "'\u301A'", "'\u301B'", "'\uF603'", 
+            "'\uF604'", "'\uF605'", "'\uF606'", "'``'", "'`'", "'''", "'\"'", 
+            "'<<'", "'>>>'", "'>>'", "'==='", "'=!='", "'='", "'<'", "'>'", 
+            "'\uF3D0'", "'\uF3D1'", "'\u2225'", "'\u2226'", "'\u2208'", 
+            "'\u2209'", "'\u2282'", "'\u2283'", "'\u00AC'", "'&&'", "'\u2227'", 
+            "'\u22BC'", "'\u22BB'", "'\uF4A2'", "'\u2228'", "'\u22BD'", 
+            "'\u29E6'", "'\uF523'", "'\u2970'", "'\u22A2'", "'\u22A8'", 
+            "'\u22A3'", "'\u2AE4'", "'\u22A5'", "'\u22A4'", "'\u220D'", 
+            "'\u2234'", "'\u2235'", "'...'", "'..'", "'?'", "'___'", "'__'", 
+            "'_.'", "'_'", "'::'", "':'", "'~~'", "'/;'", "'->'", "'\uF522'", 
+            "':>'", "'\uF51F'", "'/.'", "'//.'", "'##'", "'#'", "'+='", 
+            "'-='", "'*='", "'/='", "'&'", "'^:='", "':='", "'^='", "'/:'", 
+            "'\uF4A1'", "'.'", "'^^'", "'^'", "'*^'", "'++'", "'--'", "'@@@'", 
+            "'@@'", "'@*'", "'@'", "'/@'", "'/*'", "'//@'", "'!!'", "'!'", 
+            "'<>'", "'\u222B'", "'\uF74C'", "'\uF4A0'", "'\\'", "'\u22C2'", 
+            "'\u22C3'", "';;'", "';'", "'\uF3C7'", "'\uF3C9'", "'\uF3CE'", 
+            "'\uF3C8'", "'~'", "'\u2207'", "'\uF520'", "'\u2218'", "'\u2299'", 
+            "'**'", "'\u2216'", "'\u22C4'", "'\u22C0'", "'\u22C1'", "'\u2297'", 
+            "'\u00B7'", "'\u22C6'", "'\u2240'", "'\u2210'", "'\u2322'", 
+            "'\u2323'", "'\u2295'", "'\u2296'", "'\u2236'", "'//'", "'\uF432'", 
+            "'+'", "'-'", "'\u00B1'", "'\u2213'", "'\\`'", "'\\!'", "'\\/'", 
+            "'\\('", "'\\%'", "'\\&'", "'\\)'", "'\\@'", "'\\_'", "'\\^'", 
+            "'\\+'", "'\\*'", "'/'", "'\u00F7'", "'*'", "'\u00D7'", "'\n'", 
             "'\uF3B1'" ]
 
     symbolicNames = [ "<INVALID>",
-            "Name", "DecimalNumber", "NumberInBase", "DIGITS", "StringLiteral",
-            "COMMENT", "LPAREN", "RPAREN", "LBRACE", "RBRACE", "LBRACKET",
-            "RBRACKET", "COMMA", "LCOMMENT", "RCOMMENT", "LANGLE", "RANGLE",
-            "LFLOOR", "RFLOOR", "LCEILING", "RCEILING", "DOUBLEBAR", "BAR",
-            "LBARBRACKET", "RBARBRACKET", "LBRACKETINGBAR", "RBRACKETINGBAR",
-            "LDOUBLEBRACKETINGBAR", "RDOUBLEBRACKETINGBAR", "DOUBLEBACKQUOTE",
-            "BACKQUOTE", "SINGLEQUOTE", "QUOTE", "DOUBLELESS", "TRIPPLEGREATER",
-            "DOUBLEGREATER", "TRIPPLEEQUAL", "EQUALBANGEQUAL", "EqualSymbol",
-            "EQUAL", "NotEqualSymbol", "GreaterEqualSymbol", "LessEqualSymbol",
-            "LESS", "GREATER", "VERTICALBAR", "NOTVERTICALBAR", "DOUBLEVERTICALBAR",
-            "NOTDOUBLEVERTICALBAR", "ELEMENT", "NOTELEMENT", "SUBSET", "SUPERSET",
-            "NOT", "DOUBLEAMP", "AND", "NAND", "XOR", "XNOR", "OR", "NOR",
-            "LRDOUBLEARROW", "RDOUBLEARROW", "LCONTAINS", "RIGHTTEE", "DOUBLERIGHTTEE",
-            "LEFTTEE", "DOUBLELEFTTEE", "UPTEE", "DOWNTEE", "SUCHTHAT",
-            "THEREFORE", "BECAUSE", "TRIPPLEDOT", "DOUBLEDOT", "QUESTIONMARK",
-            "TRIPPLEBLANK", "DOUBLEBLANK", "BLANKDOT", "BLANK", "PERCENTDIGITS",
-            "PERCENTS", "DOUBLECOLON", "RAWCOLON", "DOUBLETILDE", "SLASHSEMI",
-            "MINUSGREATER", "RARROW", "COLONGREATER", "COLONARROW", "SLASHDOT",
-            "DOUBLESLASHDOT", "HASHDIGITS", "HASHStringLiteral", "DOUBLEHASHDIGITS",
-            "DOUBLEHASH", "HASH", "PLUSEQUAL", "MINUSEQUAL", "ASTERISKEQUAL",
-            "SLASHEQUAL", "AMP", "CARETCOLONEQUAL", "COLONEQUAL", "CARETEQUAL",
-            "SLASHCOLON", "FUNCTIONARROW", "DOT", "DOUBLECARET", "CARET",
-            "ASTERISKCARET", "DOUBLEPLUS", "DOUBLEMINUS", "TRIPPLEAT", "DOUBLEAT",
-            "ATASTERISK", "AT", "MAP", "SLASHASTERISK", "MAPALL", "DOUBLEBANG",
-            "BANG", "LESSGREATER", "INTEGRAL", "DIFFERENTIALD", "CROSS",
-            "RAWBACKSLASH", "INTERSECTION", "UNION", "DOUBLESEMICOLON",
-            "SEMICOLON", "TRANSPOSE", "CONJUGATETRANSPOSE", "HERMITIANCONJUGATE",
-            "CONJUGATE", "TILDE", "DEL", "SQUARE", "SMALLCIRCLE", "CIRCLEDOT",
-            "DOUBLEASTERISK", "BACKSLASH", "DIAMOND", "WEDGE", "VEE", "CIRCLETIMES",
-            "CENTERDOT", "STAR", "VERTICALTILDE", "COPRODUCT", "CAP", "CUP",
-            "CIRCLEPLUS", "CIRCLEMINUS", "COLON", "DOUBLESLASH", "VERTICALSEPARATOR",
-            "PLUS", "MINUS", "PLUSMINUS", "MINUSPLUS", "FormBox", "InterpretedBox",
-            "BoxFraction", "BoxLeftBoxParenthesis", "BoxOtherscript", "BoxOverscript",
-            "BoxRightBoxParenthesis", "BoxSqrt", "BoxSubscript", "BoxSuperscript",
-            "BoxUnderscript", "BoxConstructor", "SLASH", "DIVIDE", "MultiplicationSymbol",
+            "Name", "DecimalNumber", "NumberInBase", "DIGITS", "StringLiteral", 
+            "COMMENT", "LPAREN", "RPAREN", "LBRACE", "RBRACE", "LBRACKET", 
+            "RBRACKET", "COMMA", "LCOMMENT", "RCOMMENT", "LANGLE", "RANGLE", 
+            "LFLOOR", "RFLOOR", "LCEILING", "RCEILING", "DOUBLEBAR", "BAR", 
+            "LBARBRACKET", "RBARBRACKET", "LBRACKETINGBAR", "RBRACKETINGBAR", 
+            "LDOUBLEBRACKETINGBAR", "RDOUBLEBRACKETINGBAR", "DOUBLEBACKQUOTE", 
+            "BACKQUOTE", "SINGLEQUOTE", "QUOTE", "DOUBLELESS", "TRIPPLEGREATER", 
+            "DOUBLEGREATER", "TRIPPLEEQUAL", "EQUALBANGEQUAL", "EqualSymbol", 
+            "EQUAL", "NotEqualSymbol", "GreaterEqualSymbol", "LessEqualSymbol", 
+            "LESS", "GREATER", "VERTICALBAR", "NOTVERTICALBAR", "DOUBLEVERTICALBAR", 
+            "NOTDOUBLEVERTICALBAR", "ELEMENT", "NOTELEMENT", "SUBSET", "SUPERSET", 
+            "NOT", "DOUBLEAMP", "AND", "NAND", "XOR", "XNOR", "OR", "NOR", 
+            "LRDOUBLEARROW", "RDOUBLEARROW", "LCONTAINS", "RIGHTTEE", "DOUBLERIGHTTEE", 
+            "LEFTTEE", "DOUBLELEFTTEE", "UPTEE", "DOWNTEE", "SUCHTHAT", 
+            "THEREFORE", "BECAUSE", "TRIPPLEDOT", "DOUBLEDOT", "QUESTIONMARK", 
+            "TRIPPLEBLANK", "DOUBLEBLANK", "BLANKDOT", "BLANK", "PERCENTDIGITS", 
+            "PERCENTS", "DOUBLECOLON", "RAWCOLON", "DOUBLETILDE", "SLASHSEMI", 
+            "MINUSGREATER", "RARROW", "COLONGREATER", "COLONARROW", "SLASHDOT", 
+            "DOUBLESLASHDOT", "HASHDIGITS", "HASHStringLiteral", "DOUBLEHASHDIGITS", 
+            "DOUBLEHASH", "HASH", "PLUSEQUAL", "MINUSEQUAL", "ASTERISKEQUAL", 
+            "SLASHEQUAL", "AMP", "CARETCOLONEQUAL", "COLONEQUAL", "CARETEQUAL", 
+            "SLASHCOLON", "FUNCTIONARROW", "DOT", "DOUBLECARET", "CARET", 
+            "ASTERISKCARET", "DOUBLEPLUS", "DOUBLEMINUS", "TRIPPLEAT", "DOUBLEAT", 
+            "ATASTERISK", "AT", "MAP", "SLASHASTERISK", "MAPALL", "DOUBLEBANG", 
+            "BANG", "LESSGREATER", "INTEGRAL", "DIFFERENTIALD", "CROSS", 
+            "RAWBACKSLASH", "INTERSECTION", "UNION", "DOUBLESEMICOLON", 
+            "SEMICOLON", "TRANSPOSE", "CONJUGATETRANSPOSE", "HERMITIANCONJUGATE", 
+            "CONJUGATE", "TILDE", "DEL", "SQUARE", "SMALLCIRCLE", "CIRCLEDOT", 
+            "DOUBLEASTERISK", "BACKSLASH", "DIAMOND", "WEDGE", "VEE", "CIRCLETIMES", 
+            "CENTERDOT", "STAR", "VERTICALTILDE", "COPRODUCT", "CAP", "CUP", 
+            "CIRCLEPLUS", "CIRCLEMINUS", "COLON", "DOUBLESLASH", "VERTICALSEPARATOR", 
+            "PLUS", "MINUS", "PLUSMINUS", "MINUSPLUS", "FormBox", "InterpretedBox", 
+            "BoxFraction", "BoxLeftBoxParenthesis", "BoxOtherscript", "BoxOverscript", 
+            "BoxRightBoxParenthesis", "BoxSqrt", "BoxSubscript", "BoxSuperscript", 
+            "BoxUnderscript", "BoxConstructor", "SLASH", "DIVIDE", "MultiplicationSymbol", 
             "ASTERISK", "TIMES", "NEWLINE", "CONTINUATION", "WHITESPACE" ]
 
-    ruleNames = [ "Name", "LetterFormOrDigit", "LetterForm", "Letter", "Letterlike",
-                  "DecimalNumber", "NumberInBase", "DIGITS", "DIGIT", "DigitInAnyBase",
-                  "StringLiteral", "StringCharacters", "StringCharacter",
-                  "EscapeSequence", "UnicodeEscape", "HexDigit", "COMMENT",
-                  "LPAREN", "RPAREN", "LBRACE", "RBRACE", "LBRACKET", "RBRACKET",
-                  "COMMA", "LCOMMENT", "RCOMMENT", "LANGLE", "RANGLE", "LFLOOR",
-                  "RFLOOR", "LCEILING", "RCEILING", "DOUBLEBAR", "BAR",
-                  "LBARBRACKET", "RBARBRACKET", "LBRACKETINGBAR", "RBRACKETINGBAR",
-                  "LDOUBLEBRACKETINGBAR", "RDOUBLEBRACKETINGBAR", "DOUBLEBACKQUOTE",
-                  "BACKQUOTE", "SINGLEQUOTE", "QUOTE", "DOUBLELESS", "TRIPPLEGREATER",
-                  "DOUBLEGREATER", "TRIPPLEEQUAL", "EQUALBANGEQUAL", "EqualSymbol",
-                  "LONGEQUAL", "DOUBLEEQUAL", "EQUAL", "NotEqualSymbol",
-                  "BANGEQUAL", "NOTEQUAL", "GreaterEqualSymbol", "RAWGREATEREQUAL",
-                  "GREATEREQUAL", "GREATERSLANTEQUAL", "LessEqualSymbol",
-                  "RAWLESSEQUAL", "LESSEQUAL", "LESSSLANTEQUAL", "LESS",
-                  "GREATER", "VERTICALBAR", "NOTVERTICALBAR", "DOUBLEVERTICALBAR",
-                  "NOTDOUBLEVERTICALBAR", "ELEMENT", "NOTELEMENT", "SUBSET",
-                  "SUPERSET", "NOT", "DOUBLEAMP", "AND", "NAND", "XOR",
-                  "XNOR", "OR", "NOR", "LRDOUBLEARROW", "RDOUBLEARROW",
-                  "LCONTAINS", "RIGHTTEE", "DOUBLERIGHTTEE", "LEFTTEE",
-                  "DOUBLELEFTTEE", "UPTEE", "DOWNTEE", "SUCHTHAT", "THEREFORE",
-                  "BECAUSE", "TRIPPLEDOT", "DOUBLEDOT", "QUESTIONMARK",
-                  "TRIPPLEBLANK", "DOUBLEBLANK", "BLANKDOT", "BLANK", "PERCENTDIGITS",
-                  "PERCENTS", "PERCENT", "DOUBLECOLON", "RAWCOLON", "DOUBLETILDE",
-                  "SLASHSEMI", "MINUSGREATER", "RARROW", "COLONGREATER",
-                  "COLONARROW", "SLASHDOT", "DOUBLESLASHDOT", "HASHDIGITS",
-                  "HASHStringLiteral", "DOUBLEHASHDIGITS", "DOUBLEHASH",
-                  "HASH", "PLUSEQUAL", "MINUSEQUAL", "ASTERISKEQUAL", "SLASHEQUAL",
-                  "AMP", "CARETCOLONEQUAL", "COLONEQUAL", "CARETEQUAL",
-                  "SLASHCOLON", "FUNCTIONARROW", "DOT", "DOUBLECARET", "CARET",
-                  "ASTERISKCARET", "DOUBLEPLUS", "DOUBLEMINUS", "TRIPPLEAT",
-                  "DOUBLEAT", "ATASTERISK", "AT", "MAP", "SLASHASTERISK",
-                  "MAPALL", "DOUBLEBANG", "BANG", "LESSGREATER", "INTEGRAL",
-                  "DIFFERENTIALD", "CROSS", "RAWBACKSLASH", "INTERSECTION",
-                  "UNION", "DOUBLESEMICOLON", "SEMICOLON", "TRANSPOSE",
-                  "CONJUGATETRANSPOSE", "HERMITIANCONJUGATE", "CONJUGATE",
-                  "TILDE", "DEL", "SQUARE", "SMALLCIRCLE", "CIRCLEDOT",
-                  "DOUBLEASTERISK", "BACKSLASH", "DIAMOND", "WEDGE", "VEE",
-                  "CIRCLETIMES", "CENTERDOT", "STAR", "VERTICALTILDE", "COPRODUCT",
-                  "CAP", "CUP", "CIRCLEPLUS", "CIRCLEMINUS", "COLON", "DOUBLESLASH",
-                  "VERTICALSEPARATOR", "PLUS", "MINUS", "PLUSMINUS", "MINUSPLUS",
-                  "FormBox", "InterpretedBox", "BoxFraction", "BoxLeftBoxParenthesis",
-                  "BoxOtherscript", "BoxOverscript", "BoxRightBoxParenthesis",
-                  "BoxSqrt", "BoxSubscript", "BoxSuperscript", "BoxUnderscript",
-                  "BoxConstructor", "SLASH", "DIVIDE", "MultiplicationSymbol",
-                  "ASTERISK", "TIMES", "NEWLINE", "CONTINUATION", "WHITESPACE",
+    ruleNames = [ "Name", "LetterFormOrDigit", "LetterForm", "Letter", "Letterlike", 
+                  "DecimalNumber", "NumberInBase", "DIGITS", "DIGIT", "DigitInAnyBase", 
+                  "StringLiteral", "StringCharacters", "StringCharacter", 
+                  "EscapeSequence", "UnicodeEscape", "HexDigit", "COMMENT", 
+                  "LPAREN", "RPAREN", "LBRACE", "RBRACE", "LBRACKET", "RBRACKET", 
+                  "COMMA", "LCOMMENT", "RCOMMENT", "LANGLE", "RANGLE", "LFLOOR", 
+                  "RFLOOR", "LCEILING", "RCEILING", "DOUBLEBAR", "BAR", 
+                  "LBARBRACKET", "RBARBRACKET", "LBRACKETINGBAR", "RBRACKETINGBAR", 
+                  "LDOUBLEBRACKETINGBAR", "RDOUBLEBRACKETINGBAR", "DOUBLEBACKQUOTE", 
+                  "BACKQUOTE", "SINGLEQUOTE", "QUOTE", "DOUBLELESS", "TRIPPLEGREATER", 
+                  "DOUBLEGREATER", "TRIPPLEEQUAL", "EQUALBANGEQUAL", "EqualSymbol", 
+                  "LONGEQUAL", "DOUBLEEQUAL", "EQUAL", "NotEqualSymbol", 
+                  "BANGEQUAL", "NOTEQUAL", "GreaterEqualSymbol", "RAWGREATEREQUAL", 
+                  "GREATEREQUAL", "GREATERSLANTEQUAL", "LessEqualSymbol", 
+                  "RAWLESSEQUAL", "LESSEQUAL", "LESSSLANTEQUAL", "LESS", 
+                  "GREATER", "VERTICALBAR", "NOTVERTICALBAR", "DOUBLEVERTICALBAR", 
+                  "NOTDOUBLEVERTICALBAR", "ELEMENT", "NOTELEMENT", "SUBSET", 
+                  "SUPERSET", "NOT", "DOUBLEAMP", "AND", "NAND", "XOR", 
+                  "XNOR", "OR", "NOR", "LRDOUBLEARROW", "RDOUBLEARROW", 
+                  "LCONTAINS", "RIGHTTEE", "DOUBLERIGHTTEE", "LEFTTEE", 
+                  "DOUBLELEFTTEE", "UPTEE", "DOWNTEE", "SUCHTHAT", "THEREFORE", 
+                  "BECAUSE", "TRIPPLEDOT", "DOUBLEDOT", "QUESTIONMARK", 
+                  "TRIPPLEBLANK", "DOUBLEBLANK", "BLANKDOT", "BLANK", "PERCENTDIGITS", 
+                  "PERCENTS", "PERCENT", "DOUBLECOLON", "RAWCOLON", "DOUBLETILDE", 
+                  "SLASHSEMI", "MINUSGREATER", "RARROW", "COLONGREATER", 
+                  "COLONARROW", "SLASHDOT", "DOUBLESLASHDOT", "HASHDIGITS", 
+                  "HASHStringLiteral", "DOUBLEHASHDIGITS", "DOUBLEHASH", 
+                  "HASH", "PLUSEQUAL", "MINUSEQUAL", "ASTERISKEQUAL", "SLASHEQUAL", 
+                  "AMP", "CARETCOLONEQUAL", "COLONEQUAL", "CARETEQUAL", 
+                  "SLASHCOLON", "FUNCTIONARROW", "DOT", "DOUBLECARET", "CARET", 
+                  "ASTERISKCARET", "DOUBLEPLUS", "DOUBLEMINUS", "TRIPPLEAT", 
+                  "DOUBLEAT", "ATASTERISK", "AT", "MAP", "SLASHASTERISK", 
+                  "MAPALL", "DOUBLEBANG", "BANG", "LESSGREATER", "INTEGRAL", 
+                  "DIFFERENTIALD", "CROSS", "RAWBACKSLASH", "INTERSECTION", 
+                  "UNION", "DOUBLESEMICOLON", "SEMICOLON", "TRANSPOSE", 
+                  "CONJUGATETRANSPOSE", "HERMITIANCONJUGATE", "CONJUGATE", 
+                  "TILDE", "DEL", "SQUARE", "SMALLCIRCLE", "CIRCLEDOT", 
+                  "DOUBLEASTERISK", "BACKSLASH", "DIAMOND", "WEDGE", "VEE", 
+                  "CIRCLETIMES", "CENTERDOT", "STAR", "VERTICALTILDE", "COPRODUCT", 
+                  "CAP", "CUP", "CIRCLEPLUS", "CIRCLEMINUS", "COLON", "DOUBLESLASH", 
+                  "VERTICALSEPARATOR", "PLUS", "MINUS", "PLUSMINUS", "MINUSPLUS", 
+                  "FormBox", "InterpretedBox", "BoxFraction", "BoxLeftBoxParenthesis", 
+                  "BoxOtherscript", "BoxOverscript", "BoxRightBoxParenthesis", 
+                  "BoxSqrt", "BoxSubscript", "BoxSuperscript", "BoxUnderscript", 
+                  "BoxConstructor", "SLASH", "DIVIDE", "MultiplicationSymbol", 
+                  "ASTERISK", "TIMES", "NEWLINE", "CONTINUATION", "WHITESPACE", 
                   "SpaceCharacter" ]
 
     grammarFileName = "InputForm.g4"
@@ -864,30 +864,30 @@ class InputFormLexer(LexerBase):
     def action(self, localctx:RuleContext, ruleIndex:int, actionIndex:int):
         if self._actions is None:
             actions = dict()
-            actions[17] = self.LPAREN_action
-            actions[18] = self.RPAREN_action
-            actions[19] = self.LBRACE_action
-            actions[20] = self.RBRACE_action
-            actions[21] = self.LBRACKET_action
-            actions[22] = self.RBRACKET_action
-            actions[26] = self.LANGLE_action
-            actions[27] = self.RANGLE_action
-            actions[28] = self.LFLOOR_action
-            actions[29] = self.RFLOOR_action
-            actions[30] = self.LCEILING_action
-            actions[31] = self.RCEILING_action
-            actions[34] = self.LBARBRACKET_action
-            actions[35] = self.RBARBRACKET_action
-            actions[36] = self.LBRACKETINGBAR_action
-            actions[37] = self.RBRACKETINGBAR_action
-            actions[38] = self.LDOUBLEBRACKETINGBAR_action
-            actions[39] = self.RDOUBLEBRACKETINGBAR_action
-            actions[151] = self.DOUBLESEMICOLON_action
-            actions[179] = self.PLUS_action
-            actions[180] = self.MINUS_action
-            actions[181] = self.PLUSMINUS_action
-            actions[182] = self.MINUSPLUS_action
-            actions[200] = self.NEWLINE_action
+            actions[17] = self.LPAREN_action 
+            actions[18] = self.RPAREN_action 
+            actions[19] = self.LBRACE_action 
+            actions[20] = self.RBRACE_action 
+            actions[21] = self.LBRACKET_action 
+            actions[22] = self.RBRACKET_action 
+            actions[26] = self.LANGLE_action 
+            actions[27] = self.RANGLE_action 
+            actions[28] = self.LFLOOR_action 
+            actions[29] = self.RFLOOR_action 
+            actions[30] = self.LCEILING_action 
+            actions[31] = self.RCEILING_action 
+            actions[34] = self.LBARBRACKET_action 
+            actions[35] = self.RBARBRACKET_action 
+            actions[36] = self.LBRACKETINGBAR_action 
+            actions[37] = self.RBRACKETINGBAR_action 
+            actions[38] = self.LDOUBLEBRACKETINGBAR_action 
+            actions[39] = self.RDOUBLEBRACKETINGBAR_action 
+            actions[151] = self.DOUBLESEMICOLON_action 
+            actions[179] = self.PLUS_action 
+            actions[180] = self.MINUS_action 
+            actions[181] = self.PLUSMINUS_action 
+            actions[182] = self.MINUSPLUS_action 
+            actions[200] = self.NEWLINE_action 
             self._actions = actions
         action = self._actions.get(ruleIndex, None)
         if action is not None:
@@ -898,118 +898,121 @@ class InputFormLexer(LexerBase):
     def LPAREN_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 0:
             self.incrementBracketLevel(1);
-
+     
 
     def RPAREN_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 1:
             self.incrementBracketLevel(-1);
-
+     
 
     def LBRACE_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 2:
             self.incrementBracketLevel(1);
-
+     
 
     def RBRACE_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 3:
             self.incrementBracketLevel(-1);
-
+     
 
     def LBRACKET_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 4:
             self.incrementBracketLevel(1);
-
+     
 
     def RBRACKET_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 5:
             self.incrementBracketLevel(-1);
-
+     
 
     def LANGLE_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 6:
             self.incrementBracketLevel(1);
-
+     
 
     def RANGLE_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 7:
             self.incrementBracketLevel(-1);
-
+     
 
     def LFLOOR_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 8:
             self.incrementBracketLevel(1);
-
+     
 
     def RFLOOR_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 9:
             self.incrementBracketLevel(-1);
-
+     
 
     def LCEILING_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 10:
             self.incrementBracketLevel(1);
-
+     
 
     def RCEILING_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 11:
             self.incrementBracketLevel(-1);
-
+     
 
     def LBARBRACKET_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 12:
             self.incrementBracketLevel(1);
-
+     
 
     def RBARBRACKET_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 13:
             self.incrementBracketLevel(-1);
-
+     
 
     def LBRACKETINGBAR_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 14:
             self.incrementBracketLevel(1);
-
+     
 
     def RBRACKETINGBAR_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 15:
             self.incrementBracketLevel(-1);
-
+     
 
     def LDOUBLEBRACKETINGBAR_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 16:
             self.incrementBracketLevel(1);
-
+     
 
     def RDOUBLEBRACKETINGBAR_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 17:
             self.incrementBracketLevel(-1);
-
+     
 
     def DOUBLESEMICOLON_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 18:
             self.checkDoubleSemicolon();
-
+     
 
     def PLUS_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 19:
-             self.checkAdditiveOp(InputFormParser.BINARYPLUS);
-
+             self.checkAdditiveOp(InputFormParser.BINARYPLUS); 
+     
 
     def MINUS_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 20:
-             self.checkAdditiveOp(InputFormParser.BINARYMINUS);
-
+             self.checkAdditiveOp(InputFormParser.BINARYMINUS); 
+     
 
     def PLUSMINUS_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 21:
-             self.checkAdditiveOp(InputFormParser.BINARYPLUSMINUS);
-
+             self.checkAdditiveOp(InputFormParser.BINARYPLUSMINUS); 
+     
 
     def MINUSPLUS_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 22:
-             self.checkAdditiveOp(InputFormParser.BINARYMINUSPLUS);
-
+             self.checkAdditiveOp(InputFormParser.BINARYMINUSPLUS); 
+     
 
     def NEWLINE_action(self, localctx:RuleContext , actionIndex:int):
         if actionIndex == 23:
              self.checkNewline();
+     
+
+

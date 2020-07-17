@@ -1,4 +1,4 @@
-Most of the files in this directory other than the `*.patch` files were generated via `antlr4 -Dlanguage=Python3`
+Most of the files in this directory other than the `*.patch` files were generated via `antlr4 -Dlanguage=Python3 <grammar>.g4`
 
 The patch have additional modifications that need to be performed on the derived files.
 
