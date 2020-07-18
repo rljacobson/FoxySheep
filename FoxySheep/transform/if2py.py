@@ -65,25 +65,28 @@ class InputForm2PyAst(InputFormVisitor):
     visitMinusOp = visitDivide = visitNonCommutativeMultiply = visitPlusOp
 
 
-def input_form_to_python_ast(tree, parse_tree_fn, show_tree_fn) -> ast.AST:
+def input_form_to_python_ast(tree, show_tree_fn) -> ast.AST:
     transform = InputForm2PyAst()
     return transform.visit(tree)
 
-def input_form_to_python(tree, parse_tree_fn, show_tree_fn) -> str:
-    pyast = input_form_to_python_ast(tree, parse_tree_fn, show_tree_fn)
+def input_form_to_python(input_form_str: str, parse_tree_fn, show_tree_fn) -> str:
+
+    tree = parse_tree_fn(input_form_str, show_tree_fn=show_tree_fn)
+    pyast = input_form_to_python_ast(tree, show_tree_fn)
     return astor.to_source(pyast)
 
 
 if __name__ == "__main__":
-    from antlr4 import InputStream, CommonTokenStream
-    from FoxySheep.generated.InputFormLexer import InputFormLexer
-    from FoxySheep.generated.InputFormParser import InputFormParser
+    def parse_tree_fn(expr: str, show_tree_fn):
+        from FoxySheep.generated.InputFormLexer import InputFormLexer
+        from FoxySheep.generated.InputFormParser import InputFormParser
+        from antlr4 import InputStream, CommonTokenStream
+        lexer = InputFormLexer(InputStream(expr))
+        parser = InputFormParser(CommonTokenStream(lexer))
+        tree = parser.prog()
+        show_tree_fn(tree, parser.ruleNames)
+        # tree = postParse(tree)
+        return tree
 
-    lexer = InputFormLexer(InputStream("10**1"))
-    parser = InputFormParser(CommonTokenStream(lexer))
-    tree = parser.prog()
     from FoxySheep.tree.pretty_printer import pretty_print_compact
-
-    pyast = input_form_to_python_ast(tree, parser, pretty_print_compact)
-    print(astor.dump(pyast))
-    print(astor.to_source(pyast))
+    print(input_form_to_python("1", parse_tree_fn, pretty_print_compact))

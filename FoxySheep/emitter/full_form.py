@@ -884,3 +884,17 @@ def input_form_to_full_form(
 
     # Emit FullForm.
     return emitter.visit(tree)
+
+if __name__ == "__main__":
+    def parse_tree_fn(expr: str, show_tree_fn):
+        from FoxySheep.generated.InputFormLexer import InputFormLexer
+        from antlr4 import InputStream, CommonTokenStream
+        lexer = InputFormLexer(InputStream(expr))
+        parser = InputFormParser(CommonTokenStream(lexer))
+        tree = parser.prog()
+        show_tree_fn(tree, parser.ruleNames)
+        # tree = postParse(tree)
+        return tree
+
+    from FoxySheep.tree.pretty_printer import pretty_print_compact
+    print(input_form_to_full_form("1 ** 10", parse_tree_fn, pretty_print_compact))

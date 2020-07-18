@@ -91,7 +91,7 @@ def ff_parse_tree_from_string(input: str, show_tree_fn=False):
     return tree
 
 
-def REPL(parse_tree_fn: Callable = parse_tree_from_string, show_tree_fn=None) -> None:
+def REPL(parse_tree_fn: Callable, show_tree_fn=None) -> None:
     # Simple REPL
     print(
         "Enter a Mathematica expression. Enter either an empty line, Ctrl-C, or Ctrl-D to exit."
