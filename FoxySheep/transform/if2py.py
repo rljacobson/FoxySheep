@@ -1,3 +1,4 @@
+import astor
 from antlr4 import TerminalNode
 from antlr4.ParserRuleContext import ParserRuleContext
 from FoxySheep.generated.InputFormVisitor import InputFormVisitor
@@ -64,9 +65,13 @@ class InputForm2PyAst(InputFormVisitor):
     visitMinusOp = visitDivide = visitNonCommutativeMultiply = visitPlusOp
 
 
-def input_form_to_pyast(tree) -> ast.AST:
+def input_form_to_python_ast(tree, parse_tree_fn, show_tree_fn) -> ast.AST:
     transform = InputForm2PyAst()
     return transform.visit(tree)
+
+def input_form_to_python(tree, parse_tree_fn, show_tree_fn) -> str:
+    pyast = input_form_to_python_ast(tree, parse_tree_fn, show_tree_fn)
+    return astor.to_source(pyast)
 
 
 if __name__ == "__main__":
@@ -79,9 +84,6 @@ if __name__ == "__main__":
     tree = parser.prog()
     from FoxySheep.tree.pretty_printer import pretty_print_compact
 
-    pretty_print_compact(tree, parser.ruleNames)
-    pyast = input_form_to_pyast(tree)
-    import astor
-
+    pyast = input_form_to_python_ast(tree, parser, pretty_print_compact)
     print(astor.dump(pyast))
     print(astor.to_source(pyast))

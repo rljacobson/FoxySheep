@@ -2,6 +2,9 @@ from antlr4 import TerminalNode
 from FoxySheep.generated.InputFormVisitor import InputFormVisitor
 from FoxySheep.generated.InputFormParser import InputFormParser
 
+emitter = None
+
+
 class FullFormEmitter(InputFormVisitor):
     """
     This class defines a complete generic visitor for a parse tree produced by InputFormParser.
@@ -864,3 +867,20 @@ class FullFormEmitter(InputFormVisitor):
     # Visit a parse tree produced by InputFormParser#box.
     def visitBox(self, ctx):
         return ctx.getText()
+
+
+def input_form_to_full_form(
+    input_form_str: str, parse_tree_fn, show_tree_fn=None
+) -> str:
+    """Convert Mathematica string `input_form_str` into Full-Form text"""
+    global emitter
+
+    # Reuse existing emitter.
+    if not emitter:
+        emitter = FullFormEmitter()
+
+    # Parse the input.
+    tree = parse_tree_fn(input_form_str, show_tree_fn=show_tree_fn)
+
+    # Emit FullForm.
+    return emitter.visit(tree)

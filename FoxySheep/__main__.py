@@ -1,7 +1,8 @@
 import click
 from antlr4 import ParseTreeWalker, InputStream, CommonTokenStream
 from typing import Callable
-from FoxySheep.emitter.full_form import FullFormEmitter
+from FoxySheep.emitter.full_form import input_form_to_full_form
+from FoxySheep.emitter.python import input_form_to_python
 from FoxySheep.generated.InputFormLexer import InputFormLexer
 from FoxySheep.generated.InputFormParser import InputFormParser
 from FoxySheep.post_parser import PostParser
@@ -35,7 +36,7 @@ def postParse(tree):
     return tree
 
 
-def parse_tree_from_string(input: str, post_process=True, show_tree_fn=None):
+def parse_tree_from_string(input_form: str, post_process=True, show_tree_fn=None):
 
     # Boilerplate
     # lexer = InputFormLexer(InputStream(input))
@@ -46,9 +47,9 @@ def parse_tree_from_string(input: str, post_process=True, show_tree_fn=None):
 
     # Reuse any existing parser or lexer.
     if not lexer:
-        lexer = InputFormLexer(InputStream(input))
+        lexer = InputFormLexer(InputStream(input_form))
     else:
-        lexer.inputStream = InputStream(input)
+        lexer.inputStream = InputStream(input_form)
     if not parser:
         parser = InputFormParser(CommonTokenStream(lexer))
     else:
@@ -90,28 +91,6 @@ def ff_parse_tree_from_string(input: str, show_tree_fn=False):
     return tree
 
 
-def FullForm_from_string(
-    input: str, parse_tree_fn=parse_tree_from_string, show_tree_fn=None
-):
-    """Convert Mathematica string `input` into Full-Form input"""
-    global emitter
-
-    # Reuse existing emitter.
-    if not emitter:
-        emitter = FullFormEmitter()
-
-    # Parse the input.
-    tree = parse_tree_fn(input, show_tree_fn=show_tree_fn)
-
-    # Emit FullForm.
-    return emitter.visit(tree)
-
-
-def FullForm_from_file(path: str, parse_tree_fn=parse_tree_from_string):
-    """Convert Mathematica string `input` into Full-Form input"""
-    return FullForm_from_string(open(path, "r").read(), parse_tree_fn)
-
-
 def REPL(parse_tree_fn: Callable = parse_tree_from_string, show_tree_fn=None) -> None:
     # Simple REPL
     print(
@@ -125,7 +104,7 @@ def REPL(parse_tree_fn: Callable = parse_tree_from_string, show_tree_fn=None) ->
         if user_in == "":
             break
 
-        print(FullForm_from_string(user_in, parse_tree_fn, show_tree_fn))
+        print(input_form_to_full_form(user_in, parse_tree_fn, show_tree_fn))
 
 
 @click.command()
@@ -144,9 +123,15 @@ def REPL(parse_tree_fn: Callable = parse_tree_from_string, show_tree_fn=None) ->
     type=click.Choice(["InputForm", "FullForm"], case_sensitive=False),
     required=False,
 )
+@click.option(
+    "-o",
+    "--output-style",
+    type=click.Choice(["Python", "FullForm"], case_sensitive=False),
+    required=False,
+)
 @click.option("-e", "--expr", help="translate *expr*", required=False)
 @click.version_option(version=VERSION)
-def main(repl: bool, tree, input_style, expr: str):
+def main(repl: bool, tree, input_style, output_style, expr: str):
     parse_tree_fn = (
         ff_parse_tree_from_string
         if input_style and input_style.lower() == "fullform"
@@ -161,7 +146,10 @@ def main(repl: bool, tree, input_style, expr: str):
         show_tree_fn = None
 
     if expr:
-        print(FullForm_from_string(expr, parse_tree_fn, show_tree_fn))
+        if output_style and output_style.lower() == "python":
+            print(input_form_to_python(expr, parse_tree_fn, show_tree_fn))
+        else:
+            print(input_form_to_full_form(expr, parse_tree_fn, show_tree_fn))
     elif repl:
         REPL(parse_tree_fn, show_tree_fn)
     else:

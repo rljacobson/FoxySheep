@@ -6,3 +6,4 @@
 /dist
 /tmp
 __pycache__
+/grammar/.antlr
