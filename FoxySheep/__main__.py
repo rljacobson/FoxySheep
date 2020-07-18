@@ -1,11 +1,11 @@
 import click
-from antlr4 import ParseTreeWalker, InputStream, CommonTokenStream
+from antlr4 import InputStream, CommonTokenStream
 from typing import Callable
 from FoxySheep.emitter.full_form import input_form_to_full_form
 from FoxySheep.emitter.python import input_form_to_python
 from FoxySheep.generated.InputFormLexer import InputFormLexer
 from FoxySheep.generated.InputFormParser import InputFormParser
-from FoxySheep.post_parser import PostParser
+from FoxySheep.transform.if_transform import input_form_post_parse
 from FoxySheep.tree.pretty_printer import pretty_print, pretty_print_compact
 from FoxySheep.generated.FullFormLexer import FullFormLexer
 from FoxySheep.generated.FullFormParser import FullFormParser
@@ -17,23 +17,6 @@ lexer = None
 ff_parser = None
 ff_lexer = None
 emitter = None
-
-
-def postParse(tree):
-    """Post process the parse tree. In particular, flatten some flat
-    operators. Some operators appear in the source text without any
-    explicit associativity, such as `Plus`, and are parsed into arbitrary
-    tree structures.
-    """
-
-    walker = ParseTreeWalker()
-    post_parser = PostParser()
-    walker.walk(post_parser, tree)
-
-    # The PostParser can restructure the tree in a way that changes the root.
-    if tree.parentCtx is not None:
-        tree = tree.parentCtx
-    return tree
 
 
 def parse_tree_from_string(input_form: str, post_process=True, show_tree_fn=None):
@@ -60,14 +43,14 @@ def parse_tree_from_string(input_form: str, post_process=True, show_tree_fn=None
     if post_process:
         if show_tree_fn:
             show_tree_fn(tree, parser.ruleNames)
-        post_tree = postParse(tree)
+        post_tree = input_form_post_parse(tree)
         if post_tree != tree:
             show_tree_fn(post_tree, parser.ruleNames)
             tree = post_tree
     return tree
 
 
-def ff_parse_tree_from_string(input: str, show_tree_fn=False):
+def ff_parse_tree_from_string(input: str, post_process=True, show_tree_fn=False):
     global ff_parser, ff_lexer
 
     # Reuse any existing parser or lexer.
@@ -86,8 +69,13 @@ def ff_parse_tree_from_string(input: str, show_tree_fn=False):
 
     # Parse!
     tree = ff_parser.prog()
-    if show_tree_fn:
-        show_tree_fn(tree, ff_parser.ruleNames)
+    if post_process:
+        if show_tree_fn:
+            show_tree_fn(tree, ff_parser.ruleNames)
+        post_tree = input_form_post_parse(tree)
+        if post_tree != tree:
+            show_tree_fn(post_tree, parser.ruleNames)
+            tree = post_tree
     return tree
 
 
