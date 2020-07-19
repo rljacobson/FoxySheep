@@ -8,7 +8,8 @@ import ast
 IF_name_to_pyop = {
     "DivideContext": ast.Div,
     "MinusOpContext": ast.Sub,
-    "NonCommutativeMultiplyContext": ast.Mult,
+    "TimesContext": ast.Mult,
+    "NonCommutativeMultiplyContext": ast.Mult,  # Not quite right: doesn't capture non-commutativenewss
     "PlusOpContext": ast.Add,
 }
 
@@ -41,7 +42,22 @@ class InputForm2PyAst(InputFormVisitor):
         return elist
 
     def visitProg(self, ctx: ParserRuleContext) -> ast.AST:
-        return self.visit(ctx.expr(0))
+        exprs = ctx.expr()
+        n = len(exprs)
+        if n > 0:
+            if n == 1:
+                return self.visit(exprs(0))
+            else:
+                expr_list = map(self.visit, exprs)
+                pass
+            pass
+        elif n == 0:
+            expr_list = []
+            for expr in ctx.expressionList().getChildren():
+                if expr.getText() == ",":
+                    continue
+                expr_list.append(self.visit(expr))
+        return ast.Tuple(expr_list, 5)
 
     def visitNumberBaseTen(self, ctx: ParserRuleContext) -> ast.AST:
         digits = ctx.getText()
@@ -81,7 +97,7 @@ class InputForm2PyAst(InputFormVisitor):
         node.right = self.visit(ctx.expr(1))
         return node
 
-    visitMinusOp = visitDivide = visitNonCommutativeMultiply = visitPlusOp
+    visitMinusOp = visitDivide = visitNonCommutativeMultiply = visitTimes = visitPlusOp
 
 
 def input_form_to_python_ast(tree, show_tree_fn) -> ast.AST:
@@ -108,4 +124,4 @@ if __name__ == "__main__":
         return tree
 
     from FoxySheep.tree.pretty_printer import pretty_print_compact
-    print(input_form_to_python("1", parse_tree_fn, pretty_print_compact))
+    print(input_form_to_python("1, 2", parse_tree_fn, pretty_print_compact))

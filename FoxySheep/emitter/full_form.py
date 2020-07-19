@@ -70,7 +70,15 @@ class FullFormEmitter(InputFormVisitor):
     # Visit a parse tree produced by InputFormParser#prog.
     def visitProg(self, ctx):
         exprList = self.get_children(ctx.expr)
-        return "\n\n".join(map(self.get_full_form, exprList))
+        if len(exprList) > 0:
+            return "\n\n".join(map(self.get_full_form, exprList))
+        else:
+            expr_list = []
+            for expr in ctx.expressionList().getChildren():
+                if expr.getText() == ",":
+                    continue
+                expr_list.append(self.visit(expr))
+            return "\n\n".join(expr_list)
 
     # Visit a parse tree produced by InputFormParser#Unset.
     def visitUnset(self, ctx):

@@ -114,5 +114,13 @@ def pretty_print_string(tree, rule_names, compact=False) -> str:
     walker.walk(pretty_printer, tree)
     return pretty_printer.builder
 
-def pretty_print(tree, rule_names, compact=False, out=sys.stdout):
-    out.write(pretty_print_string(tree, rule_names, compact) + "\n")
+def pretty_print_string_compact(*args) -> None:
+    pretty_print_string(*args, compact=True)
+
+def pretty_print(*args, **kwargs) -> None:
+    out = kwargs.get("out", sys.stdout)
+    out.write(pretty_print_string(*args, **kwargs) + "\n")
+
+def pretty_print_compact(*args, **kwargs) -> None:
+    kwargs["compact"] = True
+    pretty_print(*args, **kwargs)
