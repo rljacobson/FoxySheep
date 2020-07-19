@@ -1,7 +1,7 @@
 from antlr4 import ParseTreeWalker
 from FoxySheep.post_parser import PostParser
 
-def input_form_post_parse(tree):
+def input_form_post(tree):
     """Post process the parse tree. In particular, flatten some flat
     operators. Some operators appear in the source text without any
     explicit associativity, such as `Plus`, and are parsed into arbitrary

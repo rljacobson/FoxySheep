@@ -5,7 +5,7 @@ from FoxySheep.emitter.full_form import input_form_to_full_form
 from FoxySheep.emitter.python import input_form_to_python
 from FoxySheep.generated.InputFormLexer import InputFormLexer
 from FoxySheep.generated.InputFormParser import InputFormParser
-from FoxySheep.transform.if_transform import input_form_post_parse
+from FoxySheep.transform.if_transform import input_form_post
 from FoxySheep.tree.pretty_printer import pretty_print
 from FoxySheep.generated.FullFormLexer import FullFormLexer
 from FoxySheep.generated.FullFormParser import FullFormParser
@@ -43,7 +43,7 @@ def parse_tree_from_string(input_form: str, post_process=True, show_tree_fn=None
     if post_process:
         if show_tree_fn:
             show_tree_fn(tree, parser.ruleNames)
-        post_tree = input_form_post_parse(tree)
+        post_tree = input_form_post(tree)
         if post_tree != tree:
             show_tree_fn(post_tree, parser.ruleNames)
             tree = post_tree
@@ -72,14 +72,14 @@ def ff_parse_tree_from_string(input: str, post_process=True, show_tree_fn=False)
     if post_process:
         if show_tree_fn:
             show_tree_fn(tree, ff_parser.ruleNames)
-        post_tree = input_form_post_parse(tree)
+        post_tree = input_form_post(tree)
         if post_tree != tree:
             show_tree_fn(post_tree, parser.ruleNames)
             tree = post_tree
     return tree
 
 
-def REPL(parse_tree_fn: Callable, show_tree_fn=None) -> None:
+def REPL(parse_tree_fn: Callable, output_style_fn, show_tree_fn=None) -> None:
     # Simple REPL
     print(
         "Enter a Mathematica expression. Enter either an empty line, Ctrl-C, or Ctrl-D to exit."
@@ -92,7 +92,7 @@ def REPL(parse_tree_fn: Callable, show_tree_fn=None) -> None:
         if user_in == "":
             break
 
-        print(input_form_to_full_form(user_in, parse_tree_fn, show_tree_fn))
+        print(output_style_fn(user_in, parse_tree_fn, show_tree_fn))
 
 
 @click.command()
@@ -133,13 +133,14 @@ def main(repl: bool, tree, input_style, output_style, expr: str):
     else:
         show_tree_fn = None
 
+    output_style_fn = input_form_to_full_form
+    if output_style and output_style.lower() == "python":
+        output_style_fn = input_form_to_python
+
     if expr:
-        if output_style and output_style.lower() == "python":
-            print(input_form_to_python(expr, parse_tree_fn, show_tree_fn))
-        else:
-            print(input_form_to_full_form(expr, parse_tree_fn, show_tree_fn))
+        print(output_style_fn(expr, parse_tree_fn, show_tree_fn))
     elif repl:
-        REPL(parse_tree_fn, show_tree_fn)
+        REPL(parse_tree_fn, output_style_fn, show_tree_fn)
     else:
         print("Something went wrong")
 

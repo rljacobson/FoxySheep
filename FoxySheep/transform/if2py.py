@@ -2,6 +2,7 @@ import astor
 from antlr4 import TerminalNode
 from antlr4.ParserRuleContext import ParserRuleContext
 from FoxySheep.generated.InputFormVisitor import InputFormVisitor
+from FoxySheep.transform.if_transform import input_form_post
 import ast
 
 IF_name_to_pyop = {
@@ -43,10 +44,28 @@ class InputForm2PyAst(InputFormVisitor):
         return self.visit(ctx.expr(0))
 
     def visitNumberBaseTen(self, ctx: ParserRuleContext) -> ast.AST:
-        node = ast.Constant()
-        node.lineno = 0
-        node.col_offset = 0
-        node.value = int(ctx.getText(), 10)
+        digits = ctx.getText()
+        if digits.find(".") >= 0:
+            ast_top = ast.parse(f"Decimal({digits})")
+            node = ast_top.body[0]
+        else:
+            node = ast.Constant()
+            node.lineno = 0
+            node.col_offset = 0
+            node.value = int(ctx.getText(), 10)
+        return node
+
+    def visitNumberBaseN(self, ctx: ParserRuleContext) -> ast.AST:
+        digits = ctx.getChild(0).getText()
+        base = ctx.getChild(1).getText()
+        if base.startswith("^^"):
+            ast_top = ast.parse(f"int({digits}, {base[2:]})")
+            node = ast_top.body[0]
+        else:
+            node = ast.Constant()
+            node.lineno = 0
+            node.col_offset = 0
+            node.value = int(ctx.getText(), 10)
         return node
 
     def visitPlusOp(self, ctx: ParserRuleContext) -> ast.AST:
@@ -85,7 +104,7 @@ if __name__ == "__main__":
         parser = InputFormParser(CommonTokenStream(lexer))
         tree = parser.prog()
         show_tree_fn(tree, parser.ruleNames)
-        # tree = postParse(tree)
+        tree = input_form_post(tree)
         return tree
 
     from FoxySheep.tree.pretty_printer import pretty_print_compact
