@@ -1,5 +1,6 @@
 from antlr4.ParserRuleContext import ParserRuleContext
 from antlr4 import TerminalNode, ParseTreeWalker, ParseTreeListener
+import sys
 
 INDENTATION_SPACE = "  "
 class PrettyPrinter(ParseTreeListener):
@@ -31,9 +32,9 @@ class PrettyPrinter(ParseTreeListener):
                 self.builder += "\n"
             self.builder += (INDENTATION_SPACE * self.indentation)
 
-        self.builder += f"{kid_number}. "
+        self.builder += f"{self.kid_number}. "
         self.kid_number += 1
-        builder += str(node)
+        self.builder += str(node)
         # builder.append(Utils.escapeWhitespace(Trees.getNodeText(node, ruleNames), false));
 
     def enterEveryRule(self, ctx: ParserRuleContext) -> None:
@@ -81,9 +82,9 @@ class PrettyPrinterCompact(ParseTreeListener):
         if self.builder:
             self.builder += " "
 
-        self.builder += f"{kid_number}. "
+        self.builder += f"{self.kid_number}. "
         self.kid_number += 1
-        builder += str(node)
+        self.builder += str(node)
         # builder.append(Utils.escapeWhitespace(Trees.getNodeText(node, ruleNames), false));
 
     def enterEveryRule(self, ctx: ParserRuleContext) -> None:
@@ -106,14 +107,12 @@ class PrettyPrinterCompact(ParseTreeListener):
         if ctx.getChildCount():
             self.builder += ")"
 
-def pretty_print(tree, rule_names):
+def pretty_print_string(tree, rule_names, compact=False) -> str:
     walker = ParseTreeWalker()
-    pretty_printer = PrettyPrinter(rule_names)
+    pp_fn = PrettyPrinterCompact if compact else PrettyPrinter
+    pretty_printer = pp_fn(rule_names)
     walker.walk(pretty_printer, tree)
-    print(pretty_printer.builder)
+    return pretty_printer.builder
 
-def pretty_print_compact(tree, rule_names):
-    walker = ParseTreeWalker()
-    pretty_printer = PrettyPrinterCompact(rule_names)
-    walker.walk(pretty_printer, tree)
-    print(pretty_printer.builder)
+def pretty_print(tree, rule_names, compact=False, out=sys.stdout):
+    out.write(pretty_print_string(tree, rule_names, compact) + "\n")

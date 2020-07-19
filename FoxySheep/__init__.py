@@ -12,7 +12,7 @@ from FoxySheep.emitter.full_form import FullFormEmitter, input_form_to_full_form
 from FoxySheep.emitter.python import input_form_to_python
 
 from FoxySheep.post_parser import PostParser
-from FoxySheep.tree.pretty_printer import pretty_print, pretty_print_compact, PrettyPrinter, PrettyPrinterCompact
+from FoxySheep.tree.pretty_printer import pretty_print, pretty_print_string, PrettyPrinter, PrettyPrinterCompact
 from FoxySheep.tree import SymbolNode
 from FoxySheep.__main__ import (
     parse_tree_from_string,

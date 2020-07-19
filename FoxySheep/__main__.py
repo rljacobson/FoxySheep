@@ -6,7 +6,7 @@ from FoxySheep.emitter.python import input_form_to_python
 from FoxySheep.generated.InputFormLexer import InputFormLexer
 from FoxySheep.generated.InputFormParser import InputFormParser
 from FoxySheep.transform.if_transform import input_form_post_parse
-from FoxySheep.tree.pretty_printer import pretty_print, pretty_print_compact
+from FoxySheep.tree.pretty_printer import pretty_print
 from FoxySheep.generated.FullFormLexer import FullFormLexer
 from FoxySheep.generated.FullFormParser import FullFormParser
 from FoxySheep.version import VERSION
@@ -127,9 +127,9 @@ def main(repl: bool, tree, input_style, output_style, expr: str):
     )
 
     if tree == "full":
-        show_tree_fn = pretty_print
-    elif  tree == "compact":
-        show_tree_fn = pretty_print_compact
+        show_tree_fn = lambda tree, rule_names: pretty_print(tree, rule_names, compact=False)
+    elif tree == "compact":
+        show_tree_fn = lambda tree, rule_names: pretty_print(tree, rule_names, compact=True)
     else:
         show_tree_fn = None
 
