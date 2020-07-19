@@ -1,4 +1,4 @@
-.PHONY: all develop dist FullForm InputForm run clean rmsheep demo install uninstall rmChangeLog ChangeLog
+.PHONY: all check develop dist FullForm InputForm run clean rmsheep demo install uninstall rmChangeLog ChangeLog
 
 GIT2CL ?= git2cl
 GEN_DIR = FoxySheep/generated
@@ -11,6 +11,10 @@ FullForm: $(GEN_DIR)/FullFormParser.py $(GEN_DIR)/FullFormLexer.py
 
 #: Generate the FoxySheep InputForm Parser and Lexer
 InputForm: $(GEN_DIR)/InputFormParser.py $(GEN_DIR)/InputFormLexer.py
+
+#: Set up to run from source code
+check:
+	py.test pytest
 
 #: Set up to run from source code
 develop: FullForm InputForm
