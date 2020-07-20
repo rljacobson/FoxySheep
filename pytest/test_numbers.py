@@ -9,18 +9,19 @@ from FoxySheep.transform.if2py import input_form_to_python
 
 last_tree_str = ""
 
+def parse_tree_fn(expr: str, show_tree_fn):
+    global last_tree_str
+    lexer = InputFormLexer(InputStream(expr))
+    parser = InputFormParser(CommonTokenStream(lexer))
+    tree = parser.prog()
+    last_tree_str = show_tree_fn(tree, parser.ruleNames)
+    tree = input_form_post(tree)
+    return tree
+
+pp_fn = lambda tree, rule_names: pretty_print_string(tree, rule_names, compact=True)
+
 
 def test_numberLiteral():
-    def parse_tree_fn(expr: str, show_tree_fn):
-        global last_tree_str
-        lexer = InputFormLexer(InputStream(expr))
-        parser = InputFormParser(CommonTokenStream(lexer))
-        tree = parser.prog()
-        last_tree_str = show_tree_fn(tree, parser.ruleNames)
-        tree = input_form_post(tree)
-        return tree
-
-    pp_fn = lambda tree, rule_names: pretty_print_string(tree, rule_names, compact=True)
 
     for expr, tree_str_expect in (
         ("1", "(prog (expr (numberLiteral '1')))"),
@@ -45,16 +46,6 @@ def test_numberLiteral():
         assert last_tree_str == tree_str_expect
 
 def test_numberLiteral2Py():
-    def parse_tree_fn(expr: str, show_tree_fn):
-        global last_tree_str
-        lexer = InputFormLexer(InputStream(expr))
-        parser = InputFormParser(CommonTokenStream(lexer))
-        tree = parser.prog()
-        last_tree_str = show_tree_fn(tree, parser.ruleNames)
-        # tree = postParse(tree)
-        return tree
-
-    pp_fn = lambda tree, rule_names: pretty_print_string(tree, rule_names, compact=True)
 
     for expr, tree_str_expect, output_expect in (
         ("1", "(prog (expr (numberLiteral '1')))", "(1)"),
@@ -77,24 +68,19 @@ def test_numberLiteral2Py():
 
         assert output_expect == s.strip()
         assert last_tree_str == tree_str_expect
+
 def test_binOp():
-
-    def parse_tree_fn(expr: str, show_tree_fn):
-        global last_tree_str
-        lexer = InputFormLexer(InputStream(expr))
-        parser = InputFormParser(CommonTokenStream(lexer))
-        tree = parser.prog()
-        last_tree_str = show_tree_fn(tree, parser.ruleNames)
-        tree = input_form_post(tree)
-        return tree
-
-    pp_fn = lambda tree, rule_names: pretty_print_string(tree, rule_names, compact=True)
 
     for expr, tree_str_expect, full_form_expect in (
         (
             "1 ** 10",
             "(prog (expr (expr (numberLiteral '1')) '**' (expr (numberLiteral '10'))))",
             "NonCommutativeMultiply[1,10]",
+        ),
+        (
+            "1 / 10 3",
+            "(prog (expr (expr (expr (numberLiteral '1')) '/' (expr (numberLiteral '10'))) (expr (numberLiteral '3'))))",
+            "Times[Times[1,Power[10,-1]],3]",
         ),
     ):
         s = input_form_to_full_form(expr, parse_tree_fn, pp_fn)
@@ -104,6 +90,30 @@ def test_binOp():
         # print("=" * 30)
 
         assert s == full_form_expect
+        assert last_tree_str == tree_str_expect
+
+
+def test_binOp2Py():
+
+    for expr, tree_str_expect, full_form_expect in (
+        (
+            "1 ** 10",
+            "(prog (expr (expr (numberLiteral '1')) '**' (expr (numberLiteral '10'))))",
+            "(1 * 10)",
+        ),
+        (
+            "(1 / 10) 3",
+            "(prog (expr (expr '(' (expr (expr (numberLiteral '1')) '/' (expr (numberLiteral '10'))) ')') (expr (numberLiteral '3'))))",
+            "(1 / 10 * 3)",
+        ),
+    ):
+        s = input_form_to_python(expr, parse_tree_fn, pp_fn)
+        # print(s)
+        # print("-" * 30)
+        # print(last_tree_str)
+        # print("=" * 30)
+
+        assert s.strip() == full_form_expect
         assert last_tree_str == tree_str_expect
 
 

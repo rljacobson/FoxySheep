@@ -5,6 +5,7 @@ import InputFormLexerRules;
 // PARSER RULES
 prog
 	: expr (NEWLINE+ expr?)*
+	| expressionList
 	;
 
 expr

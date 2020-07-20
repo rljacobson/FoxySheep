@@ -9,6 +9,7 @@ IF_name_to_pyop = {
     "DivideContext": ast.Div,
     "MinusOpContext": ast.Sub,
     "TimesContext": ast.Mult,
+    "PowerContext": ast.Pow,
     "NonCommutativeMultiplyContext": ast.Mult,  # Not quite right: doesn't capture non-commutativenewss
     "PlusOpContext": ast.Add,
 }
@@ -46,7 +47,7 @@ class InputForm2PyAst(InputFormVisitor):
         n = len(exprs)
         if n > 0:
             if n == 1:
-                return self.visit(exprs(0))
+                return self.visit(exprs[0])
             else:
                 expr_list = map(self.visit, exprs)
                 pass
@@ -58,6 +59,9 @@ class InputForm2PyAst(InputFormVisitor):
                     continue
                 expr_list.append(self.visit(expr))
         return ast.Tuple(expr_list, 5)
+
+    def visitParentheses(self, ctx:ParserRuleContext) -> ast.AST:
+        return self.visit(ctx.getChild(1))
 
     def visitNumberBaseTen(self, ctx: ParserRuleContext) -> ast.AST:
         digits = ctx.getText()
@@ -85,6 +89,9 @@ class InputForm2PyAst(InputFormVisitor):
         return node
 
     def visitPlusOp(self, ctx: ParserRuleContext) -> ast.AST:
+        """
+        Handles infix binary operators. Function binary operators are different.
+        """
         node = ast.BinOp()
         ctx_name = type(ctx).__name__
         ast_op_fn = IF_name_to_pyop.get(ctx_name, None)
@@ -97,12 +104,35 @@ class InputForm2PyAst(InputFormVisitor):
         node.right = self.visit(ctx.expr(1))
         return node
 
-    visitMinusOp = visitDivide = visitNonCommutativeMultiply = visitTimes = visitPlusOp
+    visitMinusOp = (
+        visitDivide
+    ) = visitNonCommutativeMultiply = visitTimes = visitPower = visitPlusOp
+
+
+    def visitUnaryPlusMinus(self, ctx: ParserRuleContext) -> ast.AST:
+        """Handles prefix + and - operators. Note +- (plus or minus) and -+
+        are different.
+        """
+        node = ast.UnaryOp()
+        node.lineno = 0
+        node.col_offset = 0
+        ctx_name = type(ctx).__name__
+
+        if ctx.MINUS() is not None:
+            node.op = ast.USub()
+        elif ctx.PLUS() is not None:
+            node.op = ast.UAdd()
+        elif ctx.PLUSMINUS() or ctx.MINUSPLUS():
+            # We don't handle these
+            return self.visitChildren(ctx)
+        node.operand = self.visit(ctx.expr())
+        return node
 
 
 def input_form_to_python_ast(tree, show_tree_fn) -> ast.AST:
     transform = InputForm2PyAst()
     return transform.visit(tree)
+
 
 def input_form_to_python(input_form_str: str, parse_tree_fn, show_tree_fn) -> str:
 
@@ -112,10 +142,12 @@ def input_form_to_python(input_form_str: str, parse_tree_fn, show_tree_fn) -> st
 
 
 if __name__ == "__main__":
+
     def parse_tree_fn(expr: str, show_tree_fn):
         from FoxySheep.generated.InputFormLexer import InputFormLexer
         from FoxySheep.generated.InputFormParser import InputFormParser
         from antlr4 import InputStream, CommonTokenStream
+
         lexer = InputFormLexer(InputStream(expr))
         parser = InputFormParser(CommonTokenStream(lexer))
         tree = parser.prog()
@@ -124,4 +156,5 @@ if __name__ == "__main__":
         return tree
 
     from FoxySheep.tree.pretty_printer import pretty_print_compact
-    print(input_form_to_python("1, 2", parse_tree_fn, pretty_print_compact))
+
+    print(input_form_to_python("-(1)", parse_tree_fn, pretty_print_compact))
