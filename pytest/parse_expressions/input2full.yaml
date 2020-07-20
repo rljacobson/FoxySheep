@@ -1,0 +1,58 @@
+# This YAML file contains lots of data to
+# check parsing from Mathematica InputForm
+# to Mathematica to OutputForm
+
+
+numberLiteral:
+
+  -
+    # One digit
+    InputForm: 1
+    tree: "(prog (expr (numberLiteral '1')))"
+
+  -
+    # One More than one dgit
+    InputForm: 12
+    FullForm: 12
+    tree: "(prog (expr (numberLiteral '12')))"
+
+  -
+    # Decimal
+    InputForm: 167.5
+    tree: "(prog (expr (numberLiteral '167.5')))"
+
+  -
+    # Base 8 representation
+    InputForm: 15^^8
+    tree: "(prog (expr (numberLiteral '15' '^^8')))"
+
+  -
+    InputForm: 55*^2
+    tree: "(prog (expr (numberLiteral '55' (numberLiteralExponent '*^' '2'))))"
+
+  # -
+  #   InputForm: "10^^3.58.3"
+  #   tree: "(expr (numberLiteral '55' '^^8.3')))"
+
+  -
+    # Machine-specific literal precision
+    InputForm: 132`
+    tree: "(prog (expr (numberLiteral '132' (numberLiteralPrecision '`'))))"
+
+  -
+    # Base 8 with Machine-specific literal precision
+    InputForm: 167^^8``5
+    tree: "(prog (expr (numberLiteral '167' '^^8' (numberLiteralPrecision '``' '5'))))"
+
+##############
+
+binOp:
+    -
+      InputForm: 1 ** 10
+      tree: "(prog (expr (expr (numberLiteral '1')) '**' (expr (numberLiteral '10'))))"
+      FullForm: "NonCommutativeMultiply[1,10]"
+
+    -
+      InputForm: 1 / 10 3
+      tree: "(prog (expr (expr (expr (numberLiteral '1')) '/' (expr (numberLiteral '10'))) (expr (numberLiteral '3'))))"
+      FullForm: "Times[Times[1,Power[10,-1]],3]"
