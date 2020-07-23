@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/rocky/FoxySheep2.svg?branch=master)](https://travis-ci.org/rocky/FoxySheep2)
+
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
 
@@ -25,18 +27,11 @@ There are various `Makefile` targets for:
 
 To see a list of the target names for each of the above run `remake --tasks`.
 
-# Uses
+# Examples
 
-Right now the code can show the corresponding FullForm equivalent of Mathtematica InputForm. "InputForm" is the normal (shorter-for) text input that Mathematica accepts, while FullForm is a simpler, unabbreviated kind of text input that makes everything explicit and doesn't use abbreviation or non-ascii symbols. FullForm is closer to the kind of input that Mathematica works on internally.
-
-Going further, you can get a grammar parse of Mathematica expressions and this may help you "parse" or understand a Mathematica expression. This may be useful in understand the precedence of operators or the association precedence when there are several operators and possibilities.
-
-Going futher, we have some rudimentary translation to Python. Down the like there may be more sophisticated kinds of translation to other CAS input like Sage, or Axion/Fricas.
-
-# Using
-
-When installed, the command-line translator is called `foxy-sheep`:
-To run the code interactively:
+When installed, the command-line translator is called `foxy-sheep`
+which can convert [Mathematica InputForm](https://reference.wolfram.com/language/ref/InputForm.html) to [Mathematica FullForm](https://reference.wolfram.com/language/ref/FullForm.html)
+having Mathematica installed: To run the code interactively:
 
 ```
 $ foxy-sheep
@@ -49,7 +44,17 @@ in:=
 $
 ```
 
-To see a demo after installed, run `python demo.py` in this directory.
+To call from Python:
+
+```python
+
+from FoxySheep import FullForm_from_string
+print(FullForm_from_string("x^2-3x+4"))
+# Prints: Plus[Power[x,2],Times[-1,3,x],4]
+```
+
+
+To see a demo run `python demo.py` in this directory.
 
 # Regenerating the lexer/parser
 

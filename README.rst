@@ -1,9 +1,12 @@
+.. image:: https://travis-ci.org/rocky/FoxySheep2.svg?branch=master
+    :target: https://travis-ci.org/rocky/FoxySheep2
+
 This is the Robert Jacobson's Python implementation of the FoxySheep parser and lexer for Mathematica. It has been stripped down and reorganized a bit.
 
 Examples
 --------
 
-When installed, the command-line translator is called `foxy-sheep`
+When installed, the command-line translator is called ``foxy-sheep``
 which can convert `Mathematica InputForm
 <https://reference.wolfram.com/language/ref/InputForm.html>`_ to
 `Mathematica FullForm
