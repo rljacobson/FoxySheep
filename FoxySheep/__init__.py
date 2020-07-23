@@ -18,3 +18,8 @@ from FoxySheep.__main__ import (
     parse_tree_from_string,
     REPL,
 )
+
+from FoxySheep.version import VERSION
+
+# This ensures VERSION will appear in pydoc
+__version__ = VERSION

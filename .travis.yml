@@ -1,0 +1,15 @@
+language: python
+
+python:
+  - '3.7'
+
+matrix:
+  include:
+    - python: '3.8'
+      dist: bionic
+
+install:
+- pip install -e .
+
+script:
+- make check

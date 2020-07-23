@@ -32,6 +32,6 @@ setup(
     ],
     packages=find_packages(),
     entry_points={"console_scripts": ["foxy-sheep = FoxySheep.__main__:main"]},
-    install_requires=["antlr4-python3-runtime>=4.7,<4.8", "click >= 7.1.2", "astor"],
+    install_requires=["antlr4-python3-runtime>=4.7,<4.8", "click >= 7.1.2", "astor", "PyYAML"],
     url="http://github.com/rocky/FoxySheep2",
 )

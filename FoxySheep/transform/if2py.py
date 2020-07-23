@@ -69,10 +69,14 @@ class InputForm2PyAst(InputFormVisitor):
             ast_top = ast.parse(f"Decimal({digits})")
             node = ast_top.body[0]
         else:
+            if digits.endswith("`"):
+                # Python doesn't have machine-specific representation. So drop
+                # off the indicator.
+                digits = digits[:-1]
             node = ast.Constant()
             node.lineno = 0
             node.col_offset = 0
-            node.value = int(ctx.getText(), 10)
+            node.value = int(digits, 10)
         return node
 
     def visitNumberBaseN(self, ctx: ParserRuleContext) -> ast.AST:
