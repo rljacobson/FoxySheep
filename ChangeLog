@@ -1,6 +1,184 @@
+2020-07-23  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__init__.py, FoxySheep/version.py: Get ready for release
+	1.1.0
+
+2020-07-23  rocky <rb@dustyfeet.com>
+
+	* README.md, README.rst: Add TravisCI badge to README's README.md has been made more like README.rst
+
+2020-07-23  rocky <rb@dustyfeet.com>
+
+	* .travis.yml, FoxySheep/__init__.py, FoxySheep/transform/if2py.py,
+	pytest/parse_expressions/input2py.yaml,
+	pytest/test_translations.py, setup.py: Try TravisCI
+
+2020-07-20  rocky <rb@dustyfeet.com>
+
+	* pytest/parse_expressions/input2full.yaml, pytest/{test_numbers.py
+	=> test_translations.py}, requirements-dev.txt: Start putting tests
+	in YAML...  and DRY test program
+
+2020-07-19  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/transform/if2py.py, grammar/InputForm.g4,
+	pytest/test_numbers.py: Start unary operators...  Add parenthesis handling. More tests and clean tests up a little.
+
+2020-07-19  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/emitter/full_form.py,
+	FoxySheep/generated/InputFormParser.py,
+	FoxySheep/transform/if2py.py, FoxySheep/tree/pretty_printer.py: 
+	top-level MMA can be an expression list...  Simplify pretty_printer
+
+2020-07-19  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__main__.py, FoxySheep/transform/if2py.py,
+	FoxySheep/transform/if_transform.py, README.md,
+	pytest/test_numbers.py: Handle more MMA to Python conversions
+
+2020-07-19  rocky <rb@dustyfeet.com>
+
+	* Makefile, pytest/test_numbers.py: Expand unit test And expand Makefile for boilerplate for testing
+
+2020-07-18  rocky <rb@dustyfeet.com>
+
+	* demo.py: Get demo.py working again
+
+2020-07-18  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__init__.py, FoxySheep/__main__.py,
+	FoxySheep/tree/__init__.py, FoxySheep/tree/pretty_printer.py,
+	pytest/test_numbers.py: Our first test.
+
+2020-07-18  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__main__.py, FoxySheep/transform/if_transform.py: Move
+	transform function to transform directory
+
+2020-07-18  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__main__.py, FoxySheep/emitter/full_form.py,
+	FoxySheep/transform/if2py.py, README-orig.md: Clean up in
+	preparation for testing
+
+2020-07-18  rocky <rb@dustyfeet.com>
+
+	* .gitignore, FoxySheep/__init__.py, FoxySheep/__main__.py,
+	FoxySheep/emitter/__init_.py, FoxySheep/emitter/full_form.py,
+	FoxySheep/emitter/python.py, FoxySheep/transform/if2py.py: Start
+	InputForm to Python conversion
+
+2020-07-18  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/emitter/full_form.py, FoxySheep/transform/__init__.py,
+	FoxySheep/transform/if2py.py, {ParseExpressions =>
+	pytest/parse_expressions}/FullFormFunctionDefinition.m,
+	{ParseExpressions => pytest/parse_expressions}/NumberLiterals.m,
+	{ParseExpressions => pytest/parse_expressions}/Oddities.m,
+	pytest/parse_expressions/README.md, {ParseExpressions =>
+	pytest/parse_expressions}/SimpleAlgebraic.m, {ParseExpressions =>
+	pytest/parse_expressions}/SimpleAlgebraicFF.m, setup.py: Start
+	InputForm->Python translation...  Move ParseExpressions into pytest which will be filled out later
+	Remove some CamelCase function names
+
+2020-07-17  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/AST/__init__.py, FoxySheep/AST/pattern/__init__.py,
+	FoxySheep/__init__.py, FoxySheep/__main__.py,
+	FoxySheep/errors/error_handler.py, FoxySheep/scoping/Scope.py,
+	FoxySheep/scoping/Symbol.py, FoxySheep/scoping/__init__.py,
+	FoxySheep/tree/__init__.py, FoxySheep/{AST => tree}/functions.py,
+	FoxySheep/{AST => tree}/ir/FunctionSignatureNode.py, FoxySheep/{AST
+	=> tree}/ir/__init__.py, FoxySheep/{AST => tree}/nodes.py,
+	FoxySheep/{AST => tree}/pattern/AlternativeNode.py, FoxySheep/{AST
+	=> tree}/pattern/BlankAbstractNode.py, FoxySheep/{AST =>
+	tree}/pattern/BlankNode.py, FoxySheep/{AST =>
+	tree}/pattern/BlankNullSequenceNode.py, FoxySheep/{AST =>
+	tree}/pattern/BlankSequenceNode.py, FoxySheep/{AST =>
+	tree}/pattern/ConditionNode.py, FoxySheep/{AST =>
+	tree}/pattern/DefaultNode.py, FoxySheep/{AST =>
+	tree}/pattern/OptionalNode.py, FoxySheep/{AST =>
+	tree}/pattern/OptionsPatternNode.py, FoxySheep/{AST =>
+	tree}/pattern/PatternNode.py, FoxySheep/{AST =>
+	tree}/pattern/PatternTestNode.py, FoxySheep/{AST =>
+	tree}/pattern/RepeatedNode.py, FoxySheep/{AST =>
+	tree}/pattern/RepeatedNullNode.py,
+	FoxySheep/tree/pattern/__init__.py, FoxySheep/{AST =>
+	tree}/pretty_printer.py, FoxySheep/{AST => tree}/symbol_node.py,
+	FoxySheep/utils/PatternMatcher.py: AST -> tree ...  and another module name is downcased.
+
+2020-07-17  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/AST/__init__.py, FoxySheep/{ => AST}/pretty_printer.py,
+	FoxySheep/__init__.py, FoxySheep/__main__.py,
+	FoxySheep/emitter/__init_.py, FoxySheep/{full_form_emitter.py =>
+	emitter/full_form.py}: Tidy where things go
+
+2020-07-17  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__main__.py,
+	FoxySheep/generated/FullForm.lexer.py.patch,
+	FoxySheep/generated/FullFormLexer.py,
+	FoxySheep/generated/InputForm.lexer.py.patch,
+	FoxySheep/generated/InputFormLexer.lexer.py.patch,
+	FoxySheep/generated/InputFormLexer.py,
+	FoxySheep/generated/InputFormVisitor.py,
+	FoxySheep/generated/README.md, FoxySheep/{LexerBase.py =>
+	lexer_base.py}, README.md, grammar/InputFormLexerRules.g4: 
+	FoxySheepParser->InputFormParser again...  Also remove camelcase for one more module
+
+2020-07-17  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__main__.py, FoxySheep/pretty_printer.py: Add full and
+	compact tree printing Using options --tree={full|compact}
+
+2020-07-16  rocky <rb@dustyfeet.com>
+
+	* .gitignore, FoxySheep/__main__.py, FoxySheep/generated/README.md,
+	FoxySheep/pretty_printer.py: Add a rudimentary parse tree pretty
+	printer
+
+2020-07-16  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/LexerBase.py, FoxySheep/LexerPreface.py,
+	FoxySheep/__init__.py, FoxySheep/__main__.py,
+	FoxySheep/{FullFormEmitter.py => full_form_emitter.py},
+	FoxySheep/generated/.gitignore,
+	FoxySheep/generated/FoxySheep.lexer.py.patch,
+	FoxySheep/generated/FoxySheepListener.py,
+	FoxySheep/generated/FoxySheepVisitor.py,
+	FoxySheep/generated/InputFormLexer.lexer.py.patch,
+	FoxySheep/generated/{FoxySheepLexer.py => InputFormLexer.py},
+	FoxySheep/generated/InputFormListener.py,
+	FoxySheep/generated/{FoxySheepParser.py => InputFormParser.py},
+	FoxySheep/generated/InputFormVisitor.py, FoxySheep/{PostParser.py
+	=> post_parser.py}, Makefile, grammar/FullFormLexer.lexer.py.patch,
+	grammar/{FoxySheep.g4 => InputForm.g4}, grammar/{FoxySheep.iml =>
+	InputForm.iml}, grammar/{FoxySheepLexerRules.g4 =>
+	InputFormLexerRules.g4}: parsed input can be FullForm or
+	InputForm...  I know this seems silly, since right now there is only a FullForm
+	output and FullForm -> FullForm should be a no-op (but sometimes it
+	isn't).  However in the long term, I hope there are other kinds of output
+	like sage.  The FoxySheep{Parser,Listener,Visitor} modules and classes have been
+	renamed to InputForm since that is Mathematica's terminology and
+	that pairs with the name FullForm better.
+
+2020-07-16  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__main__.py, FoxySheep/generated/.gitignore,
+	FoxySheep/generated/FoxySheep.lexer.py.patch,
+	FoxySheep/generated/FoxySheepLexer.py,
+	FoxySheep/generated/FullForm.lexer.py.patch,
+	FoxySheep/generated/FullFormLexer.py, Makefile,
+	grammar/FullFormLexer.lexer.py.patch: Add CLI option to choose input
+	style Style is either InputForm or FullForm.  Makefile: correct target for building FullForm. It needs patching
+	just like FoxySheep does. Also we add targets for building the Lexer
+	files.  Add the patch needed for FullForm.lexer.py Warning: I think FullForm has bugs in reporting it parse errors.
+
 2020-07-15  rocky <rb@dustyfeet.com>
 
-	* .gitignore, Makefile, README.md, README.rst,
+	* .gitignore, ChangeLog, Makefile, README.md, README.rst,
 	admin_tools/how-to-make-a-release.md, admin_tools/make-dist.sh,
 	admin_tools/pyenv-versions, doc/NEWS.md, setup.py: Get ready for
 	release 1.0.0

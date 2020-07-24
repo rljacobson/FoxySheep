@@ -34,6 +34,8 @@ To call from Python:
    # Prints: Plus[Power[x,2],Times[-1,3,x],4]
 
 
+For help on ``foxy-sheep``, run ``foxy-sheep --help``.
+
 To see a demo run ``python demo.py`` in this directory.
 
 Regenerating the lexer/parser

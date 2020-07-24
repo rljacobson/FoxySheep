@@ -28,9 +28,10 @@
 # Check package on github
 
 	$ mkdir /tmp/gittest; pushd /tmp/gittest
-	$ pyenv local 3.7.5
+	$ pyenv local 3.8.3
 	$ pip install -e git://github.com/rocky/FoxySheep.git#egg=FoxySheep
 	$ foxy-sheep --help
+	$ foxy-sheep -e '1+2 3'
 	$ pip uninstall FoxySheep
 	$ popd
 

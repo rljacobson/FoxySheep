@@ -59,7 +59,7 @@ demo:
 
 #: Make distribution
 dist:
-	python setup.py bdist_egg bdist_wheel
+	bash ./admin_tools/make-dist.sh
 
 rmChangeLog:
 	rm ChangeLog || true

@@ -1,3 +1,5 @@
+"""Robert Jacobson's ANTL4-based translator parser for Mathematica."""
+
 from FoxySheep.generated.InputFormLexer import InputFormLexer
 from FoxySheep.generated.InputFormParser import InputFormParser
 from FoxySheep.generated.InputFormListener import InputFormListener

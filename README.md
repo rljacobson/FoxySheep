@@ -54,6 +54,8 @@ print(FullForm_from_string("x^2-3x+4"))
 ```
 
 
+For help on `foxy-sheep`, run `foxy-sheep --help`.
+
 To see a demo run `python demo.py` in this directory.
 
 # Regenerating the lexer/parser
