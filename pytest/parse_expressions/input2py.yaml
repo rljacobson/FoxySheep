@@ -1,6 +1,6 @@
 # This YAML file contains lots of data to
 # check parsing from Mathematica InputForm
-# to Mathematica to OutputForm
+# to Mathematica to Python
 
 
 numberLiteral:
@@ -66,3 +66,14 @@ UnaryOp:
       InputForm: +(1)
       tree: "prog (expr '+' (expr '(' (expr (numberLiteral '1')) ')')))"
       python: (+1)
+
+Symbol:
+    -
+      InputForm: x
+      tree: "(prog (expr (symbol x)))"
+      python: x
+
+    -
+      InputForm: x
+      tree: "(prog (expr (expr (expr (symbol x)) '^' (expr (numberLiteral '2'))) '+' (expr (expr (symbol y)) '^' (expr (numberLiteral '2')))))"
+      python: (x ** 2 + y ** 2)

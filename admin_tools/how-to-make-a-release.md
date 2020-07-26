@@ -56,9 +56,8 @@ Todo: turn this into a script in `admin-tools`
 
 Check on https://pypi.org/project/FoxySheep/
 
-# Push tags:
+# Pull tags:
 
-    $ git push --tags
     $ git pull --tags
 
 # Move dist files to uploaded

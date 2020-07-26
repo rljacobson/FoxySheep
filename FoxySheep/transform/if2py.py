@@ -132,6 +132,9 @@ class InputForm2PyAst(InputFormVisitor):
         node.operand = self.visit(ctx.expr())
         return node
 
+    def visitSymbolLiteral(self, ctx:ParserRuleContext) -> ast.AST:
+        return ast.Name(ctx.getText())
+
 
 def input_form_to_python_ast(tree, show_tree_fn) -> ast.AST:
     transform = InputForm2PyAst()
