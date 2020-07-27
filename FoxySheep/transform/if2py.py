@@ -92,6 +92,15 @@ class InputForm2PyAst(InputFormVisitor):
             node.value = int(ctx.getText(), 10)
         return node
 
+    def visitOutNumbered(self, ctx: ParserRuleContext) -> ast.AST:
+        fn_name = ast.Name(id="Out", ctx="Load()")
+        args = [ast.Constant(number)]
+        return ast.Call(func=fn_name, args=args, keywords=[])
+
+    def visitOutUnnumbered(self, ctx: ParserRuleContext) -> ast.AST:
+        fn_name = ast.Name(id="Out", ctx="Load()")
+        return ast.Call(func=fn_name, args=[], keywords=[])
+
     def visitPlusOp(self, ctx: ParserRuleContext) -> ast.AST:
         """
         Handles infix binary operators. Function binary operators are different.
