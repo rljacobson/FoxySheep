@@ -29,9 +29,11 @@ To call from Python:
 
 .. code:: python
 
-   from FoxySheep import FullForm_from_string
-   print(FullForm_from_string("x^2-3x+4"))
+   from FoxySheep import if2ff, if2python
+   print(if2ff("x^2-3x+4")
    # Prints: Plus[Power[x,2],Times[-1,3,x],4]
+   print(if2ff("x^2-3x+4")
+   # Prints (x ** 2 + -1 * 3)
 
 
 For help on ``foxy-sheep``, run ``foxy-sheep --help``.

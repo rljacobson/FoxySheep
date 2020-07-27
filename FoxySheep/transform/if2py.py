@@ -136,15 +136,15 @@ class InputForm2PyAst(InputFormVisitor):
         return ast.Name(ctx.getText())
 
 
-def input_form_to_python_ast(tree, show_tree_fn) -> ast.AST:
+def input_form_to_python_ast(tree) -> ast.AST:
     transform = InputForm2PyAst()
     return transform.visit(tree)
 
 
-def input_form_to_python(input_form_str: str, parse_tree_fn, show_tree_fn) -> str:
+def input_form_to_python(input_form_str: str, parse_tree_fn, show_tree_fn=None) -> str:
 
     tree = parse_tree_fn(input_form_str, show_tree_fn=show_tree_fn)
-    pyast = input_form_to_python_ast(tree, show_tree_fn)
+    pyast = input_form_to_python_ast(tree)
     return astor.to_source(pyast)
 
 
