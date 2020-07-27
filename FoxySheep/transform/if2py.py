@@ -42,6 +42,10 @@ class InputForm2PyAst(InputFormVisitor):
             e = efunction(i)
         return elist
 
+    def visitExpressionListed(self, ctx: ParserRuleContext) -> ast.AST:
+        from trepan.api import debug; debug()
+        return self.visitChildren(ctx)
+
     def visitProg(self, ctx: ParserRuleContext) -> ast.AST:
         exprs = ctx.expr()
         n = len(exprs)
@@ -168,9 +172,8 @@ if __name__ == "__main__":
         parser = InputFormParser(CommonTokenStream(lexer))
         tree = parser.prog()
         show_tree_fn(tree, parser.ruleNames)
-        tree = input_form_post(tree)
         return tree
 
     from FoxySheep.tree.pretty_printer import pretty_print_compact
 
-    print(input_form_to_python("-(1)", parse_tree_fn, pretty_print_compact))
+    print(input_form_to_python("1 + 2 + 3 + 4", parse_tree_fn, pretty_print_compact))

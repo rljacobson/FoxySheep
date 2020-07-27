@@ -7,7 +7,7 @@ import click
 import sys
 import traceback
 from typing import Any, Callable, Optional
-from FoxySheep.parser import ff_parse_tree_from_string, parse_tree_from_string
+from FoxySheep.parser import ff_parse_tree_from_string, parse_tree_from_string, parse_tree_from_string_pp
 from FoxySheep.emitter.python import input_form_to_python
 from FoxySheep.emitter.full_form import input_form_to_full_form
 from FoxySheep.transform.if_transform import input_form_post
@@ -96,7 +96,7 @@ def main(repl: bool, tree, input_style, output_style, session: bool, expr: str):
     parse_tree_fn = (
         ff_parse_tree_from_string
         if input_style and input_style.lower() == "fullform"
-        else parse_tree_from_string
+        else parse_tree_from_string_pp
     )
 
     if tree == "full":
@@ -109,6 +109,7 @@ def main(repl: bool, tree, input_style, output_style, session: bool, expr: str):
     output_style_fn = input_form_to_full_form
     if output_style and output_style.lower() == "python":
         output_style_fn = input_form_to_python
+        parse_tree_fn = parse_tree_from_string
         if session == None:
             session = True
             pass

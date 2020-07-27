@@ -20,8 +20,11 @@ ff_parser = None
 ff_lexer = None
 emitter = None
 
-
-def parse_tree_from_string(input_form: str, post_process=True, show_tree_fn=None):
+# FIXME: post_process is needed to flatten out binary opeators when going from
+# InputForm to FullForm. It must not be used when going to Python.
+# Probably the post_processing should be done outside of this function,
+# and put into something more OutputForm specific.
+def parse_tree_from_string(input_form: str, show_tree_fn=None):
 
     # Boilerplate
     # lexer = InputFormLexer(InputStream(input))
@@ -42,13 +45,17 @@ def parse_tree_from_string(input_form: str, post_process=True, show_tree_fn=None
 
     # Parse!
     tree = parser.prog()
-    if post_process:
-        if show_tree_fn:
-            show_tree_fn(tree, parser.ruleNames)
-        post_tree = input_form_post(tree)
-        if post_tree != tree:
-            show_tree_fn(post_tree, parser.ruleNames)
-            tree = post_tree
+    if show_tree_fn:
+        show_tree_fn(tree, parser.ruleNames)
+    return tree
+
+
+def parse_tree_from_string_pp(input_form: str, show_tree_fn=None):
+    tree = parse_tree_from_string(input_form, show_tree_fn)
+    post_tree = input_form_post(tree)
+    if post_tree != tree:
+        show_tree_fn(post_tree, parser.ruleNames)
+        tree = post_tree
     return tree
 
 
@@ -81,7 +88,7 @@ def ff_parse_tree_from_string(input: str, post_process=True, show_tree_fn=False)
     return tree
 
 def if2ff(s: str, show_tree_fn=None) -> str:
-    return input_form_to_full_form(s, parse_tree_from_string)
+    return input_form_to_full_form(s, parse_tree_from_string_pp, show_tree_fn)
 
 
 def if2python(s: str, show_tree_fn=None) -> str:
