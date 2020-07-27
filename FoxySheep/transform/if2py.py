@@ -42,10 +42,6 @@ class InputForm2PyAst(InputFormVisitor):
             e = efunction(i)
         return elist
 
-    def visitExpressionListed(self, ctx: ParserRuleContext) -> ast.AST:
-        from trepan.api import debug; debug()
-        return self.visitChildren(ctx)
-
     def visitProg(self, ctx: ParserRuleContext) -> ast.AST:
         exprs = ctx.expr()
         n = len(exprs)
@@ -70,7 +66,7 @@ class InputForm2PyAst(InputFormVisitor):
     def visitNumberBaseTen(self, ctx: ParserRuleContext) -> ast.AST:
         digits = ctx.getText()
         if digits.find(".") >= 0:
-            ast_top = ast.parse(f"Decimal({digits})")
+            ast_top = ast.parse(f"decimal.Decimal({digits})")
             node = ast_top.body[0]
         else:
             if digits.endswith("`"):
@@ -105,7 +101,41 @@ class InputForm2PyAst(InputFormVisitor):
         fn_name = ast.Name(id="Out", ctx="Load()")
         return ast.Call(func=fn_name, args=[], keywords=[])
 
+    def visitTimes(self, ctx: ParserRuleContext) -> ast.AST:
+        """
+        Handles infix multiplcation.
+        """
+        node = ast.BinOp()
+        ctx_name = type(ctx).__name__
+        ast_op_fn = IF_name_to_pyop.get(ctx_name, None)
+        if ast_op_fn:
+            node.op = ast_op_fn()
+        else:
+            raise RuntimeError(f"Unknown op context {type(ctx_name)}")
+
+        node.left = self.visit(ctx.expr(0))
+        node.right = self.visit(ctx.expr(1))
+        return node
+
     def visitPlusOp(self, ctx: ParserRuleContext) -> ast.AST:
+        """
+        Handles infix binary operators. Function binary operators are different.
+        """
+        node = ast.BinOp()
+        if ctx.BINARYMINUS():
+            node.op = ast.Sub()
+        elif ctx.BINARYPLUS():
+            node.op = ast.Add()
+        elif ctx.BINARYMINUSPLUS() or ctx.BINARYPLUSMINUS():
+            raise RuntimeError(f"Can't handle +- or -+")
+        else:
+            raise RuntimeError(f"Unknown op context {ctx}")
+
+        node.left = self.visit(ctx.expr(0))
+        node.right = self.visit(ctx.expr(1))
+        return node
+
+    def visitPower(self, ctx: ParserRuleContext) -> ast.AST:
         """
         Handles infix binary operators. Function binary operators are different.
         """
@@ -123,7 +153,7 @@ class InputForm2PyAst(InputFormVisitor):
 
     visitMinusOp = (
         visitDivide
-    ) = visitNonCommutativeMultiply = visitTimes = visitPower = visitPlusOp
+    ) = visitNonCommutativeMultiply = visitPower
 
 
     def visitUnaryPlusMinus(self, ctx: ParserRuleContext) -> ast.AST:
@@ -176,4 +206,4 @@ if __name__ == "__main__":
 
     from FoxySheep.tree.pretty_printer import pretty_print_compact
 
-    print(input_form_to_python("1 + 2 + 3 + 4", parse_tree_fn, pretty_print_compact))
+    print(input_form_to_python("1 + 2 - 3 + 4", parse_tree_fn, pretty_print_compact))

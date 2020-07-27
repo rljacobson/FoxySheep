@@ -4,6 +4,7 @@ A command line program to perform Mathematica translations.
 When installed run `foxy-sheep --help` for options
 """
 import click
+import importlib
 import sys
 import traceback
 from typing import Any, Callable, Optional
@@ -14,8 +15,21 @@ from FoxySheep.transform.if_transform import input_form_post
 from FoxySheep.tree.pretty_printer import pretty_print
 from FoxySheep.version import VERSION as __version__
 
+
 # TODO: we could put this in a class and then one could have many REPLs.
 out_results = []
+
+eval_namespace = {
+    "out_results": out_results
+}
+
+import decimal
+def setup_session():
+    for importname in ("decimal",):
+        try:
+            eval_namespace[importname] = importlib.import_module("importname")
+        except ImportError:
+            print(f"Error importing {importname}")
 
 def Out(i: Optional[int]=None) -> Any:
     if i is None:
@@ -48,7 +62,7 @@ def REPL(parse_tree_fn: Callable, output_style_fn, session, show_tree_fn=None) -
         print(results)
         if session:
             try:
-                x = eval(results)
+                x = eval(results, None, eval_namespace)
             except:
                 print(sys.exc_info()[1])
             else:
@@ -111,6 +125,7 @@ def main(repl: bool, tree, input_style, output_style, session: bool, expr: str):
         output_style_fn = input_form_to_python
         parse_tree_fn = parse_tree_from_string
         if session == None:
+            setup_session()
             session = True
             pass
         pass
