@@ -20,16 +20,17 @@ from FoxySheep.version import VERSION as __version__
 out_results = []
 
 eval_namespace = {
-    "out_results": out_results
+    "out_results": out_results,
+    "missing_modules": [],
 }
 
-import decimal
 def setup_session():
-    for importname in ("decimal",):
+    for importname in ("decimal","math",):
         try:
-            eval_namespace[importname] = importlib.import_module("importname")
+            eval_namespace[importname] = importlib.import_module(importname)
         except ImportError:
-            print(f"Error importing {importname}")
+            print(f"Error importing {importname}; translations using this module will fail.")
+            eval_namespace["missing_modules"].append(importname)
 
 def Out(i: Optional[int]=None) -> Any:
     if i is None:
@@ -124,8 +125,7 @@ def main(repl: bool, tree, input_style, output_style, session: bool, expr: str):
     if output_style and output_style.lower() == "python":
         output_style_fn = input_form_to_python
         parse_tree_fn = parse_tree_from_string
-        if session == None:
-            setup_session()
+        if session == None and not expr:
             session = True
             pass
         pass
@@ -138,6 +138,7 @@ def main(repl: bool, tree, input_style, output_style, session: bool, expr: str):
             print("--session option is only valid in a REPL. Option ignored.")
         print(output_style_fn(expr, parse_tree_fn, show_tree_fn))
     elif repl:
+        setup_session()
         REPL(parse_tree_fn, output_style_fn, session, show_tree_fn)
     else:
         print("Something went wrong")

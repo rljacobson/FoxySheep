@@ -23,3 +23,7 @@ Fast-Intro-for-Math-Students:
     InputForm: 5 + 2*3 - 7.5
     tree: "(prog (expr (expr (expr (numberLiteral '5')) '+' (expr (expr (numberLiteral '2')) '*' (expr (numberLiteral '3')))) '-' (expr (numberLiteral '7.5'))))"
     python: "(5 + 2 * 3 - decimal.Decimal(7.5))"
+
+    InputForm: GCD[12, 15]
+    tree: "(prog (expr (expr (symbol GCD)) '[' (expressionList (expr (numberLiteral '12')) ',' (expr (numberLiteral '15'))) ']'))"
+    python: "math.gcd(12, 15)"

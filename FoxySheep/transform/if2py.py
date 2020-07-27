@@ -14,6 +14,10 @@ IF_name_to_pyop = {
     "PlusOpContext": ast.Add,
 }
 
+fn_translate = {
+    "GCD": "math.gcd",
+}
+
 
 class InputForm2PyAst(InputFormVisitor):
     def get_full_form(self, e) -> ast.AST:
@@ -93,17 +97,32 @@ class InputForm2PyAst(InputFormVisitor):
         return node
 
     def visitOutNumbered(self, ctx: ParserRuleContext) -> ast.AST:
-        fn_name = ast.Name(id="Out", ctx="Load()")
+        fn_name_node = ast.Name(id="Out", ctx="Load()")
         args = [ast.Constant(number)]
-        return ast.Call(func=fn_name, args=args, keywords=[])
+        return ast.Call(func=fn_name_node, args=args, keywords=[])
 
     def visitOutUnnumbered(self, ctx: ParserRuleContext) -> ast.AST:
-        fn_name = ast.Name(id="Out", ctx="Load()")
-        return ast.Call(func=fn_name, args=[], keywords=[])
+        fn_name_node = ast.Name(id="Out", ctx="Load()")
+        return ast.Call(func=fn_name_node, args=[], keywords=[])
+
+    def visitHeadExpression(self, ctx: ParserRuleContext) -> ast.AST:
+        "Translates function calls"
+        fn_name = ctx.expr().getText()
+        fn_name = fn_translate.get(fn_name, fn_name)
+        fn_name_node = ast.Name(id=fn_name, ctx="Load()")
+        args = []
+        for arg in ctx.expressionList().getChildren():
+            if arg.getText() == ",":
+                continue
+            args.append(self.visit(arg))
+        return ast.Call(func=fn_name_node, args=args, keywords=[])
+
+        # return self.make_head(self.get_full_form(ctx.expr()), ctx.expressionList())
+        return None
 
     def visitTimes(self, ctx: ParserRuleContext) -> ast.AST:
         """
-        Handles infix multiplcation.
+        Translates infix multiplcation.
         """
         node = ast.BinOp()
         ctx_name = type(ctx).__name__
@@ -119,7 +138,7 @@ class InputForm2PyAst(InputFormVisitor):
 
     def visitPlusOp(self, ctx: ParserRuleContext) -> ast.AST:
         """
-        Handles infix binary operators. Function binary operators are different.
+        Translates infix binary operators. Function binary operators are different.
         """
         node = ast.BinOp()
         if ctx.BINARYMINUS():
@@ -137,7 +156,7 @@ class InputForm2PyAst(InputFormVisitor):
 
     def visitPower(self, ctx: ParserRuleContext) -> ast.AST:
         """
-        Handles infix binary operators. Function binary operators are different.
+        Translates infix binary operators. Function binary operators are different.
         """
         node = ast.BinOp()
         ctx_name = type(ctx).__name__
@@ -157,7 +176,7 @@ class InputForm2PyAst(InputFormVisitor):
 
 
     def visitUnaryPlusMinus(self, ctx: ParserRuleContext) -> ast.AST:
-        """Handles prefix + and - operators. Note +- (plus or minus) and -+
+        """Translates prefix + and - operators. Note +- (plus or minus) and -+
         are different.
         """
         node = ast.UnaryOp()
