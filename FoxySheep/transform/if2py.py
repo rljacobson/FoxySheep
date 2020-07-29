@@ -20,6 +20,10 @@ fn_translate = {
     "Plot": "matplotlib.pyplot.plot",
 }
 
+symbol_translate = {
+    "E": "math.e",
+}
+
 
 class InputForm2PyAst(InputFormVisitor):
     def get_full_form(self, e) -> ast.AST:
@@ -80,19 +84,33 @@ class InputForm2PyAst(InputFormVisitor):
         return self.visit(ctx.getChild(1))
 
     def visitNumberBaseTen(self, ctx: ParserRuleContext) -> ast.AST:
-        digits = ctx.getText()
-        if digits.find(".") >= 0:
-            ast_top = ast.parse(f"decimal.Decimal({digits})")
-            node = ast_top.body[0]
+        def get_digits_constant():
+            digits = ctx.getText()
+            if digits.find(".") >= 0:
+                ast_top = ast.parse(f"decimal.Decimal({digits})")
+                node = ast_top.body[0]
+            else:
+                if digits.endswith("`"):
+                    # Python doesn't have machine-specific representation. So drop
+                    # off the indicator.
+                    digits = digits[:-1]
+                node = ast.Constant()
+                node.lineno = 0
+                node.col_offset = 0
+                node.value = int(digits, 10)
+            return node
+
+        child_count = ctx.getChildCount()
+        if child_count == 1:
+            return get_digits_constant()
         else:
-            if digits.endswith("`"):
-                # Python doesn't have machine-specific representation. So drop
-                # off the indicator.
-                digits = digits[:-1]
-            node = ast.Constant()
-            node.lineno = 0
-            node.col_offset = 0
-            node.value = int(digits, 10)
+            child1 = self.visit(ctx.getChild(1))
+            raise RuntimeError("Can't handle NumberBaseTen with numberLiteralPrecision or numberLiteralExponent yet")
+            if child_count == 3:
+                child2 = self.visit(ctx.getChild(1))
+            child2 = self.visit(ctx.getChild(2))
+            return get_digits_constant()
+
         return node
 
     def visitNumberBaseN(self, ctx: ParserRuleContext) -> ast.AST:
@@ -106,6 +124,20 @@ class InputForm2PyAst(InputFormVisitor):
             node.lineno = 0
             node.col_offset = 0
             node.value = int(ctx.getText(), 10)
+        return node
+
+    def visitNumberLiteralExponent(self, ctx: ParserRuleContext) -> ast.AST:
+        last_child = ctx.getChild(ctx.getChildCount() - 1)
+        node = ast.Constant()
+        node.lineno = 0
+        node.col_offset = 0
+        node.value = int(last_child.getText(), 10)
+
+        if ctx.getChild(0).getText() == "*^":
+            # we have 10**...
+            # FIXME .. combine with above
+            pass
+
         return node
 
     def visitOutNumbered(self, ctx: ParserRuleContext) -> ast.AST:
@@ -207,7 +239,9 @@ class InputForm2PyAst(InputFormVisitor):
         return node
 
     def visitSymbolLiteral(self, ctx:ParserRuleContext) -> ast.AST:
-        return ast.Name(ctx.getText())
+        symbol_name = ctx.getText()
+        symbol_name = symbol_translate.get(symbol_name, symbol_name)
+        return ast.Name(symbol_name)
 
 
 def input_form_to_python_ast(tree) -> ast.AST:
