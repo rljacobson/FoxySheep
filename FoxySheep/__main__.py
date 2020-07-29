@@ -25,7 +25,7 @@ eval_namespace = {
 }
 
 def setup_session():
-    for importname in ("decimal","math",):
+    for importname in ("decimal","math", "matplotlib.pyplot.plot"):
         try:
             eval_namespace[importname] = importlib.import_module(importname)
         except ImportError:

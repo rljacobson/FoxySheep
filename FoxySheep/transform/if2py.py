@@ -16,6 +16,8 @@ IF_name_to_pyop = {
 
 fn_translate = {
     "GCD": "math.gcd",
+    "Sin": "math.sin",
+    "Plot": "matplotlib.pyplot.plot",
 }
 
 
