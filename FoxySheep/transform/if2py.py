@@ -24,6 +24,13 @@ symbol_translate = {
     "E": "math.e",
 }
 
+def ast_constant(value, lineno=0, col_offset=0):
+    number_node = ast.Constant()
+    number_node.lineno = 0
+    number_node.col_offset = 0
+    number_node.value = value
+    return number_node
+
 
 class InputForm2PyAst(InputFormVisitor):
     def get_full_form(self, e) -> ast.AST:
@@ -84,7 +91,7 @@ class InputForm2PyAst(InputFormVisitor):
         return self.visit(ctx.getChild(1))
 
     def visitNumberBaseTen(self, ctx: ParserRuleContext) -> ast.AST:
-        def get_digits_constant():
+        def get_digits_constant(ctx):
             digits = ctx.getText()
             if digits.find(".") >= 0:
                 ast_top = ast.parse(f"decimal.Decimal({digits})")
@@ -94,22 +101,23 @@ class InputForm2PyAst(InputFormVisitor):
                     # Python doesn't have machine-specific representation. So drop
                     # off the indicator.
                     digits = digits[:-1]
-                node = ast.Constant()
-                node.lineno = 0
-                node.col_offset = 0
-                node.value = int(digits, 10)
+                node = ast_constant(int(digits, 10))
             return node
 
         child_count = ctx.getChildCount()
         if child_count == 1:
-            return get_digits_constant()
+            return get_digits_constant(ctx)
         else:
-            child1 = self.visit(ctx.getChild(1))
-            raise RuntimeError("Can't handle NumberBaseTen with numberLiteralPrecision or numberLiteralExponent yet")
+            child1_node = self.visit(ctx.getChild(1))
             if child_count == 3:
-                child2 = self.visit(ctx.getChild(1))
-            child2 = self.visit(ctx.getChild(2))
-            return get_digits_constant()
+                raise RuntimeError("Can't handle NumberBaseTen with numberLiteralPrecision yet")
+                child2_node = self.visit(ctx.getChild(2))
+            mantissa_node = get_digits_constant(ctx.getChild(0))
+            node = ast.BinOp()
+            node.op = ast.Mult()
+            node.left = mantissa_node
+            node.right = self.visit(ctx.getChild(1))
+            return node
 
         return node
 
@@ -120,29 +128,26 @@ class InputForm2PyAst(InputFormVisitor):
             ast_top = ast.parse(f"int({digits}, {base[2:]})")
             node = ast_top.body[0]
         else:
-            node = ast.Constant()
-            node.lineno = 0
-            node.col_offset = 0
-            node.value = int(ctx.getText(), 10)
+            node = ast_constant(int(ctx.getText(), 10))
         return node
 
     def visitNumberLiteralExponent(self, ctx: ParserRuleContext) -> ast.AST:
         last_child = ctx.getChild(ctx.getChildCount() - 1)
-        node = ast.Constant()
-        node.lineno = 0
-        node.col_offset = 0
-        node.value = int(last_child.getText(), 10)
+        number_node = ast_constant(int(last_child.getText(), 10))
 
         if ctx.getChild(0).getText() == "*^":
-            # we have 10**...
-            # FIXME .. combine with above
-            pass
+            # we have 10**last_child.
+            lit_exp_node = ast.BinOp()
+            lit_exp_node.left = ast_constant(10)
+            lit_exp_node.op = ast.Pow()
+            lit_exp_node.right = number_node
+            return lit_exp_node
 
-        return node
+        return number_node
 
     def visitOutNumbered(self, ctx: ParserRuleContext) -> ast.AST:
         fn_name_node = ast.Name(id="Out", ctx="Load()")
-        args = [ast.Constant(number)]
+        args = [ast_constant(number)]
         return ast.Call(func=fn_name_node, args=args, keywords=[])
 
     def visitOutUnnumbered(self, ctx: ParserRuleContext) -> ast.AST:

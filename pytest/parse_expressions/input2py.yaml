@@ -29,9 +29,11 @@ numberLiteral:
     tree: "(<prog:Prog>  (<expr:Number>  (<numberLiteral:NumberBaseN>  '15' '^^8')))"
     python: int(15, 8)
 
-  # -
-    # InputForm: 55*^2
-    # tree: "(<prog:Prog>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '55' (<numberLiteralExponent:NumberLiteralExponent>  '*^' '2'))))"
+  -
+    # number x Base 10 exponent
+    InputForm: 55*^2
+    tree: "(<prog:Prog>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '55' (<numberLiteralExponent:NumberLiteralExponent>  '*^' '2'))))"
+    python: (55 * 10 ** 2)
 
   # -
   #   InputForm: "10^^3.58.3"
