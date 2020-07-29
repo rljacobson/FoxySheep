@@ -64,6 +64,16 @@ class InputForm2PyAst(InputFormVisitor):
                 expr_list.append(self.visit(expr))
         return ast.Tuple(expr_list, 5)
 
+    def visitList(self, ctx:ParserRuleContext) -> ast.AST:
+        node = ast.List(expr_ctx="Load()")
+        expr_list = []
+        for expr in ctx.expressionList().getChildren():
+            if expr.getText() == ",":
+                continue
+            expr_list.append(self.visit(expr))
+        node.elts = expr_list
+        return node
+
     def visitParentheses(self, ctx:ParserRuleContext) -> ast.AST:
         return self.visit(ctx.getChild(1))
 
