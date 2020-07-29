@@ -8,27 +8,27 @@ numberLiteral:
   -
     # One digit
     InputForm: 1
-    tree: "(prog (expr (numberLiteral '1')))"
+    tree: "(<prog:Prog>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '1')))"
 
   -
     # One More than one dgit
     InputForm: 12
     FullForm: 12
-    tree: "(prog (expr (numberLiteral '12')))"
+    tree: "(<prog:Prog>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '12')))"
 
   -
     # Decimal
     InputForm: 167.5
-    tree: "(prog (expr (numberLiteral '167.5')))"
+    tree: "(<prog:Prog>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '167.5')))"
 
   -
     # Base 8 representation
     InputForm: 15^^8
-    tree: "(prog (expr (numberLiteral '15' '^^8')))"
+    tree: "(<prog:Prog>  (<expr:Number>  (<numberLiteral:NumberBaseN>  '15' '^^8')))"
 
   -
     InputForm: 55*^2
-    tree: "(prog (expr (numberLiteral '55' (numberLiteralExponent '*^' '2'))))"
+    tree: "(<prog:Prog>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '55' (<numberLiteralExponent:NumberLiteralExponent>  '*^' '2'))))"
 
   # -
   #   InputForm: "10^^3.58.3"
@@ -37,22 +37,22 @@ numberLiteral:
   -
     # Machine-specific literal precision
     InputForm: 132`
-    tree: "(prog (expr (numberLiteral '132' (numberLiteralPrecision '`'))))"
+    tree: "(<prog:Prog>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '132' (<numberLiteralPrecision:NumberLiteralPrecision>  '`'))))"
 
   -
     # Base 8 with Machine-specific literal precision
     InputForm: 167^^8``5
-    tree: "(prog (expr (numberLiteral '167' '^^8' (numberLiteralPrecision '``' '5'))))"
+    tree: "(<prog:Prog>  (<expr:Number>  (<numberLiteral:NumberBaseN>  '167' '^^8' (<numberLiteralPrecision:NumberLiteralPrecision>  '``' '5'))))"
 
 ##############
 
 binOp:
     -
       InputForm: 1 ** 10
-      tree: "(prog (expr (expr (numberLiteral '1')) '**' (expr (numberLiteral '10'))))"
+      tree: "(<prog:Prog>  (<expr:NonCommutativeMultiply>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '1')) '**' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '10'))))"
       FullForm: "NonCommutativeMultiply[1,10]"
 
     -
       InputForm: 1 / 10 3
-      tree: "(prog (expr (expr (expr (numberLiteral '1')) '/' (expr (numberLiteral '10'))) (expr (numberLiteral '3'))))"
+      tree: "(<prog:Prog>  (<expr:Times>  (<expr:Divide>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '1')) '/' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '10'))) (<expr:Number>  (<numberLiteral:NumberBaseTen>  '3'))))"
       FullForm: "Times[Times[1,Power[10,-1]],3]"

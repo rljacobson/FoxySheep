@@ -45,7 +45,7 @@ class PrettyPrinter(ParseTreeListener):
         self.indentation += 1
 
         child_count = ctx.getChildCount()
-        if child_count:
+        if child_count and ctx.parentCtx and ctx.parentCtx.getChildCount() > 1:
             self.builder += f"{self.kid_number}. "
 
         rule_index = ctx.getRuleIndex()
@@ -54,8 +54,12 @@ class PrettyPrinter(ParseTreeListener):
         else:
             rule_name = str(rule_index)
 
+        nt_name = ctx.__class__.__name__
+        if nt_name.endswith("Context"):
+            nt_name = nt_name[:-len("Context")]
+        name = "<%s:%s> " % (rule_name, nt_name)
         self.kid_number += 1
-        self.builder += rule_name
+        self.builder += name
         if child_count:
             self.builder += f"[{child_count}]"
             self.kid_number = 0
@@ -101,7 +105,12 @@ class PrettyPrinterCompact(ParseTreeListener):
         else:
             rule_name = str(rule_index)
 
-        self.builder += rule_name
+        nt_name = ctx.__class__.__name__
+        if nt_name.endswith("Context"):
+            nt_name = nt_name[:-len("Context")]
+        name = "<%s:%s> " % (rule_name, nt_name)
+
+        self.builder += name
 
     def exitEveryRule(self, ctx: ParserRuleContext) -> None:
         if ctx.getChildCount():
