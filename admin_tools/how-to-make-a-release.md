@@ -45,7 +45,7 @@ Todo: turn this into a script in `admin-tools`
 
 	$ pushd /tmp/gittest
 	$ pip install -e git://github.com/rocky/FoxySheep.git@$VERSION#egg=xdis
-	$ foxy-sheep --help
+	$ foxy-sheep --version
 	$ pip uninstall FoxySheep
 	$ popd
 
