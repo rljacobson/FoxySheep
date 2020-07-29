@@ -25,7 +25,7 @@ eval_namespace = {
 }
 
 def setup_session():
-    for importname in ("decimal","math", "matplotlib.pyplot.plot"):
+    for importname in ("decimal","math", "matplotlib.pyplot"):
         try:
             eval_namespace[importname] = importlib.import_module(importname)
         except ImportError:
@@ -69,8 +69,8 @@ def REPL(parse_tree_fn: Callable, output_style_fn, session, show_tree_fn=None) -
             else:
                 print(f"Out[{len(out_results)}]={x}")
                 out_results.append(x)
-                from pprint import pprint
-                pprint(out_results)
+                # from pprint import pprint
+                # pprint(out_results)
                 pass
             pass
         pass

@@ -1,7 +1,71 @@
+2020-07-28  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__main__.py, FoxySheep/version.py, README.md,
+	README.rst: Get ready for release 1.2.0
+
+2020-07-28  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__main__.py, FoxySheep/transform/if2py.py: Add a couple
+	more function translations...  It is rough, but we'll fix that up later, perhaps
+
+2020-07-28  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/transform/if2py.py,
+	pytest/parse_expressions/fi4mspy.yml: Translate lists; {} -> []
+	basically
+
+2020-07-28  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/tree/pretty_printer.py,
+	pytest/parse_expressions/fi4mspy.yml,
+	pytest/parse_expressions/input2full.yaml,
+	pytest/parse_expressions/input2py.yaml: Show "visit" name in pretty
+	printing tree
+
+2020-07-27  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__main__.py, FoxySheep/transform/if2py.py,
+	pytest/parse_expressions/fi4mspy.yml: Start handling functions
+
+2020-07-27  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__main__.py, FoxySheep/transform/if2py.py,
+	pytest/parse_expressions/fi4mspy.yml, pytest/test_parser.py: Handle
+	times and subtract better...  Start adding examples from Fast Introduction for Math Students
+
+2020-07-27  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__main__.py, FoxySheep/parser.py,
+	FoxySheep/transform/if2py.py, pytest/test_parser.py: Don't flatten
+	when going to Python When going to full form `1 + 2 + 3` -> `PlusOp[1,2,3]` and so args
+	1,2,3 appear in a list.  However when going to Python we keep this structure.  The first 3 examples of
+
+	https://www.wolfram.com/language/fast-introduction-for-math-students/en/entering-input/now work
+
+2020-07-27  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__main__.py, FoxySheep/transform/if2py.py: Start
+	eval'ing and saving results
+
+2020-07-27  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__init__.py, FoxySheep/__main__.py,
+	FoxySheep/parser.py, FoxySheep/transform/if2py.py, README.md,
+	README.rst, pytest/test_parser.py: Split out and test lexer/parser
+	combo
+
+2020-07-26  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/transform/if2py.py, NEWS.md,
+	admin_tools/how-to-make-a-release.md,
+	pytest/parse_expressions/input2py.yaml: Start adding MMA Symbol ->
+	Python Name
+
 2020-07-23  rocky <rb@dustyfeet.com>
 
-	* FoxySheep/__init__.py, FoxySheep/version.py: Get ready for release
-	1.1.0
+	* ChangeLog, FoxySheep/__init__.py, FoxySheep/version.py, Makefile,
+	README.md, README.rst, admin_tools/how-to-make-a-release.md: Get
+	ready for release 1.1.0
 
 2020-07-23  rocky <rb@dustyfeet.com>
 

@@ -4,9 +4,10 @@
 **Table of Contents**
 
 - [FoxySheep2](#foxysheep2)
-- [Using](#using)
+- [Examples](#examples)
+- [Conversion to Python](#conversion-to-python)
 - [Regenerating the lexer/parser](#regenerating-the-lexerparser)
-    - [FoxySheepLexer Must Subclass Lexer](#foxysheeplexer-must-subclass-lexer)
+    - [InputForm and FullForm must Subclass Lexer](#inputform-and-fullform-must-subclass-lexer)
 
 <!-- markdown-toc end -->
 # FoxySheep2
@@ -44,6 +45,41 @@ in:=
 $
 ```
 
+The first few examples from ["Fast Introduction for Math Students"](https://www.wolfram.com/language/fast-introduction-for-math-students/en/entering-input/)
+
+```
+foxy-sheep -o python
+Enter a Mathematica expression. Enter either an empty line, Ctrl-C, or Ctrl-D to exit.
+in:= 2 + 2
+(2 + 2)
+
+Out[0]=4
+in:= 1 + 2 + 3
+(1 + 2 + 3)
+
+Out[1]=6
+in:= % + 4
+(Out() + 4)
+
+Out[2]=10
+in:= 5 + 2 * 3 - 7.5
+(5 + 2 * 3 -
+decimal.Decimal(7.5))
+
+in:= ((5 - 3) ^ (1 + 2))/ 4
+((5 - 3) ** (1 + 2) / 4)
+
+Out[4]=2.0
+in:= GCD[12,15]
+math.gcd(12, 15)
+
+Out[5]=3
+in:= {1, 2, 3}
+[1, 2, 3]
+
+Out[6]=[1, 2, 3]
+```
+
 To call from Python:
 
 ```python
@@ -59,6 +95,18 @@ print(if2ff("x^2-3x+4")
 For help on `foxy-sheep`, run `foxy-sheep --help`.
 
 To see a demo run `python demo.py` in this directory.
+
+# Conversion to Python
+
+A very crude translator to Python has been started. While there are still a lot of details to be filled out, some of the basics are there.
+
+Conversion to Python is done via transforming "InputForm" input to an "OutputForm" parse tree, and then using that to convert to a Python AST. Finally a module is used to dump this to text.
+
+Why do we go the more complicated route of going from a an OutForm parse tree to a Python AST?
+
+By keeping the structure as an AST we can contemplate more powerful transformations and make use of routines that exist for working with Python AST's.
+
+For example, translating `{1,2,3} + 2` into Python, while not handled now, can be done by looking at the types of the operands of plus, and noticing one is a scalar while the other is a list.
 
 # Regenerating the lexer/parser
 

@@ -27,17 +27,17 @@
 
 # Check package on github
 
-	$ mkdir /tmp/gittest; pushd /tmp/gittest
-	$ pyenv local 3.8.3
+	$ [[ ! -d /tmp/gittest ]] && mkdir /tmp/gittest; pushd /tmp/gittest
+	$ pyenv local 3.8.4
 	$ pip install -e git://github.com/rocky/FoxySheep.git#egg=FoxySheep
-	$ foxy-sheep --help
+	$ foxy-sheep --version
 	$ foxy-sheep -e '1+2 3'
 	$ pip uninstall FoxySheep
 	$ popd
 
 # Release on Github
 
-Goto https://github.com/rocky/FoxySheep/releases/new
+Goto https://github.com/rocky/FoxySheep2/releases/new
 
 Now check the *tagged* release. (Checking the untagged release was previously done).
 

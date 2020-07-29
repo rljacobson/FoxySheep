@@ -1,3 +1,48 @@
+1.2.0 2020-07-28
+================
+
+Start saving state in REPL so `%` works
+
+Revise pretty printer to include specific transformation names. For example:
+
+```
+$ foxy-sheep --tree=compact -e "3 (4+5)"
+(<prog:Prog>  (<expr:Times>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '3')) (<expr:Parentheses>  '(' (<expr:PlusOp>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '4')) '+' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '5'))) ')')))
+Times[3,Plus[4,5]]
+
+$ foxy-sheep --tree=full -e "3 (4+5)"
+<prog:Prog> [1]
+  <expr:Times> [2]
+    0. <expr:Number> [1]
+      <numberLiteral:NumberBaseTen> [1]
+        '3'
+
+    1. <expr:Parentheses> [3]
+      '('
+
+      1. <expr:PlusOp> [3]
+        0. <expr:Number> [1]
+          <numberLiteral:NumberBaseTen> [1]
+            '4'
+
+        1. '+'
+
+        2. <expr:Number> [1]
+          <numberLiteral:NumberBaseTen> [1]
+            '5'
+
+      1. ')'
+
+Times[3,Plus[4,5]]
+```
+
+Compare with 1.1.0 shown in those release notes.
+
+We now translate lists, and a few function names, namely `GCD` and `Sin`. Right now full coverage isn't as important as trying to get the framework correct.
+
+Some bugs were fixed.
+
+
 1.1.0 2020-07-23
 ================
 
