@@ -86,7 +86,10 @@ class PrettyPrinterCompact(ParseTreeListener):
         if self.builder:
             self.builder += " "
 
-        self.builder += f"{self.kid_number}. "
+        if hasattr(self, "kid_number"):
+            self.builder += f"{self.kid_number}. "
+        else:
+            self.kid_number = 0
         self.kid_number += 1
         self.builder += str(node)
         # builder.append(Utils.escapeWhitespace(Trees.getNodeText(node, ruleNames), false));

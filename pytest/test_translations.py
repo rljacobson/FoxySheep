@@ -34,8 +34,8 @@ pp_fn = lambda tree, rule_names: pretty_print_string(tree, rule_names, compact=T
 
 show_tests=True
 
-def do_test(input_base: str, translation_fn: Callable):
-    testdata_path = osp.join(testdata_dir, "input2full.yaml")
+def do_test(input_base: str, translation_fn: Callable, test_attr: str):
+    testdata_path = osp.join(testdata_dir, input_base)
     with open(testdata_path, "r") as yaml_file:
         test_data = yaml.load(yaml_file, Loader=yaml.FullLoader)
         # print(test_data)
@@ -45,7 +45,7 @@ def do_test(input_base: str, translation_fn: Callable):
         for test_item in test_list:
             expr = str(test_item["InputForm"])
             tree_str_expect = test_item["tree"]
-            full_form_expect = str(test_item.get("FullForm", expr))
+            full_form_expect = str(test_item.get(test_attr, expr))
             s = translation_fn(expr, parse_tree_fn, pp_fn)
             if show_tests:
                 print(s)
@@ -53,15 +53,19 @@ def do_test(input_base: str, translation_fn: Callable):
                 print(last_tree_str)
                 print("=" * 30)
 
-            assert s == full_form_expect
+            assert s.strip() == full_form_expect
             assert last_tree_str == tree_str_expect
 
 def test_FullForm():
-    do_test("input2full.yaml", input_form_to_full_form)
+    do_test("input2full.yaml", input_form_to_full_form, "FullForm")
 
 def test_python():
-    do_test("input2py.yaml", input_form_to_full_form)
+    do_test("input2py.yaml", input_form_to_python, "python")
+
+def test_fast_intro_for_math():
+    do_test("fi4mspy.yaml", input_form_to_python, "python")
 
 if __name__ == "__main__":
-    test_python()
-    test_FullForm()
+    # test_python()
+    # test_FullForm()
+    test_fast_intro_for_math()

@@ -82,10 +82,9 @@ still a lot of details to be filled out, some of the basics are there.
 
 Conversion to Python is done via transforming "InputForm" input to an
 "OutputForm" parse tree, and then using that to convert to a Python AST.
-Finally a module is used to dump this to text.
+Finally a Python module is used to dump this to text.
 
-Why do we go the more complicated route of going from a an OutForm
-parse tree to a Python AST?
+Why do we go through this more complicated for translating one string to another?
 
 By keeping the structure as an AST we can contemplate more powerful
 transformations and make use of routines that exist for working with Python AST's.

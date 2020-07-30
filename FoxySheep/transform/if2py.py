@@ -15,6 +15,8 @@ IF_name_to_pyop = {
 }
 
 fn_translate = {
+    "Range": "range",
+    "List": "list",
     "GCD": "math.gcd",
     "Sin": "math.sin",
     "Plot": "matplotlib.pyplot.plot",
@@ -247,6 +249,13 @@ class InputForm2PyAst(InputFormVisitor):
         symbol_name = ctx.getText()
         symbol_name = symbol_translate.get(symbol_name, symbol_name)
         return ast.Name(symbol_name)
+
+    def visitStringLiteral(self, ctx:ParserRuleContext) -> ast.AST:
+        val = ctx.getText()
+        # Strip quotes
+        if val[0] == val[-1] and val[0] in ["'", '"']:
+            val = val.strip(val[0])
+        return ast_constant(val)
 
 
 def input_form_to_python_ast(tree) -> ast.AST:
