@@ -2,7 +2,7 @@ import astor
 from antlr4 import TerminalNode
 from antlr4.ParserRuleContext import ParserRuleContext
 from FoxySheep.generated.InputFormVisitor import InputFormVisitor
-from FoxySheep.transform.if_transform import input_form_post
+import astpretty
 import ast
 
 IF_name_to_pyop = {
@@ -27,11 +27,12 @@ symbol_translate = {
 }
 
 def ast_constant(value, lineno=0, col_offset=0):
-    number_node = ast.Constant()
-    number_node.lineno = 0
-    number_node.col_offset = 0
-    number_node.value = value
-    return number_node
+    node = ast.Constant()
+    node.lineno = 0
+    node.col_offset = 0
+    node.value = value
+    node.kind = type(value).__name__
+    return node
 
 
 class InputForm2PyAst(InputFormVisitor):
@@ -110,10 +111,8 @@ class InputForm2PyAst(InputFormVisitor):
         if child_count == 1:
             return get_digits_constant(ctx)
         else:
-            child1_node = self.visit(ctx.getChild(1))
             if child_count == 3:
                 raise RuntimeError("Can't handle NumberBaseTen with numberLiteralPrecision yet")
-                child2_node = self.visit(ctx.getChild(2))
             mantissa_node = get_digits_constant(ctx.getChild(0))
             node = ast.BinOp()
             node.op = ast.Mult()
@@ -233,7 +232,6 @@ class InputForm2PyAst(InputFormVisitor):
         node = ast.UnaryOp()
         node.lineno = 0
         node.col_offset = 0
-        ctx_name = type(ctx).__name__
 
         if ctx.MINUS() is not None:
             node.op = ast.USub()
@@ -263,10 +261,12 @@ def input_form_to_python_ast(tree) -> ast.AST:
     return transform.visit(tree)
 
 
-def input_form_to_python(input_form_str: str, parse_tree_fn, show_tree_fn=None) -> str:
+def input_form_to_python(input_form_str: str, parse_tree_fn, show_tree_fn=None, debug=False) -> str:
 
     tree = parse_tree_fn(input_form_str, show_tree_fn=show_tree_fn)
     pyast = input_form_to_python_ast(tree)
+    if debug:
+        print(astpretty.pformat(pyast, show_offsets=False))
     return astor.to_source(pyast)
 
 

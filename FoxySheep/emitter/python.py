@@ -2,9 +2,12 @@ import astor
 from FoxySheep.transform.if2py import InputForm2PyAst
 
 transformer = None
+import astpretty
 
 
-def input_form_to_python(input_form: str, parse_tree_fn, show_tree_fn) -> None:
+def input_form_to_python(
+    input_form: str, parse_tree_fn, show_tree_fn, debug: bool
+) -> None:
 
     global transformer
 
@@ -16,5 +19,6 @@ def input_form_to_python(input_form: str, parse_tree_fn, show_tree_fn) -> None:
     tree = parse_tree_fn(input_form, show_tree_fn=show_tree_fn)
     # Emit FullForm.
     pyast = transformer.visit(tree)
-    # print(astor.dump(pyast))
+    if debug:
+        print(astpretty.pformat(pyast, show_offsets=False))
     return astor.to_source(pyast)

@@ -91,8 +91,8 @@ def if2ff(s: str, show_tree_fn=None) -> str:
     return input_form_to_full_form(s, parse_tree_from_string_pp, show_tree_fn)
 
 
-def if2python(s: str, show_tree_fn=None) -> str:
-    return input_form_to_python(s, parse_tree_from_string, show_tree_fn)
+def if2python(s: str, show_tree_fn=None, debug=False) -> str:
+    return input_form_to_python(s, parse_tree_from_string, show_tree_fn, debug)
 
 
 if __name__ == "__main__":
