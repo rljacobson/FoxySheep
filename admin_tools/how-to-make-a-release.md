@@ -44,9 +44,10 @@ Now check the *tagged* release. (Checking the untagged release was previously do
 Todo: turn this into a script in `admin-tools`
 
 	$ pushd /tmp/gittest
-	$ pip install -e git://github.com/rocky/FoxySheep.git@$VERSION#egg=xdis
+	$ pip install -e git://github.com/rocky/FoxySheep.git@$VERSION#egg=FoxySheep
 	$ foxy-sheep --version
 	$ pip uninstall FoxySheep
+	$ foxy-sheep -e '1+2 3'
 	$ popd
 
 
