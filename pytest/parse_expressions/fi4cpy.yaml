@@ -1,0 +1,31 @@
+# This YAML file contains examples from
+# https://www.wolfram.com/language/fast-introduction-for-programmers/en/entering-input/
+
+
+Fast-Intro-for-Programmers:
+
+  # This is in fast introduction for math students
+  # -
+  #   InputForm: 2 + 2
+  #   tree: "(<prog:Prog>  (<expr:PlusOp>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '2')) '+' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '2'))))"
+  #   python: (2 + 2)
+
+  -
+    InputForm: Range[10]
+    tree: "(<prog:Prog>  (<expr:HeadExpression>  (<expr:SymbolLiteral>  (<symbol:ContextName>  Range)) '[' (<expressionList:ExpressionListed>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '10'))) ']'))"
+    python: range(10)
+
+  -
+    InputForm: "{a, b, c, d}[[3]]"
+    tree: "(<prog:Prog>  (<expr:Accessor>  (<expr:List>  '{' (<expressionList:ExpressionListed>  (<expr:SymbolLiteral>  (<symbol:ContextName>  a)) ',' (<expr:SymbolLiteral>  (<symbol:ContextName>  b)) ',' (<expr:SymbolLiteral>  (<symbol:ContextName>  c)) ',' (<expr:SymbolLiteral>  (<symbol:ContextName>  d))) '}') (<accessExpression:AccessExpressionA>  '[' '[' (<expressionList:ExpressionListed>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '3'))) ']' ']')))"
+    python: "[a, b, c, d][3]"
+
+  -
+    InputForm: "{a, b, c, d}[[-3]]"
+    tree: "(<prog:Prog>  (<expr:Accessor>  (<expr:List>  '{' (<expressionList:ExpressionListed>  (<expr:SymbolLiteral>  (<symbol:ContextName>  a)) ',' (<expr:SymbolLiteral>  (<symbol:ContextName>  b)) ',' (<expr:SymbolLiteral>  (<symbol:ContextName>  c)) ',' (<expr:SymbolLiteral>  (<symbol:ContextName>  d))) '}') (<accessExpression:AccessExpressionA>  '[' '[' (<expressionList:ExpressionListed>  (<expr:UnaryPlusMinus>  '-' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '3')))) ']' ']')))"
+    python: "[a, b, c, d][-3]"
+
+  -
+    InputForm: "{a, b, c, d, e, f}[[2 ;; 4]]"
+    tree: "(<prog:Prog>  (<expr:Accessor>  (<expr:List>  '{' (<expressionList:ExpressionListed>  (<expr:SymbolLiteral>  (<symbol:ContextName>  a)) ',' (<expr:SymbolLiteral>  (<symbol:ContextName>  b)) ',' (<expr:SymbolLiteral>  (<symbol:ContextName>  c)) ',' (<expr:SymbolLiteral>  (<symbol:ContextName>  d)) ',' (<expr:SymbolLiteral>  (<symbol:ContextName>  e)) ',' (<expr:SymbolLiteral>  (<symbol:ContextName>  f))) '}') (<accessExpression:AccessExpressionA>  '[' '[' (<expressionList:ExpressionListed>  (<expr:SpanA>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '2')) ';;' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '4')))) ']' ']')))"
+    python: "[a, b, c, d, e, f][2:4]"

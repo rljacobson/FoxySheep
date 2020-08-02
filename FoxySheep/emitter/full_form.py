@@ -414,9 +414,10 @@ class FullFormEmitter(InputFormVisitor):
         else:
             val += ",All"
 
+        n = ctx.getChildCount()
         # Cursor now points to either the second ";;" or past the end of the expr.
         if (
-            ctx.getChild(curChild) is not None
+            curChild < n and ctx.getChild(curChild) is not None
             and ctx.getChild(curChild).getText() == ";;"
         ):
             # There is a skip amount.

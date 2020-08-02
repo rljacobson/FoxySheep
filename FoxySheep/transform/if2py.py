@@ -4,7 +4,7 @@ from antlr4.ParserRuleContext import ParserRuleContext
 from FoxySheep.generated.InputFormVisitor import InputFormVisitor
 import astpretty
 import ast
-from typing import Union
+from typing import List, Union
 
 IF_name_to_pyop = {
     "DivideContext": ast.Div,
@@ -66,22 +66,42 @@ class InputForm2PyAst(InputFormVisitor):
     def visitProg(self, ctx: ParserRuleContext) -> ast.AST:
         exprs = ctx.expr()
         n = len(exprs)
+        expr_list: List[ast.AST] = []
         if n > 0:
             if n == 1:
                 return self.visit(exprs[0])
             else:
-                expr_list = map(self.visit, exprs)
+                expr_list = list(map(self.visit, exprs))
                 pass
             pass
         elif n == 0 and ctx.expressionList:
-            expr_list = []
             for expr in ctx.expressionList().getChildren():
                 if str(expr) == ",":
                     continue
                 expr_list.append(self.visit(expr))
             return ast.Tuple(expr_list, ast.Load())
+
         # FIXME: Figure out what to do here.
         return None
+
+    def visitAccessor(self, ctx: ParserRuleContext) -> ast.AST:
+        node = ast.Subscript()
+        node.ctx = ast.Load()
+        node.value = self.visit(ctx.getChild(0))
+        node.slice = self.visit(ctx.getChild(1))
+        return node
+
+    def visitAccessExpressionA(self, ctx: ParserRuleContext) -> ast.AST:
+        expressionList = ctx.getChild(2)
+        # FIXME: this is hoaky. Should just call self.vist(expressionList)
+        exprList_str = expressionList.getText()
+        if exprList_str.find(";;") < 0:
+            node = ast.Index()
+            node.value = self.visit(expressionList)
+        else:
+            node = self.visit(expressionList)
+
+        return node
 
     def visitList(self, ctx: ParserRuleContext) -> ast.AST:
         node = ast.List(ctx=ast.Load())
@@ -91,6 +111,13 @@ class InputForm2PyAst(InputFormVisitor):
                 continue
             expr_list.append(self.visit(expr))
         node.elts = expr_list
+        return node
+
+    def visitSpanA(self, ctx: ParserRuleContext) -> ast.AST:
+        node = ast.Slice()
+        node.lower = self.visit(ctx.getChild(0))
+        node.upper = self.visit(ctx.getChild(2))
+        node.step = None
         return node
 
     def visitParentheses(self, ctx: ParserRuleContext) -> ast.AST:

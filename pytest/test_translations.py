@@ -70,8 +70,11 @@ def test_python():
 def test_fast_intro_for_math():
     do_test("fi4mspy.yaml", input_form_to_python, "python")
 
+def test_fast_intro_for_computer():
+    do_test("fi4cpy.yaml", input_form_to_python, "python")
+
 
 if __name__ == "__main__":
     # test_python()
-    # test_FullForm()
-    test_fast_intro_for_math()
+    test_FullForm()
+    # test_fast_intro_for_math()
