@@ -10,6 +10,7 @@ from typing import Callable
 import yaml
 import os.path as osp
 
+
 def get_srcdir():
     filename = osp.normcase(osp.dirname(osp.abspath(__file__)))
     return osp.realpath(filename)
@@ -20,6 +21,7 @@ testdata_dir = osp.join(srcdir, "parse_expressions")
 
 last_tree_str = ""
 
+
 def parse_tree_fn(expr: str, show_tree_fn):
     global last_tree_str
     lexer = InputFormLexer(InputStream(expr))
@@ -28,9 +30,11 @@ def parse_tree_fn(expr: str, show_tree_fn):
     last_tree_str = show_tree_fn(tree, parser.ruleNames)
     return tree
 
+
 pp_fn = lambda tree, rule_names: pretty_print_string(tree, rule_names, compact=True)
 
-show_tests=True
+show_tests = True
+
 
 def do_test(input_base: str, translation_fn: Callable, test_attr: str):
     testdata_path = osp.join(testdata_dir, input_base)
@@ -54,14 +58,18 @@ def do_test(input_base: str, translation_fn: Callable, test_attr: str):
             assert s.replace("\n", "").strip() == full_form_expect
             assert last_tree_str == tree_str_expect
 
+
 def test_FullForm():
     do_test("input2full.yaml", input_form_to_full_form, "FullForm")
+
 
 def test_python():
     do_test("input2py.yaml", input_form_to_python, "python")
 
+
 def test_fast_intro_for_math():
     do_test("fi4mspy.yaml", input_form_to_python, "python")
+
 
 if __name__ == "__main__":
     # test_python()

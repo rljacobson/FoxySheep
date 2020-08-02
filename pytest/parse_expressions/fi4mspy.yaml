@@ -39,7 +39,7 @@ Fast-Intro-for-Math-Students:
     tree: "(<prog:Prog>  (<expr:List>  '{' (<expressionList:ExpressionListed>  (<expr:SymbolLiteral>  (<symbol:ContextName>  x)) ',' (<expr:SymbolLiteral>  (<symbol:ContextName>  y)) ',' (<expr:SymbolLiteral>  (<symbol:ContextName>  z))) '}'))"
     python: "[x, y, z]"
 
-  # -
-  #   InputForm: "{'a', 'b', 'c', 'd'}"
-  #   tree: "(<prog:Prog>  (<expr:List>  '{' (<expressionList:ExpressionListed>  (<expr:StringLiteral>  '\"a\"') ',' (<expr:StringLiteral>  '\"b\"') ',' (<expr:StringLiteral>  '\"c\"') ',' (<expr:StringLiteral>  '\"d\"')) '}'))"
-  #   python: ['a', 'b', 'c', 'd']
+  -
+    InputForm: '{ "a", "b", "c", "d" }'
+    tree: (<prog:Prog>  (<expr:List>  '{' (<expressionList:ExpressionListed>  (<expr:StringLiteral>  '"a"') ',' (<expr:StringLiteral>  '"b"') ',' (<expr:StringLiteral>  '"c"') ',' (<expr:StringLiteral>  '"d"')) '}'))
+    python: ['a', 'b', 'c', 'd']

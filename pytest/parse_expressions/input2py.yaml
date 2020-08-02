@@ -35,15 +35,16 @@ numberLiteral:
     tree: "(<prog:Prog>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '55' (<numberLiteralExponent:NumberLiteralExponent>  '*^' '2'))))"
     python: (55 * 10 ** 2)
 
-  # -
-  #   InputForm: "10^^3.58.3"
-  #   tree: "(expr (numberLiteral '55' '^^8.3')))"
+  -
+    InputForm: "10^^3.58.3"
+    tree: "(<prog:Prog>  (<expr:Times>  (<expr:Number>  (<numberLiteral:NumberBaseN>  '10' '^^3.58')) (<expr:Number>  (<numberLiteral:NumberBaseTen>  '.3'))))"
+    python: (int(10, 3.58) * decimal.Decimal(0.3))
 
-  # -
-    # # Machine-specific literal precision
-    # InputForm: 132`
-    # tree: "(<prog:Prog>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '132' (<numberLiteralPrecision:NumberLiteralPrecision>  '`'))))"
-    # python: (132)
+  -
+    # Machine-specific literal precision
+    InputForm: 132`
+    tree: "(<prog:Prog>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '132' (<numberLiteralPrecision:NumberLiteralPrecision>  '`'))))"
+    python: (132)
 
   -
     # Base 8 with Machine-specific literal precision

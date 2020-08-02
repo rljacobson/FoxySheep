@@ -72,7 +72,7 @@ class FullFormEmitter(InputFormVisitor):
         exprList = self.get_children(ctx.expr)
         if len(exprList) > 0:
             return "\n\n".join(map(self.get_full_form, exprList))
-        else:
+        elif ctx.expressionList():
             expr_list = []
             for expr in ctx.expressionList().getChildren():
                 if expr.getText() == ",":

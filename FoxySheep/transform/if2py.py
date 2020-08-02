@@ -4,6 +4,7 @@ from antlr4.ParserRuleContext import ParserRuleContext
 from FoxySheep.generated.InputFormVisitor import InputFormVisitor
 import astpretty
 import ast
+from typing import Union
 
 IF_name_to_pyop = {
     "DivideContext": ast.Div,
@@ -26,22 +27,22 @@ symbol_translate = {
     "E": "math.e",
 }
 
-def ast_constant(value, lineno=0, col_offset=0):
+def ast_constant(value, lineno=0, col_offset=0, kind=None):
     node = ast.Constant()
     node.lineno = 0
     node.col_offset = 0
     node.value = value
-    node.kind = type(value).__name__
+    node.kind = None
     return node
 
 
 class InputForm2PyAst(InputFormVisitor):
-    def get_full_form(self, e) -> ast.AST:
+    def get_full_form(self, e) -> Union[str, ast.AST]:
         """
         Returns a Python AST for the ParseTree `e`
         """
         if isinstance(e, TerminalNode):
-            return e.getText()
+            return str(e)
 
         return self.visit(e)
 
@@ -72,25 +73,27 @@ class InputForm2PyAst(InputFormVisitor):
                 expr_list = map(self.visit, exprs)
                 pass
             pass
-        elif n == 0:
+        elif n == 0 and ctx.expressionList:
             expr_list = []
             for expr in ctx.expressionList().getChildren():
-                if expr.getText() == ",":
+                if str(expr) == ",":
                     continue
                 expr_list.append(self.visit(expr))
-        return ast.Tuple(expr_list, 5)
+            return ast.Tuple(expr_list, ast.Load())
+        # FIXME: Figure out what to do here.
+        return None
 
-    def visitList(self, ctx:ParserRuleContext) -> ast.AST:
-        node = ast.List(expr_ctx="Load()")
+    def visitList(self, ctx: ParserRuleContext) -> ast.AST:
+        node = ast.List(ctx=ast.Load())
         expr_list = []
         for expr in ctx.expressionList().getChildren():
-            if expr.getText() == ",":
+            if str(expr)== ",":
                 continue
             expr_list.append(self.visit(expr))
         node.elts = expr_list
         return node
 
-    def visitParentheses(self, ctx:ParserRuleContext) -> ast.AST:
+    def visitParentheses(self, ctx: ParserRuleContext) -> ast.AST:
         return self.visit(ctx.getChild(1))
 
     def visitNumberBaseTen(self, ctx: ParserRuleContext) -> ast.AST:
@@ -114,10 +117,14 @@ class InputForm2PyAst(InputFormVisitor):
             if child_count == 3:
                 raise RuntimeError("Can't handle NumberBaseTen with numberLiteralPrecision yet")
             mantissa_node = get_digits_constant(ctx.getChild(0))
+            child1 = ctx.getChild(1)
+            if child1.getText() == "`":
+                # Machine-specific precision. Ignore it
+                return mantissa_node
             node = ast.BinOp()
             node.op = ast.Mult()
             node.left = mantissa_node
-            node.right = self.visit(ctx.getChild(1))
+            node.right = self.visit(child1)
             return node
 
         return node
@@ -147,12 +154,14 @@ class InputForm2PyAst(InputFormVisitor):
         return number_node
 
     def visitOutNumbered(self, ctx: ParserRuleContext) -> ast.AST:
-        fn_name_node = ast.Name(id="Out", ctx="Load()")
-        args = [ast_constant(number)]
+        fn_name_node = ast.Name(id="Out", ctx=ast.Load())
+        number_str = str(ctx.getChild(0))
+        assert number_str[0] == "%"
+        args = [ast_constant(int(number_str[1:], 10))]
         return ast.Call(func=fn_name_node, args=args, keywords=[])
 
     def visitOutUnnumbered(self, ctx: ParserRuleContext) -> ast.AST:
-        fn_name_node = ast.Name(id="Out", ctx="Load()")
+        fn_name_node = ast.Name(id="Out", ctx=ast.Load())
         return ast.Call(func=fn_name_node, args=[], keywords=[])
 
     def visitHeadExpression(self, ctx: ParserRuleContext) -> ast.AST:
@@ -196,7 +205,7 @@ class InputForm2PyAst(InputFormVisitor):
         elif ctx.BINARYPLUS():
             node.op = ast.Add()
         elif ctx.BINARYMINUSPLUS() or ctx.BINARYPLUSMINUS():
-            raise RuntimeError(f"Can't handle +- or -+")
+            raise RuntimeError("Can't handle +- or -+")
         else:
             raise RuntimeError(f"Unknown op context {ctx}")
 
@@ -224,7 +233,6 @@ class InputForm2PyAst(InputFormVisitor):
         visitDivide
     ) = visitNonCommutativeMultiply = visitPower
 
-
     def visitUnaryPlusMinus(self, ctx: ParserRuleContext) -> ast.AST:
         """Translates prefix + and - operators. Note +- (plus or minus) and -+
         are different.
@@ -243,12 +251,12 @@ class InputForm2PyAst(InputFormVisitor):
         node.operand = self.visit(ctx.expr())
         return node
 
-    def visitSymbolLiteral(self, ctx:ParserRuleContext) -> ast.AST:
+    def visitSymbolLiteral(self, ctx: ParserRuleContext) -> ast.AST:
         symbol_name = ctx.getText()
         symbol_name = symbol_translate.get(symbol_name, symbol_name)
         return ast.Name(symbol_name)
 
-    def visitStringLiteral(self, ctx:ParserRuleContext) -> ast.AST:
+    def visitStringLiteral(self, ctx: ParserRuleContext) -> ast.AST:
         val = ctx.getText()
         # Strip quotes
         if val[0] == val[-1] and val[0] in ["'", '"']:
