@@ -97,7 +97,7 @@ Here are some examples:
 
 Conversion to Python is done via transforming "InputForm" input to an
 "OutputForm" parse tree, and then using that to convert to a Python AST.
-Finally a Python module is used to dump this to text.
+Finally a Python module, `astor <https://pypi.org/project/astor/>`_, is used to dump this to text.
 
 Why do we go through this more complicated for translating one string to another?
 
