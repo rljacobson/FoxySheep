@@ -76,5 +76,6 @@ def test_fast_intro_for_computer():
 
 if __name__ == "__main__":
     # test_python()
-    test_FullForm()
+    # test_FullForm()
     # test_fast_intro_for_math()
+    test_fast_intro_for_computer()

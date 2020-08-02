@@ -24,9 +24,10 @@ having Mathematica installed: To run the code interactively:
    in:=
    $
 
-The first few examples from ["Fast Introduction for Math Students"](https://www.wolfram.com/language/fast-introduction-for-math-students/en/entering-input/)
+The first few examples from `Fast Introduction for Math Students <https://www.wolfram.com/language/fast-introduction-for-math-students/en/entering-input/>`_
 
 ::
+
    foxy-sheep -o python
    Enter a Mathematica expression. Enter either an empty line, Ctrl-C, or Ctrl-D to exit.
    in:= 2 + 2
@@ -79,6 +80,20 @@ Conversion to Python
 
 A very crude translator to Python has been started. While there are
 still a lot of details to be filled out, some of the basics are there.
+
+Here are some examples:
+
+::
+
+   167.5 -> decimal.Decimal(167.5)
+   15^^8 -> int(15, 8)
+   132`  -> (132)
+   1 / 10 3 -> (1 / 10 * 3)
+   x^2 + y^2 -> (x ** 2 + y ** 2)
+   GCD[12, 15] -> math.gcd(12, 15)
+   Range[10] -> range(10)
+   {a, b, c, d}[[3]] -> [a, b, c, d][2]  # Handles 0-1 conversion
+   {a, b, c, d, e, f}[[2 ;; 4]] -> [a, b, c, d, e, f][1:3] # ditto
 
 Conversion to Python is done via transforming "InputForm" input to an
 "OutputForm" parse tree, and then using that to convert to a Python AST.

@@ -35,8 +35,20 @@ def ast_constant(value, lineno=0, col_offset=0, kind=None):
     node.kind = None
     return node
 
-
 class InputForm2PyAst(InputFormVisitor):
+
+    def adjust_subscript_index(self, ctx) -> ast.AST:
+        node = ast.BinOp()
+        child0 =  ctx.getChild(0)
+        if child0.getText()[0] == "-":
+            node.op = ast.Add()
+        else:
+            node.op = ast.Sub()
+            node.left = self.visit(ctx)
+            node.right = ast_constant(1)
+
+        return node
+
     def get_full_form(self, e) -> Union[str, ast.AST]:
         """
         Returns a Python AST for the ParseTree `e`
@@ -63,6 +75,12 @@ class InputForm2PyAst(InputFormVisitor):
             e = efunction(i)
         return elist
 
+    def get_numeric_literal(self, expr_list):
+        child0 = expr_list.getChild(0)
+        if hasattr(child0, "numberLiteral") or hasattr(child0, "DecimalNumber"):
+            return self.visit(child0)
+        return None
+
     def visitProg(self, ctx: ParserRuleContext) -> ast.AST:
         exprs = ctx.expr()
         n = len(exprs)
@@ -84,6 +102,8 @@ class InputForm2PyAst(InputFormVisitor):
         # FIXME: Figure out what to do here.
         return None
 
+    # The rest of the visitXXX routines are in alphabetical order
+
     def visitAccessor(self, ctx: ParserRuleContext) -> ast.AST:
         node = ast.Subscript()
         node.ctx = ast.Load()
@@ -93,15 +113,32 @@ class InputForm2PyAst(InputFormVisitor):
 
     def visitAccessExpressionA(self, ctx: ParserRuleContext) -> ast.AST:
         expressionList = ctx.getChild(2)
-        # FIXME: this is hoaky. Should just call self.vist(expressionList)
-        exprList_str = expressionList.getText()
-        if exprList_str.find(";;") < 0:
+        assert expressionList.getChildCount() == 1
+        numeric_literal = self.get_numeric_literal(expressionList)
+        if numeric_literal:
+            numeric_literal.value -= 1
             node = ast.Index()
-            node.value = self.visit(expressionList)
+            value = numeric_literal
+            node.value = value
         else:
-            node = self.visit(expressionList)
+            node = self.visit(expressionList.getChild(0))
 
         return node
+
+    def visitHeadExpression(self, ctx: ParserRuleContext) -> ast.AST:
+        "Translates function calls"
+        fn_name = ctx.expr().getText()
+        fn_name = fn_translate.get(fn_name, fn_name)
+        fn_name_node = ast.Name(id=fn_name, ctx="Load()")
+        args = []
+        for arg in ctx.expressionList().getChildren():
+            if arg.getText() == ",":
+                continue
+            args.append(self.visit(arg))
+        return ast.Call(func=fn_name_node, args=args, keywords=[])
+
+        # return self.make_head(self.get_full_form(ctx.expr()), ctx.expressionList())
+        return None
 
     def visitList(self, ctx: ParserRuleContext) -> ast.AST:
         node = ast.List(ctx=ast.Load())
@@ -112,16 +149,6 @@ class InputForm2PyAst(InputFormVisitor):
             expr_list.append(self.visit(expr))
         node.elts = expr_list
         return node
-
-    def visitSpanA(self, ctx: ParserRuleContext) -> ast.AST:
-        node = ast.Slice()
-        node.lower = self.visit(ctx.getChild(0))
-        node.upper = self.visit(ctx.getChild(2))
-        node.step = None
-        return node
-
-    def visitParentheses(self, ctx: ParserRuleContext) -> ast.AST:
-        return self.visit(ctx.getChild(1))
 
     def visitNumberBaseTen(self, ctx: ParserRuleContext) -> ast.AST:
         def get_digits_constant(ctx):
@@ -191,36 +218,8 @@ class InputForm2PyAst(InputFormVisitor):
         fn_name_node = ast.Name(id="Out", ctx=ast.Load())
         return ast.Call(func=fn_name_node, args=[], keywords=[])
 
-    def visitHeadExpression(self, ctx: ParserRuleContext) -> ast.AST:
-        "Translates function calls"
-        fn_name = ctx.expr().getText()
-        fn_name = fn_translate.get(fn_name, fn_name)
-        fn_name_node = ast.Name(id=fn_name, ctx="Load()")
-        args = []
-        for arg in ctx.expressionList().getChildren():
-            if arg.getText() == ",":
-                continue
-            args.append(self.visit(arg))
-        return ast.Call(func=fn_name_node, args=args, keywords=[])
-
-        # return self.make_head(self.get_full_form(ctx.expr()), ctx.expressionList())
-        return None
-
-    def visitTimes(self, ctx: ParserRuleContext) -> ast.AST:
-        """
-        Translates infix multiplcation.
-        """
-        node = ast.BinOp()
-        ctx_name = type(ctx).__name__
-        ast_op_fn = IF_name_to_pyop.get(ctx_name, None)
-        if ast_op_fn:
-            node.op = ast_op_fn()
-        else:
-            raise RuntimeError(f"Unknown op context {type(ctx_name)}")
-
-        node.left = self.visit(ctx.expr(0))
-        node.right = self.visit(ctx.expr(1))
-        return node
+    def visitParentheses(self, ctx: ParserRuleContext) -> ast.AST:
+        return self.visit(ctx.getChild(1))
 
     def visitPlusOp(self, ctx: ParserRuleContext) -> ast.AST:
         """
@@ -260,6 +259,53 @@ class InputForm2PyAst(InputFormVisitor):
         visitDivide
     ) = visitNonCommutativeMultiply = visitPower
 
+    def visitSpanA(self, ctx: ParserRuleContext) -> ast.AST:
+        node = ast.Slice()
+        child0 = ctx.getChild(0)
+        numeric_literal = self.get_numeric_literal(child0)
+        if numeric_literal:
+            numeric_literal.value -= 1
+            node.lower = numeric_literal
+        else:
+            node.lower = self.adjust_subscript_index(child0)
+        child2 = ctx.getChild(2)
+        numeric_literal = self.get_numeric_literal(child2)
+        if numeric_literal:
+            numeric_literal.value -= 1
+            node.upper = numeric_literal
+        else:
+            node.upper = self.adjust_subscript_index(child2)
+        node.step = None
+        return node
+
+    def visitStringLiteral(self, ctx: ParserRuleContext) -> ast.AST:
+        val = ctx.getText()
+        # Strip quotes
+        if val[0] == val[-1] and val[0] in ["'", '"']:
+            val = val.strip(val[0])
+        return ast_constant(val)
+
+    def visitSymbolLiteral(self, ctx: ParserRuleContext) -> ast.AST:
+        symbol_name = ctx.getText()
+        symbol_name = symbol_translate.get(symbol_name, symbol_name)
+        return ast.Name(symbol_name)
+
+    def visitTimes(self, ctx: ParserRuleContext) -> ast.AST:
+        """
+        Translates infix multiplcation.
+        """
+        node = ast.BinOp()
+        ctx_name = type(ctx).__name__
+        ast_op_fn = IF_name_to_pyop.get(ctx_name, None)
+        if ast_op_fn:
+            node.op = ast_op_fn()
+        else:
+            raise RuntimeError(f"Unknown op context {type(ctx_name)}")
+
+        node.left = self.visit(ctx.expr(0))
+        node.right = self.visit(ctx.expr(1))
+        return node
+
     def visitUnaryPlusMinus(self, ctx: ParserRuleContext) -> ast.AST:
         """Translates prefix + and - operators. Note +- (plus or minus) and -+
         are different.
@@ -277,19 +323,6 @@ class InputForm2PyAst(InputFormVisitor):
             return self.visitChildren(ctx)
         node.operand = self.visit(ctx.expr())
         return node
-
-    def visitSymbolLiteral(self, ctx: ParserRuleContext) -> ast.AST:
-        symbol_name = ctx.getText()
-        symbol_name = symbol_translate.get(symbol_name, symbol_name)
-        return ast.Name(symbol_name)
-
-    def visitStringLiteral(self, ctx: ParserRuleContext) -> ast.AST:
-        val = ctx.getText()
-        # Strip quotes
-        if val[0] == val[-1] and val[0] in ["'", '"']:
-            val = val.strip(val[0])
-        return ast_constant(val)
-
 
 def input_form_to_python_ast(tree) -> ast.AST:
     transform = InputForm2PyAst()
