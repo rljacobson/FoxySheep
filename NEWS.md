@@ -1,3 +1,11 @@
+1.2.1 2020-08-02
+================
+
+* Handle numberLiteral with numberLiteralExponent. See https://mathematica.stackexchange.com/questions/85445/convert-mathematica-math-expression-form-to-python-math-expression/226648?noredirect=1#comment576795_226648
+* Add `--debug`, (`-d`) option to show pretty-printed AST (via [`astpretty`](https://pypi.org/project/astpretty/))
+* Add subscripting lists; this means we handle origin 1 vs. origin 0 indexing
+* More tests
+
 1.2.0 2020-07-28
 ================
 

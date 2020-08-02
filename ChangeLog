@@ -1,7 +1,69 @@
+2020-08-02  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/version.py: Get ready for release 1.2.1
+
+2020-08-02  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/transform/if2py.py, README.md, README.rst,
+	pytest/parse_expressions/fi4cpy.yaml, pytest/test_translations.py: 
+	Handle index 1 vs index 0
+
+2020-08-02  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/emitter/full_form.py, FoxySheep/transform/if2py.py,
+	pytest/parse_expressions/fi4cpy.yaml,
+	pytest/parse_expressions/input2full.yaml,
+	pytest/test_translations.py: Add subscripting lists
+
+2020-08-02  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/emitter/full_form.py, FoxySheep/transform/if2py.py,
+	pytest/parse_expressions/fi4mspy.yaml,
+	pytest/parse_expressions/input2py.yaml,
+	pytest/test_translations.py, tox.ini: Expand test. Fix misc bugs
+
+2020-08-01  rocky <rb@dustyfeet.com>
+
+	* pytest/parse_expressions/fi4mspy.yaml,
+	pytest/test_translations.py: Reinstate some tests
+
+2020-08-01  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__main__.py, FoxySheep/emitter/full_form.py,
+	FoxySheep/emitter/python.py, FoxySheep/parser.py,
+	FoxySheep/transform/if2py.py, setup.py: Add --debug/-d option ...  In translation to Python, we will use the astpretty module for
+	dumping the Python AST.
+
+2020-07-29  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/transform/if2py.py, FoxySheep/tree/pretty_printer.py,
+	README.md, README.rst, pytest/parse_expressions/fi4mspy.yaml,
+	pytest/parse_expressions/fi4mspy.yml,
+	pytest/parse_expressions/input2py.yaml, pytest/test_translations.py: 
+	Start string literals...  Tests were inadvertently skipped. Fix that.  However a number of tests are commented out until we get bugs fixed.  g
+
+2020-07-29  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/transform/if2py.py,
+	pytest/parse_expressions/input2py.yaml: Handle numberLiteral with
+	numberLiteralExponent See
+
+	https://mathematica.stackexchange.com/questions/85445/convert-mathematica-math-expression-form-to-python-math-expression/226648?noredirect=1#comment576795_226648
+
 2020-07-28  rocky <rb@dustyfeet.com>
 
-	* FoxySheep/__main__.py, FoxySheep/version.py, README.md,
-	README.rst: Get ready for release 1.2.0
+	* FoxySheep/transform/if2py.py: Add symbol E and more numbers..  MMa numbers are even more complicated than I had thought.  Punt on
+	numberLiteralPrecision and numberLiteralExponent for now
+
+2020-07-28  rocky <rb@dustyfeet.com>
+
+	* admin_tools/how-to-make-a-release.md: Administrivia
+
+2020-07-28  rocky <rb@dustyfeet.com>
+
+	* ChangeLog, FoxySheep/__main__.py, FoxySheep/version.py, NEWS.md,
+	README.md, README.rst, admin_tools/how-to-make-a-release.md: Get
+	ready for release 1.2.0
 
 2020-07-28  rocky <rb@dustyfeet.com>
 
