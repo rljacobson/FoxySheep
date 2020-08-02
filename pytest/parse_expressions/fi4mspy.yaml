@@ -9,20 +9,20 @@ Fast-Intro-for-Math-Students:
     tree: "(<prog:Prog>  (<expr:PlusOp>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '2')) '+' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '2'))))"
     python: (2 + 2)
 
-  # -
-    # InputForm: 1 + 2 + 3
-    # tree: "(<prog:Prog>  (<expr:PlusOp>  (<expr:PlusOp>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '1')) '+' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '2'))) '+' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '3'))))"
-    # python: (1 + 2 + 3)
+  -
+    InputForm: 1 + 2 + 3
+    tree: "(<prog:Prog>  (<expr:PlusOp>  (<expr:PlusOp>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '1')) '+' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '2'))) '+' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '3'))))"
+    python: (1 + 2 + 3)
 
   -
     InputForm: "% + 4"
     tree: "(<prog:Prog>  (<expr:PlusOp>  (<expr:Out>  (<outExpression:OutUnnumbered>  '%')) '+' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '4'))))"
     python: (Out() + 4)
 
-  # -
-  #   InputForm: 5 + 2*3 - 7.5
-  #   tree: "(<prog:Prog>  (<expr:PlusOp>  (<expr:PlusOp>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '5')) '+' (<expr:Times>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '2')) '*' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '3')))) '-' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '7.5'))))"
-  #   python: "(5 + 2 * 3 - decimal.Decimal(7.5))"
+  -
+    InputForm: 5 + 2*3 - 7.5
+    tree: "(<prog:Prog>  (<expr:PlusOp>  (<expr:PlusOp>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '5')) '+' (<expr:Times>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '2')) '*' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '3')))) '-' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '7.5'))))"
+    python: "(5 + 2 * 3 - decimal.Decimal(7.5))"
 
   -
     InputForm: "GCD[12, 15]"
@@ -41,5 +41,5 @@ Fast-Intro-for-Math-Students:
 
   # -
   #   InputForm: "{'a', 'b', 'c', 'd'}"
-  #   tree: (<prog:Prog>  (<expr:List>  '{' (<expressionList:ExpressionListed>  (<expr:StringLiteral>  '"a"') ',' (<expr:StringLiteral>  '"b"') ',' (<expr:StringLiteral>  '"c"') ',' (<expr:StringLiteral>  '"d"')) '}'))
+  #   tree: "(<prog:Prog>  (<expr:List>  '{' (<expressionList:ExpressionListed>  (<expr:StringLiteral>  '\"a\"') ',' (<expr:StringLiteral>  '\"b\"') ',' (<expr:StringLiteral>  '\"c\"') ',' (<expr:StringLiteral>  '\"d\"')) '}'))"
   #   python: ['a', 'b', 'c', 'd']

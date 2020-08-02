@@ -1,7 +1,6 @@
 from FoxySheep.generated.InputFormLexer import InputFormLexer
 from antlr4 import InputStream, CommonTokenStream
 from FoxySheep.generated.InputFormParser import InputFormParser
-from FoxySheep.transform.if_transform import input_form_post
 
 from FoxySheep.tree.pretty_printer import pretty_print_string
 from FoxySheep.emitter.full_form import input_form_to_full_form
@@ -27,7 +26,6 @@ def parse_tree_fn(expr: str, show_tree_fn):
     parser = InputFormParser(CommonTokenStream(lexer))
     tree = parser.prog()
     last_tree_str = show_tree_fn(tree, parser.ruleNames)
-    tree = input_form_post(tree)
     return tree
 
 pp_fn = lambda tree, rule_names: pretty_print_string(tree, rule_names, compact=True)
@@ -53,7 +51,7 @@ def do_test(input_base: str, translation_fn: Callable, test_attr: str):
                 print(last_tree_str)
                 print("=" * 30)
 
-            assert s.strip() == full_form_expect
+            assert s.replace("\n", "").strip() == full_form_expect
             assert last_tree_str == tree_str_expect
 
 def test_FullForm():
