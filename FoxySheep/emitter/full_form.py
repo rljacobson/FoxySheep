@@ -10,6 +10,10 @@ class FullFormEmitter(InputFormVisitor):
     This class defines a complete generic visitor for a parse tree produced by InputFormParser.
     """
 
+    def __init__(self, mode=None):
+        # Mode is ignored for now
+        pass
+
     def get_full_form(self, e) -> str:
         """
         Returns FullForm string for ParseTree `e`.
@@ -417,7 +421,8 @@ class FullFormEmitter(InputFormVisitor):
         n = ctx.getChildCount()
         # Cursor now points to either the second ";;" or past the end of the expr.
         if (
-            curChild < n and ctx.getChild(curChild) is not None
+            curChild < n
+            and ctx.getChild(curChild) is not None
             and ctx.getChild(curChild).getText() == ";;"
         ):
             # There is a skip amount.
@@ -879,14 +884,14 @@ class FullFormEmitter(InputFormVisitor):
 
 
 def input_form_to_full_form(
-    input_form_str: str, parse_tree_fn, show_tree_fn=None, debug=False
+    input_form_str: str, parse_tree_fn, mode=None, show_tree_fn=None, debug=False
 ) -> str:
     """Convert Mathematica string `input_form_str` into Full-Form text"""
     global emitter
 
     # Reuse existing emitter.
     if not emitter:
-        emitter = FullFormEmitter()
+        emitter = FullFormEmitter(mode=mode)
 
     # Parse the input.
     tree = parse_tree_fn(input_form_str, show_tree_fn=show_tree_fn)
@@ -910,4 +915,8 @@ if __name__ == "__main__":
 
     from FoxySheep.tree.pretty_printer import pretty_print_compact
 
-    print(input_form_to_full_form("1 ** 10", parse_tree_fn, pretty_print_compact))
+    print(
+        input_form_to_full_form(
+            "1 ** 10", parse_tree_fn, mode=None, show_tree_fn=pretty_print_compact
+        )
+    )

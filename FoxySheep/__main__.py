@@ -49,7 +49,12 @@ def Out(i: Optional[int] = None) -> Any:
 
 
 def REPL(
-    parse_tree_fn: Callable, output_style_fn, session, show_tree_fn=None, debug=False
+    parse_tree_fn: Callable,
+    output_style_fn,
+    session,
+    mode,
+    show_tree_fn=None,
+    debug=False,
 ) -> None:
     """
     Read Eval Print Loop (REPL) for Mathematica translations
@@ -69,7 +74,7 @@ def REPL(
             break
 
         try:
-            results = output_style_fn(user_in, parse_tree_fn, show_tree_fn, debug)
+            results = output_style_fn(user_in, parse_tree_fn, mode, show_tree_fn, debug)
         except:
             traceback.print_exc(5)
             continue
@@ -104,13 +109,13 @@ def REPL(
 @click.option(
     "-i",
     "--input-style",
-    type=click.Choice(["InputForm", "FullForm"], case_sensitive=False),
+    type=click.Choice(["inputform", "fullform"], case_sensitive=False),
     required=False,
 )
 @click.option(
     "-o",
     "--output-style",
-    type=click.Choice(["Python", "FullForm"], case_sensitive=False),
+    type=click.Choice(["python", "sympy", "numpy", "fullform"], case_sensitive=False),
     required=False,
 )
 @click.option(
@@ -151,7 +156,8 @@ def main(
         show_tree_fn = None
 
     output_style_fn = input_form_to_full_form
-    if output_style and output_style.lower() == "python":
+    mode = output_style.lower()
+    if output_style and mode in ("sympy", "numpy", "python"):
         output_style_fn = input_form_to_python
         parse_tree_fn = parse_tree_from_string
         if session == None and not expr:
@@ -165,10 +171,21 @@ def main(
     if expr:
         if session:
             print("--session option is only valid in a REPL. Option ignored.")
-        print(output_style_fn(expr, parse_tree_fn, show_tree_fn, debug))
+        print(
+            output_style_fn(
+                expr, parse_tree_fn, mode=mode, show_tree_fn=show_tree_fn, debug=debug
+            )
+        )
     elif repl:
         setup_session()
-        REPL(parse_tree_fn, output_style_fn, session, show_tree_fn, debug)
+        REPL(
+            parse_tree_fn,
+            output_style_fn,
+            session,
+            mode=mode,
+            show_tree_fn=show_tree_fn,
+            debug=debug,
+        )
     else:
         print("Something went wrong")
 

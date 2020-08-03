@@ -1,3 +1,4 @@
+from itertools import product
 import astor
 from antlr4 import TerminalNode
 from antlr4.ParserRuleContext import ParserRuleContext
@@ -15,18 +16,85 @@ IF_name_to_pyop = {
     "PlusOpContext": ast.Add,
 }
 
-fn_translate = {
-    "List": "list",
-    "GCD": "math.gcd",
-    "Sin": "math.sin",
-    "Cos": "math.cos",
+# FIXME: DRY this
+# left: Mathematica, right: Python
+fn_translate_py = {
     "Cosh": "math.cosh",
-    "Tanh": "math.tanh",
+    "Exp": "math.exp",
+    "GCD": "math.gcd",
+    "List": "list",
+    "Log": "math.log",
+    "Max": "max",
+    "Min": "min",
     "Plot": "matplotlib.pyplot.plot",
+    "Sqrt": "math.sqrt",
+    "Tanh": "math.tanh",
 }
+
+# trigonometric, etc.
+for arc, tri, h in product(
+    ("", "Arc"), ("Sin", "Cos", "Tan", "Cot", "Sec", "Csc"), ("", "h")
+):
+    fm = arc + tri + h
+    if arc:  # arc func
+        fs = "a" + tri.lower() + h
+    else:  # non-arc func
+        fs = tri.lower() + h
+    fn_translate_py.update({fm: "math." + fs})
+
+# left: Mathematica, right: numpy
+fn_translate_numpy = {
+    "Cosh": "numpy.cosh",
+    "Exp": "numpy.exp",
+    "GCD": "numpy.gcd",
+    "Log": "numpy.log",
+    "Mod": "numpy.Mod",
+    "Max": "numpy.Max",
+    "Min": "numpy.Min",
+    "Pochhammer": "numpy.rf",
+    "Sqrt": "numpy.sqrt",
+    "Tanh": "numpy.tanh",
+}
+
+# trigonometric, etc.
+for arc, tri, h in product(
+    ("", "Arc"), ("Sin", "Cos", "Tan", "Cot", "Sec", "Csc"), ("", "h")
+):
+    fm = arc + tri + h
+    if arc:  # arc func
+        fs = "a" + tri.lower() + h
+    else:  # non-arc func
+        fs = tri.lower() + h
+    fn_translate_numpy.update({fm: "numpy." + fs})
+
+# left: Mathematica, right: Sympy
+fn_translate_sympy = {
+    "Cosh": "sympy.cosh",
+    "Exp": "sympy.exp",
+    "GCD": "sympy.gcd",
+    "Log": "sympy.log",
+    "Mod": "sympy.Mod",
+    "Max": "sympy.Max",
+    "Min": "sympy.Min",
+    "Pochhammer": "sympy.rf",
+    "Sqrt": "sympy.sqrt",
+    "Tanh": "sympy.tanh",
+}
+
+# trigonometric, e.t.c.
+for arc, tri, h in product(
+    ("", "Arc"), ("Sin", "Cos", "Tan", "Cot", "Sec", "Csc"), ("", "h")
+):
+    fm = arc + tri + h
+    if arc:  # arc func
+        fs = "a" + tri.lower() + h
+    else:  # non-arc func
+        fs = tri.lower() + h
+    fn_translate_sympy.update({fm: "sympy." + fs})
 
 fn_transform = {}
 
+# left: Mathematica, right: Python
 symbol_translate = {
     "E": "math.e",
     "Pi": "math.pi",
@@ -45,6 +113,16 @@ def ast_constant(value, lineno=0, col_offset=0, kind=None):
 
 
 class InputForm2PyAst(InputFormVisitor):
+    def __init__(self, mode="python"):
+        if mode == "python":
+            self.fn_translate = fn_translate_py
+        elif mode == "sympy":
+            self.fn_translate = fn_translate_sympy
+        elif mode == "numpy":
+            self.fn_translate = fn_translate_numpy
+        else:
+            raise RuntimeError(f"mode should be python, numpy or sympy; got {mode}")
+
     def adjust_index(self, ctx, sig_num=0) -> ast.AST:
         """Adjust for origin 0 (Python) vs. origin 1 (Mathematica) indexing"""
         numeric_literal = self.get_numeric_literal(ctx)
@@ -224,7 +302,7 @@ class InputForm2PyAst(InputFormVisitor):
         if fn_name in fn_transform:
             return fn_transform[fn_name](self, ctx)
 
-        fn_name = fn_translate.get(fn_name, fn_name)
+        fn_name = self.fn_translate.get(fn_name, fn_name)
         fn_name_node = ast.Name(id=fn_name, ctx=ast.Load())
         args = []
         for arg in ctx.expressionList().getChildren():
@@ -242,7 +320,7 @@ class InputForm2PyAst(InputFormVisitor):
             if str(expr) == ",":
                 continue
             expr_list.append(self.visit(expr))
-        return ast.List(elts= expr_list, ctx=ast.Load())
+        return ast.List(elts=expr_list, ctx=ast.Load())
 
     def visitNumberBaseTen(self, ctx: ParserRuleContext) -> ast.AST:
         def get_digits_constant(ctx):
@@ -395,17 +473,17 @@ class InputForm2PyAst(InputFormVisitor):
         return node
 
 
-def input_form_to_python_ast(tree) -> ast.AST:
-    transform = InputForm2PyAst()
+def input_form_to_python_ast(tree, mode="python") -> ast.AST:
+    transform = InputForm2PyAst(mode)
     return transform.visit(tree)
 
 
 def input_form_to_python(
-    input_form_str: str, parse_tree_fn, show_tree_fn=None, debug=False
+    input_form_str: str, parse_tree_fn, mode="python", show_tree_fn=None, debug=False
 ) -> str:
 
     tree = parse_tree_fn(input_form_str, show_tree_fn=show_tree_fn)
-    pyast = input_form_to_python_ast(tree)
+    pyast = input_form_to_python_ast(tree, mode)
     if debug:
         print(astpretty.pformat(pyast, show_offsets=False))
     return astor.to_source(pyast)

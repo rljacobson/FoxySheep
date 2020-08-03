@@ -87,12 +87,17 @@ def ff_parse_tree_from_string(input: str, post_process=True, show_tree_fn=False)
             tree = post_tree
     return tree
 
-def if2ff(s: str, show_tree_fn=None) -> str:
-    return input_form_to_full_form(s, parse_tree_from_string_pp, show_tree_fn)
+
+def if2ff(s: str, show_tree_fn=None, mode=None) -> str:
+    return input_form_to_full_form(
+        s, parse_tree_from_string_pp, mode=mode, show_tree_fn=show_tree_fn
+    )
 
 
-def if2python(s: str, show_tree_fn=None, debug=False) -> str:
-    return input_form_to_python(s, parse_tree_from_string, show_tree_fn, debug)
+def if2python(s: str, mode="python", show_tree_fn=None, debug=False) -> str:
+    return input_form_to_python(
+        s, parse_tree_from_string, show_tree_fn, mode=mode, debug=debug
+    )
 
 
 if __name__ == "__main__":

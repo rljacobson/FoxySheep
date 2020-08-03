@@ -48,7 +48,7 @@ def do_test(input_base: str, translation_fn: Callable, test_attr: str):
             expr = str(test_item["InputForm"])
             tree_str_expect = test_item["tree"]
             full_form_expect = str(test_item.get(test_attr, expr))
-            s = translation_fn(expr, parse_tree_fn, pp_fn)
+            s = translation_fn(expr, parse_tree_fn=parse_tree_fn, show_tree_fn=pp_fn)
             if show_tests:
                 print(s)
                 print(full_form_expect)
@@ -70,12 +70,13 @@ def test_python():
 def test_fast_intro_for_math():
     do_test("fi4mspy.yaml", input_form_to_python, "python")
 
+
 def test_fast_intro_for_computer():
     do_test("fi4cpy.yaml", input_form_to_python, "python")
 
 
 if __name__ == "__main__":
-    # test_python()
-    # test_FullForm()
-    # test_fast_intro_for_math()
+    test_python()
+    test_FullForm()
+    test_fast_intro_for_math()
     test_fast_intro_for_computer()
