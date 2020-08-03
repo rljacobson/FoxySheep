@@ -17,11 +17,11 @@ having Mathematica installed: To run the code interactively:
 
    $ foxy-sheep
    Enter a Mathematica expression. Enter either an empty line, Ctrl-C, or Ctrl-D to exit.
-   in:= 1+2
+   In[1]:= 1+2
    Plus[1,2]
-   in:=D[4 x^2]
+   In[1]:=D[4 x^2]
    D[Times[4,Power[x,2]]]
-   in:=
+   In[1]:=
    $
 
 The first few examples from `Fast Introduction for Math Students <https://www.wolfram.com/language/fast-introduction-for-math-students/en/entering-input/>`_
@@ -30,34 +30,34 @@ The first few examples from `Fast Introduction for Math Students <https://www.wo
 
    foxy-sheep -o python
    Enter a Mathematica expression. Enter either an empty line, Ctrl-C, or Ctrl-D to exit.
-   in:= 2 + 2
+   In[1]:= 2 + 2
    (2 + 2)
 
-   Out[0]=4
-   in:= 1 + 2 + 3
+   Out[1]=4
+   In[2]:= 1 + 2 + 3
    (1 + 2 + 3)
 
-   Out[1]=6
-   in:= % + 4
+   Out[2]=6
+   In[3]:= % + 4
    (Out() + 4)
 
-   Out[2]=10
-   in:= 5 + 2 * 3 - 7.5
+   Out[3]=10
+   In[4]:= 5 + 2 * 3 - 7.5
    (5 + 2 * 3 -
    decimal.Decimal(7.5))
 
-   in:= ((5 - 3) ^ (1 + 2))/ 4
+   In[5]:= ((5 - 3) ^ (1 + 2))/ 4
    ((5 - 3) ** (1 + 2) / 4)
 
-   Out[4]=2.0
-   in:= GCD[12,15]
+   Out[5]=2.0
+   In[6]:= GCD[12,15]
    math.gcd(12, 15)
 
-   Out[5]=3
-   in:= {1, 2, 3}
+   Out[6]=3
+   In[7]:= {1, 2, 3}
    [1, 2, 3]
 
-   Out[6]=[1, 2, 3]
+   Out[7]=[1, 2, 3]
 
 
 To call from Python:

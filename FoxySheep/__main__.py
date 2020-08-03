@@ -20,7 +20,8 @@ from FoxySheep.version import VERSION as __version__
 
 
 # TODO: we could put this in a class and then one could have many REPLs.
-out_results = []
+# Initializing with `None` is a simple way to force 1 origin.
+out_results = [None]
 
 eval_namespace = {
     "out_results": out_results,
@@ -56,11 +57,14 @@ def REPL(
     print(
         "Enter a Mathematica expression. Enter either an empty line, Ctrl-C, or Ctrl-D to exit."
     )
+    in_count = 1
     while True:
         try:
-            user_in = input("in:= ")
+            user_in = input(f"In[{in_count}]:= ")
         except (KeyboardInterrupt, EOFError):
             break
+        else:
+            in_count += 1
         if user_in == "":
             break
 
