@@ -19,6 +19,9 @@ fn_translate = {
     "List": "list",
     "GCD": "math.gcd",
     "Sin": "math.sin",
+    "Cos": "math.cos",
+    "Cosh": "math.cosh",
+    "Tanh": "math.tanh",
     "Plot": "matplotlib.pyplot.plot",
 }
 
@@ -26,6 +29,7 @@ fn_transform = {}
 
 symbol_translate = {
     "E": "math.e",
+    "Pi": "math.pi",
 }
 
 add_sub_signum = [ast.Add, ast.Sub]
