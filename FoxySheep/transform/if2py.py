@@ -10,8 +10,10 @@ from typing import List, Union
 IF_name_to_pyop = {
     "DivideContext": ast.Div,
     "MinusOpContext": ast.Sub,
+    "MinusContext": ast.Sub,
     "TimesContext": ast.Mult,
     "PowerContext": ast.Pow,
+    "PlusContext": ast.Add,
     "NonCommutativeMultiplyContext": ast.Mult,  # Not quite right: doesn't capture non-commutativenewss
     "PlusOpContext": ast.Add,
 }
@@ -98,6 +100,7 @@ fn_transform = {}
 symbol_translate = {
     "E": "math.e",
     "Pi": "math.pi",
+    "I": "1j",
 }
 
 add_sub_signum = [ast.Add, ast.Sub]
@@ -453,6 +456,25 @@ class InputForm2PyAst(InputFormVisitor):
             raise RuntimeError(f"Unknown op context {type(ctx_name)}")
 
         return node
+
+    def binop_transform(self, ctx: ParserRuleContext) -> ast.AST:
+        expr_list = ctx.expressionList()
+        ctx_name = ctx.expr().getText() + "Context"
+        ast_op_fn = IF_name_to_pyop.get(ctx_name, None)
+        if ast_op_fn:
+            op = ast_op_fn()
+        else:
+            raise RuntimeError(f"Unknown op context {type(ctx_name)}")
+
+        return ast.BinOp(left=self.visit(expr_list.expr(0)),
+                         right=self.visit(expr_list.expr(1)),
+                         op=op
+                         )
+
+    fn_transform["Plus"] = binop_transform
+    fn_transform["Minus"] = binop_transform
+    fn_transform["Power"] = binop_transform
+    fn_transform["Times"] = binop_transform
 
     def visitUnaryPlusMinus(self, ctx: ParserRuleContext) -> ast.AST:
         """Translates prefix + and - operators. Note +- (plus or minus) and -+

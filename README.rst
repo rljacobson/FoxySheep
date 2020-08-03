@@ -71,9 +71,11 @@ To call from Python:
    # Prints (x ** 2 + -1 * 3)
 
 
+For more demos run ``foxy-sheep --file pytest/parse_expressions/SO1.m`` or with other
+Mathamatica files in ``pytest/parse_expressions``.
+
 For help on ``foxy-sheep``, run ``foxy-sheep --help``.
 
-To see a demo run ``python demo.py`` in this directory.
 
 Conversion to Python
 --------------------
