@@ -44,11 +44,7 @@ class InputForm2PyAst(InputFormVisitor):
         """Adjust for origin 0 (Python) vs. origin 1 (Mathematica) indexing"""
         numeric_literal = self.get_numeric_literal(ctx)
         if numeric_literal:
-            if sig_num:
-                numeric_literal.value += 1
-            else:
-                numeric_literal.value -= 1
-            return numeric_literal
+            return self.adjust_ast_const(numeric_literal, sig_num)
         else:
             node = ast.BinOp()
             child0 =  ctx.getChild(0)
@@ -60,6 +56,14 @@ class InputForm2PyAst(InputFormVisitor):
                 node.right = ast_constant(1)
 
         return node
+
+    def adjust_ast_const(self, numeric_literal, sig_num=0) -> ast.AST:
+        """Adjust for origin 0 (Python) vs. origin 1 (Mathematica) indexing"""
+        if sig_num:
+            numeric_literal.value += 1
+        else:
+            numeric_literal.value -= 1
+        return numeric_literal
 
     def get_full_form(self, e) -> Union[str, ast.AST]:
         """
@@ -114,6 +118,33 @@ class InputForm2PyAst(InputFormVisitor):
             return self.visit(child0)
         return None
     fn_transform["Range"] = range_transform
+
+    def table_transform(self, expr_list):
+        children = []
+        for child in expr_list.expressionList().getChildren():
+            if child.getText() == ",":
+                continue
+            children.append(child)
+        n = len(children)
+        assert n == 2, f"Expecting 2 args for Table; got {n}"
+
+        node = ast.ListComp()
+        node.elt = self.visit(children[0])
+        ast_list = self.visit(children[1])
+        name_elt = ast_list.elts[0]
+        assert isinstance(name_elt, ast.Name), "Expecting first argument of Table to be a name"
+        if isinstance(ast_list.elts[1], ast.Constant):
+            args = [ast_constant(1), self.adjust_ast_const(ast_list.elts[1], 1)]
+            range_name = ast.Name(id="range", ctx=ast.Load())
+            iter =  ast.Call(func=range_name, args=args, keywords=[])
+            comprehension = ast.comprehension(iter=iter, ifs=[], is_sync=0,
+                                              target=ast.Name(id=name_elt.id, ctx=ast.Store()))
+            node.generators = [comprehension]
+        else:
+            raise RuntimeError("Can't handle Table expression which doesn't have a range constant yet")
+        return node
+
+    fn_transform["Table"] = table_transform
 
     def get_numeric_literal(self, expr_list):
         child0 = expr_list.getChild(0)
@@ -219,11 +250,7 @@ class InputForm2PyAst(InputFormVisitor):
             if child1.getText() == "`":
                 # Machine-specific precision. Ignore it
                 return mantissa_node
-            node = ast.BinOp()
-            node.op = ast.Mult()
-            node.left = mantissa_node
-            node.right = self.visit(child1)
-            return node
+            node = ast.BinOp(op=ast.Mult(), left=mantissa_node, right=self.visit(child1))
 
         return node
 
@@ -243,11 +270,7 @@ class InputForm2PyAst(InputFormVisitor):
 
         if ctx.getChild(0).getText() == "*^":
             # we have 10**last_child.
-            lit_exp_node = ast.BinOp()
-            lit_exp_node.left = ast_constant(10)
-            lit_exp_node.op = ast.Pow()
-            lit_exp_node.right = number_node
-            return lit_exp_node
+            return ast.BinOp(left=ast_constant(10), op=ast.Pow(), right=number_node)
 
         return number_node
 

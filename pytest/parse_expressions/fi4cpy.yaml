@@ -35,3 +35,8 @@ Fast-Intro-for-Programmers:
     InputForm: "{a, b, c, d, e, f}[[2 ;; 4]]"
     tree: "(<prog:Prog>  (<expr:Accessor>  (<expr:List>  '{' (<expressionList:ExpressionListed>  (<expr:SymbolLiteral>  (<symbol:ContextName>  a)) ',' (<expr:SymbolLiteral>  (<symbol:ContextName>  b)) ',' (<expr:SymbolLiteral>  (<symbol:ContextName>  c)) ',' (<expr:SymbolLiteral>  (<symbol:ContextName>  d)) ',' (<expr:SymbolLiteral>  (<symbol:ContextName>  e)) ',' (<expr:SymbolLiteral>  (<symbol:ContextName>  f))) '}') (<accessExpression:AccessExpressionA>  '[' '[' (<expressionList:ExpressionListed>  (<expr:SpanA>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '2')) ';;' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '4')))) ']' ']')))"
     python: "[a, b, c, d, e, f][1:3]"
+
+  -
+    InputForm: "Table[x^2, {x, 10}]"
+    tree: "(<prog:Prog>  (<expr:HeadExpression>  (<expr:SymbolLiteral>  (<symbol:ContextName>  Table)) '[' (<expressionList:ExpressionListed>  (<expr:Power>  (<expr:SymbolLiteral>  (<symbol:ContextName>  x)) '^' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '2'))) ',' (<expr:List>  '{' (<expressionList:ExpressionListed>  (<expr:SymbolLiteral>  (<symbol:ContextName>  x)) ',' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '10'))) '}')) ']'))"
+    python: "[(x ** 2) for x in range(1, 11)]"
