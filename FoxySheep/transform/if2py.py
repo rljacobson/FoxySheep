@@ -30,6 +30,7 @@ symbol_translate = {
 
 add_sub_signum = [ast.Add, ast.Sub]
 
+
 def ast_constant(value, lineno=0, col_offset=0, kind=None):
     node = ast.Constant()
     node.lineno = 0
@@ -38,8 +39,8 @@ def ast_constant(value, lineno=0, col_offset=0, kind=None):
     node.kind = None
     return node
 
-class InputForm2PyAst(InputFormVisitor):
 
+class InputForm2PyAst(InputFormVisitor):
     def adjust_index(self, ctx, sig_num=0) -> ast.AST:
         """Adjust for origin 0 (Python) vs. origin 1 (Mathematica) indexing"""
         numeric_literal = self.get_numeric_literal(ctx)
@@ -47,7 +48,7 @@ class InputForm2PyAst(InputFormVisitor):
             return self.adjust_ast_const(numeric_literal, sig_num)
         else:
             node = ast.BinOp()
-            child0 =  ctx.getChild(0)
+            child0 = ctx.getChild(0)
             if child0.getText()[0] == "-":
                 node.op = add_sub_signum[sig_num + 1 % 2]()
             else:
@@ -103,20 +104,28 @@ class InputForm2PyAst(InputFormVisitor):
         elif n == 2:
             args = [self.visit(children[0]), self.adjust_index(children[1], 1)]
         elif n == 3:
-            args = [self.visit(children[0]), self.adjust_index(children[1], 1), self.visit(children[2])]
+            args = [
+                self.visit(children[0]),
+                self.adjust_index(children[1], 1),
+                self.visit(children[2]),
+            ]
         else:
             raise RuntimeError(f"range takes 1..3 paramenters, got {n}")
 
         range_name = ast.Name(id="range", ctx="Load()")
         list_name = ast.Name(id="list", ctx="Load()")
-        return ast.Call(func=list_name, args = [ast.Call(func=range_name, args=args, keywords=[])],
-                        keywords=[])
+        return ast.Call(
+            func=list_name,
+            args=[ast.Call(func=range_name, args=args, keywords=[])],
+            keywords=[],
+        )
 
         # return self.make_head(self.get_full_form(ctx.expr()), ctx.expressionList())
         child0 = expr_list.getChild(0)
         if hasattr(child0, "numberLiteral") or hasattr(child0, "DecimalNumber"):
             return self.visit(child0)
         return None
+
     fn_transform["Range"] = range_transform
 
     def table_transform(self, expr_list):
@@ -132,16 +141,24 @@ class InputForm2PyAst(InputFormVisitor):
         node.elt = self.visit(children[0])
         ast_list = self.visit(children[1])
         name_elt = ast_list.elts[0]
-        assert isinstance(name_elt, ast.Name), "Expecting first argument of Table to be a name"
+        assert isinstance(
+            name_elt, ast.Name
+        ), "Expecting first argument of Table to be a name"
         if isinstance(ast_list.elts[1], ast.Constant):
             args = [ast_constant(1), self.adjust_ast_const(ast_list.elts[1], 1)]
             range_name = ast.Name(id="range", ctx=ast.Load())
-            iter =  ast.Call(func=range_name, args=args, keywords=[])
-            comprehension = ast.comprehension(iter=iter, ifs=[], is_sync=0,
-                                              target=ast.Name(id=name_elt.id, ctx=ast.Store()))
+            iter = ast.Call(func=range_name, args=args, keywords=[])
+            comprehension = ast.comprehension(
+                iter=iter,
+                ifs=[],
+                is_sync=0,
+                target=ast.Name(id=name_elt.id, ctx=ast.Store()),
+            )
             node.generators = [comprehension]
         else:
-            raise RuntimeError("Can't handle Table expression which doesn't have a range constant yet")
+            raise RuntimeError(
+                "Can't handle Table expression which doesn't have a range constant yet"
+            )
         return node
 
     fn_transform["Table"] = table_transform
@@ -216,14 +233,12 @@ class InputForm2PyAst(InputFormVisitor):
         return None
 
     def visitList(self, ctx: ParserRuleContext) -> ast.AST:
-        node = ast.List(ctx=ast.Load())
         expr_list = []
         for expr in ctx.expressionList().getChildren():
-            if str(expr)== ",":
+            if str(expr) == ",":
                 continue
             expr_list.append(self.visit(expr))
-        node.elts = expr_list
-        return node
+        return ast.List(elts= expr_list, ctx=ast.Load())
 
     def visitNumberBaseTen(self, ctx: ParserRuleContext) -> ast.AST:
         def get_digits_constant(ctx):
@@ -244,13 +259,17 @@ class InputForm2PyAst(InputFormVisitor):
             return get_digits_constant(ctx)
         else:
             if child_count == 3:
-                raise RuntimeError("Can't handle NumberBaseTen with numberLiteralPrecision yet")
+                raise RuntimeError(
+                    "Can't handle NumberBaseTen with numberLiteralPrecision yet"
+                )
             mantissa_node = get_digits_constant(ctx.getChild(0))
             child1 = ctx.getChild(1)
             if child1.getText() == "`":
                 # Machine-specific precision. Ignore it
                 return mantissa_node
-            node = ast.BinOp(op=ast.Mult(), left=mantissa_node, right=self.visit(child1))
+            node = ast.BinOp(
+                op=ast.Mult(), left=mantissa_node, right=self.visit(child1)
+            )
 
         return node
 
@@ -292,7 +311,7 @@ class InputForm2PyAst(InputFormVisitor):
         """
         Translates infix binary operators. Function binary operators are different.
         """
-        node = ast.BinOp()
+        node = ast.BinOp(left=self.visit(ctx.expr(0)), right=self.visit(ctx.expr(1)))
         if ctx.BINARYMINUS():
             node.op = ast.Sub()
         elif ctx.BINARYPLUS():
@@ -302,15 +321,13 @@ class InputForm2PyAst(InputFormVisitor):
         else:
             raise RuntimeError(f"Unknown op context {ctx}")
 
-        node.left = self.visit(ctx.expr(0))
-        node.right = self.visit(ctx.expr(1))
         return node
 
     def visitPower(self, ctx: ParserRuleContext) -> ast.AST:
         """
         Translates infix binary operators. Function binary operators are different.
         """
-        node = ast.BinOp()
+        node = ast.BinOp(left=self.visit(ctx.expr(0)), right=self.visit(ctx.expr(1)))
         ctx_name = type(ctx).__name__
         ast_op_fn = IF_name_to_pyop.get(ctx_name, None)
         if ast_op_fn:
@@ -318,20 +335,16 @@ class InputForm2PyAst(InputFormVisitor):
         else:
             raise RuntimeError(f"Unknown op context {type(ctx_name)}")
 
-        node.left = self.visit(ctx.expr(0))
-        node.right = self.visit(ctx.expr(1))
         return node
 
-    visitMinusOp = (
-        visitDivide
-    ) = visitNonCommutativeMultiply = visitPower
+    visitMinusOp = visitDivide = visitNonCommutativeMultiply = visitPower
 
     def visitSpanA(self, ctx: ParserRuleContext) -> ast.AST:
-        node = ast.Slice()
-        node.lower = self.adjust_index(ctx.getChild(0))
-        node.upper = self.adjust_index(ctx.getChild(2))
-        node.step = None
-        return node
+        return ast.Slice(
+            lower=self.adjust_index(ctx.getChild(0)),
+            upper=self.adjust_index(ctx.getChild(2)),
+            step=None,
+        )
 
     def visitStringLiteral(self, ctx: ParserRuleContext) -> ast.AST:
         val = ctx.getText()
@@ -349,7 +362,7 @@ class InputForm2PyAst(InputFormVisitor):
         """
         Translates infix multiplcation.
         """
-        node = ast.BinOp()
+        node = ast.BinOp(left=self.visit(ctx.expr(0)), right=self.visit(ctx.expr(1)))
         ctx_name = type(ctx).__name__
         ast_op_fn = IF_name_to_pyop.get(ctx_name, None)
         if ast_op_fn:
@@ -357,8 +370,6 @@ class InputForm2PyAst(InputFormVisitor):
         else:
             raise RuntimeError(f"Unknown op context {type(ctx_name)}")
 
-        node.left = self.visit(ctx.expr(0))
-        node.right = self.visit(ctx.expr(1))
         return node
 
     def visitUnaryPlusMinus(self, ctx: ParserRuleContext) -> ast.AST:
@@ -379,12 +390,15 @@ class InputForm2PyAst(InputFormVisitor):
         node.operand = self.visit(ctx.expr())
         return node
 
+
 def input_form_to_python_ast(tree) -> ast.AST:
     transform = InputForm2PyAst()
     return transform.visit(tree)
 
 
-def input_form_to_python(input_form_str: str, parse_tree_fn, show_tree_fn=None, debug=False) -> str:
+def input_form_to_python(
+    input_form_str: str, parse_tree_fn, show_tree_fn=None, debug=False
+) -> str:
 
     tree = parse_tree_fn(input_form_str, show_tree_fn=show_tree_fn)
     pyast = input_form_to_python_ast(tree)
