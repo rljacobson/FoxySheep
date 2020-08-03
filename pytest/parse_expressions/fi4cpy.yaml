@@ -11,9 +11,14 @@ Fast-Intro-for-Programmers:
   #   python: (2 + 2)
 
   -
-    InputForm: Range[10]
-    tree: "(<prog:Prog>  (<expr:HeadExpression>  (<expr:SymbolLiteral>  (<symbol:ContextName>  Range)) '[' (<expressionList:ExpressionListed>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '10'))) ']'))"
-    python: range(10)
+    InputForm: Range[5]
+    tree: "(<prog:Prog>  (<expr:HeadExpression>  (<expr:SymbolLiteral>  (<symbol:ContextName>  Range)) '[' (<expressionList:ExpressionListed>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '5'))) ']'))"
+    python: list(range(1, 6))
+
+  -
+    InputForm: Range[1, 4, 2]
+    tree: "(<prog:Prog>  (<expr:HeadExpression>  (<expr:SymbolLiteral>  (<symbol:ContextName>  Range)) '[' (<expressionList:ExpressionListed>  (<expr:Number>  (<numberLiteral:NumberBaseTen>  '1')) ',' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '4')) ',' (<expr:Number>  (<numberLiteral:NumberBaseTen>  '2'))) ']'))"
+    python: list(range(1, 5, 2))
 
   -
     InputForm: "{a, b, c, d}[[3]]"

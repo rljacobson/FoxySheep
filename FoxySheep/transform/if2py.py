@@ -16,16 +16,19 @@ IF_name_to_pyop = {
 }
 
 fn_translate = {
-    "Range": "range",
     "List": "list",
     "GCD": "math.gcd",
     "Sin": "math.sin",
     "Plot": "matplotlib.pyplot.plot",
 }
 
+fn_transform = {}
+
 symbol_translate = {
     "E": "math.e",
 }
+
+add_sub_signum = [ast.Add, ast.Sub]
 
 def ast_constant(value, lineno=0, col_offset=0, kind=None):
     node = ast.Constant()
@@ -37,15 +40,24 @@ def ast_constant(value, lineno=0, col_offset=0, kind=None):
 
 class InputForm2PyAst(InputFormVisitor):
 
-    def adjust_subscript_index(self, ctx) -> ast.AST:
-        node = ast.BinOp()
-        child0 =  ctx.getChild(0)
-        if child0.getText()[0] == "-":
-            node.op = ast.Add()
+    def adjust_index(self, ctx, sig_num=0) -> ast.AST:
+        """Adjust for origin 0 (Python) vs. origin 1 (Mathematica) indexing"""
+        numeric_literal = self.get_numeric_literal(ctx)
+        if numeric_literal:
+            if sig_num:
+                numeric_literal.value += 1
+            else:
+                numeric_literal.value -= 1
+            return numeric_literal
         else:
-            node.op = ast.Sub()
-            node.left = self.visit(ctx)
-            node.right = ast_constant(1)
+            node = ast.BinOp()
+            child0 =  ctx.getChild(0)
+            if child0.getText()[0] == "-":
+                node.op = add_sub_signum[sig_num + 1 % 2]()
+            else:
+                node.op = add_sub_signum[sig_num]()
+                node.left = self.visit(ctx)
+                node.right = ast_constant(1)
 
         return node
 
@@ -74,6 +86,34 @@ class InputForm2PyAst(InputFormVisitor):
             i += 1
             e = efunction(i)
         return elist
+
+    def range_transform(self, expr_list):
+        children = []
+        for child in expr_list.expressionList().getChildren():
+            if child.getText() == ",":
+                continue
+            children.append(child)
+        n = len(children)
+        if n == 1:
+            args = [ast_constant(1), self.adjust_index(children[0], 1)]
+        elif n == 2:
+            args = [self.visit(children[0]), self.adjust_index(children[1], 1)]
+        elif n == 3:
+            args = [self.visit(children[0]), self.adjust_index(children[1], 1), self.visit(children[2])]
+        else:
+            raise RuntimeError(f"range takes 1..3 paramenters, got {n}")
+
+        range_name = ast.Name(id="range", ctx="Load()")
+        list_name = ast.Name(id="list", ctx="Load()")
+        return ast.Call(func=list_name, args = [ast.Call(func=range_name, args=args, keywords=[])],
+                        keywords=[])
+
+        # return self.make_head(self.get_full_form(ctx.expr()), ctx.expressionList())
+        child0 = expr_list.getChild(0)
+        if hasattr(child0, "numberLiteral") or hasattr(child0, "DecimalNumber"):
+            return self.visit(child0)
+        return None
+    fn_transform["Range"] = range_transform
 
     def get_numeric_literal(self, expr_list):
         child0 = expr_list.getChild(0)
@@ -128,8 +168,12 @@ class InputForm2PyAst(InputFormVisitor):
     def visitHeadExpression(self, ctx: ParserRuleContext) -> ast.AST:
         "Translates function calls"
         fn_name = ctx.expr().getText()
+
+        if fn_name in fn_transform:
+            return fn_transform[fn_name](self, ctx)
+
         fn_name = fn_translate.get(fn_name, fn_name)
-        fn_name_node = ast.Name(id=fn_name, ctx="Load()")
+        fn_name_node = ast.Name(id=fn_name, ctx=ast.Load())
         args = []
         for arg in ctx.expressionList().getChildren():
             if arg.getText() == ",":
@@ -261,20 +305,8 @@ class InputForm2PyAst(InputFormVisitor):
 
     def visitSpanA(self, ctx: ParserRuleContext) -> ast.AST:
         node = ast.Slice()
-        child0 = ctx.getChild(0)
-        numeric_literal = self.get_numeric_literal(child0)
-        if numeric_literal:
-            numeric_literal.value -= 1
-            node.lower = numeric_literal
-        else:
-            node.lower = self.adjust_subscript_index(child0)
-        child2 = ctx.getChild(2)
-        numeric_literal = self.get_numeric_literal(child2)
-        if numeric_literal:
-            numeric_literal.value -= 1
-            node.upper = numeric_literal
-        else:
-            node.upper = self.adjust_subscript_index(child2)
+        node.lower = self.adjust_index(ctx.getChild(0))
+        node.upper = self.adjust_index(ctx.getChild(2))
         node.step = None
         return node
 
