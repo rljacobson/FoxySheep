@@ -1,3 +1,15 @@
+1.2.2 2020-08-03
+================
+
+* in `foxy-sheep`:
+  - Start output modes `--output=numpy` and `--output=sympy`
+  - Add file reader `--file` and add StackExchance Mathematica example
+  - In/Out indexing is 1 origin now
+  - Range[...] now is list(range(...))
+* Handle the simplest form of `Table[]` with range - it is a list comprehension
+* Handle fullform function equivalents like `Plus[]` and `Times[]`
+* Fill in many more trigonomentric functions and add `I` variable.
+
 1.2.1 2020-08-02
 ================
 

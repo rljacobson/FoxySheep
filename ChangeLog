@@ -1,6 +1,59 @@
+2020-08-03  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/version.py: Get ready for release 1.2.2
+
+2020-08-03  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__main__.py, FoxySheep/transform/if2py.py, README.rst,
+	pytest/parse_expressions/SO1.m: Add file reader. Handle some
+	FullForm fns...  New `foxy-sheep` option `--file` (`-f`) to read expressions from a
+	file Add examples from
+	https://mathematica.stackexchange.com/a/144200/73996
+
+2020-08-03  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__main__.py, FoxySheep/emitter/full_form.py,
+	FoxySheep/emitter/python.py, FoxySheep/parser.py,
+	FoxySheep/transform/if2py.py, pytest/test_translations.py: Start
+	adding sympy and numpy modes
+
+2020-08-03  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/transform/if2py.py, demo.py,
+	pytest/parse_expressions/SO1.m: More examples from Stack Overflow...  Add a few more math functions and revise demo.py a little.
+
+2020-08-03  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/transform/if2py.py: More ast generation cleanup
+
+2020-08-03  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/transform/if2py.py,
+	pytest/parse_expressions/fi4cpy.yaml: Start handling Table (range
+	only) Simplfy some ast.BinOp generator calls
+
+2020-08-03  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/__main__.py, README.rst: Make `In[]` and `Out[]` indexes
+	match MMa's
+
+2020-08-03  rocky <rb@dustyfeet.com>
+
+	* FoxySheep/transform/if2py.py,
+	pytest/parse_expressions/fi4cpy.yaml: Handle range more properly...  * Wrap into a list() * Adjust uppper bound with +1
+
 2020-08-02  rocky <rb@dustyfeet.com>
 
-	* FoxySheep/version.py: Get ready for release 1.2.1
+	* README.rst: Note use of Python module astor
+
+2020-08-02  rocky <rb@dustyfeet.com>
+
+	* admin_tools/how-to-make-a-release.md: Administrivia
+
+2020-08-02  rocky <rb@dustyfeet.com>
+
+	* ChangeLog, FoxySheep/version.py, NEWS.md: Get ready for release
+	1.2.1
 
 2020-08-02  rocky <rb@dustyfeet.com>
 
