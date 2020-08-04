@@ -7,7 +7,7 @@ import sys
 
 def serializedATN():
     with StringIO() as buf:
-        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\33")
+        buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\'")
         buf.write("r\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b")
         buf.write("\t\b\4\t\t\t\3\2\3\2\6\2\25\n\2\r\2\16\2\26\3\2\5\2\32")
         buf.write("\n\2\7\2\34\n\2\f\2\16\2\37\13\2\3\3\3\3\3\3\3\3\5\3%")
@@ -17,35 +17,35 @@ def serializedATN():
         buf.write("\6\5\6K\n\6\3\7\5\7N\n\7\3\7\3\7\3\7\5\7S\n\7\3\7\5\7")
         buf.write("V\n\7\3\7\5\7Y\n\7\3\7\3\7\5\7]\n\7\3\7\5\7`\n\7\5\7b")
         buf.write("\n\7\3\b\3\b\3\b\3\b\5\bh\n\b\5\bj\n\b\3\t\3\t\5\tn\n")
-        buf.write("\t\3\t\3\t\3\t\2\3\4\n\2\4\6\b\n\f\16\20\2\4\4\2\4\4\6")
-        buf.write("\6\3\2\b\t\2\177\2\22\3\2\2\2\4$\3\2\2\2\6\61\3\2\2\2")
-        buf.write("\b=\3\2\2\2\nJ\3\2\2\2\fa\3\2\2\2\16i\3\2\2\2\20k\3\2")
-        buf.write("\2\2\22\35\5\4\3\2\23\25\7\31\2\2\24\23\3\2\2\2\25\26")
-        buf.write("\3\2\2\2\26\24\3\2\2\2\26\27\3\2\2\2\27\31\3\2\2\2\30")
-        buf.write("\32\5\4\3\2\31\30\3\2\2\2\31\32\3\2\2\2\32\34\3\2\2\2")
-        buf.write("\33\24\3\2\2\2\34\37\3\2\2\2\35\33\3\2\2\2\35\36\3\2\2")
-        buf.write("\2\36\3\3\2\2\2\37\35\3\2\2\2 !\b\3\1\2!%\5\f\7\2\"%\7")
-        buf.write("\7\2\2#%\5\b\5\2$ \3\2\2\2$\"\3\2\2\2$#\3\2\2\2%-\3\2")
-        buf.write("\2\2&\'\f\3\2\2\'(\7\13\2\2()\5\6\4\2)*\7\f\2\2*,\3\2")
-        buf.write("\2\2+&\3\2\2\2,/\3\2\2\2-+\3\2\2\2-.\3\2\2\2.\5\3\2\2")
-        buf.write("\2/-\3\2\2\2\60\62\5\4\3\2\61\60\3\2\2\2\61\62\3\2\2\2")
-        buf.write("\629\3\2\2\2\63\65\7\r\2\2\64\66\5\4\3\2\65\64\3\2\2\2")
-        buf.write("\65\66\3\2\2\2\668\3\2\2\2\67\63\3\2\2\28;\3\2\2\29\67")
-        buf.write("\3\2\2\29:\3\2\2\2:\7\3\2\2\2;9\3\2\2\2<>\5\n\6\2=<\3")
-        buf.write("\2\2\2=>\3\2\2\2>?\3\2\2\2?@\7\3\2\2@\t\3\2\2\2AC\7\21")
-        buf.write("\2\2BA\3\2\2\2BC\3\2\2\2CD\3\2\2\2DE\7\3\2\2EK\7\21\2")
-        buf.write("\2FG\7\3\2\2GH\7\21\2\2HI\7\3\2\2IK\7\21\2\2JB\3\2\2\2")
-        buf.write("JF\3\2\2\2K\13\3\2\2\2LN\7\t\2\2ML\3\2\2\2MN\3\2\2\2N")
-        buf.write("O\3\2\2\2OP\7\6\2\2PR\7\5\2\2QS\5\16\b\2RQ\3\2\2\2RS\3")
-        buf.write("\2\2\2SU\3\2\2\2TV\5\20\t\2UT\3\2\2\2UV\3\2\2\2Vb\3\2")
-        buf.write("\2\2WY\7\t\2\2XW\3\2\2\2XY\3\2\2\2YZ\3\2\2\2Z\\\t\2\2")
-        buf.write("\2[]\5\16\b\2\\[\3\2\2\2\\]\3\2\2\2]_\3\2\2\2^`\5\20\t")
-        buf.write("\2_^\3\2\2\2_`\3\2\2\2`b\3\2\2\2aM\3\2\2\2aX\3\2\2\2b")
-        buf.write("\r\3\2\2\2cd\7\20\2\2dj\t\2\2\2eg\7\21\2\2fh\t\2\2\2g")
-        buf.write("f\3\2\2\2gh\3\2\2\2hj\3\2\2\2ic\3\2\2\2ie\3\2\2\2j\17")
-        buf.write("\3\2\2\2km\7\27\2\2ln\t\3\2\2ml\3\2\2\2mn\3\2\2\2no\3")
-        buf.write("\2\2\2op\7\6\2\2p\21\3\2\2\2\27\26\31\35$-\61\659=BJM")
-        buf.write("RUX\\_agim")
+        buf.write("\t\3\t\3\t\3\t\2\3\4\n\2\4\6\b\n\f\16\20\2\4\4\2\20\20")
+        buf.write("\22\22\3\2\24\25\2\177\2\22\3\2\2\2\4$\3\2\2\2\6\61\3")
+        buf.write("\2\2\2\b=\3\2\2\2\nJ\3\2\2\2\fa\3\2\2\2\16i\3\2\2\2\20")
+        buf.write("k\3\2\2\2\22\35\5\4\3\2\23\25\7%\2\2\24\23\3\2\2\2\25")
+        buf.write("\26\3\2\2\2\26\24\3\2\2\2\26\27\3\2\2\2\27\31\3\2\2\2")
+        buf.write("\30\32\5\4\3\2\31\30\3\2\2\2\31\32\3\2\2\2\32\34\3\2\2")
+        buf.write("\2\33\24\3\2\2\2\34\37\3\2\2\2\35\33\3\2\2\2\35\36\3\2")
+        buf.write("\2\2\36\3\3\2\2\2\37\35\3\2\2\2 !\b\3\1\2!%\5\f\7\2\"")
+        buf.write("%\7\23\2\2#%\5\b\5\2$ \3\2\2\2$\"\3\2\2\2$#\3\2\2\2%-")
+        buf.write("\3\2\2\2&\'\f\3\2\2\'(\7\27\2\2()\5\6\4\2)*\7\30\2\2*")
+        buf.write(",\3\2\2\2+&\3\2\2\2,/\3\2\2\2-+\3\2\2\2-.\3\2\2\2.\5\3")
+        buf.write("\2\2\2/-\3\2\2\2\60\62\5\4\3\2\61\60\3\2\2\2\61\62\3\2")
+        buf.write("\2\2\629\3\2\2\2\63\65\7\31\2\2\64\66\5\4\3\2\65\64\3")
+        buf.write("\2\2\2\65\66\3\2\2\2\668\3\2\2\2\67\63\3\2\2\28;\3\2\2")
+        buf.write("\29\67\3\2\2\29:\3\2\2\2:\7\3\2\2\2;9\3\2\2\2<>\5\n\6")
+        buf.write("\2=<\3\2\2\2=>\3\2\2\2>?\3\2\2\2?@\7\3\2\2@\t\3\2\2\2")
+        buf.write("AC\7\35\2\2BA\3\2\2\2BC\3\2\2\2CD\3\2\2\2DE\7\3\2\2EK")
+        buf.write("\7\35\2\2FG\7\3\2\2GH\7\35\2\2HI\7\3\2\2IK\7\35\2\2JB")
+        buf.write("\3\2\2\2JF\3\2\2\2K\13\3\2\2\2LN\7\25\2\2ML\3\2\2\2MN")
+        buf.write("\3\2\2\2NO\3\2\2\2OP\7\22\2\2PR\7\21\2\2QS\5\16\b\2RQ")
+        buf.write("\3\2\2\2RS\3\2\2\2SU\3\2\2\2TV\5\20\t\2UT\3\2\2\2UV\3")
+        buf.write("\2\2\2Vb\3\2\2\2WY\7\25\2\2XW\3\2\2\2XY\3\2\2\2YZ\3\2")
+        buf.write("\2\2Z\\\t\2\2\2[]\5\16\b\2\\[\3\2\2\2\\]\3\2\2\2]_\3\2")
+        buf.write("\2\2^`\5\20\t\2_^\3\2\2\2_`\3\2\2\2`b\3\2\2\2aM\3\2\2")
+        buf.write("\2aX\3\2\2\2b\r\3\2\2\2cd\7\34\2\2dj\t\2\2\2eg\7\35\2")
+        buf.write("\2fh\t\2\2\2gf\3\2\2\2gh\3\2\2\2hj\3\2\2\2ic\3\2\2\2i")
+        buf.write("e\3\2\2\2j\17\3\2\2\2km\7#\2\2ln\t\3\2\2ml\3\2\2\2mn\3")
+        buf.write("\2\2\2no\3\2\2\2op\7\22\2\2p\21\3\2\2\2\27\26\31\35$-")
+        buf.write("\61\659=BJMRUX\\_agim")
         return buf.getvalue()
 
 
@@ -60,12 +60,19 @@ class FullFormParser ( Parser ):
     sharedContextCache = PredictionContextCache()
 
     literalNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
+                     "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
+                     "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
+                     "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                      "<INVALID>", "<INVALID>", "'+'", "'-'", "<INVALID>", 
                      "'['", "']'", "','", "'(*'", "'*)'", "'``'", "'`'", 
                      "'''", "'\"'", "':'", "'\\'", "'^^'", "'*^'", "'.'", 
                      "'\n'", "'\uF3B1'" ]
 
-    symbolicNames = [ "<INVALID>", "Name", "DecimalNumber", "NumberInBase", 
+    symbolicNames = [ "<INVALID>", "Name", "LetterName", "LetterInner", 
+                      "GreekLetterInner", "LowerCaseGreekInner", "UpperCaseGreekInner", 
+                      "VariantGreekInner", "ArchaicGreekInner", "VariantLetterInner", 
+                      "LanguageNotationInner", "DoubledLetterInner", "SpecialLetterBasedInner", 
+                      "DotlessLetterInner", "DecimalNumber", "NumberInBase", 
                       "DIGITS", "StringLiteral", "PLUS", "MINUS", "COMMENT", 
                       "LBRACKET", "RBRACKET", "COMMA", "LCOMMENT", "RCOMMENT", 
                       "DOUBLEBACKQUOTE", "BACKQUOTE", "SINGLEQUOTE", "QUOTE", 
@@ -86,30 +93,42 @@ class FullFormParser ( Parser ):
 
     EOF = Token.EOF
     Name=1
-    DecimalNumber=2
-    NumberInBase=3
-    DIGITS=4
-    StringLiteral=5
-    PLUS=6
-    MINUS=7
-    COMMENT=8
-    LBRACKET=9
-    RBRACKET=10
-    COMMA=11
-    LCOMMENT=12
-    RCOMMENT=13
-    DOUBLEBACKQUOTE=14
-    BACKQUOTE=15
-    SINGLEQUOTE=16
-    QUOTE=17
-    RAWCOLON=18
-    RAWBACKSLASH=19
-    DOUBLECARET=20
-    ASTERISKCARET=21
-    DOT=22
-    NEWLINE=23
-    CONTINUATION=24
-    WHITESPACE=25
+    LetterName=2
+    LetterInner=3
+    GreekLetterInner=4
+    LowerCaseGreekInner=5
+    UpperCaseGreekInner=6
+    VariantGreekInner=7
+    ArchaicGreekInner=8
+    VariantLetterInner=9
+    LanguageNotationInner=10
+    DoubledLetterInner=11
+    SpecialLetterBasedInner=12
+    DotlessLetterInner=13
+    DecimalNumber=14
+    NumberInBase=15
+    DIGITS=16
+    StringLiteral=17
+    PLUS=18
+    MINUS=19
+    COMMENT=20
+    LBRACKET=21
+    RBRACKET=22
+    COMMA=23
+    LCOMMENT=24
+    RCOMMENT=25
+    DOUBLEBACKQUOTE=26
+    BACKQUOTE=27
+    SINGLEQUOTE=28
+    QUOTE=29
+    RAWCOLON=30
+    RAWBACKSLASH=31
+    DOUBLECARET=32
+    ASTERISKCARET=33
+    DOT=34
+    NEWLINE=35
+    CONTINUATION=36
+    WHITESPACE=37
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
