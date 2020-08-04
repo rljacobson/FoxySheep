@@ -30,16 +30,16 @@ LetterInner  : GreekLetterInner  | VariantLetterInner ;
 // From https://reference.wolfram.com/language/guide/GreekLetters.html
 GreekLetterInner : LowerCaseGreekInner | UpperCaseGreekInner | VariantGreekInner | ArchaicGreekInner ;
 
-LowerCaseGreekInner : 'Alpha'   | 'Beta'  | 'Gamma'   | 'Delta' | 'Epsilon' | 'Zeta' | 'Eta'
-                    | 'Theta'   | 'Iota'  | 'Lambda'  | 'Kappa' | 'Mu'      | 'Nu'   | 'Xi'
-                    | 'Omicron' | 'Pi'    | 'Sigma'   | 'Tau'   | 'Upsilon' | 'Phi'  | 'Chi'
-                    | 'Psi'     | 'Omega'
+LowerCaseGreekInner : 'Alpha'   | 'Beta'  | 'Gamma'   | 'Delta' | 'Epsilon' | 'Zeta'    | 'Eta'
+                    | 'Theta'   | 'Iota'  | 'Lambda'  | 'Kappa' | 'Mu'      | 'Nu'      | 'Xi'
+                    | 'Omicron' | 'Pi'    | 'Rho'     |'Sigma'  | 'Tau'     | 'Upsilon' | 'Phi'
+                    | 'Chi'     | 'Psi'   | 'Omega'
     ;
 
-UpperCaseGreekInner : 'CapitalAlpha'   | 'CapitalBeta'  | 'CapitalGamma'   | 'CapitalDelta' | 'CapitalEpsilon' | 'CapitalZeta' | 'CapitalEta'
-                    | 'CapitalTheta'   | 'CapitalIota'  | 'CapitalLambda'  | 'CapitalKappa' | 'CapitalMu'      | 'CapitalNu'   | 'CapitalXi'
-                    | 'CapitalOmicron' | 'CapitalPi'    | 'CapitalSigma'   | 'CapitalTau'   | 'CapitalUpsilon' | 'CapitalPhi'  | 'CapitalChi'
-                    | 'CapitalPsi'     | 'CapitalOmega'
+UpperCaseGreekInner : 'CapitalAlpha'   | 'CapitalBeta'  | 'CapitalGamma'   | 'CapitalDelta' | 'CapitalEpsilon' | 'CapitalZeta'    | 'CapitalEta'
+                    | 'CapitalTheta'   | 'CapitalIota'  | 'CapitalLambda'  | 'CapitalKappa' | 'CapitalMu'      | 'CapitalNu'      | 'CapitalXi'
+                    | 'CapitalOmicron' | 'CapitalPi'    | 'CapitalRho'     | 'CapitalSigma' | 'CapitalTau'     | 'CapitalUpsilon' | 'CapitalPhi'
+                    | 'CapitalChi'     | 'CapitalPsi'   | 'CapitalOmega'
     ;
 
 // From https://reference.wolfram.com/language/guide/VariantLetters.html

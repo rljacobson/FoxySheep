@@ -34,5 +34,5 @@ Cos[{1, 2, 3}]
 
 (*Example with numpy as "from numpy import *"*)
 \[Pi Cosh[a]/Sin[b], ""]
-Exp[a + b], ""
-Cos[{1, 2, 3}], ""
+Exp[a + b]
+Cos[{1, 2, 3}]

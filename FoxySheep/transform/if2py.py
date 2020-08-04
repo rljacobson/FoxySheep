@@ -14,7 +14,7 @@ IF_name_to_pyop = {
     "TimesContext": ast.Mult,
     "PowerContext": ast.Pow,
     "PlusContext": ast.Add,
-    "NonCommutativeMultiplyContext": ast.Mult,  # Not quite right: doesn't capture non-commutativenewss
+    "NonCommutativeMultiplyContext": ast.Mult,  # Not quite right: doesn't capture non-commutativeness
     "PlusOpContext": ast.Add,
 }
 
@@ -101,6 +101,53 @@ symbol_translate = {
     "E": "math.e",
     "Pi": "math.pi",
     "I": "1j",
+    # FIXME: This isn't quite right. This handles names that are only single greek letters,
+    # and this misses names with the letters embedded. Cross that bridge when we get to it.
+    "\[Alpha]": "α",
+    "\[Beta]": "β",
+    "\[Gamma]": "γ",
+    "\[Delta]": "δ",
+    "\[Epsilon]": "ε",
+    "\[Zeta]": "ζ",
+    "\[Eta]": "η",
+    "\[Theta]": "θ",
+    "\[Iota]": "ι",
+    "\[Kappa]": "κ",
+    "\[Lambda]": "λ",
+    "\[Mu]": "μ",
+    "\[Nu]": "ν",
+    "\[Xi]": "ξ",
+    "\[Omicron]": "ο",
+    "\[Pi]": "π",
+    "\[Rho]": "ρ",
+    "\[Sigma]": "σ",
+    "\[Tau]": "τ",
+    "\[Upsilon]": "υ",
+    "\[Psi]": "φ",
+    "\[Omega]": "ω",
+
+    "\[CapitalAlpha]": "Α",
+    "\[CapitalBeta]": "Β",
+    "\[CapitalGamma]": "Γ",
+    "\[CapitalDelta]": "Δ",
+    "\[CapitalEpsilon]": "Ε",
+    "\[CapitalZeta]": "Ζ",
+    "\[CapitalEta]": "Η",
+    "\[CapitalTheta]": "Θ",
+    "\[CapitalIota]": "Ι",
+    "\[CapitalKappa]": "Κ",
+    "\[CapitalLambda]": "Λ",
+    "\[CapitalMu]": "Μ",
+    "\[CapitalNu]": "Ν",
+    "\[CapitalXi]": "Ξ",
+    "\[CapitalOmicron]": "Ο",
+    "\[CapitalPi]": "Π",
+    "\[CapitalRho]": "Ρ",
+    "\[CapitalSigma]": "Σ",
+    "\[CapitalTau]": "Τ",
+    "\[CapitalUpsilon]": "Υ",
+    "\[CapitalPsi]": "Φ",
+    "\[CapitalOmega]": "Χ",
 }
 
 add_sub_signum = [ast.Add, ast.Sub]
@@ -441,7 +488,7 @@ class InputForm2PyAst(InputFormVisitor):
     def visitSymbolLiteral(self, ctx: ParserRuleContext) -> ast.AST:
         symbol_name = ctx.getText()
         symbol_name = symbol_translate.get(symbol_name, symbol_name)
-        return ast.Name(symbol_name)
+        return ast.Name(symbol_name, ctx=ast.Load())
 
     def visitTimes(self, ctx: ParserRuleContext) -> ast.AST:
         """
